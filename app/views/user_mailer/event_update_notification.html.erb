@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+  <div>
+  Cher <%= @user.first_name %> <%= @user.last_name %>,
+  <br>
+    Le Remplacement dont les détails suivent a du être modifié,
+    <br>
+    <div>Merci d'en tenir compte</div>
+    <br>
+    Détails du Remplacement :
+    <br>
+         <div>Lieu : <%= @event.site.name %></div>
+         <div>Date : <span style="color: blue;"><%= @event.start_time.strftime("%d/%m/%Y") %></span></div>
+         <div>Médecin Remplacé : <span style="color: blue;"> Dr <%= @event.doctor.last_name %> <%= @event.doctor.first_name %></span></div>
+         <div>Horaires : <span style="color: blue;"><%= @event.start_time.strftime("%H:%M") %> - <%= @event.end_time.strftime("%H:%M") %></span></div>
+         <div>Nombre de Patients : <span style="color: blue;"><%= @event.number_of_patients %></span></div>
+         <div>Cs Aidée : <span style="color: blue;"><%= @event.helper ? 'oui' : 'non' %></span></div>
+         <div>Taux de Reversion : <span style="color: blue;"><%= @event.reversion %> %</span></div>
+        <br>
+         Toutes les informations concernant votre remplacement sont également disponibles sur le site.</div>
+         <br>
+         Excellente journée
+  </body>
+</html>

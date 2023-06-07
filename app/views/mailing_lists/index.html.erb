@@ -1,0 +1,42 @@
+<div class="card m-3 shadow-lg">
+  <div class="card-header">
+    <h3>Mailing List</h3>
+  </div>
+  <div class="card-body">
+    <table class="table table-striped">
+      <thead>
+        <tr class="table-primary">
+          <th>Nom</th>
+          <th>Texte</th>
+          <th>Site</th> <!-- Nouvelle colonne pour le site -->
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @mailing_lists.each do |mailing_list| %>
+          <tr>
+            <td><%= mailing_list.name %></td>
+            <td><%= truncate(mailing_list.text.to_plain_text, length: 20, omission: '...') %></td>
+            <td>
+              <% if mailing_list.site.present? %>
+                <%= mailing_list.site.name %>
+              <% else %>
+                Tous les sites
+              <% end %>
+            </td>
+            <td>
+              <div class="btn-group" role="group">
+                <%= link_to "Editer", edit_mailing_list_path(mailing_list), class: "btn btn-sm btn-primary me-2" %>
+                <%= button_to 'Supprimer', mailing_list, method: :delete, data: { "turbo-confirm": 'Êtes-vous sûr de vouloir supprimer cette Mailing-list ?' }, class: 'btn btn-danger btn-sm me-2' %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="text-end m-3">
+  <%= link_to "Ajouter une Mailing List", new_mailing_list_path, class: "btn btn-primary" %>
+</div>

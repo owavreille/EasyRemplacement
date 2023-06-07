@@ -1,0 +1,75 @@
+<div class="container">
+  <div class="card m-3 shadow-lg">
+      <%= form_with(model: event) do |form| %>
+        <% if event.errors.any? %>
+          <div style="color: red">
+            <h4><%= pluralize(event.errors.count, "error") %> ont empêché ce remplacement d'être enregistré :</h4>
+
+            <ul>
+              <% event.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+<div class="card-body m-3 row">
+  <div class="col-md-6">
+    <div class="form-group mb-3">
+      <%= form.label :site_id, "Site", class: 'col-form-label' %>
+      
+      <% if @sites.present? %>
+        <%= form.select :site_id, options_for_select(@sites, @event.site_id), {}, { class: "form-control" } %>
+      <% else %>
+        <p class="text-danger">Veuillez d'abord créer un site !</p>
+      <% end %>
+    </div>
+
+    <div class="form-group mb-3">
+      <%= form.label :doctor_id, "Nom du Médecin Remplacé", class: 'col-form-label' %>
+      <% if @doctors.present? %>
+        <%= form.select :doctor_id, options_for_select(@doctors, @event.doctor_id), {}, { class: "form-control" } %>
+      <% else %>
+        <p class="text-danger">Veuillez d'abord créer un profil médecin !</p>
+      <% end %>
+    </div>
+
+<div class="row">
+<div class="col-md-6">
+    <div class="form-group mb-3">
+      <%= form.label :start_time, "Début de la plage", class: 'col-form-label' %>
+      <%= form.datetime_field :start_time, class: "form-control" %>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="form-group mb-3">
+      <%= form.label :end_time, "Fin de la plage", class: 'col-form-label' %>
+      <%= form.datetime_field :end_time, class: "form-control" %>
+    </div>
+    </div>
+    </div>
+    </div>
+  <div class="col-md-6">
+    <div class="form-group mb-3">
+      <%= form.label :number_of_patients, "Nombre de Patients", class: 'col-form-label' %>
+      <%= form.number_field :number_of_patients, class: "form-control" %>
+    </div>
+
+    <div class="form-group mb-3">
+      <%= form.label :helper, "Consultation Aidée", class: 'col-form-label' %>
+      <div class="form-check form-switch mb-3">
+        <%= form.check_box :helper, class: "form-check-input align-middle", id: "helper-switch" %>
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <%= form.label :reversion, "Taux de Reversion", class: 'col-form-label' %>
+      <%= form.text_field :reversion, class: "form-control" %>
+    </div>
+
+    <div class="form-group text-center m-3">
+      <%= form.submit "Enregistrer", class: "btn btn-primary" %>
+    </div>
+  </div>
+</div>
+<% end %>

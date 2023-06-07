@@ -1,0 +1,50 @@
+<div class="card m-3 shadow-lg">
+  <div class="card-header">
+    <h1>Liste des Sites</h1>
+  </div>
+  <div class="card-body">
+    <table class="table table-striped">
+      <thead>
+        <tr class="table-primary">
+          <th>Nom</th>
+          <th>Adresse</th>
+          <th>Code postal</th>
+          <th>Ville</th>
+          <th>Logiciel</th>
+          <th>Informations</th>
+          <th>Conseil de l'ordre</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @sites.each do |site| %>
+          <tr>
+            <td><%= site.name %></td>
+            <td><%= site.address %></td>
+            <td><%= site.postal_code %></td>
+            <td><%= site.city %></td>
+            <td><%= site.software %></td>
+            <td><%= truncate(site.informations, length: 20, omission: '...') %></td>
+            <td><%= site.cdom.name %></td>
+            <td>
+              <div class="btn-group" role="group">
+                <%= link_to edit_site_path(site), class: 'btn btn-secondary btn-sm me-1' do %>
+                  <%= content_tag(:i, '', class: "bi bi-pencil") %>
+                <% end %>
+                <%= button_to site, method: :delete, data: { "turbo-confirm": 'Êtes-vous sûr de vouloir supprimer ce site ?' }, class: 'btn btn-danger btn-sm me-2' do %>
+                  <i class="bi bi-trash-fill"></i>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+        
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<tr>
+          <div class="text-end m-3">
+              <%= link_to "Ajouter un Site", new_site_path, class: 'btn btn-primary' %>
+          </div>

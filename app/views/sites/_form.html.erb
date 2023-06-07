@@ -1,0 +1,80 @@
+<%= form_with(model: site, class: "card m-3 shadow-lg") do |form| %>
+  <% if site.errors.any? %>
+    <div class="card-header bg-danger text-white">
+      <h2><%= pluralize(site.errors.count, "error") %> ont empêché l'enregistrement de ce site :</h2>
+    </div>
+    <div class="card-body text-danger">
+      <ul>
+        <% site.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="card-body">
+      <div class="row">
+  <div class="col-md-6">
+    <div class="form-group row mb-3">
+      <%= form.label :name, "Nom" %>
+      <div class="col-sm-10">
+        <%= form.text_field :name, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group row mb-3">
+      <%= form.label :address, "Adresse" %>
+      <div class="col-sm-10">
+        <%= form.text_field :address, class: 'form-control' %>
+      </div>
+    </div>
+
+<div class="row">
+  <div class="col-md-6">
+      <%= form.label :postal_code, "Code Postal" %>
+        <%= form.text_field :postal_code, class: 'form-control' %>
+    </div>
+<div class="col-md-6">
+      <%= form.label :city, "Ville" %>
+        <%= form.text_field :city, class: 'form-control' %>
+      </div>
+    </div>
+
+<div class="row">
+  <div class="col-md-6">
+      <%= form.label :software, "Logiciel Métier" %>
+        <%= form.text_field :software, class: 'form-control' %>
+      </div>
+
+<div class="col-md-6">
+    <%= form.label :color, "Choix de la couleur" %>
+    <%= form.color_field :color, class: 'form-control' %>
+  </div>
+  </div>
+
+</div>
+
+<div class="col-md-6">
+    
+    <div class="form-group row mb-3">
+      <%= form.label :informations, "Informations Divers" %>
+      <div class="col-sm-10">
+        <%= form.text_area :informations, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group row mb-3">
+      <%= form.label :cdom_id, "Conseil de l'ordre" %>
+      <div class="col-sm-10">
+      <%= form.collection_select(:cdom_id, Cdom.all, :id, :name, { prompt: "Sélectionnez un Conseil de l'Ordre" }, class: 'form-control') %>
+      </div>
+    </div>
+
+</div>
+
+    <div class="form-group text-end">
+      <%= form.submit 'Enregistrer', class: 'btn btn-primary' %>
+    </div>
+  </div>
+  </div>
+<% end %>

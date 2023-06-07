@@ -1,0 +1,41 @@
+<%= form_with(model: @cdom) do |form| %>
+  <% if cdom.errors.any? %>
+    <div class="card-header bg-danger text-white m-3">
+      <h2><%= pluralize(cdom.errors.count, "error") %> ont empêché l'enregistrement de ce site du conseil de l'ordre :</h2>
+    </div>
+    <div class="card-body text-danger">
+      <ul>
+        <% cdom.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="card-body">
+    <div class="form-group row mb-3">
+      <%= form.label :departement, "Département", class: 'col-sm-2 col-form-label' %>
+      <div class="col-sm-10">
+        <%= form.text_field :departement, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group row mb-3">
+      <%= form.label :name, "Nom", class: 'col-sm-2 col-form-label' %>
+      <div class="col-sm-10">
+        <%= form.text_field :name, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group row mb-3">
+      <%= form.label :email, "E-mail", class: 'col-sm-2 col-form-label' %>
+      <div class="col-sm-10">
+        <%= form.email_field :email, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group text-center">
+      <%= form.submit 'Enregistrer', class: 'btn btn-primary' %>
+    </div>
+  </div>
+<% end %>

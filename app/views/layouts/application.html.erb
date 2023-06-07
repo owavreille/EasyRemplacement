@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= Rails.application.config.settings.appname %></title>
+  
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+  
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+  
+    <%= javascript_importmap_tags %>
+    
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+   
+  <% if user_signed_in? %>
+  <%= render 'shared/navbar' %>
+  <% end %>
+  
+
+  </head>
+  <body>
+
+  <% if flash[:notice].present? %>
+  <div class="alert alert-success">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
+   <% if flash[:alert].present? %>
+  <div class="alert alert-danger">
+    <%= flash[:alert] %>
+  </div>
+<% end %>
+
+   <div class="container">
+    <%= yield %>
+  </div>
+
+  </body>
+</html>

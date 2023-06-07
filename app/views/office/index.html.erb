@@ -1,0 +1,72 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <div class="card bg-light shadow-lg m-1 border-bottom-color-doctors m-3">
+        <div class="card-body">
+          <h4 class="mb-4">Présentation du (des) Praticien(s) du cabinet :</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <% @doctors.each do |doctor| %>
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-lg m-3">
+          <div class="card-header text-center">
+            <h5 class="card-title"><%= doctor.title %> <%= doctor.last_name %> <%= doctor.first_name %></h5>
+          </div>
+          <div class="card-body">
+            <ul class="list-unstyled">
+              <li>RPPS: <span class="text-primary"><%= doctor.rpps %></span></li>
+              <li>Spécialité: <span class="text-primary"><%= doctor.speciality %></span></li>
+              <li>Secteur conventionné: <span class="text-primary"><%= doctor.conventional_sector %></span></li>
+              <li>OPTAM: <span class="text-primary"><%= doctor.optam ? 'Oui' : 'Non' %></span></li>
+              <li>Téléphone: <span class="text-primary"><%= doctor.phone %></span></li>
+              <li>Email: <span class="text-primary"><%= doctor.email %></span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col">
+      <div class="card bg-light shadow-lg m-1 border-bottom-color-sites m-3">
+        <div class="card-body">
+          <h4 class="mb-4">Présentation du (des) site(s) de consultation :</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <% @sites.each do |site| %>
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-lg m-3">
+          <div class="card-header text-center" style="background-color: <%= site.color %>">
+            <h5 class="card-title"><%= site.name %></h5>
+          </div>
+          <div class="card-body">
+            <ul class="list-unstyled">
+              <li>Adresse: <span class="text-primary"><%= site.address %></span></li>
+              <li>Code postal: <span class="text-primary"><%= site.postal_code %></span></li>
+              <li>Ville: <span class="text-primary"><%= site.city %></span></li>
+              <li>Logiciel: <span class="text-primary"><%= site.software %></span></li>
+              <li>Caractéristiques: <span class="text-primary"><%= site.informations %></span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<style>
+.border-bottom-color-sites {
+  border-bottom: 3px solid grey; /* Remplacez "red" par la couleur souhaitée */
+}
+
+.border-bottom-color-doctors {
+  border-bottom: 3px solid grey; /* Remplacez "red" par la couleur souhaitée */
+}
+</style>

@@ -1,0 +1,19 @@
+<div class="container m-3 border shadow-lg">
+<div class="chart-container m-3">
+  <%= select_tag :group_by, options_for_select([['Par mois', 'month'], ['Par année', 'year']], params[:group_by]), class: 'form-control' %>
+</div>
+
+<div class="chart-container row">
+  <div class="col-md-6">
+    <!-- Graphique pour le total des Remplacements -->
+    <h3>Total des Remplacements</h3>
+    <%= column_chart @amount, download: true, locale: 'fr' %>
+  </div>
+  
+  <div class="col-md-6">
+    <!-- Graphique pour le total des Reversions -->
+    <h3>Montant Total Reversé</h3>
+    <%= column_chart @amount_paid, download: true, locale: 'fr' %>
+  </div>
+</div>
+</div>

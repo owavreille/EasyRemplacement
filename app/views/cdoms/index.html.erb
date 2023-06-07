@@ -1,0 +1,43 @@
+<div class="card m-3 shadow-lg">
+  <div class="card-header">
+    <h1>Liste des Conseils de l'Ordre</h1>
+  </div>
+
+  <div class="card-body">
+    <table class="table table-striped">
+      <thead>
+        <tr class="table-primary">
+          <th>Département</th>
+          <th>Nom</th>
+          <th>E-mail</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @cdoms.each do |cdom| %>
+          <tr>
+            <td><%= cdom.departement %></td>
+            <td><%= cdom.name %></td>
+            <td><%= cdom.email %></td>
+            <td>
+              <div class="btn-group" role="group">
+                <%= link_to edit_cdom_path(cdom), class: 'btn btn-secondary btn-sm me-2' do %>
+                  <i class="bi bi-pencil-fill"></i>
+                <% end %>
+
+                <%= button_to cdom, method: :delete, data: { "turbo-confirm": 'Êtes-vous sûr de vouloir supprimer ce conseil de l\'ordre ?' }, class: 'btn btn-danger btn-sm me-2' do %>
+                  <i class="bi bi-trash-fill"></i>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="text-end m-3">
+  <%= link_to 'Ajouter un Conseil de l\'Ordre', new_cdom_path, class: 'btn btn-primary' %>
+  <%== pagy_bootstrap_nav(@pagy) %>
+</div>

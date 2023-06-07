@@ -1,0 +1,6 @@
+<%= render @cdom %>
+<div class="text-center">
+  <%= link_to "Editer", edit_cdom_path(@cdom), class: "btn btn-primary m-1" %>
+  <%= link_to "Retour", cdoms_path, class: "btn btn-secondary m-1" %>
+  <%= button_to "Supprimer", @cdom, method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer ce Conseil de l'Ordre ?" }, class: "btn btn-danger m-1" %>
+</div>

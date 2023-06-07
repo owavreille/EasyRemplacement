@@ -1,0 +1,36 @@
+<% event_start = event.start_time.strftime("%H:%M") %>
+<% event_end = event.end_time.strftime("%H:%M") %>
+
+<div class="card m-3 mx-auto" style="width: 30rem;">
+  <div class="card-header">
+    Résumé du Remplacement à venir
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">
+      Lieu : <%= event.site.name %>
+    </h5>
+    <p class="card-text">
+      Date : <span style="color: blue;"><%= event.start_time.strftime("%d/%m/%Y") %></span>
+      <br>
+      Médecin Remplacé : <span style="color: blue;"> Dr <%= event.doctor.last_name %> <%= event.doctor.first_name %></span>
+      <br>
+      Horaires : <span style="color: blue;"><%= event_start %> - <%= event_end %></span>
+      <br>
+      Nombre de Patients : <span style="color: blue;"><%= event.number_of_patients %></span>
+      <br>
+      Cs Aidée : <span style="color: blue;"><%= event.helper ? 'oui' : 'non' %></span>
+      <br>
+      Taux de Reversion : <span style="color: blue;"><%= event.reversion %></span>
+      <br>
+      <div class="text-end">
+      <% if current_user && current_user.admin? %>
+                <%= link_to edit_event_path(event), class: 'btn btn-outline-primary m-1' do %>
+                  <i class="bi bi-pencil"></i>
+                <% end %>
+                <% end %>
+      </div>
+    </p>
+  </div>
+</div>
+
+

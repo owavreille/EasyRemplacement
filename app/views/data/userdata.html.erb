@@ -1,0 +1,107 @@
+<div class="container m-3">
+  <div class="row">
+    <div class="col">
+      <div class="card shadow-lg">
+        <h2 class="card-header">Suivi de Mes Remplacements</h2>
+        <div class="card-body">
+          <div class="past-events">
+<h4>Remplacements Passés</h4>
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr class="table-primary">
+      <th>Site</th>
+      <th>Date</th>
+      <th>Médecin Remplacé</th>
+      <th>Début</th>
+      <th>Fin</th>
+      <th>Nb de Patients</th>
+      <th>Aide de Cs</th>
+      <th>Montant Reversé</th>
+      <th>Taux Reversion</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% total_amount_paid = 0 %>
+    <% @past_events.each do |event| %>
+      <tr>
+        <td><%= event.site.name %></td>
+        <td><%= event.start_time.strftime("%d/%m/%Y") %></td>
+        <td>Dr <%= event.doctor.first_name %> <%= event.doctor.last_name %></td>
+        <td><%= event.start_time.strftime("%H:%M") %></td>
+        <td><%= event.end_time.strftime("%H:%M") %></td>
+        <td><%= event.number_of_patients %></td>
+        <td><%= event.helper ? 'oui' : 'non' %></td>
+        <td><%= event.amount_paid %></td>
+        <td><%= event.reversion %> %</td>
+        <% total_amount_paid += event.amount_paid.to_i if event.amount_paid.present? %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="total_amount_paid">Total des Remplacements : <%= total_amount_paid %> euros</div>
+
+<div class="text-end m-3">
+  <% if @past_pagy.present? %>
+    <%== pagy_bootstrap_nav(@past_pagy) %>
+  <% end %>
+</div>
+
+
+          <div class="upcoming-events mt-5">
+            <h4>Remplacements à Venir</h4>
+            <table class="table table-striped">
+              <thead class="thead-dark">
+                <tr class="table-primary">
+
+                  <th>Site</th>
+                  <th>Date</th>           
+                  <th>Médecin Remplacé</th>
+                  <th>Début</th>
+                  <th>Fin</th>
+                  <th>Nb de Patients</th>
+                  <th>Aide de Cs</th>
+                  <th>Taux Reversion</th>
+                  <th>Contrat</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @upcoming_events.each do |event| %>
+                  <tr>
+                    <td><%= event.site.name %></td>
+                    <td><%= event.start_time.strftime("%d/%m/%Y") %></td>
+                    <td><%= event.doctor.first_name %> <%= event.doctor.last_name %></td>
+                    <td><%= event.start_time.strftime("%H:%M") %></td>
+                    <td><%= event.end_time.strftime("%H:%M") %></td>
+                    <td><%= event.number_of_patients %></td>
+                    <td><%= event.helper ? 'oui' : 'non' %></td>
+                    <td><%= event.reversion %> % </td>
+                    <td><% if event.contract_blob.attached? %>
+                        <%= link_to download_contract_path(event.id), class: 'btn btn-success m-1' do %>
+                        <i class="bi bi-eye"></i>
+                        <% end %> 
+                        <% else %>
+                        Aucun contrat
+                        <% end %>
+                    </td>
+                    <td><%= link_to "Annuler", cancel_booking_event_path(event), method: :delete, data: { confirm: 'Êtes-vous sûr de vouloir annuler votre Remplacement ?' }, class: "btn btn-danger m-1" %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+
+                  <div class="text-end m-3">
+                    <% if @upcoming_pagy.present? %>
+                    <%== pagy_bootstrap_nav(@upcoming_pagy) %>
+                    <% end %>
+                  </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-end m-1">
+  <%= link_to "Retour", root_path, class: "btn btn-success" %>
+</div>
+</div>

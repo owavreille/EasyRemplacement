@@ -1,0 +1,87 @@
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+  <div class="container">
+
+    <%= button_to root_path, method: :get, class: 'btn btn-primary' do %>
+      <%= Rails.application.config.settings.appname %>
+    <% end %>
+    <% if user_signed_in? %>
+      <div class="d-flex align-items-center">
+        <span class="navbar-text me-3">Bienvenue, <%= current_user.first_name %> <%= current_user.last_name %></span>
+
+        <ul class="navbar-nav ms-auto">
+           <li class="nav-item">
+    <%= link_to edit_user_registration_path, class: "nav-link me-3" do %>
+      <i class="bi bi-person-lines-fill text-grey"></i>
+      Mon Profil
+    <% end %>
+  </li>
+
+          <li class="nav-item me-3">
+            <div class="d-flex align-items-center" >
+              <%= link_to userdata_path, class: "nav-link" do %>
+              <i class="bi bi-file-earmark-medical-fill text-grey"></i>
+                Suivi des Remplacements
+              <% end %>
+              <span class="badge bg-danger rounded-circle m-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title='<%= @upcoming_events_with_contract %> contrat(s) à valider'>
+                <%= @upcoming_events_with_contract %>
+              </span>
+            </div>
+          </li>
+
+
+            <li class="nav-item me-3">
+              <%= link_to office_path, class: "nav-link" do %>
+            <i class="bi bi-house-fill text-grey"></i>
+              Le Cabinet
+              <% end %>
+            </li>
+            
+
+          <% if current_user && current_user.admin? %>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-gear-wide-connected text-grey"></i>
+
+                Paramètres
+              </a>
+              <ul class="dropdown-menu dropdown-menu-gray" aria-labelledby="navbarDropdown">
+                <%= link_to "Calendrier", events_path, class: "dropdown-item" %>
+                <li><hr class="dropdown-divider"></li>
+                <%= link_to "Utilisateurs", users_path, class: "dropdown-item" %>
+                <%= link_to "Sites", sites_path, class: "dropdown-item" %>
+                <%= link_to "Médecins", doctors_path, class: "dropdown-item" %>
+                <%= link_to "Mailing Lists", mailing_lists_path, class: "dropdown-item" %>
+                <%= link_to "Conseil de l'Ordre", cdoms_path, class: "dropdown-item" %>
+                <li><hr class="dropdown-divider"></li>
+                <div class="d-flex align-items-center">
+                  <%= link_to "Suivi Des Remplacements", datas_path, class: "dropdown-item" %>
+                </div>
+                <%= link_to "Comptabilité", accounting_path, class: "dropdown-item" %>
+              </ul>
+            </li>
+          <% end %>
+
+          <li class="nav-item">
+            <%= link_to "Déconnexion", destroy_user_session_path, data: { turbo_method: :delete }, class: "nav-link" %>
+          </li>
+        </ul>
+      </div>
+    <% else %>
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <%= link_to "S'inscrire", new_user_registration_path, class: "nav-link me-3" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Connexion', new_user_session_path, class: 'nav-link' %>
+        </li>
+      </ul>
+    <% end %>
+  </div>
+</nav>
+
+<script>
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl);
+  });
+</script>

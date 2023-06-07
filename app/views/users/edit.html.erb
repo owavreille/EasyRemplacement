@@ -1,0 +1,146 @@
+<div class="container mt-3">
+  <div class="card shadow-lg">
+    <div class="card-header">
+      <h2>Edition du Profil Utilisateur</h2>
+    </div>
+    <div class="card-body m-3">
+      <%= form_with(model: @user, url: user_path(@user), method: :patch, class: "row g-3") do |form| %>
+        <%= render 'devise/shared/error_messages', resource: @user %>
+
+        <div class="row">
+          <div class="col-md-6">
+             <div class="row">
+
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <%= form.label :title, "Titre" %>
+                <%= form.select :title, User::TITLE_OPTIONS, { prompt: "Sélectionnez un titre" }, { class: "form-control" } %>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <%= form.label :last_name, "Nom" %>
+                <%= form.text_field :last_name, class: "form-control" %>
+              </div>
+            </div>
+          </div>
+         
+            <div class="row">
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <%= form.label :first_name, "Prénom" %>
+                <%= form.text_field :first_name, class: "form-control" %>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <%= form.label :date_of_birth, "Date de naissance" %>
+                <%= form.date_field :date_of_birth, class: "form-control", value: @user.date_of_birth.try(:strftime, "%d-%m-%Y") %>
+              </div>
+            </div>
+          </div>
+
+               <div class="row">
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <%= form.label :phone, "Téléphone" %>
+                <%= form.text_field :phone, class: "form-control" %>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <%= form.label :email, "E-Mail" %>
+                <%= form.email_field :email, autocomplete: "email", class: "form-control" %>
+              </div>
+            </div>
+          </div>
+
+            <div class="form-group mb-3">
+              <%= form.label :signature_blob, "Signature" %>
+              <%= form.file_field :signature_blob, accept: "image/*", class: "form-control" %>
+
+              <% if @user.signature_blob.attached? %>
+                <p>Image sélectionnée :</p>
+                <%= image_tag @user.signature_blob, style: "max-width: 300px; max-height: 200px;" %>
+                <%= link_to 'Supprimer la Signature', delete_signature_profile_path(id: @user.id), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer l'image ?" } %>
+              <% else %>
+                <p>Aucune image sélectionnée</p>
+              <% end %>
+            </div>
+
+          </div>
+
+          <div class="col-md-6">
+
+            <div class="form-group mb-3">
+              <%= form.label :address, "Adresse" %>
+              <%= form.text_field :address, class: "form-control" %>
+            </div>
+
+            
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <%= form.label :postal_code, "Code Postal" %>
+                <%= form.text_field :postal_code, class: "form-control" %>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <%= form.label :city, "Ville" %>
+                <%= form.text_field :city, class: "form-control" %>
+              </div>
+            </div>
+          </div>
+
+       <div class="row">
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <%= form.label :siret_number, "Numéro SIRET" %>
+                <%= form.text_field :siret_number, class: "form-control" %>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <%= form.label :license_number, "Numéro de Licence de Remplacement" %>
+                <%= form.text_field :license_number, class: "form-control" %>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group mb-3">
+            <%= form.label :mailing_list_id, "Inscription à une Mailing List" %>
+            <%= form.collection_select :mailing_list_id, MailingList.all, :id, :name, include_blank: true %>
+          </div>
+
+
+       <div class="row">
+            <div class="col-md-6">
+        <div class="form-group mb-3">
+            <%= form.label :active, "Utilisateur actif ?" %>
+        <div class="form-check form-switch">
+            <%= form.check_box :active, class: "form-check-input", data: { bootstrap_switch: "" } %>
+        </div>
+        </div>
+  </div>
+
+            <div class="col-md-6">
+        <div class="form-group mb-3">
+            <%= form.label :role, "Administrateur ?" %>
+        <div class="form-check form-switch">
+            <%= form.check_box :role, class: "form-check-input", data: { bootstrap_switch: "" } %>
+        </div>
+        </div>
+  </div>
+          </div>
+        </div>
+
+        <div class="form-group text-end">
+          <%= form.submit "Enregistrer", class: "btn btn-primary" %>
+          <%= link_to "Retour à la liste des Utilisateurs", users_path, class: "btn btn-success" %>
+        </div>
+
+      <% end %>
+    </div>
+  </div>
+</div>

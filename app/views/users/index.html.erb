@@ -1,0 +1,61 @@
+<div class="card m-3 shadow-lg">
+<div class="card-header">
+<h1>Liste des Utilisateurs</h1>
+</div>
+  <div class="card-body">
+    <table class="table table-striped">
+      <thead>
+        <tr class="table-primary">
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Ville</th>
+          <th>Numéro de licence</th>
+          <th>Numéro SIRET</th>
+          <th>Utilisateur Actif</th>
+          <th>Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if @users.present? && @users.any? %>
+          <% @users.each do |user| %>
+            <tr>
+              <td><%= user.last_name %></td>
+              <td><%= user.first_name %></td>
+              <td><%= user.city %></td>
+              <td><%= user.license_number %></td>
+              <td><%= user.siret_number %></td>
+              <td><%= user.active ? 'Oui' : 'Non' %></td>
+              <td>
+  <div class="btn-group" role="group">
+<%= link_to edit_user_path(user), class: "btn btn-sm btn-secondary me-2" do %>
+  <i class="bi bi-pencil-fill"></i>
+<% end %>
+
+<%= button_to destroy_user_path(user), method: :delete, class: "btn btn-sm btn-danger me-2", data: { "turbo-confirm": "Êtes-vous sûr de vouloir supprimer cet utilisateur ?" } do %>
+  <i class="bi bi-trash-fill"></i>
+<% end %>
+
+  <% if !user.active %>
+    <%= button_to "Autoriser", active_user_path(user), method: :put, class: "btn btn-sm btn-success me-2" %>
+  <% else %>
+    <%= button_to "Autoriser", "#", class: "btn btn-sm btn-success me-2 disabled", disabled: true %>
+  <% end %>
+  </div>
+</td>
+
+            </tr>
+          <% end %>
+        <% else %>
+          <tr>
+            <td colspan="7">Aucun utilisateur trouvé</td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <div class="row mb-4">
+      <div class="col-md-6">
+      </div>
+    </div>
+  </div>
+</div>

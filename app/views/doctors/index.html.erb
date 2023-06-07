@@ -1,0 +1,52 @@
+<div class="card m-3 shadow-lg">
+  <div class="card-header">
+    <h1>Liste des Médecins</h1>
+  </div>
+  <div class="card-body">
+    <table class="table table-striped">
+      <thead>
+        <tr class="table-primary">
+          <th>Titre</th>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>RPPS</th>
+          <th>Spécialité</th>
+          <th>Secteur conventionnel</th>
+          <th>Téléphone</th>
+          <th>Email</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @doctors.each do |doctor| %>
+          <tr>
+            <td><%= doctor.title %></td>
+            <td><%= doctor.last_name %></td>
+            <td><%= doctor.first_name %></td>
+            <td><%= doctor.rpps %></td>
+            <td><%= doctor.speciality %></td>
+            <td><%= doctor.conventional_sector %></td>
+            <td><%= doctor.phone %></td>
+            <td><%= doctor.email %></td>
+            <td>
+              <div class="btn-group" role="group">
+                <%= link_to edit_doctor_path(doctor), class: 'btn btn-secondary btn-sm me-2' do %>
+                  <i class="bi bi-pencil-fill"></i>
+                <% end %>
+                <%= button_to doctor, method: :delete, data: { "turbo-confirm": 'Êtes-vous sûr de vouloir supprimer ce profil médecin ?' }, class: 'btn btn-danger btn-sm me-2' do %>
+                  <i class="bi bi-trash-fill"></i>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+        <tr>
+          
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="text-end m-3">
+   <%= link_to "Ajouter un Médecin", new_doctor_path, class: 'btn btn-primary' %>
+</div>
