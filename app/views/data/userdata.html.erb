@@ -78,7 +78,7 @@
                     <td><%= event.helper ? 'oui' : 'non' %></td>
                     <td><%= event.reversion %> % </td>
                     <td><% if event.contract_blob.attached? %>
-                        <%= link_to download_contract_path(event.id), class: 'btn btn-success m-1' do %>
+                        <%= link_to download_contract_path(event.id), class: 'btn btn-success m-1', target: "_blank" do %>
                         <i class="bi bi-eye"></i>
                         <% end %> 
                         <% else %>
