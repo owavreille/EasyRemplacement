@@ -1,23 +1,31 @@
-# README
+## EASY REMPLACEMENT ##
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Webapp de gestion de plages de Remplacement médicaux avec authentification, gestion des sites, des médecins, des CDOM, de la comptabilité simplifiée et des mailings lists.
 
-Things you may want to cover:
+Spécifications :
+* Ruby version : 3.2.2
+* Rails 7.0.5
+* Sqlite3
 
-* Ruby version
-
-* System dependencies
+* Dépendances :
+Bootstrap
 
 * Configuration
+Configuration du nom d'application dans config/settings.yml
+Placer les variables d'environnement dans fichier .env
 
-* Database creation
+* Création de la base de données
+Base Sqlite3
 
-* Database initialization
+* Initialisation de la base de données
+rails db:migrate
+rails db:seed
 
-* How to run the test suite
+* Tests unitaires
+work in progress
 
 * Services (job queues, cache servers, search engines, etc.)
+cron job in schedule.rb pour la fréquence d'envoie des mails de rappel
 
 * Deployment instructions
 
