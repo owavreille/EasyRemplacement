@@ -22,7 +22,7 @@
               <i class="bi bi-file-earmark-medical-fill text-grey"></i>
                 Suivi des Remplacements
               <% end %>
-              <span class="badge bg-danger rounded-circle m-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title='<%= @upcoming_events_with_contract %> contrat(s) à valider'>
+              <span class="badge bg-danger rounded-circle m-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title='<%= @upcoming_events_with_contract %> contrat(s) à relire'>
                 <%= @upcoming_events_with_contract %>
               </span>
             </div>
@@ -55,6 +55,9 @@
                 <li><hr class="dropdown-divider"></li>
                 <div class="d-flex align-items-center">
                   <%= link_to "Suivi Des Remplacements", datas_path, class: "dropdown-item" %>
+                  <span class="badge bg-danger rounded-circle m-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title='<%= @contract_to_generate %> contrat(s) à générer'>
+                <%= @contract_to_generate %>
+              </span>
                 </div>
                 <%= link_to "Comptabilité", accounting_path, class: "dropdown-item" %>
               </ul>

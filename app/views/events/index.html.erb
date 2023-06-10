@@ -60,7 +60,7 @@
                   Réservé
                 <% end %>
               <% else %>
-                <%= button_to booking_event_path(event), method: :put, data: { "turbo-confirm": 'Confirmez vous réaliser le prochain remplacement ?' }, class: 'btn btn-primary m-1' do %>
+                <%= button_to booking_event_path(event), method: :put, data: { "turbo-confirm": 'Confirmez vous réaliser le remplacement sélectionné ?' }, class: 'btn btn-primary m-1' do %>
                   Réserver
                 <% end %>
               <% end %>

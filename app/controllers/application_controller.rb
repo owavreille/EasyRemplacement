@@ -5,6 +5,7 @@ include Pagy::Backend
     protect_from_forgery with: :exception
     before_action :configure_permitted_parameters, if: :devise_controller?
     before_action :upcoming_events_with_contract
+    before_action :contract_to_generate
 
    def upcoming_events_with_contract
     if current_user
@@ -13,6 +14,17 @@ include Pagy::Backend
       @upcoming_events_with_contract = 0
     end
   end
+
+  def contract_to_generate
+    count = Event.where(contract_generated: nil).where("start_time >= ?", Date.today).count
+    if count.present?
+      @contract_to_generate = count
+    else
+      @contract_to_generate = 0
+    end
+  end
+  
+  
 
      protected
           def configure_permitted_parameters
