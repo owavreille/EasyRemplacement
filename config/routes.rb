@@ -9,6 +9,9 @@ root "events#index"
   patch '/cdoms/:id', to: 'cdoms#update', as: 'update' 
 
   resources :mailing_lists
+  resources :contracts, only: [:index] do
+    patch 'update_contract', on: :collection
+  end
   resources :events 
   resources :doctors
   resources :sites

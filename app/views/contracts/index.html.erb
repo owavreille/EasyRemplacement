@@ -1,0 +1,18 @@
+<div class="card shadow-lg m-3">
+  <div class="card-header">
+    <h1>Édition du contrat de Remplacement</h1>
+  </div>
+  <div class="card-body">
+<%= form_tag(update_contract_contracts_path, method: :patch) do %>
+      <div class="form-group">
+        <%= label_tag :contract_content, "Contenu du contrat" %>
+        <%= text_area_tag :contract_content, @contract_content, rows: 10, class: "form-control" %>
+      </div>
+      <div class="text-end mt-4">
+        <%= submit_tag "Enregistrer", class: "btn btn-primary" %>
+        <%= link_to "Retour", root_path, class: "btn btn-success" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+

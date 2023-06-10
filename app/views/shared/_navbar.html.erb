@@ -1,3 +1,10 @@
+<script>
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl);
+  });
+</script>
+
 <nav class="navbar navbar-expand navbar-dark bg-dark">
   <div class="container">
 
@@ -52,6 +59,7 @@
                 <%= link_to "Médecins", doctors_path, class: "dropdown-item" %>
                 <%= link_to "Mailing Lists", mailing_lists_path, class: "dropdown-item" %>
                 <%= link_to "Conseil de l'Ordre", cdoms_path, class: "dropdown-item" %>
+                <%= link_to "Contrat de Remplacement", contracts_path, class: "dropdown-item" %>
                 <li><hr class="dropdown-divider"></li>
                 <div class="d-flex align-items-center">
                   <%= link_to "Suivi Des Remplacements", datas_path, class: "dropdown-item" %>
@@ -82,9 +90,3 @@
   </div>
 </nav>
 
-<script>
-  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-    return new bootstrap.Tooltip(tooltipTriggerEl);
-  });
-</script>
