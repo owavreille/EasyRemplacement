@@ -134,5 +134,17 @@ def download_contract
   end
 end
 
+def validate_contract
+  @event = Event.find(params[:id])
+
+  if @event.update(contract_validated: true)
+    flash[:notice] = "Contrat validé !"
+  else
+    flash[:alert] = "Impossible de valider le contrat !"
+  end
+
+  redirect_to userdata_path
+end
+
 
 end

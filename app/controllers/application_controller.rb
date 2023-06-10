@@ -9,7 +9,7 @@ include Pagy::Backend
 
    def upcoming_events_with_contract
     if current_user
-      @upcoming_events_with_contract = current_user.events.where(contract_generated: true).where("start_time >= ?", Time.now).count
+      @upcoming_events_with_contract = current_user.events.where(contract_generated: true, contract_validated: nil).where("start_time >= ?", Time.now).count
     else
       @upcoming_events_with_contract = 0
     end

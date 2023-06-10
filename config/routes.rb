@@ -29,6 +29,7 @@ root "events#index"
 # Gestion du contrat
 post '/events/:id/generate_contract', to: 'data#generate_contract', as: 'generate_contract'
 get '/events/:id/download_contract', to: 'data#download_contract', as: 'download_contract'  
+patch '/events/:id/validate_contract', to: 'data#validate_contract', as: 'validate_contract'
 
 # Gestion des évènements
 match '/events/:id/booking', to: 'events#booking', via: [:get, :put], as: 'booking_event'

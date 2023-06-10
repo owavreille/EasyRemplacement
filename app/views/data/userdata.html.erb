@@ -90,6 +90,13 @@
                         <% else %>
                         Aucun contrat
                         <% end %>
+                        <% if event.contract_blob.attached? %>
+                        <%= link_to validate_contract_path(event.id), method: :patch, class: "btn btn-primary" do %>
+                        <i class="bi bi-check2-circle"></i>
+                        <% end %>
+                        <% else %>
+                        ...
+                        <% end %>
                     </td>
                     <td><%= link_to "Annuler", cancel_booking_event_path(event), method: :delete, data: { confirm: 'Êtes-vous sûr de vouloir annuler votre Remplacement ?' }, class: "btn btn-danger m-1" %></td>
                   </tr>

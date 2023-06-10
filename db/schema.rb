@@ -85,6 +85,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_13_072825) do
     t.decimal "reversion", default: "70.0"
     t.decimal "amount_paid"
     t.boolean "contract_generated"
+    t.boolean "contract_validated"
     t.string "contract_blob_type"
     t.integer "contract_blob_id"
     t.datetime "created_at", null: false
@@ -97,7 +98,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_13_072825) do
 
   create_table "mailing_lists", force: :cascade do |t|
     t.string "name"
-    t.string "texte"
+    t.string "text"
     t.integer "site_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

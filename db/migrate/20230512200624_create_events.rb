@@ -12,6 +12,7 @@ class CreateEvents < ActiveRecord::Migration[7.0]
       t.decimal :reversion, default: 70
       t.decimal :amount_paid
       t.boolean :contract_generated
+      t.boolean :contract_validated
       t.references :contract_blob, polymorphic: true
 
       t.timestamps
