@@ -3,6 +3,8 @@ require "rails/all"
 
 Bundler.require(*Rails.groups)
 
+Dotenv::Railtie.load
+
 module EasyRemplacement
   class Application < Rails::Application
     config.load_defaults 7.0

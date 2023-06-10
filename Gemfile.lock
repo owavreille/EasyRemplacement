@@ -120,6 +120,9 @@ GEM
     devise-i18n (1.11.0)
       devise (>= 4.9.0)
     dotenv (2.8.1)
+    dotenv-rails (2.8.1)
+      dotenv (= 2.8.1)
+      railties (>= 3.2)
     erubi (1.12.0)
     execjs (2.8.1)
     ffi (1.15.5)
@@ -298,6 +301,7 @@ DEPENDENCIES
   devise (~> 4.9, >= 4.9.2)
   devise-i18n (~> 1.11)
   dotenv (~> 2.8, >= 2.8.1)
+  dotenv-rails
   groupdate (~> 6.2, >= 6.2.1)
   image_processing (~> 1.2)
   importmap-rails
