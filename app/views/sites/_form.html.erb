@@ -13,68 +13,50 @@
   <% end %>
 
   <div class="card-body">
-      <div class="row">
-  <div class="col-md-6">
-    <div class="form-group row mb-3">
-      <%= form.label :name, "Nom" %>
-      <div class="col-sm-10">
+    <div class="row m-3">
+      <div class="col-md-6">
+        <%= form.label :name, "Nom" %>
         <%= form.text_field :name, class: 'form-control' %>
-      </div>
-    </div>
 
-    <div class="form-group row mb-3">
-      <%= form.label :address, "Adresse" %>
-      <div class="col-sm-10">
+        <%= form.label :address, "Adresse" %>
         <%= form.text_field :address, class: 'form-control' %>
       </div>
-    </div>
 
-<div class="row">
-  <div class="col-md-6">
-      <%= form.label :postal_code, "Code Postal" %>
+      <div class="col-md-6">
+        <%= form.label :postal_code, "Code Postal" %>
         <%= form.text_field :postal_code, class: 'form-control' %>
-    </div>
-<div class="col-md-6">
-      <%= form.label :city, "Ville" %>
+
+        <%= form.label :city, "Ville" %>
         <%= form.text_field :city, class: 'form-control' %>
       </div>
     </div>
 
-<div class="row">
-  <div class="col-md-6">
-      <%= form.label :software, "Logiciel Métier" %>
+    <div class="row m-3">
+      <div class="col-md-6">
+        <%= form.label :software, "Logiciel Métier" %>
         <%= form.text_field :software, class: 'form-control' %>
       </div>
 
-<div class="col-md-6">
-    <%= form.label :color, "Choix de la couleur" %>
-    <%= form.color_field :color, class: 'form-control' %>
-  </div>
-  </div>
+      <div class="col-md-6">
+        <%= form.label :color, "Choix de la couleur" %>
+        <%= form.color_field :color, class: 'form-control form-control-color' %>
+      </div>
+    </div>
 
-</div>
-
-<div class="col-md-6">
-    
-    <div class="form-group row mb-3">
-      <%= form.label :informations, "Informations Divers" %>
-      <div class="col-sm-10">
+    <div class="row m-3">
+      <div class="col-md-6">
+        <%= form.label :informations, "Informations Divers" %>
         <%= form.text_area :informations, class: 'form-control' %>
       </div>
-    </div>
 
-    <div class="form-group row mb-3">
-      <%= form.label :cdom_id, "Conseil de l'ordre" %>
-      <div class="col-sm-10">
-      <%= form.collection_select(:cdom_id, Cdom.all, :id, :name, { prompt: "Sélectionnez un Conseil de l'Ordre" }, class: 'form-control') %>
+      <div class="col-md-6">
+        <%= form.label :cdom_id, "Conseil de l'ordre" %>
+        <%= form.collection_select(:cdom_id, Cdom.all, :id, :name, { prompt: "Sélectionnez un Conseil de l'Ordre" }, class: 'form-control') %>
       </div>
     </div>
-
-</div>
 
     <div class="form-group text-end">
       <%= form.submit 'Enregistrer', class: 'btn btn-primary' %>
     </div>
-  </div>
   </div>
 <% end %>

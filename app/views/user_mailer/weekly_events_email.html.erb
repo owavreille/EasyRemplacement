@@ -1,54 +1,65 @@
 <!DOCTYPE html>
 <html>
+<style>
+    table {
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 8px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    td:not(:last-child) {
+      border-right: 1px solid #ddd;
+    }
+  </style>
+
 <head>
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
-
 </head>
 <body>
-<h3><%= Rails.application.config.settings.appname %></h3>
-<br>
-  <p>Prochaines disponibilités pour les Remplacements :</p>
-  
+  <h3><%= Rails.application.config.settings.appname %> :</h3>
+
   <p>Bonjour <%= @user.first_name %> <%= @user.last_name %>,</p>
+  <p>Voici les prochaines disponibilités pour les Remplacements :</p>
   
-  <p>Vous recevez ce mail car vous êtes inscrit à "<%= @mailing_list.name %>". 
-  <br>
-  Voici les prochaines disponibilités du site <%= @site.name %> :</p>
+  <p><%= @mailing_list.text %></p>
   
-  <table>
-    <thead>
-    <% if @events.present? %>
-      <% @events.each do |event| %>
-      <tr>
-        <th>Lieu : </th>
-        <th>Date : </th>
-        <th>Médecin Remplacé : </th>
-        <th>Horaires : </th>
-        <th>Nombre de Patients : </th>
-        <th>Cs Aidée : </th>
-        <th>Taux de Reversion : </th>
-      </tr>
-    </thead>
-    <tbody>
-    
+  <% if @events.present? %>
+    <table>
+      <thead>
         <tr>
-           <br>
-         <td><%= @event.site.name %></td>
-         <td><span style="color: blue;"><%= @event.start_time.strftime("%d/%m/%Y") %></span></td>
-         <td><span style="color: blue;"> Dr <%= @event.doctor.last_name %> <%= @event.doctor.first_name %></span></td>
-         <td><span style="color: blue;"><%= @event.start_time.strftime("%H:%M") %> - <%= @event.end_time.strftime("%H:%M") %></span></td>
-         <td><span style="color: blue;"><%= @event.number_of_patients %></span></td>
-         <td><span style="color: blue;"><%= @event.helper ? 'oui' : 'non' %></span></td>
-         <td><span style="color: blue;"><%= @event.reversion %> %</span></td>
-        <br>
+          <th>Lieu</th>
+          <th>Date</th>
+          <th>Médecin Remplacé</th>
+          <th>Horaires</th>
+          <th>Nombre de Patients</th>
+          <th>Cs Aidée</th>
+          <th>Taux de Reversion</th>
         </tr>
-    <% end %>
-<% else %>
-  <p>Aucun événement disponible pour le moment.</p>
-<% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% @events.each do |event| %>
+          <tr>
+            <td><%= event.site.name %></td>
+            <td><span style="color: blue;"><%= event.start_time.strftime("%d/%m/%Y") %></span></td>
+            <td><span style="color: blue;"> Dr <%= event.doctor.last_name %> <%= event.doctor.first_name %></span></td>
+            <td><span style="color: blue;"><%= event.start_time.strftime("%H:%M") %> - <%= event.end_time.strftime("%H:%M") %></span></td>
+            <td><span style="color: blue;"><%= event.number_of_patients %></span></td>
+            <td><span style="color: blue;"><%= event.helper ? 'oui' : 'non' %></span></td>
+            <td><span style="color: blue;"><%= event.reversion %> %</span></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>Aucun événement disponible pour le moment.</p>
+  <% end %>
   <p>Modifiez vos préférences directement sur votre compte.</p>
-  <br>
 </body>
 </html>

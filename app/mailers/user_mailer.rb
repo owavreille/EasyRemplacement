@@ -1,8 +1,8 @@
 class UserMailer < ApplicationMailer
-  def weekly_events_email(mailing_list, site, event, user)
+  def weekly_events_email(mailing_list, site, events, user)
     @mailing_list = mailing_list
     @site = site
-    @event = event
+    @events = events
     @user = user
     mail(to: @user.email, subject: "Remplacements à venir :")
   end

@@ -7,7 +7,7 @@ namespace :events do
       
       sites = mailing_list.site_id.present? ? [mailing_list.site] : Site.all
       sites.each do |site|
-        events = Event.where(site_id: site.id, user_id: nil)
+        events = Event.where(user_id: nil).where('start_time >= ?', Date.today)
         users.each do |user|
           UserMailer.weekly_events_email(mailing_list, site, events, user).deliver_now
         end

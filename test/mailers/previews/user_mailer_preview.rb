@@ -1,11 +1,10 @@
-# user_mailer_preview.rb
 class UserMailerPreview < ActionMailer::Preview
     def weekly_events_email
       mailing_list = MailingList.first
       site = Site.first
-      event = Event.first
+      events = Event.first
       user = User.first
-      UserMailer.weekly_events_email(mailing_list, site, event, user)
+      UserMailer.weekly_events_email(mailing_list, site, events, user)
     end
   
     def booking_confirmation

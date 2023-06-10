@@ -20,9 +20,11 @@
       <th>Taux Reversion</th>
     </tr>
   </thead>
-  <tbody>
+<tbody>
+  <% total_amount_paid_by_year = {} %>
+  <% @past_events.group_by { |event| event.start_time.year }.each do |year, events| %>
     <% total_amount_paid = 0 %>
-    <% @past_events.each do |event| %>
+    <% events.each do |event| %>
       <tr>
         <td><%= event.site.name %></td>
         <td><%= event.start_time.strftime("%d/%m/%Y") %></td>
@@ -36,10 +38,14 @@
         <% total_amount_paid += event.amount_paid.to_i if event.amount_paid.present? %>
       </tr>
     <% end %>
-  </tbody>
+    <% total_amount_paid_by_year[year] = total_amount_paid %>
+  <% end %>
+</tbody>
 </table>
 
-<div class="total_amount_paid">Total des Remplacements : <%= total_amount_paid %> euros</div>
+<% total_amount_paid_by_year.each do |year, total_amount_paid| %>
+  <div class="total_amount_paid">Total des Remplacements <%= year %>: <%= total_amount_paid %> euros</div>
+<% end %>
 
 <div class="text-end m-3">
   <% if @past_pagy.present? %>
