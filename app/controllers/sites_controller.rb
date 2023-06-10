@@ -28,6 +28,18 @@ class SitesController < ApplicationController
   
     respond_to do |format|
       if @site.save
+
+    # Création du nom de la mailing list en utilisant le nom du site
+    mailing_list_name = "Mailing List " + @site.name
+
+    # Création de la mailing list associée au site
+    @mailing_list = @site.mailing_lists.create(name: mailing_list_name)
+
+    # Mise à jour du texte générique de la mailing list
+    generic_text = "Vous recevez ce mail parce que vous êtes inscrit à la mailing list \"#{Rails.application.config.settings.appname}\". Voici les prochaines disponibilités du site #{@site.name}. Modifiez vos préférences directement sur votre compte."
+    @mailing_list.update(text: generic_text)
+ 
+
         format.html { redirect_to site_url(@site), notice: "Le site a bien été créé !" }
         format.json { render :show, status: :created, location: @site }
       else

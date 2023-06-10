@@ -104,7 +104,7 @@ class EventsController < ApplicationController
     end
     redirect_to event_path(@event)
   end 
-
+  
   def check_user_active
     unless current_user.active?
       redirect_to inactive_path

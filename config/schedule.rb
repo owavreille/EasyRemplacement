@@ -20,5 +20,5 @@
 # Learn more: http://github.com/javan/whenever
 
 every :sunday, at: '9am' do
-    rake "events:send_weekly_email"
+    rake "events:weekly_events_email"
   end
