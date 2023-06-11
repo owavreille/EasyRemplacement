@@ -9,7 +9,7 @@
         <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "mt-4" }) do |f| %>
           <div class="form-group m-3">
             <%= f.label :email %><br />
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+            <%= f.email_field :email, autocomplete: "email", class: "form-control" %>
           </div>
 
           <div class="form-group m-3">
