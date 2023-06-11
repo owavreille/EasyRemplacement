@@ -32,6 +32,7 @@
                          events
                        end %>
     <%= date.strftime("%d/%m/%Y") %>
+      <div class="card-columns">
     <% events_to_display.each do |event| %>
         <div class="card">
         <div class="card-header text-center" style="background-color: <%= event.site.color %>">
@@ -67,6 +68,7 @@
             </div>
           </div>
         </div>
+      </div>
       </div>
     <% end %>
   <% end %>

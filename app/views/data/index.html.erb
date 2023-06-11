@@ -6,6 +6,7 @@
         <div class="card-body">
           <div class="past-events">
             <h4>Remplacements Passés</h4>
+                <div class="table-responsive">
             <table class="table table-striped">
               <thead class="thead-dark">
                 <tr class="table-primary">
@@ -49,6 +50,7 @@
                 <% end %>
               </tbody>
             </table>
+            </div>
             <div class="text-end m-3">
               <% if @past_pagy.present? %>
               <%== pagy_bootstrap_nav(@past_pagy) %>
@@ -58,6 +60,7 @@
 
           <div class="upcoming-events mt-5">
             <h4>Remplacements à Venir</h4>
+                <div class="table-responsive">
             <table class="table table-striped">
               <thead class="thead-dark">
                 <tr class="table-primary">
@@ -107,6 +110,7 @@
                 <% end %>
               </tbody>
             </table>
+            </div>
             <div class="text-end m-3">
               <% if @upcoming_pagy.present? %>
               <%== pagy_bootstrap_nav(@upcoming_pagy) %>

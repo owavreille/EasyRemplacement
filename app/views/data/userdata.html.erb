@@ -6,6 +6,7 @@
         <div class="card-body">
           <div class="past-events">
 <h4>Remplacements Passés</h4>
+    <div class="table-responsive">
 <table class="table table-striped">
   <thead class="thead-dark">
     <tr class="table-primary">
@@ -42,7 +43,7 @@
   <% end %>
 </tbody>
 </table>
-
+</div>
 <% total_amount_paid_by_year.each do |year, total_amount_paid| %>
   <div class="total_amount_paid">Total des Remplacements <%= year %>: <%= total_amount_paid %> euros</div>
 <% end %>
@@ -56,6 +57,7 @@
 
           <div class="upcoming-events mt-5">
             <h4>Remplacements à Venir</h4>
+                <div class="table-responsive">
             <table class="table table-striped">
               <thead class="thead-dark">
                 <tr class="table-primary">
@@ -103,7 +105,7 @@
                 <% end %>
               </tbody>
             </table>
-
+</div>
                   <div class="text-end m-3">
                     <% if @upcoming_pagy.present? %>
                     <%== pagy_bootstrap_nav(@upcoming_pagy) %>
