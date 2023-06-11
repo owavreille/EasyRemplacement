@@ -64,9 +64,9 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address:              'smtp.gmail.com',
     port:                 587,
-    domain:               'localhost', # Remplacez par votre propre domaine
-    user_name:            'owavreille@gmail.com', # Remplacez par votre adresse e-mail Gmail
-    password:             'cuhndltndojbwuup', # Remplacez par votre mot de passe Gmail
+    domain:               'localhost', 
+    user_name:            'owavreille@gmail.com', 
+    password:             'cuhndltndojbwuup', 
     authentication:       'plain',
     enable_starttls_auto: true
   }

@@ -97,7 +97,7 @@
       <%= form.submit "Générer le Contrat", class: "btn btn-primary m-1" %>
     <% end %>
     <% if event.contract_blob.attached? %>
-      <%= link_to download_contract_path(event.id), class: 'btn btn-success m-1' do %>
+      <%= link_to download_contract_path(event.id), class: 'btn btn-success m-1', target: "_blank" do %>
         <i class="bi bi-eye"></i>
       <% end %>
     <% else %>
