@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 root "events#index"
 
   get 'users/new'
-  devise_for :users
+  devise_for :users, controllers: { registrations: 'registrations' }
   resources :cdoms
   patch '/cdoms/:id', to: 'cdoms#update', as: 'update' 
 
