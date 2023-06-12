@@ -16,7 +16,7 @@ include Pagy::Backend
   end
 
   def contract_to_generate
-    count = Event.where(contract_generated: nil).where("start_time >= ?", Date.today).count
+    count = Event.where(contract_generated: nil).where.not(user_id: nil).where("start_time >= ?", Date.today).count
     if count.present?
       @contract_to_generate = count
     else
