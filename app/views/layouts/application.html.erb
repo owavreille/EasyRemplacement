@@ -13,29 +13,98 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
    
-  <% if user_signed_in? %>
-  <%= render 'shared/navbar' %>
-  <% end %>
+    <% if user_signed_in? %>
   
-
+    <% end %>
+  
+    <style>
+      .container {
+        padding-left: 20px;
+        transition: padding-left 0.5s ease;
+      }
+      
+      .sidebar-visible .container {
+        padding-left: 250px;
+      }
+      
+      .yield-content {
+        transition: margin-left 0.5s ease;
+      }
+      
+      .navbar {
+        transition: margin-left 0.5s ease;
+      }
+      
+      .sidebar-visible .navbar {
+        margin-left: 250px;
+      }
+      
+      .yield-content h1 {
+        margin-left: 10px; /* Adjust the margin as needed */
+      }
+      
+      @media (max-width: 768px) {
+        .container {
+          padding-left: 0;
+        }
+        
+        .sidebar-visible .container,
+        .sidebar-visible .yield-content {
+          margin-left: 0;
+        }
+        
+        .navbar {
+          margin-left: 0;
+        }
+        
+      }
+    </style>
+  
   </head>
   <body>
-
-  <% if flash[:notice].present? %>
-  <div class="alert alert-success">
-    <%= flash[:notice] %>
-  </div>
-<% end %>
-
-   <% if flash[:alert].present? %>
-  <div class="alert alert-danger">
-    <%= flash[:alert] %>
-  </div>
-<% end %>
-
-   <div class="container">
-    <%= yield %>
-  </div>
-
+  
+    <%= render 'shared/navbar' %>
+  
+    <% if flash[:notice].present? %>
+      <div class="alert alert-success">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
+  
+    <% if flash[:alert].present? %>
+      <div class="alert alert-danger">
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
+  
+    <div class="container <%= 'sidebar-visible' if current_user && current_user.admin? %>">
+      <div class="yield-content">
+        <%= yield %>
+      </div>
+    </div>
+  
+    <script>
+      function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        sidebar.classList.toggle("hidden");
+        
+        const container = document.querySelector(".container");
+        container.classList.toggle("sidebar-visible");
+        
+        const yieldContent = document.querySelector(".yield-content");
+        yieldContent.classList.toggle("sidebar-visible");
+        
+        const navbar = document.querySelector(".navbar");
+        navbar.classList.toggle("sidebar-visible");
+        
+        if (!sidebar.classList.contains("hidden")) {
+          yieldContent.style.marginLeft = "250px";
+          navbar.style.marginLeft = "250px";
+        } else {
+          yieldContent.style.marginLeft = "";
+          navbar.style.marginLeft = "";
+        }
+      }
+    </script>
   </body>
 </html>
