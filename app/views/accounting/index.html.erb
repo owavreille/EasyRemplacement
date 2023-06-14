@@ -1,11 +1,11 @@
 <style>
-  .chart {
+  .chart-container {
     background-color: white;
   }
 </style>
 
 
-<div class="chart-container shadow-lg m-3" id="chart">
+<div class="chart-container shadow m-3">
   <%= select_tag :group_by, options_for_select([['Par mois', 'month'], ['Par année', 'year']], params[:group_by]), class: 'form-control' %>
 </div>
 
@@ -26,7 +26,7 @@
 
 
 
-<div class="chart-container shadow-lg m-3" id="chart">
+<div class="chart-container shadow m-3">
   <%= select_tag :group_by, options_for_select([['Par mois', 'month'], ['Par année', 'year']], params[:group_by]), class: 'form-control' %>
 </div>
 <div class="chart-container row">
@@ -42,7 +42,7 @@
 
 
 
-<div class="chart-container shadow-lg m-3" id="chart">
+<div class="chart-container shadow m-3">
   <%= select_tag :group_by, options_for_select([['Par mois', 'month'], ['Par année', 'year']], params[:group_by]), class: 'form-control' %>
 </div>
 <div class="chart-container row">
@@ -58,7 +58,7 @@
 
 
 
-<div class="chart-container shadow-lg m-3" id="chart">
+<div class="chart-container shadow m-3">
   <%= select_tag :group_by, options_for_select([['Par mois', 'month'], ['Par année', 'year']], params[:group_by]), class: 'form-control' %>
 </div>
 <div class="chart-container row">
