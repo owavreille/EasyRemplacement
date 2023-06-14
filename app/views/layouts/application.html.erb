@@ -64,8 +64,11 @@
   <body>
   
     <%= render 'shared/navbar' %>
-  
-    <% if flash[:notice].present? %>
+
+    <div class="container <%= 'sidebar-visible' if current_user && current_user.admin? %>">
+
+      <div class="yield-content">
+          <% if flash[:notice].present? %>
       <div class="alert alert-success">
         <%= flash[:notice] %>
       </div>
@@ -76,9 +79,6 @@
         <%= flash[:alert] %>
       </div>
     <% end %>
-  
-    <div class="container <%= 'sidebar-visible' if current_user && current_user.admin? %>">
-      <div class="yield-content">
         <%= yield %>
       </div>
     </div>

@@ -108,17 +108,17 @@
   }
 </style>
 
+ <% if user_signed_in? %>
 <nav class="navbar navbar-expand-lg navbar-light bg-white">
   <div class="container fluid">
     <a class="navbar-brand" href="<%= root_path %>">EasyRemplacement</a>
 <button class="sidebar-toggle-btn" onclick="toggleSidebar()">
-    <i class="bi bi-chevron-double-right"></i>
+      <span class="navbar-toggler-icon"></span>
   </button>
     <div class="collapse navbar-collapse" id="navbar">
       <ul class="navbar-nav me-auto">
       </ul>
       <ul class="navbar-nav">
-        <% if user_signed_in? %>
           <li class="nav-item">
             <div class="dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
