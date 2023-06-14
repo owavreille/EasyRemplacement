@@ -212,24 +212,3 @@
     <% end %>
   </ul>
 </div>
-
-
-<script>
-  const navbarToggler = document.querySelector(".navbar-toggler");
-  const navbarCollapse = document.querySelector(".navbar-collapse");
-  navbarToggler.addEventListener("click", function() {
-    navbarCollapse.classList.toggle("show");
-  });
-
-  function toggleSidebar() {
-    const sidebar = document.getElementById("sidebar");
-    sidebar.classList.toggle("hidden");
-  }
-
-  document.addEventListener("click", function(event) {
-    const sidebar = document.getElementById("sidebar");
-    if (!sidebar.contains(event.target) && !event.target.classList.contains("navbar-toggler")) {
-      sidebar.classList.add("hidden");
-    }
-  });
-</script>
