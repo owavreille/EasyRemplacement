@@ -53,4 +53,7 @@ get '/office', to: 'office#index', as: 'office'
 # Comptabilité
 get '/accounting', to: 'accounting#index', as: 'accounting'
 
+# Affichage du calendrier selon la taille de la fenêtre
+get '/shared/calendar_partial', to: 'shared#calendar_partial'
+
 end
