@@ -7,7 +7,8 @@ class EventsController < ApplicationController
     @site = Site.find_by(id: params[:site_id])
     @events = @site ? @site.events.where('start_time >= ?', Date.today) : Event.where('start_time >= ?', Date.today)
     @event = Event.all
-  end
+    @number_of_days = params[:number_of_days] || 5
+    end
 
   # GET /events/1 or /events/1.json
   def show

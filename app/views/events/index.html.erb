@@ -1,3 +1,41 @@
+<script>
+  function calculate_number_of_days(windowWidth) {
+    if (windowWidth < 576) {
+      return 1; // Extra Small
+    } else if (windowWidth < 768) {
+      return 2; // Small
+    } else if (windowWidth < 992) {
+      return 3; // Medium
+    } else if (windowWidth < 1200) {
+      return 4; // Large
+    } else {
+      return 5; // Default value
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var number_of_days = calculate_number_of_days(window.innerWidth);
+
+    // Mettez à jour la valeur de l'attribut "data-number-of-days" sur l'élément avec l'ID "number-of-days"
+    document.getElementById("number-of-days").setAttribute("data-number-of-days", number_of_days);
+
+    window.addEventListener('resize', function() {
+      var newWindowWidth = window.innerWidth;
+      var new_number_of_days = calculate_number_of_days(newWindowWidth);
+
+      if (new_number_of_days !== number_of_days) {
+        number_of_days = new_number_of_days;
+
+        // Mettez à jour la valeur de l'attribut "data-number-of-days" sur l'élément avec l'ID "number-of-days"
+        document.getElementById("number-of-days").setAttribute("data-number-of-days", number_of_days);
+
+        // Mettre à jour la valeur dans le modèle HTML
+        document.getElementById("number-of-days").innerHTML = number_of_days;
+      }
+    });
+  });
+</script>
+
 <div class="container-fluid m-3">
   <div class="card shadow-lg">
     <div class="card-header">
@@ -22,8 +60,9 @@
 
     <div class="container-fluid">
       <% col_class = 'col-lg-12' %>
-      <div class="<%= col_class %>">
-        <%= calendar(events: @events, number_of_days: 5) do |date, events| %>
+      <div id="calendar">
+
+          <%= calendar(events: @events, number_of_days: @number_of_days) do |date, events| %>
           <% events_filtered_by_site = events.select { |event| event.site_id == params[:site_id].to_i } if params[:site_id].present? %>
           <% events_filtered_by_doctor = events.select { |event| event.doctor_id == params[:doctor_id].to_i } if params[:doctor_id].present? %>
           <% events_to_display = if params[:doctor_id].present?
