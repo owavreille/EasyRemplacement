@@ -1,45 +1,84 @@
 <style>
+  .calendar-partial-2-days {
+    display: none;
+  }
+
   .calendar-partial-3-days {
     display: none;
   }
 
-  .calendar-partial-5-days {
+  .calendar-partial-4-days {
     display: block;
   }
 
-  @media (max-width: 767px) {
+  @media (max-width: 1200px) {
+
+    .calendar-partial-2-days {
+    display: none;
+  }
+
     .calendar-partial-3-days {
       display: block;
     }
 
-    .calendar-partial-5-days {
+    .calendar-partial-4-days {
+      display: none;
+    }
+  }
+
+  @media (max-width: 1010px) {
+    .calendar-partial-2-days {
+      display: block;
+    }
+
+    .calendar-partial-3-days {
+      display: none;
+    }
+
+    .calendar-partial-4-days {
       display: none;
     }
   }
 </style>
 
-<div id="calendar-partial-container-5-days" class="calendar-partial-5-days">
-  <%= render partial: 'shared/calendar_partial_5_days' %>
+
+<div id="calendar-partial-container-2-days" class="calendar-partial-2-days">
+  <%= render partial: 'shared/calendar_partial_2_days' %>
 </div>
 
 <div id="calendar-partial-container-3-days" class="calendar-partial-3-days">
   <%= render partial: 'shared/calendar_partial_3_days' %>
 </div>
 
+<div id="calendar-partial-container-4-days" class="calendar-partial-4-days">
+  <%= render partial: 'shared/calendar_partial_4_days' %>
+</div>
+
 <script>
-  function renderCalendarPartial() {
-    const partialContainer5Days = document.getElementById('calendar-partial-container-5-days');
-    const partialContainer3Days = document.getElementById('calendar-partial-container-3-days');
+function renderCalendarPartial() {
+  const partialContainer4Days = document.getElementById('calendar-partial-container-4-days');
+  const partialContainer3Days = document.getElementById('calendar-partial-container-3-days');
+  const partialContainer2Days = document.getElementById('calendar-partial-container-2-days');
 
-    if (window.innerWidth <= 767) {
-      partialContainer5Days.style.display = 'none';
-      partialContainer3Days.style.display = 'block';
-    } else {
-      partialContainer5Days.style.display = 'block';
-      partialContainer3Days.style.display = 'none';
-    }
+  if (window.innerWidth < 1010) {
+    partialContainer4Days.style.display = 'none';
+    partialContainer3Days.style.display = 'none';
+    partialContainer2Days.style.display = 'block';
+  } else if (window.innerWidth < 1200) {
+    partialContainer4Days.style.display = 'none';
+    partialContainer3Days.style.display = 'block';
+    partialContainer2Days.style.display = 'none';
+  } else {
+    partialContainer4Days.style.display = 'block';
+    partialContainer3Days.style.display = 'none';
+    partialContainer2Days.style.display = 'none';
   }
+}
 
-  document.addEventListener('DOMContentLoaded', renderCalendarPartial);
-  window.addEventListener('resize', renderCalendarPartial);
+document.addEventListener('DOMContentLoaded', renderCalendarPartial);
+window.addEventListener('resize', renderCalendarPartial);
+
+// Appel initial pour afficher le bon partial lors du chargement de la page
+renderCalendarPartial();
+
 </script>

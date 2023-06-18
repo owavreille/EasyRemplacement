@@ -25,7 +25,7 @@
       <% col_class = 'col-lg-12' %>
       <div id="calendar">
 
-          <%= calendar(events: @events, number_of_days: 5) do |date, events| %>
+          <%= calendar(events: @events, number_of_days: 2) do |date, events| %>
           <% events_filtered_by_site = events.select { |event| event.site_id == params[:site_id].to_i } if params[:site_id].present? %>
           <% events_filtered_by_doctor = events.select { |event| event.doctor_id == params[:doctor_id].to_i } if params[:doctor_id].present? %>
           <% events_to_display = if params[:doctor_id].present?
