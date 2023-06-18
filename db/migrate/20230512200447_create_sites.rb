@@ -9,7 +9,15 @@ class CreateSites < ActiveRecord::Migration[7.0]
       t.text :informations
       t.references :cdom, null: false, foreign_key: true
       t.string :color
-      
+      t.integer :min_patients
+      t.integer :max_patients
+      t.integer :min_patients_helped
+      t.integer :max_patients_helped
+      t.integer :am_min_hour
+      t.integer :am_max_hour
+      t.integer :pm_min_hour
+      t.integer :pm_max_hour
+
       t.timestamps
     end
   end

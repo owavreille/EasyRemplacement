@@ -23,13 +23,23 @@
           <%= form.label :address, "Adresse" %>
           <%= form.text_field :address, class: 'form-control' %>
         </div>
-        <div class="form-group">
-          <%= form.label :postal_code, "Code Postal" %>
-          <%= form.text_field :postal_code, class: 'form-control' %>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= form.label :postal_code, "Code Postal" %>
+              <%= form.text_field :postal_code, class: 'form-control' %>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <%= form.label :city, "Ville" %>
+              <%= form.text_field :city, class: 'form-control' %>
+            </div>
+          </div>
         </div>
         <div class="form-group">
-          <%= form.label :city, "Ville" %>
-          <%= form.text_field :city, class: 'form-control' %>
+          <%= form.label :color, "Choix de la couleur" %>
+          <%= form.color_field :color, class: 'form-control form-control-color' %>
         </div>
       </div>
 
@@ -42,10 +52,7 @@
           <%= form.label :informations, "Informations Divers" %>
           <%= form.text_area :informations, class: 'form-control' %>
         </div>
-        <div class="form-group">
-          <%= form.label :color, "Choix de la couleur" %>
-          <%= form.color_field :color, class: 'form-control form-control-color' %>
-        </div>
+        
         <div class="form-group">
           <%= form.label :cdom_id, "Conseil de l'ordre" %>
           <%= form.collection_select(:cdom_id, Cdom.all, :id, :name, { prompt: "Sélectionnez un Conseil de l'Ordre" }, class: 'form-control') %>
@@ -53,8 +60,80 @@
       </div>
     </div>
 
-    <div class="form-group text-end">
-      <%= form.submit 'Enregistrer', class: 'btn btn-primary' %>
+    <hr> <!-- Séparateur -->
+    <div id="consultation-parameters">
+      <div><u>Paramètres de Consultation :</u></div>
+      <br>
+      <div class="row gx-3 gy-2 align-items-center m-3">
+        <div class="col-md-4">
+          <div class="form-group mx-sm-3 mb-2">
+            <%= form.label :min_patients, "Nombre de patients (min - max) /h sans aide" %>
+            <div class="d-flex justify-content-between">
+              <%= form.select :min_patients, (2..4).to_a, { prompt: "Min" }, class: 'form-select', onchange: 'updateSelectValue("min_patients", "min_patients_value")' %>
+              <div class="nb-space"></div>
+              <%= form.select :max_patients, (4..6).to_a, { prompt: "Max" }, class: 'form-select', onchange: 'updateSelectValue("max_patients", "max_patients_value")' %>
+            </div>
+          </div>
+          <div class="form-group mx-sm-3 mb-2">
+            <%= form.label :min_patients_helped, "Nombre de patients (min - max) /h en Cs aidée" %>
+            <div class="d-flex justify-content-between">
+              <%= form.select :min_patients_helped, (6..8).to_a, { prompt: "Min" }, class: 'form-select', onchange: 'updateSelectValue("min_patients_helped", "min_patients_helped_value")' %>
+              <div class="nb-space"></div>
+              <%= form.select :max_patients_helped, (8..10).to_a, { prompt: "Max" }, class: 'form-select', onchange: 'updateSelectValue("max_patients_helped", "max_patients_helped_value")' %>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="form-group mx-sm-3 mb-2">
+            <%= form.label :am_hour, "Amplitude horaire maximale le Matin :" %>
+            <div class="d-flex justify-content-between">
+            <%= form.time_select :am_min_hour, { minute_step: 10, default: { hour: 8, minute: 30 } }, class: 'form-control time-select' %>
+              <div class="time-space"></div>
+            <%= form.time_select :am_min_hour, { minute_step: 10, default: { hour: 12, minute: 30 } }, class: 'form-control time-select' %>
+            </div>
+          </div>
+          <div class="form-group mx-sm-3 mb-2">
+            <%= form.label :pm_hour, "Amplitude horaire maximale l'Après-Midi : " %>
+            <div class="d-flex justify-content-between">
+            <%= form.time_select :pm_min_hour, { minute_step: 10, default: { hour: 13, minute: 30 } }, class: 'form-control time-select' %>
+              <div class="time-space"></div>
+            <%= form.time_select :pm_max_hour, { minute_step: 10, default: { hour: 18, minute: 00 } }, class: 'form-control time-select' %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group text-end">
+        <%= form.submit 'Enregistrer', class: 'btn btn-primary' %>
+      </div>
     </div>
-  </div>
-<% end %>
+  <% end %>
+</div>
+
+<script>
+  function updateSelectValue(select_field, value_field) {
+    var value_element = document.getElementById(value_field);
+    var select_field_element = document.getElementsByName(select_field)[0];
+
+    value_element.textContent = select_field_element.value;
+  }
+</script>
+
+<style>
+  .time-space {
+    margin-right: 20px;
+  }
+
+  .nb-space {
+    margin-right: 20px;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .time-select {
+    width: 80px;
+  }
+</style>
