@@ -1,4 +1,8 @@
 <style>
+  .calendar-partial-1-days {
+    display: none;
+  }
+
   .calendar-partial-2-days {
     display: none;
   }
@@ -11,7 +15,11 @@
     display: block;
   }
 
-  @media (max-width: 1200px) {
+  @media (max-width: 1380px) {
+
+    .calendar-partial-1-days {
+    display: none;
+  }
 
     .calendar-partial-2-days {
     display: none;
@@ -27,6 +35,10 @@
   }
 
   @media (max-width: 1010px) {
+    .calendar-partial-1-days {
+    display: none;
+    }
+
     .calendar-partial-2-days {
       display: block;
     }
@@ -39,8 +51,31 @@
       display: none;
     }
   }
-</style>
 
+ @media (max-width: 770px) {
+    .calendar-partial-1-days {
+    display: block;
+    }
+
+    .calendar-partial-2-days {
+      display: none;
+    }
+
+    .calendar-partial-3-days {
+      display: none;
+    }
+
+    .calendar-partial-4-days {
+      display: none;
+    }
+  }
+
+
+
+</style>
+<div id="calendar-partial-container-1-days" class="calendar-partial-1-days">
+  <%= render partial: 'shared/calendar_partial_1_days' %>
+</div>
 
 <div id="calendar-partial-container-2-days" class="calendar-partial-2-days">
   <%= render partial: 'shared/calendar_partial_2_days' %>
@@ -59,19 +94,33 @@ function renderCalendarPartial() {
   const partialContainer4Days = document.getElementById('calendar-partial-container-4-days');
   const partialContainer3Days = document.getElementById('calendar-partial-container-3-days');
   const partialContainer2Days = document.getElementById('calendar-partial-container-2-days');
+  const partialContainer1Days = document.getElementById('calendar-partial-container-1-days');
 
-  if (window.innerWidth < 1010) {
+
+  if (window.innerWidth < 770) {
+    partialContainer4Days.style.display = 'none';
+    partialContainer3Days.style.display = 'none';
+    partialContainer2Days.style.display = 'none';
+    partialContainer1Days.style.display = 'block';
+
+  } else if (window.innerWidth < 1010) {
     partialContainer4Days.style.display = 'none';
     partialContainer3Days.style.display = 'none';
     partialContainer2Days.style.display = 'block';
-  } else if (window.innerWidth < 1200) {
+    partialContainer1Days.style.display = 'none';
+
+  } else if (window.innerWidth < 1380) {
     partialContainer4Days.style.display = 'none';
     partialContainer3Days.style.display = 'block';
     partialContainer2Days.style.display = 'none';
+    partialContainer1Days.style.display = 'none';
+
   } else {
     partialContainer4Days.style.display = 'block';
     partialContainer3Days.style.display = 'none';
     partialContainer2Days.style.display = 'none';
+    partialContainer1Days.style.display = 'none';
+
   }
 }
 
