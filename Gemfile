@@ -39,7 +39,6 @@ gem 'chartkick', '~> 5.0', '>= 5.0.2'
 gem 'groupdate', '~> 6.2', '>= 6.2.1'
 
 # Loads environment variables from `.env`.
-gem 'dotenv', '~> 2.8', '>= 2.8.1'
 gem 'dotenv-rails'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
