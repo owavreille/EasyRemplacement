@@ -20,7 +20,7 @@ gem 'turbo-rails', '~> 1.4'
 # Flexible authentication solution for Rails with Warden
 gem 'devise', '~> 4.9', '>= 4.9.2'
 
-# Fichier de traduction de Devise
+# Translation files for Devise
 gem 'devise-i18n', '~> 1.11'
 
 # A simple Rails calendar
@@ -40,6 +40,11 @@ gem 'groupdate', '~> 6.2', '>= 6.2.1'
 
 # Loads environment variables from `.env`.
 gem 'dotenv-rails'
+
+# OmniAuth authentification
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-rails_csrf_protection', '~> 1.0', '>= 1.0.1'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.0', '>= 7.0.5'

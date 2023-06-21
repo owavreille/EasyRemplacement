@@ -13,6 +13,8 @@ class AddDetailsToUsers < ActiveRecord::Migration[7.0]
     add_column :users, :license_number, :string
     add_reference :users, :mailing_list, foreign_key: true
     add_column :users, :active, :boolean
+    add_column :users, :uid, :string
+    add_column :users, :provider, :string
 
     change_table :users do |t|
       t.bigint :signature_blob_id
