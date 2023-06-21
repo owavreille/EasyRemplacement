@@ -3,6 +3,11 @@
 @import "simple_calendar";
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
 
+.simple-calendar .today {
+  background-color: #b6d6f3; /* Light blue */
+  color: #333;
+}
+
 .dropdown-menu-gray {
   background-color: #888888;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Ajoute une ombre */
@@ -22,8 +27,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 200px; /* Ajustez la largeur selon vos besoins */
-  height: 100vh; /* Ajustez la hauteur selon vos besoins */
+  width: 200px; 
+  height: 100vh;
   background-color: #f1f1f1; /* Couleur de fond de la barre latérale */
   padding: 20px;
   z-index: 100;
@@ -49,8 +54,8 @@
 }
 
 .main-content {
-  margin-left: 220px; /* Ajustez la valeur en fonction de la largeur de la barre latérale */
-  padding-left: 20px; /* Ajoutez un espacement à gauche du contenu */
+  margin-left: 220px; 
+  padding-left: 20px; 
 }
 
 
