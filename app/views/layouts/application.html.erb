@@ -24,9 +24,17 @@
       }
       
       .sidebar-visible .container {
-        padding-left: 250px;
+        padding-left: 140px;
       }
       
+      .alert{
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 20px;
+
+      }
+
       .yield-content {
         transition: margin-left 0.5s ease;
       }
@@ -36,14 +44,10 @@
       }
       
       .sidebar-visible .navbar {
-        margin-left: 250px;
+        margin-left: 140px;
       }
       
-      .yield-content h1 {
-        margin-left: 10px;
-      }
-      
-      @media (max-width: 768px) {
+      @media (max-width: 800px) {
         .container {
           padding-left: 0;
         }
@@ -68,16 +72,16 @@
 
       <div class="yield-content">
           <% if flash[:notice].present? %>
-      <div class="alert alert-success">
-        <%= flash[:notice] %>
-      </div>
-    <% end %>
+          <div class="alert alert-success text-center">
+          <%= flash[:notice] %>
+          </div>
+          <% end %>
   
-    <% if flash[:alert].present? %>
-      <div class="alert alert-danger">
-        <%= flash[:alert] %>
-      </div>
-    <% end %>
+          <% if flash[:alert].present? %>
+            <div class="alert alert-danger text-center">
+            <%= flash[:alert] %>
+            </div>
+          <% end %>
         <%= yield %>
       </div>
     </div>
