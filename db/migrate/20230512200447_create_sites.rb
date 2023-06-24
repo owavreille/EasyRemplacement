@@ -13,10 +13,11 @@ class CreateSites < ActiveRecord::Migration[7.0]
       t.integer :max_patients
       t.integer :min_patients_helped
       t.integer :max_patients_helped
-      t.integer :am_min_hour
-      t.integer :am_max_hour
-      t.integer :pm_min_hour
-      t.integer :pm_max_hour
+      t.datetime :am_min_hour
+      t.datetime :am_max_hour
+      t.datetime :pm_min_hour
+      t.datetime :pm_max_hour
+      t.integer :min_lenght
 
       t.timestamps
     end

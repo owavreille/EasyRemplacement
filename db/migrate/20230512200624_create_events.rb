@@ -13,6 +13,7 @@ class CreateEvents < ActiveRecord::Migration[7.0]
       t.decimal :amount_paid
       t.boolean :contract_generated
       t.boolean :contract_validated
+      t.boolean :editable
       t.references :contract_blob, polymorphic: true
 
       t.timestamps
