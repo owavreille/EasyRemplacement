@@ -1,0 +1,135 @@
+<div class="form-group m-3" style="max-width: 400px;">
+  <%= form_tag list_path, method: :get, class: 'd-grid' do %>
+    <%= select_tag :site_id, options_for_select(Site.all.map { |site| [site.name, site.id] }, params[:site_id]), prompt: "Tous les Sites", class: 'form-control' %>
+    <%= submit_tag "Filtrer", class: 'btn btn-primary mt-2' %>
+  <% end %>
+</div>
+
+<% if @events.present? %>
+  <% events_filtered_by_site = @events.select { |event| event.site_id == params[:site_id].to_i } if params[:site_id].present? %>
+  <% events_to_display = if params[:site_id].present?
+                           events_filtered_by_site
+                         else
+                           @events
+                         end %>
+  <% events_to_display.each do |event| %>
+    <div class="card shadow m-3" style="max-width: 400px;">
+      <div class="date-and-site">
+        <div class="date-bubble bg-primary text-light">
+          <span class="date"><%= event.start_time.strftime("%d") %></span>
+          <span class="month"><%= t('date.abbr_month_names')[event.start_time.month] %></span>
+        </div>
+        <div class="site-info">
+          <%= event.site.name %>
+        </div>
+        <%= link_to "...", event_path(event), class: "expand-button mr-3", remote: true, data: { id: event.id } %>
+      </div>
+      <div class="card-content m-3">
+        <div id="event-details-<%= event.id %>" style="display: none;">
+          <div>
+            <u>Horaires :</u> <%= event.start_time.strftime("%H:%M") %> - <%= event.end_time.strftime("%H:%M") %>
+          </div>
+          <div>
+            <u>Médecin :</u> Dr <%= event.doctor.last_name %> <%= event.doctor.first_name %>
+          </div>
+          <div>
+            <u>Nb de Patients :</u> <%= event.number_of_patients %>
+          </div>
+          <div>
+            <u>Taux de Reversion :</u> <%= event.reversion %> %
+          </div>
+          <div>
+            <u>Cs Aidée :</u> <%= event.helper ? 'oui' : 'non' %>
+          </div>
+        </div>
+
+        <div class="card-footer text-end d-flex justify-content-end">
+          <% if current_user && current_user.admin? %>
+            <%= link_to edit_event_path(event), class: 'btn btn-outline-primary m-1' do %>
+              <i class="bi bi-pencil"></i>
+            <% end %>
+            <%= button_to event_path(event), method: :delete, data: { "turbo-confirm": 'Voulez-vous vraiment supprimer cette plage ?' }, class: 'btn btn-outline-danger m-1' do %>
+              <i class="bi bi-trash"></i>
+            <% end %>
+          <% end %>
+
+          <% if event.user_id.present? %>
+            <%= link_to "#", class: 'btn btn-secondary m-1', disabled: true, style: 'pointer-events: none;' do %>
+              Réservé
+            <% end %>
+          <% else %>
+            <%= button_to booking_event_path(event), method: :put, data: { "turbo-confirm": 'Confirmez-vous réaliser le remplacement sélectionné ?' }, class: 'btn btn-primary m-1' do %>
+              Réserver
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <p>Aucun événement disponible.</p>
+<% end %>
+
+<script>
+  // Lorsque le document est prêt
+  document.addEventListener('DOMContentLoaded', function() {
+    // Sélectionner tous les boutons avec la classe "expand-button"
+    var expandButtons = document.querySelectorAll('.expand-button');
+
+    // Parcourir tous les boutons
+    expandButtons.forEach(function(button) {
+      // Ajouter un gestionnaire d'événement pour le clic sur chaque bouton
+      button.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        // Récupérer l'identifiant unique de l'événement à partir de l'attribut "data-id"
+        var eventId = this.getAttribute('data-id');
+
+        // Sélectionner l'élément contenant les détails de l'événement en utilisant l'identifiant unique
+        var eventDetails = document.getElementById('event-details-' + eventId);
+
+        // Vérifier si les détails sont visibles ou masqués
+        if (eventDetails.style.display === 'none') {
+          // Afficher les détails
+          eventDetails.style.display = 'block';
+        } else {
+          // Masquer les détails
+          eventDetails.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .date-and-site {
+    display: flex;
+    align-items: center;
+    margin: 5px;
+  }
+
+  .date-bubble {
+    display: inline-block;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 30%;
+    padding: 5px;
+    margin-right: 10px;
+  }
+
+  .date {
+    font-size: 18px;
+  }
+
+  .month {
+    font-size: 12px;
+  }
+
+  .site-info {
+    flex-grow: 1;
+  }
+
+  .expand-button {
+    margin-right: 50px;
+  }
+</style>

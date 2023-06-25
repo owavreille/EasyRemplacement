@@ -13,6 +13,13 @@ class EventsController < ApplicationController
   def show
   end
 
+  def list
+    @events = @site ? @site.events.where('start_time >= ?', Date.today) : Event.where('start_time >= ?', Date.today)
+    @event = Event.all
+    @site = Site.find_by(id: params[:site_id])
+
+  end
+
   # GET /events/new
   def new
     @event = Event.new

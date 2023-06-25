@@ -98,7 +98,8 @@ group :development do
   gem "web-console"
   gem "capistrano"
   gem "capistrano-rails"
-  gem 'capistrano-rbenv'
+  gem 'capistrano-rvm'
+
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
