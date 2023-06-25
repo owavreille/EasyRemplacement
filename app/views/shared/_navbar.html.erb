@@ -103,13 +103,12 @@
  <% if user_signed_in? %>
 <nav class="navbar navbar-expand-lg navbar-light bg-white">
   <div class="container fluid">
-  <button class="sidebar-toggle-btn" onclick="toggleSidebar()">
+        <% if current_user && current_user.admin? %>
+          <button class="sidebar-toggle-btn" onclick="toggleSidebar()">
             <span class="navbar-toggler-icon"></span>
           </button>
-    <a class="navbar-brand" href="<%= root_path %>">EasyRemplacement</a>
-        <% if current_user && current_user.admin? %>
-          
         <% end %>
+    <a class="navbar-brand" href="<%= root_path %>">EasyRemplacement</a> 
       <ul class="navbar-nav me-auto">
       </ul>
       <ul class="navbar-nav">

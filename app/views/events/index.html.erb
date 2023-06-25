@@ -69,10 +69,8 @@
       display: none;
     }
   }
-
-
-
 </style>
+
 <div id="calendar-partial-container-1-days" class="calendar-partial-1-days">
   <%= render partial: 'shared/calendar_partial_1_days' %>
 </div>
@@ -127,7 +125,6 @@ function renderCalendarPartial() {
 document.addEventListener('DOMContentLoaded', renderCalendarPartial);
 window.addEventListener('resize', renderCalendarPartial);
 
-// Appel initial pour afficher le bon partial lors du chargement de la page
 renderCalendarPartial();
 
 </script>
