@@ -86,6 +86,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_13_072825) do
     t.decimal "amount_paid"
     t.boolean "contract_generated"
     t.boolean "contract_validated"
+    t.boolean "editable"
     t.string "contract_blob_type"
     t.integer "contract_blob_id"
     t.datetime "created_at", null: false
@@ -114,6 +115,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_13_072825) do
     t.text "informations"
     t.integer "cdom_id", null: false
     t.string "color"
+    t.integer "min_patients"
+    t.integer "max_patients"
+    t.integer "min_patients_helped"
+    t.integer "max_patients_helped"
+    t.datetime "am_min_hour"
+    t.datetime "am_max_hour"
+    t.datetime "pm_min_hour"
+    t.datetime "pm_max_hour"
+    t.integer "min_lenght"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["cdom_id"], name: "index_sites_on_cdom_id"
@@ -138,8 +148,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_13_072825) do
     t.string "city"
     t.string "siret_number"
     t.string "license_number"
+    t.string "rib"
+    t.string "speciality"
     t.integer "mailing_list_id"
     t.boolean "active"
+    t.string "uid"
+    t.string "provider"
     t.integer "signature_blob_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["mailing_list_id"], name: "index_users_on_mailing_list_id"

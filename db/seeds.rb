@@ -22,7 +22,7 @@
      )
      puts "Utilisateur créé avec succès : #{normal_user.email}"
 
-     # Création d'un profil médecin
+     # Création d'un profil médecin 1
      doctor = Doctor.create!(
       title:'Dr',
       last_name:'Wavreille',
@@ -34,7 +34,21 @@
       phone:'0320809999',
       email:'owavreille@gmail.com'
      )
-     puts "Profil Médecin créé avec succès"
+     puts "Profil Médecin 1 créé avec succès"
+
+     # Création d'un profil médecin 2
+     doctor = Doctor.create!(
+          title:'Dr',
+          last_name:'Lacroix',
+          first_name:'Eric',
+          rpps:'1041595659',
+          speciality:'Glaucome',
+          conventional_sector:'2',
+          optam: true,
+          phone:'0320809999',
+          email:'elacroix@gmail.com'
+         )
+         puts "Profil Médecin 2 créé avec succès"
 
      # Création des sites du conseil de l'ordre
      Cdom.create!(departement: '01', name: 'Ain', email: 'ain@01.medecin.fr')
@@ -152,3 +166,16 @@
           color: '#a8f0c1'
      )
      puts "Site de Douai créé avec succès"
+
+     # Création d'un deuxième site de consultation
+     site = Site.create!(
+          name: 'Cabinet de Cambrai', 
+          address: '11 rue de la clef', 
+          city: 'Cambrai', 
+          postal_code: '59400',
+          software: 'oplus',
+          informations: '3 boxes de consultation',
+          cdom_id: '60',
+          color: '#a8f0c1'
+     )
+     puts "Site de Cambrai créé avec succès"

@@ -15,7 +15,7 @@ class SitesTest < ApplicationSystemTestCase
     click_on "New site"
 
     fill_in "Address", with: @site.address
-    fill_in "Cdom id", with: @site.cdom_id_id
+    fill_in "Cdom id", with: @site.cdom_id
     fill_in "City", with: @site.city
     fill_in "Informations", with: @site.informations
     fill_in "Name", with: @site.name
@@ -32,7 +32,7 @@ class SitesTest < ApplicationSystemTestCase
     click_on "Edit this site", match: :first
 
     fill_in "Address", with: @site.address
-    fill_in "Cdom id", with: @site.cdom_id_id
+    fill_in "Cdom id", with: @site.cdom_id
     fill_in "City", with: @site.city
     fill_in "Informations", with: @site.informations
     fill_in "Name", with: @site.name

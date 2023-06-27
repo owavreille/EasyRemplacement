@@ -16,8 +16,8 @@ class CdomsTest < ApplicationSystemTestCase
 
     fill_in "Departement", with: @cdom.departement
     fill_in "Id", with: @cdom.id
-    fill_in "Mail", with: @cdom.mail
-    fill_in "Nom", with: @cdom.nom
+    fill_in "Mail", with: @cdom.email
+    fill_in "Nom", with: @cdom.name
     click_on "Create Cdom"
 
     assert_text "Cdom was successfully created"
@@ -30,8 +30,8 @@ class CdomsTest < ApplicationSystemTestCase
 
     fill_in "Departement", with: @cdom.departement
     fill_in "Id", with: @cdom.id
-    fill_in "Mail", with: @cdom.mail
-    fill_in "Nom", with: @cdom.nom
+    fill_in "Mail", with: @cdom.email
+    fill_in "Nom", with: @cdom.name
     click_on "Update Cdom"
 
     assert_text "Cdom was successfully updated"
