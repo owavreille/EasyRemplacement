@@ -138,6 +138,21 @@
             <%= form.collection_select :mailing_list_id, MailingList.all, :id, :name, include_blank: true %>
           </div>
 
+             <div class="row">
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <%= form.label :speciality, "Spécialité" %>
+                <%= form.text_field :speciality, class: "form-control" %>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <%= form.label :rib, "RIB" %>
+                <%= form.text_field :rib, class: "form-control" %>
+              </div>
+            </div>
+          </div>
+
           <div class="actions text-center">
             <%= form.submit "Enregistrer", class: "btn btn-primary mt-3" %>
             <%= link_to "Annuler", :back, class: "btn btn-success mt-3" %>

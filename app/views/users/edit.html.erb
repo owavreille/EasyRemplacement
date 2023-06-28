@@ -67,10 +67,26 @@
               <% end %>
             </div>
 
+             <div class="row">
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <%= form.label :speciality, "Spécialité" %>
+                <%= form.text_field :speciality, class: "form-control" %>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <%= form.label :rib, "RIB" %>
+                <%= form.text_field :rib, class: "form-control" %>
+              </div>
+            </div>
+          </div>
+
+
+
           </div>
 
           <div class="col-md-6">
-
             <div class="form-group mb-3">
               <%= form.label :address, "Adresse" %>
               <%= form.text_field :address, class: "form-control" %>
