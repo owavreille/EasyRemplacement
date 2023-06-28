@@ -46,75 +46,103 @@ class AccountingController < ApplicationController
     end
   end
 
+  
   def amount_by_site
-    @amount_by_site = Event.group(:site_id).group_by_month(:start_time).sum(:amount)
     case params[:group_by]
     when "month"
-      @amount_by_site = Event.group(:site_id).group_by_month(:start_time).sum(:amount)
+      @amount_by_site = Event.joins(:site).group(:site_id).group_by_month(:start_time).sum(:amount)
     when "year"
-      @amount_by_site = Event.group(:site_id).group_by_year(:start_time).sum(:amount)
+      @amount_by_site = Event.joins(:site).group(:site_id).group_by_year(:start_time).sum(:amount)
     else
-      @amount_by_site = Event.group(:site_id).group_by_month(:start_time).sum(:amount)
+      @amount_by_site = Event.joins(:site).group(:site_id).group_by_month(:start_time).sum(:amount)
+    end
+  
+    @amount_by_site = @amount_by_site.transform_keys do |site_id|
+      site = Site.find(site_id)
+      site.name
     end
   end
-
+  
   def amount_paid_by_site
-    @amount_paid_by_site = Event.group(:site_id).group_by_month(:start_time).sum(:amount_paid)
     case params[:group_by]
     when "month"
-      @amount_paid_by_site = Event.group(:site_id).group_by_month(:start_time).sum(:amount_paid)
+      @amount_paid_by_site = Event.joins(:site).group(:site_id).group_by_month(:start_time).sum(:amount_paid)
     when "year"
-      @amount_paid_by_site = Event.group(:site_id).group_by_year(:start_time).sum(:amount_paid)
+      @amount_paid_by_site = Event.joins(:site).group(:site_id).group_by_year(:start_time).sum(:amount_paid)
     else
-      @amount_paid_by_site = Event.group(:site_id).group_by_month(:start_time).sum(:amount_paid)
+      @amount_paid_by_site = Event.joins(:site).group(:site_id).group_by_month(:start_time).sum(:amount_paid)
+    end
+  
+    @amount_paid_by_site = @amount_paid_by_site.transform_keys do |site_id|
+      site = Site.find(site_id)
+      site.name
     end
   end
+  
 
   def amount_by_doctor
-    @amount_by_doctor = Event.group(:doctor_id).group_by_month(:start_time).sum(:amount)
     case params[:group_by]
     when "month"
-      @amount_by_doctor = Event.group(:doctor_id).group_by_month(:start_time).sum(:amount)
+      @amount_by_doctor = Event.joins(:doctor).group(:doctor_id).group_by_month(:start_time).sum(:amount)
     when "year"
-      @amount_by_doctor = Event.group(:doctor_id).group_by_year(:start_time).sum(:amount)
+      @amount_by_doctor = Event.joins(:doctor).group(:doctor_id).group_by_year(:start_time).sum(:amount)
     else
-      @amount_by_doctor = Event.group(:doctor_id).group_by_month(:start_time).sum(:amount)
+      @amount_by_doctor = Event.joins(:doctor).group(:doctor_id).group_by_month(:start_time).sum(:amount)
+    end
+  
+    @amount_by_doctor = @amount_by_doctor.transform_keys do |doctor_id|
+      doctor = Doctor.find(doctor_id)
+      "#{doctor.first_name} #{doctor.last_name}"
     end
   end
-
+  
   def amount_paid_by_doctor
-    @amount_paid_by_doctor = Event.group(:doctor_id).group_by_month(:start_time).sum(:amount_paid)
     case params[:group_by]
     when "month"
-      @amount_paid_by_doctor = Event.group(:doctor_id).group_by_month(:start_time).sum(:amount_paid)
+      @amount_paid_by_doctor = Event.joins(:doctor).group(:doctor_id).group_by_month(:start_time).sum(:amount_paid)
     when "year"
-      @amount_paid_by_doctor = Event.group(:doctor_id).group_by_year(:start_time).sum(:amount_paid)
+      @amount_paid_by_doctor = Event.joins(:doctor).group(:doctor_id).group_by_year(:start_time).sum(:amount_paid)
     else
-      @amount_paid_by_doctor = Event.group(:doctor_id).group_by_month(:start_time).sum(:amount_paid)
+      @amount_paid_by_doctor = Event.joins(:doctor).group(:doctor_id).group_by_month(:start_time).sum(:amount_paid)
+    end
+  
+    @amount_paid_by_doctor = @amount_paid_by_doctor.transform_keys do |doctor_id|
+      doctor = Doctor.find(doctor_id)
+      "#{doctor.first_name} #{doctor.last_name}"
     end
   end
+  
 
   def amount_by_user
-    @amount_by_user = Event.group(:user_id).group_by_month(:start_time).sum(:amount)
     case params[:group_by]
     when "month"
-      @amount_by_user = Event.group(:user_id).group_by_month(:start_time).sum(:amount)
+      @amount_by_user = Event.joins(:user).group(:user_id).group_by_month(:start_time).sum(:amount)
     when "year"
-      @amount_by_user = Event.group(:user_id).group_by_year(:start_time).sum(:amount)
+      @amount_by_user = Event.joins(:user).group(:user_id).group_by_year(:start_time).sum(:amount)
     else
-      @amount_by_user = Event.group(:user_id).group_by_month(:start_time).sum(:amount)
+      @amount_by_user = Event.joins(:user).group(:user_id).group_by_month(:start_time).sum(:amount)
+    end
+  
+    @amount_by_user = @amount_by_user.transform_keys do |user_id|
+      user = User.find(user_id)
+      "#{user.first_name} #{user.last_name}"
     end
   end
+  
 
   def amount_paid_by_user
-    @amount_paid_by_user = Event.group(:user_id).group_by_month(:start_time).sum(:amount_paid)
-    case params[:group_by]
+      case params[:group_by]
     when "month"
-      @amount_paid_by_user = Event.group(:user_id).group_by_month(:start_time).sum(:amount_paid)
+      @amount_paid_by_user = Event.joins(:user).group(:user_id).group_by_month(:start_time).sum(:amount_paid)
     when "year"
-      @amount_paid_by_user = Event.group(:user_id).group_by_year(:start_time).sum(:amount_paid)
+      @amount_paid_by_user = Event.joins(:user).group(:user_id).group_by_year(:start_time).sum(:amount_paid)
     else
-      @amount_paid_by_user = Event.group(:user_id).group_by_month(:start_time).sum(:amount_paid)
+      @amount_paid_by_user = Event.joins(:user).group(:user_id).group_by_month(:start_time).sum(:amount_paid)
+    end
+  
+    @amount_paid_by_user = @amount_paid_by_user.transform_keys do |user_id|
+      user = User.find(user_id)
+      "#{user.first_name} #{user.last_name}"
     end
   end
 end
