@@ -1,0 +1,29 @@
+one:
+  site_id: two
+  doctor_id: two
+  start_time: <%= Time.current %>
+  end_time: <%= Time.current + 1.hour %>
+  number_of_patients: 5
+  helper: false
+  user_id: two
+  amount: 100.0
+  reversion: 70.0
+  amount_paid: 70.0
+  contract_generated: false
+  contract_validated: false
+  editable: true
+
+two:
+  site_id: two
+  doctor_id: two
+  start_time: <%= Time.current + 1.day %>
+  end_time: <%= Time.current + 1.day + 2.hours %>
+  number_of_patients: 10
+  helper: true
+  user_id: two
+  amount: 200.0
+  reversion: 70.0
+  amount_paid: 140.0
+  contract_generated: true
+  contract_validated: true
+  editable: false
