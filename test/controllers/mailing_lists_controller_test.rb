@@ -30,7 +30,7 @@ class MailingListsControllerTest < ActionController::TestCase
     assert_difference('MailingList.count') do
       post :create, params: { mailing_list: { name: @mailing_list.name, text: @mailing_list.text, site_id: @mailing_list.site_id } }
     end
-    assert_redirected_to mailing_list_url(assigns(:mailing_list))
+    assert_redirected_to mailing_lists_url
     assert_equal "La Mailing list a bien été créée !", flash[:notice]
   end
 
@@ -42,7 +42,7 @@ class MailingListsControllerTest < ActionController::TestCase
 
   test "should update mailing_list" do
     patch :update, params: { id: @mailing_list.id, mailing_list: { name: @mailing_list.name, text: @mailing_list.text, site_id: @mailing_list.site_id } }
-    assert_redirected_to mailing_list_url(assigns(:mailing_list))
+    assert_redirected_to mailing_lists_url
     assert_equal "La Mailing list a bien été modifiée !", flash[:notice]
   end
 

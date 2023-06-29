@@ -8,7 +8,7 @@ one:
   remember_created_at: 
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
-  title: Dr.
+  title: Dr
   role: true
   last_name: Doe
   first_name: John
@@ -35,7 +35,7 @@ two:
   remember_created_at: 
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
-  title: Dr.
+  title: Dr
   role: false
   last_name: Smith
   first_name: Jane

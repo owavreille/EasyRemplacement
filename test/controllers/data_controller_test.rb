@@ -1,12 +1,17 @@
 require 'test_helper'
 
 class DataControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::ControllerHelpers
+
   setup do
     @event = events(:one)
     @user = users(:one)
     @doctor = doctors(:one)
     @site = sites(:one)
     sign_in @user
+
+    @request ||= {}
+
   end
 
   test "should get index" do

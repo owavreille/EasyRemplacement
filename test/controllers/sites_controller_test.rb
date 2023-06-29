@@ -24,15 +24,18 @@ class SitesControllerTest < ActionController::TestCase
   end
 
   test "should create site" do
+    cdom = Cdom.create(departement: "01")
     assert_difference('Site.count') do
-      post :create, params: { site: { name: @site.name, address: @site.address, postal_code: @site.postal_code, city: @site.city, software: @site.software, informations: @site.informations, cdom_id: Cdom.first.id, color: @site.color, min_patients: @site.min_patients, max_patients: @site.max_patients, min_patients_helped: @site.min_patients_helped, max_patients_helped: @site.max_patients_helped, am_min_hour: @site.am_min_hour, am_max_hour: @site.am_max_hour, pm_min_hour: @site.pm_min_hour, pm_max_hour: @site.pm_max_hour } }
+      post :create, params: { site: { name: @site.name, address: @site.address, postal_code: @site.postal_code, city: @site.city, software: @site.software, informations: @site.informations, cdom_id: cdom.id, color: @site.color, min_patients: @site.min_patients, max_patients: @site.max_patients, min_patients_helped: @site.min_patients_helped, max_patients_helped: @site.max_patients_helped, am_min_hour: @site.am_min_hour, am_max_hour: @site.am_max_hour, pm_min_hour: @site.pm_min_hour, pm_max_hour: @site.pm_max_hour } }
     end
-
+  
     assert_redirected_to site_url(assigns(:site))
     assert_equal "Le site a bien été créé !", flash[:notice]
     assert_not_nil assigns(:mailing_list)
-    assert_equal "Mailing List #{@site.name}", assigns(:mailing_list).name
+    assert_equal "Mailing List #{assigns(:site).name}", assigns(:mailing_list).name
   end
+  
+  
 
   test "should get edit" do
     get :edit, params: { id: @site.id }

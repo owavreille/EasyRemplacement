@@ -25,6 +25,11 @@ class SitesController < ApplicationController
   # POST /sites or /sites.json
   def create
     @site = Site.new(site_params)
+
+      # Assigner le cdom en fonction du code postal
+  postal_code_prefix = @site.postal_code[0..1]
+  @site.cdom = Cdom.find_by("departement LIKE ?", "#{postal_code_prefix}%")
+
   
     respond_to do |format|
       if @site.save

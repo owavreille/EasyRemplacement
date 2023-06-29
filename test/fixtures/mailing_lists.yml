@@ -1,0 +1,13 @@
+one:
+  name: Mailing List 1
+  text: Text 1
+  site_id: one
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+two:
+  name: Mailing List 2
+  text: Text 2
+  site_id: two
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>

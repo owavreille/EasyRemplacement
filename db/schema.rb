@@ -99,7 +99,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_13_072825) do
 
   create_table "mailing_lists", force: :cascade do |t|
     t.string "name"
-    t.string "text"
+    t.text "text"
     t.integer "site_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -113,7 +113,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_13_072825) do
     t.string "city"
     t.string "software"
     t.text "informations"
-    t.integer "cdom_id", null: false
+    t.integer "cdom_id"
     t.string "color"
     t.integer "min_patients"
     t.integer "max_patients"
