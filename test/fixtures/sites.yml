@@ -1,0 +1,43 @@
+# sites.yml
+
+one:
+  name: Site 1
+  address: 123 Main Street
+  postal_code: 12345
+  city: City 1
+  software: Software 1
+  informations: Informations 1
+  cdom_id: 1
+  color: #ffffff
+  min_patients: 10
+  max_patients: 20
+  min_patients_helped: 5
+  max_patients_helped: 15
+  am_min_hour: '08:00:00'
+  am_max_hour: '12:00:00'
+  pm_min_hour: '13:00:00'
+  pm_max_hour: '17:00:00'
+  min_lenght: 30
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+two:
+  name: Site 2
+  address: 456 Oak Street
+  postal_code: 67890
+  city: City 2
+  software: Software 2
+  informations: Informations 2
+  cdom_id: 1
+  color: #ff0000
+  min_patients: 5
+  max_patients: 10
+  min_patients_helped: 2
+  max_patients_helped: 8
+  am_min_hour: '09:00:00'
+  am_max_hour: '13:00:00'
+  pm_min_hour: '14:00:00'
+  pm_max_hour: '18:00:00'
+  min_lenght: 20
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>

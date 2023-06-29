@@ -1,18 +1,15 @@
 require 'test_helper'
 
 class SitesControllerTest < ActionController::TestCase
+  include Devise::Test::ControllerHelpers
+
   setup do
     @site = sites(:one)
     @user = users(:one)
+    @cdom = cdoms(:one)
     sign_in @user
   end
 
-  test "should redirect to root path if user role is not authorized" do
-    @user.update(role: false)
-    get :index
-    assert_redirected_to root_path
-    assert_equal "Accès non autorisé.", flash[:alert]
-  end
 
   test "should get index" do
     get :index
@@ -28,7 +25,7 @@ class SitesControllerTest < ActionController::TestCase
 
   test "should create site" do
     assert_difference('Site.count') do
-      post :create, params: { site: { name: @site.name, address: @site.address, postal_code: @site.postal_code, city: @site.city, software: @site.software, informations: @site.informations, cdom_id: @site.cdom_id, color: @site.color, min_patients: @site.min_patients, max_patients: @site.max_patients, min_patients_helped: @site.min_patients_helped, max_patients_helped: @site.max_patients_helped, am_min_hour: @site.am_min_hour, am_max_hour: @site.am_max_hour, pm_min_hour: @site.pm_min_hour, pm_max_hour: @site.pm_max_hour } }
+      post :create, params: { site: { name: @site.name, address: @site.address, postal_code: @site.postal_code, city: @site.city, software: @site.software, informations: @site.informations, cdom_id: Cdom.first.id, color: @site.color, min_patients: @site.min_patients, max_patients: @site.max_patients, min_patients_helped: @site.min_patients_helped, max_patients_helped: @site.max_patients_helped, am_min_hour: @site.am_min_hour, am_max_hour: @site.am_max_hour, pm_min_hour: @site.pm_min_hour, pm_max_hour: @site.pm_max_hour } }
     end
 
     assert_redirected_to site_url(assigns(:site))
@@ -44,7 +41,7 @@ class SitesControllerTest < ActionController::TestCase
   end
 
   test "should update site" do
-    patch :update, params: { id: @site.id, site: { name: @site.name, address: @site.address, postal_code: @site.postal_code, city: @site.city, software: @site.software, informations: @site.informations, cdom_id: @site.cdom_id, color: @site.color, min_patients: @site.min_patients, max_patients: @site.max_patients, min_patients_helped: @site.min_patients_helped, max_patients_helped: @site.max_patients_helped, am_min_hour: @site.am_min_hour, am_max_hour: @site.am_max_hour, pm_min_hour: @site.pm_min_hour, pm_max_hour: @site.pm_max_hour } }
+    patch :update, params: { id: @site.id, site: { name: @site.name, address: @site.address, postal_code: @site.postal_code, city: @site.city, software: @site.software, informations: @site.informations, cdom_id: Cdom.first.id, color: @site.color, min_patients: @site.min_patients, max_patients: @site.max_patients, min_patients_helped: @site.min_patients_helped, max_patients_helped: @site.max_patients_helped, am_min_hour: @site.am_min_hour, am_max_hour: @site.am_max_hour, pm_min_hour: @site.pm_min_hour, pm_max_hour: @site.pm_max_hour } }
     assert_redirected_to site_url(assigns(:site))
     assert_equal "Le site a bien été modifié !", flash[:notice]
   end

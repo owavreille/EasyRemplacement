@@ -1,0 +1,14 @@
+# cdoms.yml
+one:
+  departement: "Département 1"
+  name: "John Doe"
+  email: "john.doe@example.com"
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+two:
+  departement: "Département 2"
+  name: "Jane Smith"
+  email: "jane.smith@example.com"
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>

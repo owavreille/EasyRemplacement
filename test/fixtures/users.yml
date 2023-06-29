@@ -1,0 +1,55 @@
+# users.yml
+
+one:
+  email: admin@example.com
+  encrypted_password: password
+  reset_password_token: 
+  reset_password_sent_at: 
+  remember_created_at: 
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+  title: Dr.
+  role: true
+  last_name: Doe
+  first_name: John
+  date_of_birth: 1980-01-01
+  phone: 1234567890
+  address: 123 Street
+  postal_code: 12345
+  city: Example City
+  siret_number: 123456789
+  license_number: ABC123
+  rib: 1234567890
+  speciality: General
+  mailing_list_id: 
+  active: true
+  uid: 
+  provider: 
+  signature_blob_id: 
+
+two:
+  email: user@example.com
+  encrypted_password: motdepasse
+  reset_password_token: 
+  reset_password_sent_at: 
+  remember_created_at: 
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+  title: Dr.
+  role: false
+  last_name: Smith
+  first_name: Jane
+  date_of_birth: 1985-02-02
+  phone: 9876543210
+  address: 456 Avenue
+  postal_code: 54321
+  city: Another City
+  siret_number: 987654321
+  license_number: XYZ987
+  rib: 9876543210
+  speciality: Pediatrics
+  mailing_list_id: 
+  active: true
+  uid: 
+  provider: 
+  signature_blob_id: 
