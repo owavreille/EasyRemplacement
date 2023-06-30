@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class DoctorsControllerTest < ActionDispatch::IntegrationTest
+class DoctorsControllerTest < ActiveSupport::TestCase
   setup do
     @doctor = doctors(:one)
     @user = users(:one)

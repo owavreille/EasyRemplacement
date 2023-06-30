@@ -1,7 +1,6 @@
 require 'test_helper'
 
-class CdomsControllerTest < ActionController::TestCase
-  include Devise::Test::ControllerHelpers
+class CdomsControllerTest < ActiveSupport::TestCase
 
   setup do
     @cdom = cdoms(:one)

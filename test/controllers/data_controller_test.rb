@@ -1,7 +1,6 @@
 require 'test_helper'
 
-class DataControllerTest < ActionDispatch::IntegrationTest
-  include Devise::Test::IntegrationHelpers
+class DataControllerTest < ActiveSupport::TestCase
 
   setup do
     @event = events(:one)

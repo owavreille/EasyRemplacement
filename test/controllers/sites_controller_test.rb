@@ -1,7 +1,6 @@
 require 'test_helper'
 
-class SitesControllerTest < ActionController::TestCase
-  include Devise::Test::ControllerHelpers
+class SitesControllerTest < ActiveSupport::TestCase
 
   setup do
     @site = sites(:one)

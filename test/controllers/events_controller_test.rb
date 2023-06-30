@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class EventsControllerTest < ActionDispatch::IntegrationTest
+class EventsControllerTest < ActiveSupport::TestCase
   setup do
     @event = events(:one)
     @user = users(:one)

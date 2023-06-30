@@ -11,8 +11,6 @@ gem "sassc-rails"
 
 gem 'popper_js', '~> 2.11', '>= 2.11.7'
 
-ruby "3.2.2"
-
 gem 'rails-i18n'
 
 gem 'turbo-rails', '~> 1.4'
