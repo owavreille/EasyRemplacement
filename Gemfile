@@ -15,6 +15,8 @@ gem 'rails-i18n'
 
 gem 'turbo-rails', '~> 1.4'
 
+gem 'minitest', '~> 5.18', '>= 5.18.1'
+
 # Flexible authentication solution for Rails with Warden
 gem 'devise', '~> 4.9', '>= 4.9.2'
 

@@ -237,8 +237,9 @@ GEM
       actionpack (>= 5.0.1.rc1)
       actionview (>= 5.0.1.rc1)
       activesupport (>= 5.0.1.rc1)
-    rails-dom-testing (2.1.0)
+    rails-dom-testing (2.1.1)
       activesupport (>= 5.0.0)
+      minitest
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.6.0)
       loofah (~> 2.21)
@@ -346,6 +347,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   jquery-rails
+  minitest (~> 5.18, >= 5.18.1)
   omniauth
   omniauth-google-oauth2
   omniauth-rails_csrf_protection (~> 1.0, >= 1.0.1)
@@ -371,4 +373,4 @@ RUBY VERSION
    ruby 3.2.2p53
 
 BUNDLED WITH
-   2.4.13
+   2.4.15
