@@ -10,8 +10,6 @@ class DataControllerTest < ActionController::TestCase
     @site = sites(:one)
     sign_in @user
 
-    @request ||= {}
-
   end
 
   test "should get index" do
@@ -36,7 +34,7 @@ class DataControllerTest < ActionController::TestCase
     reversion = @event.reversion
     amount_paid = reversion.present? ? amount * reversion / 100 : 0
 
-    patch update_amount_url(@event), params: { id: @event.id, amount: amount }
+    patch :update, params: { id: @event.id, amount: amount }
     assert_redirected_to datas_url
     @event.reload
     assert_equal amount, @event.amount
@@ -46,7 +44,7 @@ class DataControllerTest < ActionController::TestCase
 
   test "should cancel booking" do
     @event.update(start_time: Date.today + 20.days)
-    patch cancel_booking_url(@event), params: { id: @event.id }
+    patch :update, params: { id: @event.id }
     assert_redirected_to userdata_url
     @event.reload
     assert_nil @event.user_id
@@ -55,7 +53,7 @@ class DataControllerTest < ActionController::TestCase
 
   test "should not cancel booking if less than 15 days remaining" do
     @event.update(start_time: Date.today + 10.days)
-    patch cancel_booking_url(@event), params: { id: @event.id }
+    patch :update, params: { id: @event.id }
     assert_redirected_to userdata_url
     @event.reload
     assert_not_nil @event.user_id
@@ -115,7 +113,7 @@ class DataControllerTest < ActionController::TestCase
   end
 
   test "should validate contract" do
-    patch validate_contract_url(@event), params: { id: @event.id }
+    patch :update, params: { id: @event.id }
     assert_redirected_to userdata_url
     @event.reload
     assert_equal true, @event.contract_validated

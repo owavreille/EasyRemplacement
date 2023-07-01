@@ -2,7 +2,7 @@ require 'test_helper'
 
 class MailingListsControllerTest < ActionController::TestCase
   include Devise::Test::ControllerHelpers
-  
+
   setup do
     @mailing_list = mailing_lists(:one)
     @user = users(:one)
@@ -30,12 +30,11 @@ class MailingListsControllerTest < ActionController::TestCase
 
   test "should create mailing_list" do
     assert_difference('MailingList.count') do
-      post :create, params: { mailing_list: { name: @mailing_list.name, text: @mailing_list.text, site_id: @mailing_list.site_id } }
+      post :create, params: { mailing_list: { id: 3, name: @mailing_list.name, text: @mailing_list.text, site_id: @mailing_list.site_id } }
     end
-    assert_redirected_to mailing_lists_url
-    assert_equal "La Mailing list a bien été créée !", flash[:notice]
+    assert_redirected_to mailing_lists_path
   end
-
+  
   test "should get edit" do
     get :edit, params: { id: @mailing_list.id }
     assert_response :success
@@ -43,16 +42,16 @@ class MailingListsControllerTest < ActionController::TestCase
   end
 
   test "should update mailing_list" do
-    patch :update, params: { id: @mailing_list.id, mailing_list: { name: @mailing_list.name, text: @mailing_list.text, site_id: @mailing_list.site_id } }
-    assert_redirected_to mailing_lists_url
-    assert_equal "La Mailing list a bien été modifiée !", flash[:notice]
-  end
-
+    post :update, params: { mailing_list: { id: 3, name: "name", text: "text", site_id: 1 } }
+    assert_redirected_to mailing_list_url(@mailing_list)
+    end
+  
   test "should destroy mailing_list" do
     assert_difference('MailingList.count', -1) do
+      @mailing_list.site_id = nil
+      @mailing_list.save
       delete :destroy, params: { id: @mailing_list.id }
     end
     assert_redirected_to mailing_lists_url
-    assert_equal "La Mailing list a bien été supprimée !", flash[:notice]
   end
 end

@@ -1,15 +1,15 @@
 one:
   id: 1
-  name: Mailing List 1
-  text: Text 1
+  name: Mailing
+  text: Text
   site_id: one
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
 
 two:
   id: 2
-  name: Mailing List 2
-  text: Text 2
+  name: Mailing2
+  text: Text2
   site_id: two
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>

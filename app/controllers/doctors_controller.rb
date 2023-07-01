@@ -1,5 +1,5 @@
 class DoctorsController < ApplicationController
-  before_action :set_doctor, only: %i[ edit update destroy ]
+  before_action :set_doctor, only: %i[ edit create update destroy ]
   before_action :require_role
 
   def require_role
@@ -63,11 +63,12 @@ class DoctorsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_doctor
-      @doctor = Doctor.find(params[:id])
+      @doctor = Doctor.find(params[:id]) unless action_name == "create"
     end
 
     # Only allow a list of trusted parameters through.
     def doctor_params
-      params.require(:doctor).permit(:title, :last_name, :first_name, :rpps, :speciality, :conventional_sector, :optam, :phone, :email, :signature_blob)
+      params.require(:doctor).permit(:title, :last_name, :first_name, :rpps, :speciality, :conventional_sector, :optam, :phone, :email, :signature_blob_id)
     end
+    
 end

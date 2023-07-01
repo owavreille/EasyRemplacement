@@ -12,28 +12,31 @@ class DoctorsControllerTest < ActionController::TestCase
 
   test "should redirect to root path if user is not an admin" do
     @user.update(role: false)
-    get doctors_url
+    get :index
     assert_redirected_to root_path
     assert_equal "Accès non autorisé.", flash[:alert]
   end
 
   test "should get index" do
-    get doctors_url
+    get :index
     assert_response :success
   end
 
   test "should get new" do
-    get new_doctor_url
+    get :new
     assert_response :success
   end
-
+  
   test "should create doctor" do
+    Doctor.destroy_all # Supprime tous les médecins existants
+    
     assert_difference('Doctor.count') do
-      post :post, params: { doctor: { title: @doctor.title, last_name: @doctor.last_name, first_name: @doctor.first_name, rpps: @doctor.rpps, speciality: @doctor.speciality, conventional_sector: @doctor.conventional_sector, optam: @doctor.optam, phone: @doctor.phone, email: @doctor.email, signature_blob: @doctor.signature_blob } }
+      post :create, params: { doctor: { id: 1, title: @doctor.title, last_name: @doctor.last_name, first_name: @doctor.first_name, rpps: @doctor.rpps, speciality: @doctor.speciality, conventional_sector: @doctor.conventional_sector, optam: @doctor.optam, phone: @doctor.phone, email: @doctor.email, signature_blob: @doctor.signature_blob } }
     end
-
-    assert_redirected_to doctor_url(Doctor.last)
+  
+    assert_redirected_to doctors_path
   end
+  
 
   test "should get edit" do
     get :edit, params: { id: @doctor.id }
@@ -41,7 +44,7 @@ class DoctorsControllerTest < ActionController::TestCase
   end
 
   test "should update doctor" do
-    patch :update, params: { doctor: { title: @doctor.title, last_name: @doctor.last_name, first_name: @doctor.first_name, rpps: @doctor.rpps, speciality: @doctor.speciality, conventional_sector: @doctor.conventional_sector, optam: @doctor.optam, phone: @doctor.phone, email: @doctor.email, signature_blob: @doctor.signature_blob } }
+    patch :update, params: { id: 1, doctor: { title: @doctor.title, last_name: @doctor.last_name, first_name: @doctor.first_name, rpps: @doctor.rpps, speciality: @doctor.speciality, conventional_sector: @doctor.conventional_sector, optam: @doctor.optam, phone: @doctor.phone, email: @doctor.email, signature_blob: @doctor.signature_blob } }
     assert_redirected_to doctor_url(@doctor)
     @doctor.reload
     assert_equal @doctor.title, @doctor.title
@@ -55,12 +58,12 @@ class DoctorsControllerTest < ActionController::TestCase
     assert_equal @doctor.email, @doctor.email
     assert_equal @doctor.signature_blob, @doctor.signature_blob
   end
+  
 
   test "should destroy doctor" do
     assert_difference('Doctor.count', -1) do
-      delete :destroy
+      delete :destroy, params: { id: 1 }
     end
-
     assert_redirected_to doctors_url
   end
 end

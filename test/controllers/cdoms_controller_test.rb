@@ -32,14 +32,15 @@ class CdomsControllerTest < ActionController::TestCase
   end
 
   test "should destroy cdom" do
-  @cdom.sites.destroy_all if @site.present?
+    @site = Site.find_by(id: 1) 
+    @site.update(cdom_id: nil) if @site.present?
+    
+    assert_difference('Cdom.count', -1) do
+      delete :destroy, params: { id: 1 }
+    end
   
-  assert_difference('Cdom.count', -1) do
-    delete :destroy, params: { id: @cdom.id }
+    assert_redirected_to cdoms_path
   end
-
-  assert_redirected_to cdoms_path
-end
 
 test "should not destroy cdom with associated sites" do
   # Créer un site associé au cdom

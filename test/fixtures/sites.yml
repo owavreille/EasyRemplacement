@@ -8,7 +8,7 @@ one:
   city: Cambrai
   software: Oplus
   informations: Informations
-  cdom_id: 1
+  cdom_id: 
   color: #ffffff
   min_patients: 10
   max_patients: 20
