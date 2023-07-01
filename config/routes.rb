@@ -7,6 +7,7 @@ root "events#index"
   devise_for :users, controllers: { registrations: 'registrations', sessions: 'users/sessions', omniauth_callbacks: 'users/omniauth_callbacks' }
   resources :cdoms
   patch '/cdoms/:id', to: 'cdoms#update', as: 'update' 
+  delete '/cdoms/:id', to: 'cdoms#destroy', as: 'destroy'
 
   resources :mailing_lists
   resources :contracts, only: [:index] do

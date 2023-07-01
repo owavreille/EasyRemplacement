@@ -1,3 +1,3 @@
 class Cdom < ApplicationRecord
-    has_many :sites 
+    has_many :sites
 end

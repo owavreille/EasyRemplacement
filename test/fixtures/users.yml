@@ -21,7 +21,7 @@ one:
   license_number: ABC123
   rib: 1234567890
   speciality: General
-  mailing_list_id: 
+  mailing_list_id: 1
   active: true
   uid: 
   provider: 
@@ -48,7 +48,7 @@ two:
   license_number: XYZ987
   rib: 9876543210
   speciality: Pediatrics
-  mailing_list_id: 
+  mailing_list_id: 2
   active: true
   uid: 
   provider: 

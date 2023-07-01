@@ -69,13 +69,14 @@ class SitesController < ApplicationController
 
   # DELETE /sites/1 or /sites/1.json
   def destroy
-    @site.destroy
-
-    respond_to do |format|
-      format.html { redirect_to sites_url, notice: "Le site a bien été supprimé !" }
-      format.json { head :no_content }
+    if @site.events.exists? || @site.mailing_lists.exists?
+      redirect_to sites_url, alert: "Le site est associé à des événements ou des listes de diffusion et ne peut pas être supprimé."
+    else
+      @site.destroy
+      redirect_to sites_url, notice: "Le site a bien été supprimé !"
     end
   end
+  
 
   private
     # Use callbacks to share common setup or constraints between actions.

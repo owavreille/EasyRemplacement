@@ -1,6 +1,8 @@
 require 'test_helper'
 
-class MailingListsControllerTest < ActiveSupport::TestCase
+class MailingListsControllerTest < ActionController::TestCase
+  include Devise::Test::ControllerHelpers
+  
   setup do
     @mailing_list = mailing_lists(:one)
     @user = users(:one)

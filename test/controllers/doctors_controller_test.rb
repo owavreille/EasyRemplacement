@@ -1,6 +1,8 @@
 require 'test_helper'
 
-class DoctorsControllerTest < ActiveSupport::TestCase
+class DoctorsControllerTest < ActionController::TestCase
+  include Devise::Test::ControllerHelpers
+
   setup do
     @doctor = doctors(:one)
     @user = users(:one)
@@ -27,19 +29,19 @@ class DoctorsControllerTest < ActiveSupport::TestCase
 
   test "should create doctor" do
     assert_difference('Doctor.count') do
-      post doctors_url, params: { doctor: { title: @doctor.title, last_name: @doctor.last_name, first_name: @doctor.first_name, rpps: @doctor.rpps, speciality: @doctor.speciality, conventional_sector: @doctor.conventional_sector, optam: @doctor.optam, phone: @doctor.phone, email: @doctor.email, signature_blob: @doctor.signature_blob } }
+      post :post, params: { doctor: { title: @doctor.title, last_name: @doctor.last_name, first_name: @doctor.first_name, rpps: @doctor.rpps, speciality: @doctor.speciality, conventional_sector: @doctor.conventional_sector, optam: @doctor.optam, phone: @doctor.phone, email: @doctor.email, signature_blob: @doctor.signature_blob } }
     end
 
     assert_redirected_to doctor_url(Doctor.last)
   end
 
   test "should get edit" do
-    get edit_doctor_url(@doctor)
+    get :edit, params: { id: @doctor.id }
     assert_response :success
   end
 
   test "should update doctor" do
-    patch doctor_url(@doctor), params: { doctor: { title: @doctor.title, last_name: @doctor.last_name, first_name: @doctor.first_name, rpps: @doctor.rpps, speciality: @doctor.speciality, conventional_sector: @doctor.conventional_sector, optam: @doctor.optam, phone: @doctor.phone, email: @doctor.email, signature_blob: @doctor.signature_blob } }
+    patch :update, params: { doctor: { title: @doctor.title, last_name: @doctor.last_name, first_name: @doctor.first_name, rpps: @doctor.rpps, speciality: @doctor.speciality, conventional_sector: @doctor.conventional_sector, optam: @doctor.optam, phone: @doctor.phone, email: @doctor.email, signature_blob: @doctor.signature_blob } }
     assert_redirected_to doctor_url(@doctor)
     @doctor.reload
     assert_equal @doctor.title, @doctor.title
@@ -56,7 +58,7 @@ class DoctorsControllerTest < ActiveSupport::TestCase
 
   test "should destroy doctor" do
     assert_difference('Doctor.count', -1) do
-      delete doctor_url(@doctor)
+      delete :destroy
     end
 
     assert_redirected_to doctors_url

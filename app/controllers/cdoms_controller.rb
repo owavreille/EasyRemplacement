@@ -55,13 +55,21 @@ class CdomsController < ApplicationController
   
   # DELETE /cdoms/1 or /cdoms/1.json
   def destroy
-    @cdom.destroy
-
-    respond_to do |format|
-      format.html { redirect_to cdoms_url, notice: "Le site du Conseil de l'Ordre a bien été supprimé !" }
-      format.json { head :no_content }
+    if @cdom.sites.empty?
+      @cdom.destroy
+      respond_to do |format|
+        format.html { redirect_to cdoms_url, notice: "Le site du Conseil de l'Ordre a bien été supprimé !" }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to cdoms_url, alert: "Le cdom est associé à des sites et ne peut pas être supprimé." }
+        format.json { head :unprocessable_entity }
+      end
     end
   end
+  
+  
 
 
   private

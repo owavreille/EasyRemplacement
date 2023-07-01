@@ -1,6 +1,7 @@
 require 'test_helper'
 
-class CdomsControllerTest < ActiveSupport::TestCase
+class CdomsControllerTest < ActionController::TestCase
+  include Devise::Test::ControllerHelpers
 
   setup do
     @cdom = cdoms(:one)
@@ -21,20 +22,36 @@ class CdomsControllerTest < ActiveSupport::TestCase
     end
 
   test "should get edit" do
-    get :edit, params: { id: @cdom }
+    get :edit, params: { id: @cdom.id }
     assert_response :success
   end
 
   test "should update cdom" do
-    patch :update, params: { id: @cdom, cdom: { departement: @cdom.departement, name: @cdom.name, email: @cdom.email } }
+    patch :update, params: { id: @cdom.id, cdom: { departement: @cdom.departement, name: @cdom.name, email: @cdom.email } }
     assert_redirected_to cdoms_path
   end
 
   test "should destroy cdom" do
-    assert_difference('Cdom.count', -1) do
-      delete :destroy, params: { id: @cdom }
-    end
-
-    assert_redirected_to cdoms_path
+  @cdom.sites.destroy_all if @site.present?
+  
+  assert_difference('Cdom.count', -1) do
+    delete :destroy, params: { id: @cdom.id }
   end
+
+  assert_redirected_to cdoms_path
+end
+
+test "should not destroy cdom with associated sites" do
+  # Créer un site associé au cdom
+  @site = Site.create(cdom: @cdom, name: "Site 1")
+  
+  assert_no_difference('Cdom.count') do
+    delete :destroy, params: { id: @cdom.id }
+  end
+
+  assert_redirected_to cdoms_path
+  assert_equal "Le cdom est associé à des sites et ne peut pas être supprimé.", flash[:alert]
+end
+
+  
 end
