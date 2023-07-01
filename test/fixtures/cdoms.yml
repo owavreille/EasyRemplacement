@@ -1,5 +1,6 @@
 # cdoms.yml
 one:
+  id: 1
   departement: "59"
   name: "Nord"
   email: "59@example.com"
@@ -7,6 +8,7 @@ one:
   updated_at: <%= Time.current %>
 
 two:
+  id: 2
   departement: "62"
   name: "Pas-de-Calais"
   email: "62@example.com"

@@ -1,13 +1,14 @@
 # sites.yml
 
 one:
+  id: 1
   name: Cambrai
   address: 123 Main Street
   postal_code: 59400
   city: Cambrai
   software: Oplus
   informations: Informations
-  cdom_id: one
+  cdom_id: 1
   color: #ffffff
   min_patients: 10
   max_patients: 20
@@ -22,13 +23,14 @@ one:
   updated_at: <%= Time.current %>
 
 two:
-  name: Site 2
+  id: 2
+  name: Douai
   address: 456 Oak Street
   postal_code: 67890
   city: City 2
   software: Software 2
   informations: Informations 2
-  cdom_id: one
+  cdom_id: 2
   color: #ff0000
   min_patients: 5
   max_patients: 10

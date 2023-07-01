@@ -1,6 +1,6 @@
 one:
-  site_id: two
-  doctor_id: two
+  site_id: 1
+  doctor_id: 2
   start_time: <%= Time.current %>
   end_time: <%= Time.current + 1.hour %>
   number_of_patients: 5
@@ -14,8 +14,8 @@ one:
   editable: true
 
 two:
-  site_id: two
-  doctor_id: two
+  site_id: 1
+  doctor_id: 2
   start_time: <%= Time.current + 1.day %>
   end_time: <%= Time.current + 1.day + 2.hours %>
   number_of_patients: 10

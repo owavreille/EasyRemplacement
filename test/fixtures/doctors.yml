@@ -1,21 +1,23 @@
 one:
-  title: "Dr"
-  last_name: "Doe"
-  first_name: "John"
-  rpps: "1234567890"
-  speciality: "Oculoplastic"
-  conventional_sector: "2"
+  id: 1
+  title: Dr
+  last_name: Doe
+  first_name: John
+  rpps: 1234567890
+  speciality: Oculoplastic
+  conventional_sector: 2
   optam: true
-  phone: "1234567890"
-  email: "john.doe@example.com"
+  phone: 1234567890
+  email: john.doe@example.com
 
 two:
-  title: "Dr"
-  last_name: "Smith"
-  first_name: "Jane"
-  rpps: "0987654321"
-  speciality: "Strabisme"
-  conventional_sector: "2"
+  id: 2
+  title: Dr
+  last_name: Smith
+  first_name: Jane
+  rpps: 0987654321
+  speciality: Strabisme
+  conventional_sector: 2
   optam: false
-  phone: "9876543210"
-  email: "jane.smith@example.com"
+  phone: 9876543210
+  email: jane.smith@example.com
