@@ -23,7 +23,22 @@ class EventsControllerTest < ActiveSupport::TestCase
 
   test "should create event" do
     assert_difference('Event.count') do
-      post events_url, params: { event: { site_id: @event.site_id, doctor_id: @event.doctor_id, start_time: @event.start_time, end_time: @event.end_time, number_of_patients: @event.number_of_patients, helper: @event.helper, user_id: @user.id, amount: @event.amount, reversion: @event.reversion } }
+      post events_url, params: { event: {
+        site_id: @event.site.id,
+        doctor_id: @event.doctor_id,
+        start_time: @event.start_time,
+        end_time: @event.end_time,
+        number_of_patients: @event.number_of_patients,
+        helper: @event.helper,
+        user_id: @user.id,
+        amount: @event.amount,
+        reversion: @event.reversion,
+        amount_paid: @event.amount_paid,
+        contract_generated: @event.contract_generated,
+        contract_validated: @event.contract_validated,
+        editable: @event.editable,
+        contract_blob: @event.contract_blob
+      } }
     end
 
     assert_redirected_to event_url(Event.last)
@@ -35,7 +50,10 @@ class EventsControllerTest < ActiveSupport::TestCase
   end
 
   test "should update event" do
-    patch event_url(@event), params: { event: { start_time: @event.start_time, end_time: @event.end_time } }
+    patch event_url(@event), params: { event: {
+      start_time: @event.start_time,
+      end_time: @event.end_time
+    } }
     assert_redirected_to event_url(@event)
     @event.reload
     assert_equal @event.start_time, @event.start_time
