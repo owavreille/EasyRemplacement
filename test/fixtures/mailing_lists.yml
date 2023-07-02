@@ -2,7 +2,7 @@ one:
   id: 1
   name: Mailing
   text: Text
-  site_id: 
+  site_id: 1
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
 
@@ -10,6 +10,6 @@ two:
   id: 2
   name: Mailing2
   text: Text2
-  site_id: 
+  site_id: 2
   created_at: <%= Time.current %>
   updated_at: <%= Time.current %>
