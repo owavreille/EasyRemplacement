@@ -30,7 +30,7 @@ class MailingListsControllerTest < ActionController::TestCase
 
   test "should create mailing_list" do
     assert_difference('MailingList.count') do
-      post :create, params: { mailing_list: { id: 3, name: @mailing_list.name, text: @mailing_list.text, site_id: @mailing_list.site_id } }
+      post :create, params: { mailing_list: { name: @mailing_list.name, text: @mailing_list.text, site_id: @mailing_list.site_id } }
     end
     assert_redirected_to mailing_lists_path
   end
@@ -42,8 +42,8 @@ class MailingListsControllerTest < ActionController::TestCase
   end
 
   test "should update mailing_list" do
-    post :update, params: { mailing_list: { id: 3, name: "name", text: "text", site_id: 1 } }
-    assert_redirected_to mailing_list_url(@mailing_list)
+    post :update, params: { mailing_list: { name: @mailing_list.name, text: @mailing_list.text, site_id: @mailing_list.site_id } }
+    assert_redirected_to mailing_lists_path
     end
   
   test "should destroy mailing_list" do

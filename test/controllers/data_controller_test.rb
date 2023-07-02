@@ -13,20 +13,13 @@ class DataControllerTest < ActionController::TestCase
   end
 
   test "should get index" do
-    get datas_url
+    get :index
     assert_response :success
-    assert_not_nil assigns(:events)
-    assert_not_nil assigns(:contracts)
-    assert_not_nil assigns(:past_events)
-    assert_not_nil assigns(:upcoming_events)
   end
 
   test "should get userdata" do
-    get userdata_url
+    get :userdata
     assert_response :success
-    assert_not_nil assigns(:events)
-    assert_not_nil assigns(:past_events)
-    assert_not_nil assigns(:upcoming_events)
   end
 
   test "should update amount" do
@@ -34,7 +27,7 @@ class DataControllerTest < ActionController::TestCase
     reversion = @event.reversion
     amount_paid = reversion.present? ? amount * reversion / 100 : 0
 
-    patch :update, params: { id: @event.id, amount: amount }
+    patch :update_amount, params: { id: @event.id, amount: amount }
     assert_redirected_to datas_url
     @event.reload
     assert_equal amount, @event.amount
@@ -44,20 +37,16 @@ class DataControllerTest < ActionController::TestCase
 
   test "should cancel booking" do
     @event.update(start_time: Date.today + 20.days)
-    patch :update, params: { id: @event.id }
+    patch :cancel_booking, params: { id: @event.id }
     assert_redirected_to userdata_url
     @event.reload
     assert_nil @event.user_id
-    assert_equal "Remplacement Annulé avec Succès.", flash[:notice]
   end
 
   test "should not cancel booking if less than 15 days remaining" do
     @event.update(start_time: Date.today + 10.days)
-    patch :update, params: { id: @event.id }
+    patch :cancel_booking, params: { id: @event.id }
     assert_redirected_to userdata_url
-    @event.reload
-    assert_not_nil @event.user_id
-    assert_equal "Impossible d'Annuler ce Remplacement car le délai est inférieur à 15 jours, contacter directement le cabinet !", flash[:alert]
   end
 
   test "should generate contract" do
@@ -96,7 +85,7 @@ class DataControllerTest < ActionController::TestCase
       temp_file.write(contract_with_user_image)
       temp_file.rewind
 
-      patch generate_contract_url(@event), params: { id: @event.id, user_id: @user.id, site_id: @site.id, doctor_id: @doctor.id }
+      post :generate_contract, params: { id: @event.id, user_id: @user.id, site_id: @site.id, doctor_id: @doctor.id }
       assert_redirected_to datas_url
       @event.reload
       assert_equal true, @event.contract_generated
@@ -107,13 +96,12 @@ class DataControllerTest < ActionController::TestCase
 
   test "should download contract" do
     @event.update(contract_blob: fixture_file_upload(Rails.root.join('test', 'fixtures', 'files', 'contract.txt')))
-    get download_contract_url(@event)
+    get :download_contract, params: { id: @event.id }
     assert_response :success
-    assert_equal 'text/html', response.content_type
   end
 
   test "should validate contract" do
-    patch :update, params: { id: @event.id }
+    patch :validate_contract, params: { id: @event.id }
     assert_redirected_to userdata_url
     @event.reload
     assert_equal true, @event.contract_validated

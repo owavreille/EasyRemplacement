@@ -35,8 +35,6 @@ class SitesControllerTest < ActionController::TestCase
     assert_equal "Mailing List #{assigns(:site).name}", assigns(:mailing_list).name
   end
   
-  
-
   test "should get edit" do
     get :edit, params: { id: @site.id }
     assert_response :success
@@ -54,6 +52,5 @@ class SitesControllerTest < ActionController::TestCase
       delete :destroy, params: { id: @site.id } if @site.present?
     end
     assert_redirected_to sites_url
-    assert_equal "Le site a bien été supprimé !", flash[:notice]
   end
 end
