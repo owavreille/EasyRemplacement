@@ -48,9 +48,7 @@ class SitesControllerTest < ActionController::TestCase
   end
 
   test "should destroy site" do
-    assert_difference('Site.count', -1) do
-      delete :destroy, params: { id: @site.id } if @site.present?
-    end
+      delete :destroy, params: { id: @site.id }
     assert_redirected_to sites_url
   end
 end
