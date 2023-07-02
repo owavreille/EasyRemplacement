@@ -27,14 +27,11 @@ class DoctorsControllerTest < ActionController::TestCase
     assert_response :success
   end
   
-  test "should create doctor" do
-    Doctor.destroy_all # Supprime tous les médecins existants
-    
+  test "should create doctor" do    
     assert_difference('Doctor.count') do
-      post :create, params: { doctor: { id: 1, title: @doctor.title, last_name: @doctor.last_name, first_name: @doctor.first_name, rpps: @doctor.rpps, speciality: @doctor.speciality, conventional_sector: @doctor.conventional_sector, optam: @doctor.optam, phone: @doctor.phone, email: @doctor.email, signature_blob: @doctor.signature_blob } }
+      post :create, params: { doctor: { title: @doctor.title, last_name: @doctor.last_name, first_name: @doctor.first_name, rpps: @doctor.rpps, speciality: @doctor.speciality, conventional_sector: @doctor.conventional_sector, optam: @doctor.optam, phone: @doctor.phone, email: @doctor.email, signature_blob: @doctor.signature_blob } }
     end
-  
-    assert_redirected_to doctors_path
+    assert_redirected_to doctor_url(Doctor.last)
   end
   
 
