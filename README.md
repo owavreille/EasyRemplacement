@@ -4,10 +4,10 @@
 
 Webapp de gestion de plages de Remplacement médicaux avec authentification, gestion des sites, des médecins, des CDOM, de la comptabilité simplifiée et des mailings lists.
 
-Spécifications :  
-* Ruby version : 3.2.2  
-* Rails 7.0.6  
-* Sqlite3  
+* Spécifications :  
+Ruby version : 3.2.2  
+Rails 7.0.6  
+Sqlite3  
   
 * Dépendances :  
 Bootstrap
