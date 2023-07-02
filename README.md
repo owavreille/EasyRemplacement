@@ -6,14 +6,13 @@ Webapp de gestion de plages de Remplacement médicaux avec authentification, ges
 
 Spécifications :
 * Ruby version : 3.2.2
-* Rails 7.0.5
+* Rails 7.0.6
 * Sqlite3
 
 * Dépendances :
 Bootstrap
 
 * Configuration
-Configuration du nom d'application dans config/settings.yml
 Placer les variables d'environnement dans fichier .env
 
 * Création de la base de données
@@ -24,11 +23,12 @@ rails db:migrate
 rails db:seed
 
 * Tests unitaires
-work in progress
+Minitest
 
-* Services (job queues, cache servers, search engines, etc.)
+* Services
 cron job in schedule.rb pour la fréquence d'envoie des mails de rappel
 
 * Deployment instructions
+En utilisant Capistrano et après configuration de deploy.rb
 
 * ...
