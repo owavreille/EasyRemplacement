@@ -1,130 +1,49 @@
-<div class="login-container">
-
-  <div class="login-section">
-    <div class="card shadow">
-      <div class="card-header text-center">
-        <h2>Connexion</h2>
+<div class="px-4 py-5 px-md-5 text-center text-lg-start m-3" style="background-color: hsl(0, 0%, 96%)">
+  <div class="container">
+    <div class="row gx-lg-5 align-items-center">
+      <div class="col-lg-6 mb-5 mb-lg-0">
+        <h1 class="my-5 display-3 fw-bold ls-tight">
+          Connectez-<br />
+          <span class="text-primary">vous</span>
+        </h1>
+          <p style="color: hsl(217, 10%, 50.8%) text-align: left;">
+      Bienvenue sur <%= Rails.application.config.settings.appname %>,
+      créez un compte pour accéder au planning de remplacement.
+    </p>
       </div>
-      <div class="card-body">
-        <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "mt-4" }) do |f| %>
-          <div class="form-group m-3">
-            <%= f.label :email %><br />
-            <%= f.email_field :email, autocomplete: "email", class: "form-control" %>
-          </div>
 
-          <div class="form-group m-3">
-            <%= f.label :password %><br />
-            <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
-          </div>
-
-          <% if devise_mapping.rememberable? %>
-            <div class="form-group-inline m-3">
-              <%= f.check_box :remember_me, class: "form-check-input" %>
-              <%= f.label :remember_me, class: "form-check-label", style: "margin-left: 5px;" do %>
-                 Se souvenir de moi
-              <% end %>
+      <div class="col-lg-6 mb-5 mb-lg-0">
+        <div class="card">
+          <div class="card-body">
+            <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "mt-4" }) do |f| %>
+             <div class="form-group m-3">
+                <%= f.label :email %><br />
+                <%= f.email_field :email, autocomplete: "email", class: "form-control" %>
             </div>
-          <% end %>
+
+            <div class="form-group m-3">
+                <%= f.label :password %><br />
+                <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
+            </div>
+
+            <% if devise_mapping.rememberable? %>
+            <div class="form-group-inline m-3">
+                <%= f.check_box :remember_me, class: "form-check-input" %>
+                <%= f.label :remember_me, class: "form-check-label", style: "margin-left: 5px;" do %>
+                 Se souvenir de moi
+                <% end %>
+              </div>
+            <% end %>
 
           <div class="form-group text-center">
             <%= f.submit "Connexion", class: "btn btn-primary" %>
           </div>
         <% end %>
+    <%= render "devise/shared/links" %>
 
+      </div>
+        </div>
       </div>
     </div>
   </div>
-  <div class="signup-section shadow">
-    <div>
-      <h2 style="text-align: center;"><%= Rails.application.config.settings.appname %></h2>
-      <p style="text-align: center;">Créez un compte pour accéder</p>
-      <p style="text-align: center;">au planning de remplacement</p>
-    </div>
-    <%= render "devise/shared/links" %>
-  </div>
 </div>
-
-<style>
-  body {
-    background-color: #ededed;
-    font-family: Arial, sans-serif;
-    height: 100vh;
-    display: flex;
-    align-items: center; 
-  }
-  
-  .login-container {
-    display: flex;
-    margin: auto;
-    justify-content: center;
-    max-width: 800px;
-    background-color: #ededed;
-    border-radius: 0px;
-  }
-  
-  .login-section {
-    flex: 1;
-    padding: 5px;
-    display: flex; 
-    align-items: center; 
-  }
-  
-  .signup-section {
-    flex: 1;
-    background-color: #007bff;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;  }
-  
-  .signup-section a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 18px;
-    font-weight: bold;
-    margin-top: 20px;
-  }
-
-  .card {
-    border: 1px solid #ccc;
-    width: 100%;
-    height: 102%;
-    border-radius: 20px 0px 0px 20px;
-  }
-
-  .card-header {
-    border-bottom: 1px solid #ccc;
-    padding: 10px;
-  }
-  
-  .card-body {
-    padding: 10px;
-  }
-  
-  .form-group {
-    margin-bottom: 10px;
-  }
-  
-  .form-group label {
-    display: block;
-  }
-  
-  .form-group-inline {
-    display: flex;
-    align-items: center;
-    margin-top: 10px; 
-  }
-  
-  .form-group-inline label {
-    margin-right: 5px; 
-  }
-  
-  .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
-    margin-top: 20px;
-  }
-</style>
