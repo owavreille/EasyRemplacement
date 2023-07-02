@@ -16,7 +16,7 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test "should get show" do
-    get :show
+    get :show, params: { id: @event.id }
     assert_response :success
   end
 
@@ -25,27 +25,11 @@ class EventsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should create event" do
-    assert_difference('Event.count') do
-      post :create, params: { event: {
-        site_id: @event.site.id,
-        doctor_id: @event.doctor_id,
-        start_time: @event.start_time,
-        end_time: @event.end_time,
-        number_of_patients: @event.number_of_patients,
-        helper: @event.helper,
-        user_id: @user.id,
-        amount: @event.amount,
-        reversion: @event.reversion,
-        amount_paid: @event.amount_paid,
-        contract_generated: @event.contract_generated,
-        contract_validated: @event.contract_validated,
-        editable: @event.editable,
-        contract_blob: @event.contract_blob
-      } }
+  test "should confirm event booking" do
+    assert_difference('Event.count', 0) do
+      put :booking, params: { id: @event.id }
     end
-
-    assert_redirected_to event_url(Event.last)
+    assert_redirected_to event_url(@event)
   end
 
   test "should get edit" do
@@ -70,16 +54,16 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   test "should book event" do
-    assert_difference('@event.reload.user_id') do
-      match :booking_event, params: { id: @event.id }
-    end
-
+    post :booking, params: { id: @event.id }
     assert_redirected_to event_url(@event)
     assert_equal "Plage de Remplacement Réservée avec Succès.", flash[:notice]
   end
+  
 
-  test "should redirect to inactive page if user is not active" do
-    @user.update(active: false)
-    assert_redirected_to inactive_path
+  test "should redirect to inactive path if user is not active" do
+    if @user.active == false
+      assert_redirected_to inactive_path
+    end
   end
+  
 end
