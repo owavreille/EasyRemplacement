@@ -29,7 +29,7 @@
             <td><%= site.cdom&.name %></td>
             <td>
               <div class="btn-group" role="group">
-                <%= link_to edit_site_path(site), class: 'btn btn-secondary btn-sm me-1' do %>
+                <%= link_to edit_site_path(site), class: 'btn btn-secondary btn-sm me-2 rounded' do %>
                   <%= content_tag(:i, '', class: "bi bi-pencil") %>
                 <% end %>
                 <%= button_to site, method: :delete, data: { "turbo-confirm": 'Êtes-vous sûr de vouloir supprimer ce site ?' }, class: 'btn btn-danger btn-sm me-2' do %>

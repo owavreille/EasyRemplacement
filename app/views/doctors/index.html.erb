@@ -31,7 +31,7 @@
             <td><%= doctor.email %></td>
             <td>
               <div class="btn-group" role="group">
-                <%= link_to edit_doctor_path(doctor), class: 'btn btn-secondary btn-sm me-2' do %>
+                <%= link_to edit_doctor_path(doctor), class: 'btn btn-secondary btn-sm me-3 rounded' do %>
                   <i class="bi bi-pencil-fill"></i>
                 <% end %>
                 <%= button_to doctor, method: :delete, data: { "turbo-confirm": 'Êtes-vous sûr de vouloir supprimer ce profil médecin ?' }, class: 'btn btn-danger btn-sm me-2' do %>

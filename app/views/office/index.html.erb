@@ -1,9 +1,9 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col">
-      <div class="card bg-light shadow-lg m-1 border-bottom-color-doctors m-3">
+    <div class="col d-flex">
+      <div class="card bg-light shadow-lg m-1 border-bottom-color-doctors m-3 mx-auto" style="width: 40rem;">
         <div class="card-body">
-          <h4 class="mb-4">Présentation du (des) Praticien(s) du cabinet :</h4>
+          <h4 class="mb-4 text-center">Présentation du (des) Praticien(s) du cabinet :</h4>
         </div>
       </div>
     </div>
@@ -13,7 +13,7 @@
       <div class="col-md-4 mb-4">
         <div class="card shadow-lg m-3">
           <div class="card-header text-center">
-            <h5 class="card-title"><%= doctor.title %> <%= doctor.last_name %> <%= doctor.first_name %></h5>
+            <h5 class="card-title"><i class="bi bi-person-lines-fill"></i> <%= doctor.title %> <%= doctor.last_name %> <%= doctor.first_name %></h5>
           </div>
           <div class="card-body">
             <ul class="list-unstyled">
@@ -31,10 +31,10 @@
   </div>
 
   <div class="row mt-5">
-    <div class="col">
-      <div class="card bg-light shadow-lg m-1 border-bottom-color-sites m-3">
+    <div class="col d-flex">
+      <div class="card bg-light shadow-lg m-1 border-bottom-color-sites m-3 mx-auto" style="width: 40rem;">
         <div class="card-body">
-          <h4 class="mb-4">Présentation du (des) site(s) de consultation :</h4>
+          <h4 class="mb-4 text-center">Présentation du (des) site(s) de consultation :</h4>
         </div>
       </div>
     </div>
@@ -43,8 +43,8 @@
     <% @sites.each do |site| %>
       <div class="col-md-4 mb-4">
         <div class="card shadow-lg m-3">
-          <div class="card-header text-center" style="background-color: <%= site.color %>">
-            <h5 class="card-title"><%= site.name %></h5>
+          <div class="card-header text-center">
+            <h5 class="card-title"><i class="bi bi-house-door-fill"></i> <%= site.name %></h5>
           </div>
           <div class="card-body">
             <ul class="list-unstyled">
