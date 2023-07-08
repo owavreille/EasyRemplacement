@@ -25,13 +25,15 @@
     </div>
 
     <div class="form-group mb-3">
-      <%= form.label :doctor_id, "Nom du Médecin Remplacé", class: "col-form-label" %>
-      <% if @doctors.present? %>
-        <%= form.select :doctor_id, options_for_select(@doctors, @event.doctor_id), {}, { class: "form-control" } %>
-      <% else %>
-        <p class="text-danger">Veuillez d'abord créer un profil médecin !</p>
-      <% end %>
-    </div>
+  <%= form.label :doctor_id, "Nom du Médecin Remplacé", class: "col-form-label", for: "doctor-select" %>
+  <% if @doctors.present? %>
+    <%= select_tag :doctor_id, options_for_select(Doctor.all.map { |doctor| ["Dr #{doctor.last_name} #{doctor.first_name}", doctor.id] }, params[:doctor_id]), class: 'form-control', id: "doctor-select" %>
+  <% else %>
+    <p class="text-danger">Veuillez d'abord créer un profil médecin !</p>
+  <% end %>
+</div>
+
+
 
 <div class="row">
 <div class="col-md-6">
@@ -43,22 +45,24 @@
 <div class="col-md-6">
     <div class="form-group mb-3">
       <%= form.label :end_time, "Fin de la plage", class: "col-form-label" %>
-      <%= form.datetime_field :end_time, class: "form-control" %>
+      <%= form.datetime_field :end_time, class: "form-control"%>
     </div>
     </div>
     </div>
     </div>
   <div class="col-md-6">
     <div class="form-group mb-3">
-      <%= form.label :number_of_patients, "Nombre de Patients", class: "col-form-label" %>
-      <%= form.number_field :number_of_patients, class: "form-control" %>
-    </div>
+  <%= form.label :number_of_patients, "Nombre de Patients", class: "col-form-label" %>
+  <%= form.number_field :number_of_patients, value: 25, class: "form-control" %>
+</div>
+
 
     <div class="form-group mb-3">
-      <%= form.label :helper, "Consultation Aidée", class: "col-form-label" %>
+      <%= form.label :helper, "Consultation Aidée", class: "col-form-label", for: "helper-switch" %>
       <div class="form-check form-switch mb-3">
-        <%= form.check_box :helper, class: "form-check-input align-middle", id: "helper-switch" %>
-      </div>
+      <%= form.check_box :helper, checked: true, class: "form-check-input align-middle", id: "helper-switch" %>
+    </div>
+
     </div>
 
     <div class="form-group mb-3">

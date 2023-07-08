@@ -1,73 +1,55 @@
-<style>
-  .chart-container {
-    background-color: white;
-  }
-</style>
-
-
 <div class="chart-container shadow m-3">
-  <%= select_tag :group_by, options_for_select([['Par mois', 'month'], ['Par année', 'year']], params[:group_by]), class: 'form-control' %>
+  <%= select_tag :group_by_total, options_for_select([['Par mois', 'month'], ['Par année', 'year']], params[:group_by_total]), class: 'form-control', id: 'group-by-total' %>
 </div>
-
 <div class="chart-container row m-3">
   <div class="col-md-6">
-    <!-- Graphique pour le total des Remplacements -->
     <h3>Total des Remplacements</h3>
     <%= column_chart @amount, download: true, locale: 'fr' %>
   </div>
-  
   <div class="col-md-6">
-    <!-- Graphique pour le total des Reversions -->
     <h3>Montant Total Reversé</h3>
     <%= column_chart @amount_paid, download: true, locale: 'fr' %>
   </div>
 </div>
 
-
-
-
 <div class="chart-container shadow m-3">
-  <%= select_tag :group_by, options_for_select([['Par mois', 'month'], ['Par année', 'year']], params[:group_by]), class: 'form-control' %>
+  <%= select_tag :group_by_site, options_for_select([['Par mois', 'month'], ['Par année', 'year']], params[:group_by_site]), class: 'form-control', id: 'group-by-site' %>
 </div>
 <div class="chart-container row m-3">
   <div class="col-md-6">
-<h3>Total des Remplacements par site</h3>
+    <h3>Total des Remplacements par site</h3>
     <%= column_chart @amount_by_site, download: true, locale: 'fr' %>
-    </div>
-      <div class="col-md-6">
-<h3>Montant Total Reversé par site </h3>
+  </div>
+  <div class="col-md-6">
+    <h3>Montant Total Reversé par site</h3>
     <%= column_chart @amount_paid_by_site, download: true, locale: 'fr' %>
-    </div>
+  </div>
 </div>
 
-
-
 <div class="chart-container shadow m-3">
-  <%= select_tag :group_by, options_for_select([['Par mois', 'month'], ['Par année', 'year']], params[:group_by]), class: 'form-control' %>
+  <%= select_tag :group_by_doctor, options_for_select([['Par mois', 'month'], ['Par année', 'year']], params[:group_by_doctor]), class: 'form-control', id: 'group-by-doctor' %>
 </div>
 <div class="chart-container row m-3">
   <div class="col-md-6">
-<h3>Total des Remplacements par médecin</h3>
+    <h3>Total des Remplacements par médecin</h3>
     <%= column_chart @amount_by_doctor, download: true, locale: 'fr' %>
-    </div>
-      <div class="col-md-6">
-<h3>Montant Total Reversé par médecin</h3>
+  </div>
+  <div class="col-md-6">
+    <h3>Montant Total Reversé par médecin</h3>
     <%= column_chart @amount_paid_by_doctor, download: true, locale: 'fr' %>
-    </div>
+  </div>
 </div>
 
-
-
 <div class="chart-container shadow m-3">
-  <%= select_tag :group_by, options_for_select([['Par mois', 'month'], ['Par année', 'year']], params[:group_by]), class: 'form-control' %>
+  <%= select_tag :group_by_user, options_for_select([['Par mois', 'month'], ['Par année', 'year']], params[:group_by_user]), class: 'form-control', id: 'group-by-user' %>
 </div>
 <div class="chart-container row m-3">
   <div class="col-md-6">
-<h3>Total des Remplacements par utilisateur</h3>
+    <h3>Total des Remplacements par utilisateur</h3>
     <%= column_chart @amount_by_user, download: true, locale: 'fr' %>
-    </div>
-      <div class="col-md-6">
-<h3>Montant Total Reversé par utilisateur</h3>
+  </div>
+  <div class="col-md-6">
+    <h3>Montant Total Reversé par utilisateur</h3>
     <%= column_chart @amount_paid_by_user, download: true, locale: 'fr' %>
-    </div>
+  </div>
 </div>
