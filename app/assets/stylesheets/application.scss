@@ -3,6 +3,43 @@
 @import "simple_calendar";
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
 
+.container {
+  padding-left: 20px;
+  transition: padding-left 0.5s ease;
+}
+
+.sidebar-visible .container {
+  padding-left: 100px;
+}
+
+.alert{
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 15px;
+
+}
+
+.yield-content {
+  transition: margin-left 0.5s ease;
+}
+
+
+.sidebar-visible .navbar {
+  margin-left: 140px;
+}
+
+@media (max-width: 800px) {
+  .container {
+    padding-left: 0;
+  }
+  
+  .sidebar-visible .container,
+  .sidebar-visible .yield-content {
+    margin-left: 0;
+  }
+  
+}
 
 .navbar {
   color: black;
@@ -11,6 +48,9 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
+  transition: margin-left 0.5s ease;
+  margin-left: 0;
+
 }
 
 .navbar-brand {
@@ -44,6 +84,7 @@
 .sidebar .navbar-nav .nav-link:hover {
   background-color: transparent;
   color: #2659ff;
+  transition: 0.1s;
 }
 
 .navbar-nav .nav-link i,
@@ -300,8 +341,7 @@ trix-editor {
     background-color: #fff;
     box-shadow: none;
     outline: none;
-    -webkit-appearance: none;
-    -moz-appearance: none; }
+     }
     trix-toolbar .trix-input--dialog.validate:invalid {
       box-shadow: #F00 0px 0px 1.5px 1px; }
   trix-toolbar .trix-button--dialog {
@@ -370,9 +410,7 @@ trix-editor {
     text-align: center;
     vertical-align: top;
     border: none;
-    outline: none;
-    -webkit-appearance: none;
-    -moz-appearance: none; }
+    outline: none; }
   trix-editor .attachment__toolbar {
     position: absolute;
     z-index: 1;

@@ -8,8 +8,8 @@
     <div class="d-flex justify-content-end m-1">
       <div class="form-group mx-2">
         <%= form_tag events_path, method: :get, class: 'd-grid' do %>
-          <%= select_tag :doctor_id, options_for_select(Doctor.all.map { |doctor| [doctor.last_name, doctor.id] }, params[:doctor_id]), prompt: "Tous les Médecins", class: 'form-control' %>
-          <%= submit_tag "Filtrer", class: 'btn btn-primary mt-2' %>
+        <%= select_tag :doctor_id, options_for_select(Doctor.all.map { |doctor| ["Dr #{doctor.last_name} #{doctor.first_name}", doctor.id] }, params[:doctor_id]), prompt: "Tous les Médecins", class: 'form-control' %>
+        <%= submit_tag "Filtrer", class: 'btn btn-primary mt-2' %>
         <% end %>
       </div>
 
