@@ -24,15 +24,14 @@
       <% end %>
     </div>
 
-    <div class="form-group mb-3">
-  <%= form.label :doctor_id, "Nom du Médecin Remplacé", class: "col-form-label", for: "doctor-select" %>
-  <% if @doctors.present? %>
-    <%= select_tag :doctor_id, options_for_select(Doctor.all.map { |doctor| ["Dr #{doctor.last_name} #{doctor.first_name}", doctor.id] }, params[:doctor_id]), class: 'form-control', id: "doctor-select" %>
-  <% else %>
-    <p class="text-danger">Veuillez d'abord créer un profil médecin !</p>
-  <% end %>
-</div>
-
+ <div class="form-group mb-3">
+      <%= form.label :doctor_id, "Nom du Médecin Remplacé", class: "col-form-label" %>
+      <% if @doctors.present? %>
+        <%= form.select :doctor_id, options_for_select(@doctors, @event.doctor_id), {}, { class: "form-control" } %>
+      <% else %>
+        <p class="text-danger">Veuillez d'abord créer un profil médecin !</p>
+      <% end %>
+    </div>
 
 
 <div class="row">

@@ -70,6 +70,12 @@
   <p class="info m-3">Aucun événement disponible.</p>
 <% end %>
 
+  <% if current_user && current_user.admin? %>
+        <div class="d-flex justify-content-end m-1">
+          <%= link_to "Ajouter une Plage de Remplacement", new_event_path, class: 'btn btn-success mt-2'%>
+        </div>
+      <% end %>
+      
 <script>
   // Lorsque le document est prêt
   document.addEventListener('DOMContentLoaded', function() {
