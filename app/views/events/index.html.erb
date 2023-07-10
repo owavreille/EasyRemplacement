@@ -46,7 +46,7 @@
           <%= date.strftime("%d/%m/%Y") %>
           <div class="card-columns" style="flex-wrap: wrap;">
             <% events_to_display.each do |event| %>
-              <div class="card">
+              <div class="card mb-1">
                 <div class="card-header text-center" style="background-color: <%= event.site.color %>">
                   <div><%= event.site.name %></div>
                 </div>
