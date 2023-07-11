@@ -4,7 +4,7 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
 
 .container {
-  padding-left: 20px;
+  padding-left: 10px;
   transition: padding-left 0.5s ease;
 }
 
@@ -21,6 +21,7 @@
 }
 
 .yield-content {
+  padding-top: 60px;
   transition: margin-left 0.5s ease;
 }
 
@@ -43,7 +44,7 @@
 
 .navbar {
   color: black;
-  position: relative;
+  position: fixed;
   z-index: 1;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -59,6 +60,13 @@
 
 .navbar-text {
   margin-right: 10px;
+}
+
+.dropdownNavbar {
+  position: absolute;
+  top: 10px; 
+  right: 20px; 
+  z-index: 9999;
 }
 
 .navbar-nav,
