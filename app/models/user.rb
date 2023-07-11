@@ -23,12 +23,12 @@ class User < ApplicationRecord
       end
     end
 
-    scope :search_by_name, ->(query) {
-      where("LOWER(first_name) LIKE :query OR LOWER(last_name) LIKE :query",
-            query: "%#{query.downcase}%")
-    }
-
-
+    class User < ApplicationRecord
+      scope :search_by_name, ->(query) {
+        where("LOWER(first_name) LIKE :query OR LOWER(last_name) LIKE :query OR LOWER(CONCAT(first_name, ' ', last_name)) LIKE :query",
+              query: "%#{query.downcase}%")
+      }
+    end
 
   TITLE_OPTIONS = ['Dr', 'M.', 'Mme']
   

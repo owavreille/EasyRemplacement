@@ -4,7 +4,7 @@ class DataController < ApplicationController
 
   def require_role
     unless current_user&.role == true
-      redirect_to root_path, alert: "Accès non autorisé."
+      redirect_to root_path, alert: "Accès non Autorisé."
     end
   end
 

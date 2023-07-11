@@ -10,8 +10,9 @@
     </div>
     <div class="col-md-4">
       <div class="d-flex justify-content">
+              <% if params[:search].blank? %>
         <%= submit_tag 'Rechercher', class: 'btn btn-primary m-2' %>
-        <% if params[:search].present? %>
+        <% else %>
           <%= link_to 'Réinitialiser', users_path, class: 'btn btn-secondary m-2' %>
         <% end %>
       </div>

@@ -18,7 +18,7 @@
                   <th>Nb de Patients</th>
                   <th>Aide de Cs</th>
                   <th>Nom du Remplaçant</th>
-                  <th class="text-center">Montant</th>
+                  <th>Montant</th>
                   <th>Taux Reversion</th>
                   <th>Montant à Reverser</th>
                 </tr>
@@ -34,14 +34,21 @@
                     <td><%= event.number_of_patients %></td>
                     <td><%= event.helper ? 'oui' : 'non' %></td>
                     <td><%= event.user.first_name %> <%= event.user.last_name %></td>
-                    <td>
-                        <%= form_with(url: update_amount_data_path(event), method: :patch, remote: true, class: 'form-inline') do |form| %>
-                        <div class="form-group mr-2">
-                        <%= form.text_field :amount, class: 'form-control form-control-sm', value: event.amount %>
-                        </div>
-                        <%= form.submit 'Ok', class: 'btn btn-primary' %>
-                        <% end %>
-                    </td>
+                  <td>
+  <%= form_with(url: update_amount_data_path(event), method: :patch, remote: true, class: 'form-inline') do |form| %>
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <%= form.text_field :amount, class: 'form-control form-control-sm', value: event.amount %>
+        </div>
+      </div>
+      <div class="col">
+        <%= form.submit 'Ok', class: 'btn btn-primary btn-sm' %>
+      </div>
+    </div>
+  <% end %>
+</td>
+
 
                     <td><%= event.reversion %> % </td>
                     <td><%= event.amount_paid %></td>
