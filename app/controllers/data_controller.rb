@@ -1,8 +1,14 @@
 class DataController < ApplicationController
+  before_action :require_role, only: [:index, :update_amount, :generate_contract]
 
+
+  def require_role
+    unless current_user&.role == true
+      redirect_to root_path, alert: "Accès non autorisé."
+    end
+  end
 
   def index
-    @events = Event.all 
     @contracts = Event.where.not(contract_blob: nil)
     @past_events = Event.where.not(user_id: nil).where('end_time < ?', Time.now)
     @upcoming_events = Event.where.not(user_id: nil).where('start_time > ?', Time.now)
@@ -11,7 +17,6 @@ class DataController < ApplicationController
   end
 
   def userdata
-    @events = Event.all 
     @past_events = Event.where(user_id: current_user.id).where('end_time < ?', Time.now)
     @upcoming_events = Event.where(user_id: current_user.id).where('start_time > ?', Time.now)
   

@@ -44,6 +44,8 @@
   </div>
 </div>
 
-<div class="text-end m-3">
-  <%= link_to "Ajouter une Mailing List", new_mailing_list_path, class: "btn btn-primary" %>
-</div>
+          <div style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
+          <%= link_to new_mailing_list_path do %>
+          <i class="bi bi-plus-circle-fill text-primary" style="font-size: 3rem;"></i>
+          <% end %>
+        </div>

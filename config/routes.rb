@@ -37,7 +37,7 @@ match '/events/:id/booking', to: 'events#booking', via: [:get, :put], as: 'booki
 match '/events/:id/cancel_booking', to: 'data#cancel_booking', via: :delete, as: 'cancel_booking_event'
 get '/list', to: 'events#list', as: 'list'
 
-# Suivi des remplacements global et par utilisateur
+# Suivi des remplacements et suivi par utilisateur
 get '/datas', to: 'data#index', as: 'datas'
 patch '/data/:id/update_amount', to: 'data#update_amount', as: 'update_amount_data'
 get '/userdata', to: 'data#userdata', as: 'userdata'
@@ -54,8 +54,5 @@ get '/office', to: 'office#index', as: 'office'
 
 # Comptabilité
 get '/accounting', to: 'accounting#index', as: 'accounting'
-
-# Affichage du calendrier selon la taille de la fenêtre
-get '/shared/calendar_partial', to: 'shared#calendar_partial'
 
 end

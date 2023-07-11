@@ -23,6 +23,13 @@ class User < ApplicationRecord
       end
     end
 
+    scope :search_by_name, ->(query) {
+      where("LOWER(first_name) LIKE :query OR LOWER(last_name) LIKE :query",
+            query: "%#{query.downcase}%")
+    }
+
+
+
   TITLE_OPTIONS = ['Dr', 'M.', 'Mme']
   
   validates :title, inclusion: { in: TITLE_OPTIONS, allow_nil: true }, presence: false

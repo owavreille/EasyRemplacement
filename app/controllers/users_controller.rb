@@ -3,8 +3,13 @@ class UsersController < ApplicationController
 
 
   def index
-    @users = User.all
+    if params[:search]
+      @pagy, @users = pagy(User.search_by_name(params[:search]), items: 10)
+    else
+      @pagy, @users = pagy(User.all, items: 10)
+    end
   end
+  
 
   def show
     # Utilisez @user pour accéder aux données de l'utilisateur dans la vue

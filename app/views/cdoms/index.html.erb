@@ -39,7 +39,13 @@
   </div>
 </div>
 
-<div class="text-end m-3">
-  <%= link_to 'Ajouter un Conseil de l\'Ordre', new_cdom_path, class: 'btn btn-primary' %>
+          <div style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
+          <%= link_to new_cdom_path do %>
+          <i class="bi bi-plus-circle-fill text-primary" style="font-size: 3rem;"></i>
+          <% end %>
+        </div>
+
+
+<div class="m-3">
   <%== pagy_bootstrap_nav(@pagy) %>
 </div>

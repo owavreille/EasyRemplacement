@@ -49,6 +49,14 @@
     </div>
   </div>
 </div>
-<div class="text-end m-3">
-   <%= link_to "Ajouter un Médecin", new_doctor_path, class: 'btn btn-primary' %>
+
+        <div class="d-flex justify-content-end m-1">
+          <div style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
+          <%= link_to new_doctor_path do %>
+          <i class="bi bi-plus-circle-fill text-primary" style="font-size: 3rem;"></i>
+          <% end %>
+        </div>
+
+<div class="m-3">
+     <%== pagy_bootstrap_nav(@pagy) %>
 </div>
