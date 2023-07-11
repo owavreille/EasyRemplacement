@@ -97,9 +97,9 @@
           <%= date.strftime("%d/%m/%Y") %>
           <div class="card-columns" style="flex-wrap: wrap;">
             <% events_to_display.each do |event| %>
-              <div class="card mb-1">
+              <div class="card mb-1" style="border-left: 5px solid <%= event.site.color %>;">
                 <div class="card-body" style="overflow-wrap: break-word;">
-                  <div class="text-center"><i class="bi bi-circle-fill bi-2x" style="color: <%= event.site.color %>"></i> <%= event.site.name %></div>
+                  <div id="bubble" class="text-center"><%= event.site.name %></div>
                   <hr>
                   <strong>Horaires :</strong> <%= event.start_time.strftime("%H:%M") %> - <%= event.end_time.strftime("%H:%M") %><br>
                   <strong>Médecin :</strong> Dr <%= event.doctor.last_name %> <%= event.doctor.first_name %><br>
