@@ -139,9 +139,16 @@
       </div>
 
       <% if current_user && current_user.admin? %>
-        <div class="d-flex justify-content-end m-1">
-          <%= link_to "Ajouter une Plage de Remplacement", new_event_path, class: 'btn btn-success mt-2'%>
-        </div>
+       <div class="d-flex justify-content-end m-1">
+  <div style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
+    <%= link_to new_event_path do %>
+      <i class="bi bi-plus-circle-fill" style="font-size: 3rem; color: green;"></i>
+    <% end %>
+  </div>
+</div>
+
+
+
       <% end %>
     </div>
   </div>
