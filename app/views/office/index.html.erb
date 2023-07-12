@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col d-flex">
-      <div class="card bg-light shadow-lg m-1 border-bottom-color-doctors m-3 mx-auto" style="width: 40rem;">
+      <div class="card shadow m-1 border-bottom-color-doctors m-3 mx-auto" style="width: 40rem;">
         <div class="card-body">
           <h4 class="mb-4 text-center">Présentation du (des) Praticien(s) du cabinet :</h4>
         </div>
@@ -11,11 +11,10 @@
   <div class="row">
     <% @doctors.each do |doctor| %>
       <div class="col-md-4 mb-4">
-        <div class="card shadow-lg m-3">
-          <div class="card-header text-center">
-            <h5 class="card-title"><i class="bi bi-person-lines-fill"></i> <%= doctor.title %> <%= doctor.last_name %> <%= doctor.first_name %></h5>
-          </div>
+        <div class="card shadow m-3">
           <div class="card-body">
+<h5 class="text-center"><i class="bi bi-person-lines-fill"></i> <%= doctor.title %> <%= doctor.last_name %> <%= doctor.first_name %></h5>
+            <hr>
             <ul class="list-unstyled">
               <li>RPPS: <span class="text-primary"><%= doctor.rpps %></span></li>
               <li>Spécialité: <span class="text-primary"><%= doctor.speciality %></span></li>
@@ -32,7 +31,7 @@
 
   <div class="row mt-5">
     <div class="col d-flex">
-      <div class="card bg-light shadow-lg m-1 border-bottom-color-sites m-3 mx-auto" style="width: 40rem;">
+      <div class="card shadow m-1 border-bottom-color-sites m-3 mx-auto" style="width: 40rem;">
         <div class="card-body">
           <h4 class="mb-4 text-center">Présentation du (des) site(s) de consultation :</h4>
         </div>
@@ -42,11 +41,10 @@
   <div class="row">
     <% @sites.each do |site| %>
       <div class="col-md-4 mb-4">
-        <div class="card shadow-lg m-3">
-          <div class="card-header text-center">
-            <h5 class="card-title"><i class="bi bi-house-door-fill"></i> <%= site.name %></h5>
-          </div>
+        <div class="card shadow m-3" style="border-left: 5px solid <%= site.color %>;">
           <div class="card-body">
+            <h5 class="text-center"><i class="bi bi-house-door-fill"></i> <%= site.name %></h5>
+          <hr>
             <ul class="list-unstyled">
               <li>Adresse: <span class="text-primary"><%= site.address %></span></li>
               <li>Code postal: <span class="text-primary"><%= site.postal_code %></span></li>

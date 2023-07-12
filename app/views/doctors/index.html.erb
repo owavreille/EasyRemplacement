@@ -2,6 +2,24 @@
   <div class="card-header">
     <h1>Liste des Médecins</h1>
   </div>
+
+<div class="row m-2">
+  <div class="col-md-8 mt-2">
+    <%= form_tag doctors_path, method: :get, class: 'w-100' do %>
+      <%= text_field_tag :search, params[:search], placeholder: 'Rechercher par Nom ou Prénom', class: 'form-control' %>
+    </div>
+    <div class="col-md-4">
+      <div class="d-flex justify-content">
+              <% if params[:search].blank? %>
+        <%= submit_tag 'Rechercher', class: 'btn btn-primary m-2' %>
+        <% else %>
+          <%= link_to 'Réinitialiser', doctors_path, class: 'btn btn-secondary m-2' %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
   <div class="card-body">
     <div class="table-responsive">
     <table class="table table-striped">

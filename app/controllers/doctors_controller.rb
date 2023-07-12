@@ -10,8 +10,11 @@ class DoctorsController < ApplicationController
 
   # GET /doctors or /doctors.json
   def index
-    @doctors = Doctor.all
-    @pagy, @users = pagy(Doctor.all, items: 10)
+    if params[:search]
+      @pagy, @doctors = pagy(Doctor.search_by_name(params[:search]), items: 10)
+    else
+      @pagy, @doctors = pagy(Doctor.all, items: 10)
+    end
   end
 
   # GET /doctors/new

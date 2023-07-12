@@ -10,8 +10,11 @@ class SitesController < ApplicationController
 
   # GET /sites or /sites.json
   def index
-    @sites = Site.all
-    @pagy, @users = pagy(Site.all, items: 10)
+    if params[:search]
+      @pagy, @sites = pagy(Site.search_by_name(params[:search]), items: 10)
+    else
+      @pagy, @sites = pagy(Site.all, items: 10)
+    end
   end
 
   # GET /sites/new

@@ -4,6 +4,10 @@ class Site < ApplicationRecord
   has_many :mailing_lists
 
   attr_accessor :am_min_hour_select, :am_max_hour_select, :pm_min_hour_select, :pm_max_hour_select
-
+  
+  scope :search_by_name, ->(query) {
+    where("LOWER(name) LIKE :query",
+          query: "%#{query.downcase}%")
+}
 
 end
