@@ -20,7 +20,6 @@
     <% end %>
   </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script>
   var variables = {
@@ -65,13 +64,12 @@
   function importVariable() {
     var selectedVariable = $("#variable_selector").val();
     var contractContent = $("#contract_content");
-    var cursorPosition = contractContent[0].selectionStart; // Get cursor position
+    var cursorPosition = contractContent[0].selectionStart; 
 
     var currentText = contractContent.val();
     var newText = currentText.slice(0, cursorPosition) + selectedVariable + currentText.slice(cursorPosition);
     contractContent.val(newText);
 
-    // Set new cursor position after the inserted variable
     contractContent[0].selectionStart = contractContent[0].selectionEnd = cursorPosition + selectedVariable.length;
 
     clearVariableSelector();
