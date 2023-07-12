@@ -1,6 +1,6 @@
 <% if user_signed_in? %>
 <nav class="navbar fixed-top navbar-light bg-light bg-white">
-  <div class="container fluid">
+  <div class="container">
         <% if current_user && current_user.admin? %>
           <button class="sidebar-toggle-btn" onclick="toggleSidebar()">
             <span class="navbar-toggler-icon"></span>
