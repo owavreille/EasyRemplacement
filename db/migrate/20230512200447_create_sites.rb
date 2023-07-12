@@ -17,7 +17,7 @@ class CreateSites < ActiveRecord::Migration[7.0]
       t.datetime :am_max_hour
       t.datetime :pm_min_hour
       t.datetime :pm_max_hour
-      t.integer :min_lenght
+      t.datetime :min_lenght
 
       t.timestamps
     end
