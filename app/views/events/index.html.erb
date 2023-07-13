@@ -1,7 +1,7 @@
 
 <div class="container-fluid m-3">
   <div class="card shadow">
-    <div class="card-body text-center">
+    <div class="card-body">
       <h1>Planning des Remplacements</h1>
     <hr>
 
@@ -93,15 +93,14 @@
           <div class="card-columns" style="flex-wrap: wrap;">
             <% events_to_display.each do |event| %>
               <div class="card mb-1" style="border-left: 5px solid <%= event.site.color %>; min-width: 250px;">
-                <div class="card-body" style="overflow-wrap: break-word;">
-                  <div id="bubble" class="text-center"><%= event.site.name %></div>
+                <div class="card-body">
+                  <p class="text-center"><%= event.site.name %></p>
                   <hr>
-                  <strong>Horaires :</strong> <%= event.start_time.strftime("%H:%M") %> - <%= event.end_time.strftime("%H:%M") %><br>
-                  <strong>Médecin :</strong> Dr <%= event.doctor.last_name %> <%= event.doctor.first_name %><br>
-                  <strong>Nb de Patients :</strong> <%= event.number_of_patients %><br>
-                  <strong>Taux de Reversion :</strong> <%= event.reversion %> %<br>
-                  <strong>Cs Aidée :</strong> <%= event.helper ? 'oui' : 'non' %>
-
+                    <strong>Horaires :</strong> <%= event.start_time.strftime("%H:%M") %> - <%= event.end_time.strftime("%H:%M") %><br>
+                    <strong>Médecin :</strong> Dr <%= event.doctor.last_name %> <%= event.doctor.first_name %><br>
+                    <strong>Nb de Patients :</strong> <%= event.number_of_patients %><br>
+                    <strong>Taux de Reversion :</strong> <%= event.reversion %> %<br>
+                    <strong>Cs Aidée :</strong> <%= event.helper ? 'oui' : 'non' %>
                   <hr>
 
                   <div class="text-center">
