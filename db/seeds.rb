@@ -155,7 +155,7 @@
      puts "Ensemble des sites du conseil de l'ordre créés avec succès"
 
          # Création d'un site de consultation
-         site = Site.create!(
+     site = Site.create!(
           name: 'Cabinet de Douai', 
           address: '11 avenue des Potiers', 
           city: 'Douai', 

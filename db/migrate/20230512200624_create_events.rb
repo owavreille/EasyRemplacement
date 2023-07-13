@@ -14,6 +14,11 @@ class CreateEvents < ActiveRecord::Migration[7.0]
       t.boolean :contract_generated
       t.boolean :contract_validated
       t.boolean :editable
+      t.integer :patient_count
+      t.datetime :am_min_hour
+      t.datetime :am_max_hour
+      t.datetime :pm_min_hour
+      t.datetime :pm_max_hour
       t.references :contract_blob, polymorphic: true
 
       t.timestamps

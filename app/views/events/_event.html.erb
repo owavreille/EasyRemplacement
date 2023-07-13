@@ -6,11 +6,13 @@
     Résumé du Remplacement à venir :
   </div>
                 <div class="card-body" style="overflow-wrap: break-word;">
-                  <div class="d-flex justify-content-between"><%= event.site.name %> <% if current_user && current_user.admin? %>
+                    <div class="d-flex justify-content-between"><%= event.site.name %> 
+                      <% if current_user && current_user.admin? %>
                       <%= link_to edit_event_path(event), class: 'btn btn-outline-primary m-1' do %>
                        <i class="bi bi-pencil"></i>
                       <% end %>
-                      <% end %></div>
+                      <% end %>
+                    </div>
                   <hr>
                   <strong>Horaires :</strong> <%= event.start_time.strftime("%H:%M") %> - <%= event.end_time.strftime("%H:%M") %><br>
                   <strong>Médecin :</strong> Dr <%= event.doctor.last_name %> <%= event.doctor.first_name %><br>
@@ -20,9 +22,36 @@
                   <% if event.editable == true %>
                   <hr>
                   <div>
+                  <% if event.helper == false %>
+                      <strong>Nombre de Patients / heure :</strong> 
+                            <%= form_for(@event, url: event_path(@event), html: { class: 'form' }) do |form| %>
+                          <div class="row">
+                          <div class = "col">
+                            <%= form.number_field :patient_count, min: @event.site.min_patients, max: @event.site.max_patients, class: 'form-control' %>
+                          </div>
+                          <div class = "col">
+                            <%= form.submit 'Ok', class: 'btn btn-primary' %>
+                            <% end %>
+                          </div>
+                        </div>
+
+
+                  <% else %>
+
+                      <strong>Nombre de Patients / heure :</strong> 
+                            <%= form_for(@event, url: event_path(@event), html: { class: 'form' }) do |form| %>
+                          <div class="row">
+                          <div class = "col">
+                            <%= form.number_field :patient_count, min: @event.site.min_patients_helped, max: @event.site.max_patients_helped, class: 'form-control' %>
+                          </div>
+                          <div class = "col">
+                            <%= form.submit 'Ok', class: 'btn btn-primary' %>
+                            <% end %>
+                          </div>
+                        </div>
+                  <% end %>
                   <% end %>
 
-                  </div>
                   <hr>
                   <div class="text-center">
                       <% if event.user_id.present? %>
@@ -36,5 +65,3 @@
                       <% end %>
                       </div>
 </div>
-
-

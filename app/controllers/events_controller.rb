@@ -37,6 +37,7 @@ end
 
   # GET /events/1 or /events/1.json
   def show
+    @event = Event.find(params[:id])
   end
 
   def list
@@ -121,7 +122,7 @@ end
     user = User.find(@event.user_id) if @event.user_id.present?
 
      if @event.user_id.present?
-      flash[:notice] = "Cet événement est déjà réservé."
+      flash[:notice] = "Ce remplacement est déjà réservé."
     else
       @event.update(user_id: current_user.id)
       flash[:notice] = "Plage de Remplacement Réservée avec Succès."
@@ -152,6 +153,6 @@ end
 
     # Only allow a list of trusted parameters through.
     def event_params
-      params.require(:event).permit(:site_id, :doctor_id, :start_time, :end_time, :number_of_patients, :helper, :user_id, :amount, :reversion, :amount_paid, :contract_generated, :contract_validated, :editable, :contract_blob)
+      params.require(:event).permit(:site_id, :doctor_id, :start_time, :end_time, :number_of_patients, :helper, :user_id, :amount, :reversion, :amount_paid, :contract_generated, :contract_validated, :editable, :patient_count, :am_min_hour, :am_max_hour, :pm_min_hour, :pm_max_hour, :contract_blob)
     end    
 end

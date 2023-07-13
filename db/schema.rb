@@ -87,6 +87,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_13_072825) do
     t.boolean "contract_generated"
     t.boolean "contract_validated"
     t.boolean "editable"
+    t.integer "patient_count"
+    t.datetime "am_min_hour"
+    t.datetime "am_max_hour"
+    t.datetime "pm_min_hour"
+    t.datetime "pm_max_hour"
     t.string "contract_blob_type"
     t.integer "contract_blob_id"
     t.datetime "created_at", null: false
@@ -123,7 +128,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_13_072825) do
     t.datetime "am_max_hour"
     t.datetime "pm_min_hour"
     t.datetime "pm_max_hour"
-    t.integer "min_lenght"
+    t.datetime "min_lenght"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["cdom_id"], name: "index_sites_on_cdom_id"
