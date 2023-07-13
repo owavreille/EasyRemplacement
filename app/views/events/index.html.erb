@@ -120,8 +120,8 @@
                           Réservé
                         <% end %>
                       <% else %>
-                        <%= button_to booking_event_path(event), method: :put, data: { "turbo-confirm": 'Confirmez vous réaliser le remplacement sélectionné ?' }, class: 'btn btn-primary m-1' do %>
-                          Réserver
+                        <%= link_to event_path(event), method: :get, class: 'btn btn-primary m-1' do %>
+                          Détails
                         <% end %>
                       <% end %>
                     </div>

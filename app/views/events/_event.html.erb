@@ -1,31 +1,40 @@
 <% event_start = event.start_time.strftime("%H:%M") %>
 <% event_end = event.end_time.strftime("%H:%M") %>
  
-  <div class="card m-3 mx-auto" style="border-left: 5px solid <%= event.site.color %>; width: 30rem;">
+  <div class="card m-3 mx-auto" style="border-left: 5px solid <%= event.site.color %>; max-width: 30rem;">
    <div class="card-header">
-    Résumé du Remplacement à venir
+    Résumé du Remplacement à venir :
   </div>
                 <div class="card-body" style="overflow-wrap: break-word;">
-                  <div id="bubble" class="text-center"><%= event.site.name %></div>
+                  <div class="d-flex justify-content-between"><%= event.site.name %> <% if current_user && current_user.admin? %>
+                      <%= link_to edit_event_path(event), class: 'btn btn-outline-primary m-1' do %>
+                       <i class="bi bi-pencil"></i>
+                      <% end %>
+                      <% end %></div>
                   <hr>
                   <strong>Horaires :</strong> <%= event.start_time.strftime("%H:%M") %> - <%= event.end_time.strftime("%H:%M") %><br>
                   <strong>Médecin :</strong> Dr <%= event.doctor.last_name %> <%= event.doctor.first_name %><br>
                   <strong>Nb de Patients :</strong> <%= event.number_of_patients %><br>
                   <strong>Taux de Reversion :</strong> <%= event.reversion %> %<br>
                   <strong>Cs Aidée :</strong> <%= event.helper ? 'oui' : 'non' %>
-
+                  <% if event.editable == true %>
                   <hr>
+                  <div>
+                  <% end %>
 
+                  </div>
+                  <hr>
                   <div class="text-center">
-                    <div class="d-flex justify-content-center">
-      <% if current_user && current_user.admin? %>
-                <%= link_to edit_event_path(event), class: 'btn btn-outline-primary m-1' do %>
-                  <i class="bi bi-pencil"></i>
-                <% end %>
-                <% end %>
-      </div>
-    </p>
-  </div>
+                      <% if event.user_id.present? %>
+                        <%= link_to "#", class: 'btn btn-secondary m-1', disabled: true, style: 'pointer-events: none;' do %>
+                          Réservé
+                        <% end %>
+                      <% else %>
+                        <%= button_to booking_event_path(event), method: :put, data: { "turbo-confirm": 'Confirmez vous réaliser le remplacement sélectionné ?' }, class: 'btn btn-primary m-1' do %>
+                          Réserver
+                        <% end %>
+                      <% end %>
+                      </div>
 </div>
 
 

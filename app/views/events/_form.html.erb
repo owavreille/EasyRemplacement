@@ -55,14 +55,25 @@
   <%= form.number_field :number_of_patients, value: 25, class: "form-control" %>
 </div>
 
+      <div class="row">
+        <div class ="col-md-6">  
+            <div class="form-group mb-3">
+              <%= form.label :helper, "Consultation Aidée", class: "col-form-label", for: "helper-switch" %>
+                <div class="form-check form-switch mb-3">
+                  <%= form.check_box :helper, checked: true, class: "form-check-input align-middle", id: "helper-switch" %>
+                </div>
+            </div>
+            </div>
 
-    <div class="form-group mb-3">
-      <%= form.label :helper, "Consultation Aidée", class: "col-form-label", for: "helper-switch" %>
-      <div class="form-check form-switch mb-3">
-      <%= form.check_box :helper, checked: true, class: "form-check-input align-middle", id: "helper-switch" %>
-    </div>
-
-    </div>
+        <div class ="col-md-6">
+            <div class="form-group mb-3">
+          <%= form.label :editable, "Horaires et rythme modifiables ?", class: "col-form-label", for: "editable-switch" %>
+          <div class="form-check form-switch mb-3">
+          <%= form.check_box :editable, checked: true, class: "form-check-input align-middle", id: "editable-switch" %>
+         </div>
+        </div>
+       </div>
+      </div>
 
     <div class="form-group mb-3">
       <%= form.label :reversion, "Taux de Reversion", class: "col-form-label" %>
