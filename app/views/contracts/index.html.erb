@@ -1,6 +1,6 @@
 <div class="card shadow m-3">
   <div class="card-header">
-    <h1>Édition du contrat de Remplacement</h1>
+    <h1>Édition du Contrat de Remplacement</h1>
   </div>
   <div class="card-body">
     <%= form_tag(update_contract_contracts_path, method: :patch) do %>
@@ -10,7 +10,7 @@
           <select id="variable_selector" class="form-select"></select>
           <button id="import_variable_btn" class="btn btn-primary" type="button">Insérer</button>
         </div>
-        <%= text_area_tag :contract_content, @contract_content, rows: 10, class: "form-control", id: "contract_content" %>
+        <%= rich_text_area_tag :contract_content, @contract_content, rows: 10, class: "form-control", id: "contract_content" %>
         <div id="variable_list"></div>
       </div>
       <div class="text-end mt-4">
