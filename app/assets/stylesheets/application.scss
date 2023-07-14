@@ -165,6 +165,18 @@
   font-size: 1.5rem;
 }
 
+.add-icon {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  font-size: 3rem;
+}
+
+.add-icon:hover {
+  cursor: pointer; 
+}
+
 
 .simple-calendar .today {
   background-color: #b6d6f3; /* Light blue */
