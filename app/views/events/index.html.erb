@@ -8,11 +8,10 @@
     <div class="d-flex justify-between flex-wrap m-3">
       
       <div class="form-group m-2">
-  <%= form_tag events_path, method: :get, class: 'row g-2 align-items-center' do %>
+  <%= form_tag events_path, method: :get, class: 'row g-2 align-items-center', data: { controller: "auto-submit" } do %>
     <div class="col-auto">
       <div class="btn-group" role="group">
-        <%= date_field_tag :start_date, params[:start_date], class: 'form-control rounded-0', placeholder: 'Sélectionnez une date' %>
-        <%= submit_tag ">>", class: 'btn btn-outline-secondary' %>
+        <%= date_field_tag :start_date, params[:start_date], class: 'form-control', placeholder: 'Sélectionnez une date', data: { "auto-submit-target": "field"} %>
       </div>
     </div>
   <% end %>
@@ -21,25 +20,24 @@
 
       <div class="d-flex ms-auto">
        <div class="form-group m-2">
-  <%= form_tag events_path, method: :get, class: 'row g-2 align-items-center', id: 'doctor-form' do %>
+  <%= form_tag events_path, method: :get, class: 'row g-2 align-items-center', id: 'doctor-form', data: { controller: "auto-submit" }  do %>
     <div class="col-auto">
       <div class="btn-group" role="group">
         <div class="dropdown">
-          <button class="btn btn-outline-secondary dropdown-toggle rounded-0" type="button" id="doctorDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="doctorDropdown" data-bs-toggle="dropdown" aria-expanded="false">
             Praticiens
           </button>
           <ul class="dropdown-menu" aria-labelledby="doctorDropdown">
             <% @doctors.each do |doctor| %>
               <li>
                 <div class="form-check d-flex align-items-center">
-                  <%= check_box_tag 'doctor_ids[]', doctor.id, @selected_doctor_ids.include?(doctor.id.to_s), id: "doctor_#{doctor.id}", class: 'form-check-input mx-0' %>
+                  <%= check_box_tag 'doctor_ids[]', doctor.id, @selected_doctor_ids.include?(doctor.id.to_s), id: "doctor_#{doctor.id}", class: 'form-check-input mx-0', data: { "auto-submit-target": "field"} %>
                   <%= label_tag "doctor_#{doctor.id}", "Dr #{doctor.last_name} #{doctor.first_name}", class: 'form-check-label dropdown-item mb-0', style: 'color: black; background-color: transparent;' %>
                 </div>
               </li>
             <% end %>
           </ul>
         </div>
-        <%= submit_tag ">>", class: 'btn btn-outline-secondary' %>
       </div>
     </div>
   <% end %>
@@ -47,25 +45,24 @@
 
 
       <div class="form-group m-2">
-  <%= form_tag events_path, method: :get, class: 'row g-2 align-items-center', id: 'site-form' do %>
+  <%= form_tag events_path, method: :get, class: 'row g-2 align-items-center', id: 'site-form', data: { controller: "auto-submit" }  do %>
     <div class="col-auto">
       <div class="btn-group" role="group">
         <div class="dropdown">
-          <button class="btn btn-outline-secondary dropdown-toggle rounded-0" type="button" id="siteDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="siteDropdown" data-bs-toggle="dropdown" aria-expanded="false">
             Sites
           </button>
           <ul class="dropdown-menu" aria-labelledby="siteDropdown">
             <% @sites.each do |site| %>
               <li>
                 <div class="form-check d-flex align-items-center">
-                  <%= check_box_tag 'site_ids[]', site.id, @selected_site_ids.include?(site.id.to_s), id: "site_#{site.id}", class: 'form-check-input mx-0' %>
+                  <%= check_box_tag 'site_ids[]', site.id, @selected_site_ids.include?(site.id.to_s), id: "site_#{site.id}", class: 'form-check-input mx-0', data: { "auto-submit-target": "field" }  %>
                   <%= label_tag "site_#{site.id}", site.name, class: 'form-check-label dropdown-item mb-0', style: 'color: black; background-color: transparent;' %>
                 </div>
               </li>
             <% end %>
           </ul>
         </div>
-        <%= submit_tag ">>", class: 'btn btn-outline-secondary' %>
       </div>
     </div>
   <% end %>
