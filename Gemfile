@@ -22,7 +22,7 @@ gem 'devise', '~> 4.9', '>= 4.9.2'
 gem 'devise-i18n', '~> 1.11'
 
 # A simple Rails calendar
-gem "simple_calendar", "~> 2.4"
+gem "simple_calendar"
 
 # Agnostic pagination in plain ruby.
 gem 'pagy', '~> 6.0', '>= 6.0.4'
@@ -34,7 +34,7 @@ gem 'whenever', '~> 1.0'
 gem 'chartkick', '~> 5.0', '>= 5.0.2'
 
 # The simplest way to group temporal data
-gem 'groupdate', '~> 6.2', '>= 6.2.1'
+gem 'groupdate'
 
 # Loads environment variables from `.env`.
 gem 'dotenv-rails'

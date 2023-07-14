@@ -6,10 +6,7 @@
     <hr>
 
     <div class="d-flex justify-between flex-wrap m-3">
-      <div>
-        <%= link_to "Aujourd'hui", events_path(date: Date.current), class: 'btn btn-outline-secondary mt-2' %>
-      </div>
-
+      
       <div class="form-group m-2">
         <%= form_tag events_path, method: :get, class: 'row g-2 align-items-center' do %>
           <div class="col-auto">

@@ -6,7 +6,7 @@
     Résumé du Remplacement à venir :
   </div>
                 <div class="card-body" style="overflow-wrap: break-word;">
-                    <div class="d-flex justify-content-between"><%= event.site.name %> 
+                    <div class="d-flex justify-content-between"><strong><%= event.site.name %></strong> 
                       <% if current_user && current_user.admin? %>
                       <%= link_to edit_event_path(event), class: 'btn btn-outline-primary m-1' do %>
                        <i class="bi bi-pencil"></i>
@@ -22,46 +22,137 @@
                   <% if event.editable == true %>
                   <hr>
                   <div>
+
                   <% if event.helper == false %>
-                      <strong>Nombre de Patients / heure :</strong> 
-                            <%= form_for(@event, url: event_path(@event), html: { class: 'form' }) do |form| %>
-                          <div class="row">
-                          <div class = "col">
-                            <%= form.number_field :patient_count, min: @event.site.min_patients, max: @event.site.max_patients, class: 'form-control' %>
-                          </div>
-                          <div class = "col">
-                            <%= form.submit 'Ok', class: 'btn btn-primary' %>
-                            <% end %>
-                          </div>
-                        </div>
+  <strong>Nombre de Patients / heure souhaité :</strong> 
+  <%= form_for(@event, url: event_path(@event), html: { class: 'form' }) do |form| %>
+    <div class="row">
+      <div class = "col">
+        <%= form.number_field :patient_count, min: @event.site.min_patients, max: @event.site.max_patients, class: 'form-control' %>
+      </div>
+    </div>
 
+    <% if @event.start_time.hour < 13 && @event.end_time.hour < 13 %>
+      <strong>Horaires de la matinée souhaités :</strong> 
+      <div class="row align-items-center">
+        <div class="col-md">
+          <div class="d-flex">
+            <%= form.time_select :am_min_hour, { default: @event.site.am_min_hour, start_hour: @event.site.am_min_hour.hour, end_hour: @event.site.am_max_hour.hour, minute_step: 10 }, { class: 'form-control mx-1' } %>
+          </div>
+        </div>
+        <div class="col-md">
+          <div class="d-flex">
+            <%= form.time_select :am_max_hour, { default: @event.site.am_max_hour, start_hour: @event.site.am_min_hour.hour, end_hour: @event.site.am_max_hour.hour, minute_step: 10 }, { class: 'form-control mx-1' } %>
+          </div>
+        </div>
+      </div>
+    <% elsif @event.start_time.hour >= 13 && @event.end_time.hour >= 13 %>
+      <strong>Horaires de l'après-midi' souhaités :</strong> 
+      <div class="row align-items-center">
+        <div class="col-md">
+          <div class="d-flex">
+            <%= form.time_select :pm_min_hour, { default: @event.site.pm_min_hour, start_hour: @event.site.pm_min_hour.hour, end_hour: @event.site.pm_max_hour.hour, minute_step: 10 }, { class: 'form-control mx-1' } %>
+          </div>
+        </div>
+        <div class="col-md">
+          <div class="d-flex">
+            <%= form.time_select :pm_max_hour, { default: @event.site.pm_max_hour, start_hour: @event.site.pm_min_hour.hour, end_hour: @event.site.pm_max_hour.hour, minute_step: 10 }, { class: 'form-control mx-1' } %>
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <strong>Horaires de la journée souhaités :</strong> 
+      <div class="row align-items-center">
+        <div class="col-md">
+          <div class="d-flex">
+            <%= form.time_select :am_min_hour, { default: @event.site.am_min_hour, start_hour: @event.site.am_min_hour.hour, end_hour: @event.site.am_max_hour.hour, minute_step: 10 }, { class: 'form-control mx-1' } %>
+          </div>
+        </div>
+        <div class="col-md">
+          <div class="d-flex">
+            <%= form.time_select :pm_max_hour, { default: @event.site.pm_max_hour, start_hour: @event.site.pm_min_hour.hour, end_hour: @event.site.pm_max_hour.hour, minute_step: 10 }, { class: 'form-control mx-1' } %>
+          </div>
+        </div>
+      </div>
+    <% end %>
 
-                  <% else %>
+      <div class="text-end">
+        <%= form.submit 'Enregistrer', class: 'btn btn-primary m-2' %>
+      </div>
 
-                      <strong>Nombre de Patients / heure :</strong> 
-                            <%= form_for(@event, url: event_path(@event), html: { class: 'form' }) do |form| %>
-                          <div class="row">
-                          <div class = "col">
-                            <%= form.number_field :patient_count, min: @event.site.min_patients_helped, max: @event.site.max_patients_helped, class: 'form-control' %>
-                          </div>
-                          <div class = "col">
-                            <%= form.submit 'Ok', class: 'btn btn-primary' %>
-                            <% end %>
-                          </div>
-                        </div>
-                  <% end %>
-                  <% end %>
+  <% end %>
+<% else %>
+  <strong>Nombre de Patients / heure souhaité :</strong> 
+  <%= form_for(@event, url: event_path(@event), html: { class: 'form' }) do |form| %>
+    <div class="row">
+      <div class = "col-md">
+        <%= form.number_field :patient_count, min: @event.site.min_patients_helped, max: @event.site.max_patients_helped, class: 'form-control' %>
+      </div>
+    </div>
 
-                  <hr>
-                  <div class="text-center">
-                      <% if event.user_id.present? %>
-                        <%= link_to "#", class: 'btn btn-secondary m-1', disabled: true, style: 'pointer-events: none;' do %>
-                          Réservé
-                        <% end %>
-                      <% else %>
-                        <%= button_to booking_event_path(event), method: :put, data: { "turbo-confirm": 'Confirmez vous réaliser le remplacement sélectionné ?' }, class: 'btn btn-primary m-1' do %>
-                          Réserver
-                        <% end %>
-                      <% end %>
-                      </div>
-</div>
+    <% if @event.start_time.hour < 13 && @event.end_time.hour < 13 %>
+      <strong>Horaires de la matinée souhaités :</strong> 
+      <div class="row align-items-center">
+        <div class="col-md">
+          <div class="d-flex">
+            <%= form.time_select :am_min_hour, { default: @event.site.am_min_hour, start_hour: @event.site.am_min_hour.hour, end_hour: @event.site.am_max_hour.hour, minute_step: 10 }, { class: 'form-control mx-1' } %>
+          </div>
+        </div>
+        <div class="col-md">
+          <div class="d-flex">
+            <%= form.time_select :am_max_hour, { default: @event.site.am_max_hour, start_hour: @event.site.am_min_hour.hour, end_hour: @event.site.am_max_hour.hour, minute_step: 10 }, { class: 'form-control mx-1' } %>
+          </div>
+        </div>
+      </div>
+    <% elsif @event.start_time.hour >= 13 && @event.end_time.hour >= 13 %>
+      <strong>Horaires de l'après-midi' souhaités :</strong> 
+      <div class="row align-items-center">
+        <div class="col-md">
+          <div class="d-flex">
+            <%= form.time_select :pm_min_hour, { default: @event.site.pm_min_hour, start_hour: @event.site.pm_min_hour.hour, end_hour: @event.site.pm_max_hour.hour, minute_step: 10 }, { class: 'form-control mx-1' } %>
+          </div>
+        </div>
+        <div class="col-md">
+          <div class="d-flex">
+            <%= form.time_select :pm_max_hour, { default: @event.site.pm_max_hour, start_hour: @event.site.pm_min_hour.hour, end_hour: @event.site.pm_max_hour.hour, minute_step: 10 }, { class: 'form-control mx-1' } %>
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <strong>Horaires de la journée souhaités :</strong> 
+      <div class="row align-items-center">
+        <div class="col-md">
+          <div class="d-flex">
+            <%= form.time_select :am_min_hour, { default: @event.site.am_min_hour, start_hour: @event.site.am_min_hour.hour, end_hour: @event.site.am_max_hour.hour, minute_step: 10 }, { class: 'form-control mx-1' } %>
+          </div>
+        </div>
+        <div class="col-md">
+          <div class="d-flex">
+            <%= form.time_select :pm_max_hour, { default: @event.site.pm_max_hour, start_hour: @event.site.pm_min_hour.hour, end_hour: @event.site.pm_max_hour.hour, minute_step: 10 }, { class: 'form-control mx-1' } %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="text-end">
+        <%= form.submit 'Enregistrer', class: 'btn btn-primary m-2' %>
+      </div>
+  <% end %>
+<% end %>
+
+<hr>
+
+<% if current_user.role == false %>
+  <div class="text-center">
+    <% if event.user_id.present? %>
+      <%= link_to "#", class: 'btn btn-secondary m-1', disabled: true, style: 'pointer-events: none;' do %>
+        Réservé
+      <% end %>
+    <% else %>
+      <%= button_to booking_event_path(event), method: :put, data: { "turbo-confirm": 'Confirmez vous réaliser le remplacement sélectionné ?' }, class: 'btn btn-primary m-1' do %>
+        Réserver
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
+<% end %>
