@@ -3,7 +3,7 @@
  
   <div class="card m-3 mx-auto" style="border-left: 5px solid <%= event.site.color %>; max-width: 30rem;">
    <div class="card-header">
-    Résumé du Remplacement à venir :
+    Détails de la Plage de Remplacement :
   </div>
                 <div class="card-body" style="overflow-wrap: break-word;">
                     <div class="d-flex justify-content-between"><strong><%= event.site.name %></strong> 
@@ -24,16 +24,16 @@
                   <div>
 
                   <% if event.helper == false %>
-  <strong>Nombre de Patients / heure souhaité :</strong> 
+  <div class="m-1"><strong>Nombre de patients / heure souhaité :</strong></div>
   <%= form_for(@event, url: event_path(@event), html: { class: 'form' }) do |form| %>
     <div class="row">
       <div class = "col">
-        <%= form.number_field :patient_count, min: @event.site.min_patients, max: @event.site.max_patients, class: 'form-control' %>
+        <%= form.number_field :patient_count, min: @event.site.min_patients, max: @event.site.max_patients, class: 'form-control w-25' %>
       </div>
     </div>
 
     <% if @event.start_time.hour < 13 && @event.end_time.hour < 13 %>
-      <strong>Horaires de la matinée souhaités :</strong> 
+    <div class="m-1"><strong>Horaires de la matinée souhaités :</strong></div> 
       <div class="row align-items-center">
         <div class="col-md">
           <div class="d-flex">
@@ -47,7 +47,7 @@
         </div>
       </div>
     <% elsif @event.start_time.hour >= 13 && @event.end_time.hour >= 13 %>
-      <strong>Horaires de l'après-midi' souhaités :</strong> 
+    <div class="m-1"><strong>Horaires de l&#39;après-midi souhaités :</strong></div> 
       <div class="row align-items-center">
         <div class="col-md">
           <div class="d-flex">
@@ -61,7 +61,7 @@
         </div>
       </div>
     <% else %>
-      <strong>Horaires de la journée souhaités :</strong> 
+    <div class="m-1"><strong>Horaires de la journée souhaités :</strong></div> 
       <div class="row align-items-center">
         <div class="col-md">
           <div class="d-flex">
@@ -82,53 +82,53 @@
 
   <% end %>
 <% else %>
-  <strong>Nombre de Patients / heure souhaité :</strong> 
+<div class="m-1"><strong>Nombre de patients / heure souhaité :</strong></div>
   <%= form_for(@event, url: event_path(@event), html: { class: 'form' }) do |form| %>
     <div class="row">
       <div class = "col-md">
-        <%= form.number_field :patient_count, min: @event.site.min_patients_helped, max: @event.site.max_patients_helped, class: 'form-control' %>
+        <%= form.number_field :patient_count, min: @event.site.min_patients_helped, max: @event.site.max_patients_helped, class: 'form-control w-25' %>
       </div>
     </div>
 
     <% if @event.start_time.hour < 13 && @event.end_time.hour < 13 %>
-      <strong>Horaires de la matinée souhaités :</strong> 
+    <div class="m-1"><strong>Horaires de la matinée souhaités :</strong></div> 
       <div class="row align-items-center">
         <div class="col-md">
           <div class="d-flex">
-            <%= form.time_select :am_min_hour, { default: @event.site.am_min_hour, start_hour: @event.site.am_min_hour.hour, end_hour: @event.site.am_max_hour.hour, minute_step: 10 }, { class: 'form-control mx-1' } %>
+            <%= form.time_select :am_min_hour, { default: @event.site.am_min_hour, start_hour: @event.site.am_min_hour.hour, end_hour: @event.site.am_max_hour.hour, minute_step: 10 }, { class: 'form-control mx-1 w-25' } %>
           </div>
         </div>
         <div class="col-md">
           <div class="d-flex">
-            <%= form.time_select :am_max_hour, { default: @event.site.am_max_hour, start_hour: @event.site.am_min_hour.hour, end_hour: @event.site.am_max_hour.hour, minute_step: 10 }, { class: 'form-control mx-1' } %>
+            <%= form.time_select :am_max_hour, { default: @event.site.am_max_hour, start_hour: @event.site.am_min_hour.hour, end_hour: @event.site.am_max_hour.hour, minute_step: 10 }, { class: 'form-control mx-1 w-25' } %>
           </div>
         </div>
       </div>
     <% elsif @event.start_time.hour >= 13 && @event.end_time.hour >= 13 %>
-      <strong>Horaires de l'après-midi' souhaités :</strong> 
+    <div class="m-1"><strong>Horaires de l&#39;après-midi souhaités :</strong></div> 
       <div class="row align-items-center">
         <div class="col-md">
           <div class="d-flex">
-            <%= form.time_select :pm_min_hour, { default: @event.site.pm_min_hour, start_hour: @event.site.pm_min_hour.hour, end_hour: @event.site.pm_max_hour.hour, minute_step: 10 }, { class: 'form-control mx-1' } %>
+            <%= form.time_select :pm_min_hour, { default: @event.site.pm_min_hour, start_hour: @event.site.pm_min_hour.hour, end_hour: @event.site.pm_max_hour.hour, minute_step: 10 }, { class: 'form-control mx-1 w-25' } %>
           </div>
         </div>
         <div class="col-md">
           <div class="d-flex">
-            <%= form.time_select :pm_max_hour, { default: @event.site.pm_max_hour, start_hour: @event.site.pm_min_hour.hour, end_hour: @event.site.pm_max_hour.hour, minute_step: 10 }, { class: 'form-control mx-1' } %>
+            <%= form.time_select :pm_max_hour, { default: @event.site.pm_max_hour, start_hour: @event.site.pm_min_hour.hour, end_hour: @event.site.pm_max_hour.hour, minute_step: 10 }, { class: 'form-control mx-1 w-25' } %>
           </div>
         </div>
       </div>
     <% else %>
-      <strong>Horaires de la journée souhaités :</strong> 
+    <div class="m-1"><strong>Horaires de la journée souhaités :</strong></div>
       <div class="row align-items-center">
         <div class="col-md">
           <div class="d-flex">
-            <%= form.time_select :am_min_hour, { default: @event.site.am_min_hour, start_hour: @event.site.am_min_hour.hour, end_hour: @event.site.am_max_hour.hour, minute_step: 10 }, { class: 'form-control mx-1' } %>
+            <%= form.time_select :am_min_hour, { default: @event.site.am_min_hour, start_hour: @event.site.am_min_hour.hour, end_hour: @event.site.am_max_hour.hour, minute_step: 10 }, { class: 'form-control mx-1 w-25' } %>
           </div>
         </div>
         <div class="col-md">
           <div class="d-flex">
-            <%= form.time_select :pm_max_hour, { default: @event.site.pm_max_hour, start_hour: @event.site.pm_min_hour.hour, end_hour: @event.site.pm_max_hour.hour, minute_step: 10 }, { class: 'form-control mx-1' } %>
+            <%= form.time_select :pm_max_hour, { default: @event.site.pm_max_hour, start_hour: @event.site.pm_min_hour.hour, end_hour: @event.site.pm_max_hour.hour, minute_step: 10 }, { class: 'form-control mx-1 w-25' } %>
           </div>
         </div>
       </div>
