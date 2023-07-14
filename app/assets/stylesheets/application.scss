@@ -115,7 +115,6 @@
 }
 
 .sidebar {
-  width: 150px;
   height: 100vh;
   position: fixed;
   top: 0;
@@ -128,6 +127,9 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 10px;
+  width: 200px; 
+  background-color: #f1f1f1; /* Couleur de fond de la barre latérale */
+  z-index: 4;
 }
 
 .sidebar .navbar-nav {
@@ -177,7 +179,6 @@
   cursor: pointer; 
 }
 
-
 .simple-calendar .today {
   background-color: #b6d6f3; /* Light blue */
   color: #333;
@@ -196,17 +197,6 @@
 
 .dropdown-menu {
   transition: all 0.3s ease; /* Ajoute une transition de 0,3 seconde pour un effet doux */
-}
-
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 200px; 
-  height: 100vh;
-  background-color: #f1f1f1; /* Couleur de fond de la barre latérale */
-  padding: 20px;
-  z-index: 4;
 }
 
 .sidebar h3 {
