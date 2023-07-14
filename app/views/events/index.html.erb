@@ -11,11 +11,12 @@
   <%= form_tag events_path, method: :get, class: 'row g-2 align-items-center', data: { controller: "auto-submit" } do %>
     <div class="col-auto">
       <div class="btn-group" role="group">
-        <%= date_field_tag :start_date, params[:start_date], class: 'form-control', placeholder: 'Sélectionnez une date', data: { "auto-submit-target": "field"} %>
+        <%= date_field_tag :start_date, params[:start_date] || Date.today, class: 'form-control', placeholder: 'Sélectionnez une date', data: { "auto-submit-target": "field"} %>
       </div>
     </div>
   <% end %>
 </div>
+
 
 
       <div class="d-flex ms-auto">

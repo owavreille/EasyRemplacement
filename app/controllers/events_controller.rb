@@ -49,9 +49,9 @@ end
 
   # GET /events/new
   def new
-    @event = Event.new
+    @event = Event.new(start_time: (DateTime.now + 7.days).beginning_of_hour, end_time: (DateTime.now + 7.days + 4.hours).beginning_of_hour)
     @sites = Site.all.map { |site| [site.name, site.id] } if Site.any?
-    @doctors = Doctor.all.map{ |doctor| [doctor.last_name, doctor.id] } if Doctor.any?
+    @doctors = Doctor.all.map{ |doctor| ["Dr #{doctor.last_name}", doctor.id] } if Doctor.any?
   end
 
   # GET /events/1/edit
