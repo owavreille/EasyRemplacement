@@ -22,16 +22,16 @@
 
   <div class="card-body">
     <div class="table-responsive">
-    <table class="table table-striped">
+    <table class="table table-striped" data-controller="table-sort" data-table-sort-target="table">
       <thead>
         <tr class="table-primary">
-          <th>Nom</th>
-          <th>Adresse</th>
-          <th>Code postal</th>
-          <th>Ville</th>
-          <th>Logiciel</th>
-          <th>Informations</th>
-          <th>Conseil de l'ordre</th>
+          <th data-action="click->table-sort#sort">Nom</th>
+          <th data-action="click->table-sort#sort">Adresse</th>
+          <th data-action="click->table-sort#sort">Code postal</th>
+          <th data-action="click->table-sort#sort">Ville</th>
+          <th data-action="click->table-sort#sort">Logiciel</th>
+          <th data-action="click->table-sort#sort">Informations</th>
+          <th data-action="click->table-sort#sort">Conseil de l'ordre</th>
           <th>Actions</th>
         </tr>
       </thead>

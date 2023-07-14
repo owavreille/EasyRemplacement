@@ -3,8 +3,8 @@
      first_name: 'Nicolas',
      last_name: 'Delanoy',
      email: 'admin@example.com',
-     password: 'password',
-     password_confirmation: 'password',
+     password: 'Password',
+     password_confirmation: 'Password',
      role: true,
      active: true
      )
@@ -15,8 +15,8 @@
      first_name: 'Florent',
      last_name: 'Larive',
      email: 'user@example.com',
-     password: 'password',
-     password_confirmation: 'password',
+     password: 'Password',
+     password_confirmation: 'Password',
      role: false,
      active: false
      )

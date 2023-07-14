@@ -24,14 +24,14 @@
 
   <div class="card-body">
     <div class="table-responsive">
-    <table class="table table-striped">
+    <table class="table table-striped" data-controller="table-sort" data-table-sort-target="table">
       <thead>
         <tr class="table-primary">
-          <th>Nom</th>
-          <th>Prénom</th>
-          <th>Ville</th>
-          <th>Numéro de licence</th>
-          <th>Numéro SIRET</th>
+          <th data-action="click->table-sort#sort">Nom</th>
+          <th data-action="click->table-sort#sort">Prénom</th>
+          <th data-action="click->table-sort#sort">Ville</th>
+          <th data-action="click->table-sort#sort">Numéro de licence</th>
+          <th data-action="click->table-sort#sort">Numéro SIRET</th>
           <th>Utilisateur Actif</th>
           <th>Options</th>
         </tr>
