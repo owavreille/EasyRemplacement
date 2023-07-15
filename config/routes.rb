@@ -56,4 +56,8 @@ get '/office', to: 'office#index', as: 'office'
 # Comptabilité
 get '/accounting', to: 'accounting#index', as: 'accounting'
 
+# Paramètres de l'Application
+get '/app_settings', to: 'app_settings#index', as: 'app_settings'
+patch '/app_settings/1/update_app_settings', to: 'app_settings#update_app_settings', as: 'update_app_settings'
+
 end

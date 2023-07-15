@@ -1,0 +1,29 @@
+<div class="card m-3 shadow">
+  <div class="card-body">
+    <h1>Paramètres de l'Application :</h1>
+
+    <%= form_with(model: @app_settings.first, url: app_settings_path(@app_settings.first), method: :patch) do |form| %>
+      <div class="card m-3">
+        <div class="card-body">
+          <h5>Nom de l'Application :</h5>
+          <%= form.text_field :app_name, class: 'form-control' %>
+
+          <h5>Délai minimum pour réserver :</h5>
+          <%= form.number_field :disable_booking_threshold, class: 'form-control' %>
+
+
+          <h5>Heure de séparation matin/après-midi :</h5>
+          <%= form.time_field :am_pm_hour_separation, class: 'form-control' %>
+
+
+          <h5>Durée minimum d'un Remplacement</h5>
+          <%= form.time_field :minimal_replacement_length, class: 'form-control' %>
+        </div>
+      </div>
+
+        <div class="text-end m-3">
+      <%= form.submit 'Enregistrer', class: 'btn btn-primary mt-3' %>
+    <% end %>
+    </div>
+  </div>
+</div>

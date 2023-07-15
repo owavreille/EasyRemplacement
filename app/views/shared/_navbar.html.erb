@@ -107,7 +107,10 @@
           <i class="bi bi-file-earmark-medical"></i> Comptabilité
         <% end %>
       </li>
-      <li>
+      <li class="nav-item">
+        <%= link_to app_settings_path, class: "nav-link" do %>
+      <i class="bi bi-gear-wide-connected"></i> Préférences
+        <% end %>
       </li>
     <% end %>
   </ul>
