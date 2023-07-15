@@ -50,6 +50,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def inactive
+    if @user
+      @user.update(active: false)
+      redirect_to users_path, notice: "L'utilisateur a été désactivé."
+    else
+      redirect_to edit_users_path, notice: "L'utilisateur n'existe pas !"
+    end
+  end
+
   def delete_signature_profile
     @user = User.find(params[:id])
     @user.signature.purge # Supprime l'image attachée à la signature

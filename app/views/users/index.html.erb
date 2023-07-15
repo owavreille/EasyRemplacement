@@ -59,7 +59,7 @@
   <% if !user.active %>
     <%= button_to "Autoriser", active_user_path(user), method: :put, class: "btn btn-sm btn-success me-2" %>
   <% else %>
-    <%= button_to "Autoriser", "#", class: "btn btn-sm btn-success me-2 disabled", disabled: true %>
+    <%= button_to "Désactiver", inactive_user_path(user), method: :put, class: "btn btn-sm btn-warning me-2" %>
   <% end %>
   </div>
 </td>

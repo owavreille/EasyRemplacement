@@ -48,6 +48,8 @@ delete 'users/:id/delete_signature_profile', to: 'users#delete_signature', as: '
 
 # Activation d'un utilisateur
 get '/inactive', to: 'users#inactive', as: 'inactive'
+get 'users/:id/inactive', to: 'users#inactive', as: 'inactive_user'
+
 
 # Présentation de la structure
 get '/office', to: 'office#index', as: 'office'
