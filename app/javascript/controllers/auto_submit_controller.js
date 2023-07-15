@@ -4,8 +4,10 @@ export default class extends Controller {
   static targets = ["field"]
 
   connect() {
-    this.fieldTarget.addEventListener('change', () => {
-      this.element.submit();
+    this.fieldTargets.forEach((element) => {
+      element.addEventListener('change', () => {
+        this.element.submit();
+      });
     });
   }
 }

@@ -2,38 +2,21 @@ class EventsController < ApplicationController
   before_action :set_event, only: %i[ show edit update destroy ]
   before_action :check_user_active
 
-  # GET /events or /events.json
-  def index
-    @doctors = Doctor.all
-    @sites = Site.all
-    @site = Site.find_by(id: params[:site_id])
-    @events = @site ? @site.events.where('start_time >= ?', Date.today) : Event.where('start_time >= ?', Date.today)
-    @event = Event.all
+# GET /events or /events.json
+def index
+  @doctors = Doctor.all
+  @sites = Site.all
+  @site = Site.find_by(id: params[:site_id])
+  @events = @site ? @site.events.where('start_time >= ?', Date.today) : Event.where('start_time >= ?', Date.today)
 
-# Retrieve the selected doctor IDs
-if params[:doctor_ids].present?
-  @selected_doctor_ids = params[:doctor_ids]
-else
-  @selected_doctor_ids = []
+  @selected_doctor_ids = Array.wrap(params[:doctor_ids])
+
+  @selected_site_ids = Array.wrap(params[:site_ids])
+
+  @events = @events.where(doctor_id: @selected_doctor_ids) if @selected_doctor_ids.present?
+  @events = @events.where(site_id: @selected_site_ids) if @selected_site_ids.present?
 end
 
-# Retrieve the selected site IDs
-if params[:site_ids].present?
-  @selected_site_ids = params[:site_ids]
-else
-  @selected_site_ids = []
-end
-
-# Apply filters based on selected doctor and site IDs
-if @selected_doctor_ids.present?
-  @events = @events.where(doctor_id: @selected_doctor_ids)
-end
-
-if @selected_site_ids.present?
-  @events = @events.where(site_id: @selected_site_ids)
-end
-
-    end
 
   # GET /events/1 or /events/1.json
   def show
