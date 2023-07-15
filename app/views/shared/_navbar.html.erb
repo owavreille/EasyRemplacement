@@ -5,8 +5,9 @@
           <div class="navbar-brand">
             <% if current_user && current_user.admin? %>
               <button class="sidebar-toggle-btn" onclick="toggleSidebar()">
-                <span class="navbar-toggler-icon"></span>
+                  <i id="toggleIcon" class="bi bi-list"></i>
               </button>
+
             <% end %>
             <%= link_to root_path, class: "nav-link" do %>EasyRemplacement<% end %>
           </div>
@@ -26,9 +27,11 @@
                   <li>
                     <%= link_to userdata_path, class: "nav-link" do %>
                       <i class="bi bi-file-earmark-medical-fill text-grey"></i> Mes Remplacements
-                      <span class="badge bg-danger rounded-circle m-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title='<%= @upcoming_events_with_contract %> contrat(s) à relire'>
-                        <%= @upcoming_events_with_contract %>
-                      </span>
+                        <% if @upcoming_events_with_contract > 0 %>
+                          <span class="badge bg-danger rounded-circle m-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title='<%= @upcoming_events_with_contract %> contrat(s) à relire'>
+                            <%= @upcoming_events_with_contract %>
+                          </span>
+                        <% end %>
                     <% end %>
                   </li>
                   <li>
@@ -92,9 +95,11 @@
       <li class="nav-item">
         <%= link_to datas_path, class: "nav-link" do %>
           <i class="bi bi-file-earmark-medical"></i> Suivi Des Remplacements
+          <% if @contract_to_generate > 0 %>
           <span class="badge bg-danger rounded-circle m-1">
             <%= @contract_to_generate %>
           </span>
+          <% end %>
         <% end %>
       </li>
       <li class="nav-item">
