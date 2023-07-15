@@ -12,14 +12,9 @@
     
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-   
-    <% if user_signed_in? %>
-  
-    <% end %>
-  
   </head>
+
   <body>
-  
     <%= render 'shared/navbar' %>
 
     <div class="container <%= 'sidebar-visible' if current_user && current_user.admin? %>">
