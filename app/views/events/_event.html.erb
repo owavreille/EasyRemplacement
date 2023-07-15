@@ -32,6 +32,7 @@
       </div>
     </div>
 
+  <% if @event.site.pm_min_hour.present? && @event.site.pm_max_hour.present? && @event.site.am_min_hour.present? && @event.site.am_min_hour.present? %>
     <% if @event.start_time.hour < 13 && @event.end_time.hour < 13 %>
     <div class="m-1"><strong>Horaires de la matinée souhaités :</strong></div> 
       <div class="row align-items-center">
@@ -76,20 +77,22 @@
       </div>
     <% end %>
 
+
       <div class="text-end">
         <%= form.submit 'Enregistrer', class: 'btn btn-primary m-2' %>
       </div>
-
-  <% end %>
-<% else %>
-<div class="m-1"><strong>Nombre de patients / heure souhaité :</strong></div>
-  <%= form_for(@event, url: event_path(@event), html: { class: 'form' }) do |form| %>
+    <% end %>
+    <% end %>
+   <% else %>
+   <div class="m-1"><strong>Nombre de patients / heure souhaité :</strong></div>
+    <%= form_for(@event, url: event_path(@event), html: { class: 'form' }) do |form| %>
     <div class="row">
       <div class = "col-md">
         <%= form.number_field :patient_count, min: @event.site.min_patients_helped, max: @event.site.max_patients_helped, class: 'form-control w-25' %>
       </div>
     </div>
 
+  <% if @event.site.pm_min_hour.present? && @event.site.pm_max_hour.present? && @event.site.am_min_hour.present? && @event.site.am_min_hour.present? %>
     <% if @event.start_time.hour < 13 && @event.end_time.hour < 13 %>
     <div class="m-1"><strong>Horaires de la matinée souhaités :</strong></div> 
       <div class="row align-items-center">
@@ -134,10 +137,12 @@
       </div>
     <% end %>
 
+
     <div class="text-end">
         <%= form.submit 'Enregistrer', class: 'btn btn-primary m-2' %>
       </div>
   <% end %>
+<% end %>
 <% end %>
 
 <hr>

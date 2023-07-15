@@ -46,10 +46,9 @@ get '/userdata', to: 'data#userdata', as: 'userdata'
 delete 'users/:id/delete_signature', to: 'users#delete_signature', as: 'delete_signature'
 delete 'users/:id/delete_signature_profile', to: 'users#delete_signature', as: 'delete_signature_profile'
 
-# Activation d'un utilisateur
+# Activation/désactivation d'un utilisateur
 get '/inactive', to: 'users#inactive', as: 'inactive'
 get 'users/:id/inactive', to: 'users#inactive', as: 'inactive_user'
-
 
 # Présentation de la structure
 get '/office', to: 'office#index', as: 'office'

@@ -13,5 +13,4 @@ class Event < ApplicationRecord
       errors.add(:end_time, "doit être postérieure à l'heure de début")
     end
   end
-
 end
