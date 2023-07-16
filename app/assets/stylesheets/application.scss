@@ -133,7 +133,7 @@
   align-items: flex-start;
   gap: 10px;
   width: 200px; 
-  background-color: #f1f1f1; /* Couleur de fond de la barre latérale */
+  background-color: #f1f1f1;
   z-index: 4;
 }
 
@@ -185,23 +185,31 @@
 }
 
 .simple-calendar .today {
-  background-color: #b6d6f3; /* Light blue */
+  background-color: #b6d6f3; 
   color: #333;
+}
+
+.simple-calendar .calendar-heading nav {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  border: 1px solid grey;
+  margin-bottom: 5px;
 }
 
 .dropdown-menu-gray {
   background-color: #888888;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Ajoute une ombre */
-  border: none; /* Supprime la bordure par défaut */
-  border-radius: 0.25rem; /* Ajoute des coins arrondis */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+  border: none; 
+  border-radius: 0.25rem; 
 }
 .dropdown-item:hover {
-  color: #fff; /* Modifie la couleur du texte au survol */
-  background-color: #333; /* Modifie la couleur de fond au survol */
+  color: #fff; 
+  background-color: #333; 
 }
 
 .dropdown-menu {
-  transition: all 0.3s ease; /* Ajoute une transition de 0,3 seconde pour un effet doux */
+  transition: all 0.3s ease; 
 }
 
 .sidebar h3 {
