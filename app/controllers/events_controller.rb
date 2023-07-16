@@ -2,7 +2,7 @@ class EventsController < ApplicationController
   before_action :check_user_active
   before_action :set_event, only: %i[ show edit update destroy ]
 
-  
+
   def index
     @doctors = Doctor.all
     @sites = Site.all
@@ -25,6 +25,7 @@ class EventsController < ApplicationController
   # GET /events/1 or /events/1.json
   def show
     @event = Event.find(params[:id])
+    @app_settings = AppSetting.find(1)
   end
 
   def list

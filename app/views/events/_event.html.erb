@@ -33,7 +33,7 @@
     </div>
 
   <% if @event.site.pm_min_hour.present? && @event.site.pm_max_hour.present? && @event.site.am_min_hour.present? && @event.site.am_max_hour.present? %>
-    <% if @event.start_time.hour < 13 && @event.end_time.hour < 13 %>
+    <% if @event.start_time.hour < @app_settings.am_pm_hour_separation.hour && @event.end_time.hour < @app_settings.am_pm_hour_separation.hour %>
     <div class="m-1"><strong>Horaires de la matinée souhaités :</strong></div> 
       <div class="row align-items-center">
         <div class="col-md">
@@ -47,7 +47,7 @@
           </div>
         </div>
       </div>
-    <% elsif @event.start_time.hour >= 13 && @event.end_time.hour >= 13 %>
+    <% elsif @event.start_time.hour >= @app_settings.am_pm_hour_separation.hour && @event.end_time.hour >= @app_settings.am_pm_hour_separation.hour %>
     <div class="m-1"><strong>Horaires de l&#39;après-midi souhaités :</strong></div> 
       <div class="row align-items-center">
         <div class="col-md">
@@ -93,7 +93,7 @@
     </div>
 
   <% if @event.site.pm_min_hour.present? && @event.site.pm_max_hour.present? && @event.site.am_min_hour.present? && @event.site.am_max_hour.present? %>
-    <% if @event.start_time.hour < 13 && @event.end_time.hour < 13 %>
+    <% if @event.start_time.hour < @app_settings.am_pm_hour_separation.hour && @event.end_time.hour < @app_settings.am_pm_hour_separation.hour %>
     <div class="m-1"><strong>Horaires de la matinée souhaités :</strong></div> 
       <div class="row align-items-center">
         <div class="col-md">
@@ -107,7 +107,7 @@
           </div>
         </div>
       </div>
-    <% elsif @event.start_time.hour >= 13 && @event.end_time.hour >= 13 %>
+    <% elsif @event.start_time.hour >= @app_settings.am_pm_hour_separation.hour && @event.end_time.hour >= @app_settings.am_pm_hour_separation.hour %>
     <div class="m-1"><strong>Horaires de l&#39;après-midi souhaités :</strong></div> 
       <div class="row align-items-center">
         <div class="col-md">
