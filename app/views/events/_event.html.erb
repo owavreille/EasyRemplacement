@@ -32,7 +32,7 @@
       </div>
     </div>
 
-  <% if @event.site.pm_min_hour.present? && @event.site.pm_max_hour.present? && @event.site.am_min_hour.present? && @event.site.am_min_hour.present? %>
+  <% if @event.site.pm_min_hour.present? && @event.site.pm_max_hour.present? && @event.site.am_min_hour.present? && @event.site.am_max_hour.present? %>
     <% if @event.start_time.hour < 13 && @event.end_time.hour < 13 %>
     <div class="m-1"><strong>Horaires de la matinée souhaités :</strong></div> 
       <div class="row align-items-center">
@@ -92,7 +92,7 @@
       </div>
     </div>
 
-  <% if @event.site.pm_min_hour.present? && @event.site.pm_max_hour.present? && @event.site.am_min_hour.present? && @event.site.am_min_hour.present? %>
+  <% if @event.site.pm_min_hour.present? && @event.site.pm_max_hour.present? && @event.site.am_min_hour.present? && @event.site.am_max_hour.present? %>
     <% if @event.start_time.hour < 13 && @event.end_time.hour < 13 %>
     <div class="m-1"><strong>Horaires de la matinée souhaités :</strong></div> 
       <div class="row align-items-center">
