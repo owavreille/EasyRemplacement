@@ -49,18 +49,20 @@ class DataController < ApplicationController
   redirect_to datas_path
 end
 
-  def cancel_booking
-    @event = Event.find(params[:id])
-  
-    if @event.start_time > (Date.today + 15.days)
-      @event.update(user_id: nil)
-      flash[:notice] = "Remplacement Annulé avec Succès."
-    else
-      flash[:alert] = "Impossible d'Annuler ce Remplacement car le délai est inférieur à 15 jours, contacter directement le cabinet !"
-    end
-  
-    redirect_to userdata_path
-  end  
+def cancel_booking
+  @event = Event.find(params[:id])
+  max_replacement_cancel = AppSetting.first.max_replacement_cancel.to_i
+
+  if @event.start_time > (Date.today + max_replacement_cancel.days)
+    @event.update(user_id: nil)
+    flash[:notice] = "Remplacement Annulé avec Succès."
+  else
+    flash[:alert] = "Impossible d'Annuler ce Remplacement car le délai est inférieur à #{max_replacement_cancel} jours, contacter directement le cabinet !"
+  end
+
+  redirect_to userdata_path
+end
+
 
   def generate_contract
     @user = User.find(params[:user_id])

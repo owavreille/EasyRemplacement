@@ -2,20 +2,24 @@ class EventsController < ApplicationController
   before_action :check_user_active
   before_action :set_event, only: %i[ show edit update destroy ]
 
-# GET /events or /events.json
-def index
-  @doctors = Doctor.all
-  @sites = Site.all
-  @site = Site.find_by(id: params[:site_id])
-  @events = @site ? @site.events.where('start_time >= ?', Date.today) : Event.where('start_time >= ?', Date.today)
-
-  @selected_doctor_ids = Array.wrap(params[:doctor_ids])
-
-  @selected_site_ids = Array.wrap(params[:site_ids])
-
-  @events = @events.where(doctor_id: @selected_doctor_ids) if @selected_doctor_ids.present?
-  @events = @events.where(site_id: @selected_site_ids) if @selected_site_ids.present?
-end
+  
+  def index
+    @doctors = Doctor.all
+    @sites = Site.all
+    @site = Site.find_by(id: params[:site_id])
+  
+    disable_booking_threshold = AppSetting.first.disable_booking_threshold.to_i
+    start_date = Date.today + disable_booking_threshold.days
+  
+    @events = @site ? @site.events.where('start_time >= ?', start_date) : Event.where('start_time >= ?', start_date)
+  
+    @selected_doctor_ids = Array.wrap(params[:doctor_ids])
+    @selected_site_ids = Array.wrap(params[:site_ids])
+  
+    @events = @events.where(doctor_id: @selected_doctor_ids) if @selected_doctor_ids.present?
+    @events = @events.where(site_id: @selected_site_ids) if @selected_site_ids.present?
+  end
+  
 
 
   # GET /events/1 or /events/1.json
