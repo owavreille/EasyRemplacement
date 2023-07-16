@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: %i[ show edit update destroy ]
   before_action :check_user_active
+  before_action :set_event, only: %i[ show edit update destroy ]
 
 # GET /events or /events.json
 def index
@@ -124,17 +124,15 @@ end
   
   def check_user_active
     unless current_user.active?
-      redirect_to inactive_path
-    end
+      redirect_to pending_path(current_user)        
+      end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_event
       @event = Event.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def event_params
       params.require(:event).permit(:site_id, :doctor_id, :start_time, :end_time, :number_of_patients, :helper, :user_id, :amount, :reversion, :amount_paid, :contract_generated, :contract_validated, :editable, :patient_count, :am_min_hour, :am_max_hour, :pm_min_hour, :pm_max_hour, :contract_blob)
     end    

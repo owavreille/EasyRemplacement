@@ -52,6 +52,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_15_204412) do
   create_table "app_settings", force: :cascade do |t|
     t.string "app_name"
     t.integer "disable_booking_threshold"
+    t.integer "max_replacement_cancel"
     t.datetime "am_pm_hour_separation"
     t.datetime "minimal_replacement_length"
     t.datetime "created_at", null: false

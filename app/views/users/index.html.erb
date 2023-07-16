@@ -57,10 +57,15 @@
 <% end %>
 
   <% if !user.active %>
-    <%= button_to "Autoriser", active_user_path(user), method: :put, class: "btn btn-sm btn-success me-2" %>
+  <%= button_to "Autoriser", active_user_path(user), method: :put, class: "btn btn-sm btn-success me-2" %>
+<% else %>
+  <% if user.admin? %>
+    <i>Compte Administrateur</i>
   <% else %>
     <%= button_to "Désactiver", inactive_user_path(user), method: :put, class: "btn btn-sm btn-warning me-2" %>
   <% end %>
+<% end %>
+
   </div>
 </td>
 

@@ -20,6 +20,8 @@ root "events#index"
     member do
       delete '/', to: 'users#destroy', as: 'destroy'
       put 'active', to: 'users#active', as: 'active'
+      put 'inactive', to: 'users#inactive', as: 'inactive'
+
     end
     collection do
       put 'edit', to: 'users#edit', as: 'edit'
@@ -47,8 +49,7 @@ delete 'users/:id/delete_signature', to: 'users#delete_signature', as: 'delete_s
 delete 'users/:id/delete_signature_profile', to: 'users#delete_signature', as: 'delete_signature_profile'
 
 # Activation/désactivation d'un utilisateur
-get '/inactive', to: 'users#inactive', as: 'inactive'
-get 'users/:id/inactive', to: 'users#inactive', as: 'inactive_user'
+get 'pending', to: 'users#pending'
 
 # Présentation de la structure
 get '/office', to: 'office#index', as: 'office'
@@ -58,6 +59,6 @@ get '/accounting', to: 'accounting#index', as: 'accounting'
 
 # Paramètres de l'Application
 get '/app_settings', to: 'app_settings#index', as: 'app_settings'
-patch '/app_settings/1/update_app_settings', to: 'app_settings#update_app_settings', as: 'update_app_settings'
+patch '/app_settings/:id', to: 'app_settings#update', as: 'app_setting'
 
 end
