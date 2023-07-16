@@ -6,6 +6,8 @@ include Pagy::Backend
     before_action :configure_permitted_parameters, if: :devise_controller?
     before_action :upcoming_events_with_contract
     before_action :contract_to_generate
+    before_action :set_app_name
+
 
    def upcoming_events_with_contract
     if current_user
@@ -23,8 +25,6 @@ include Pagy::Backend
       @contract_to_generate = 0
     end
   end
-  
-  
 
      protected
           def configure_permitted_parameters
@@ -32,4 +32,10 @@ include Pagy::Backend
 
                devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:title, :role, :last_name, :first_name, :date_of_birth, :phone, :address, :postal_code, :city, :signature, :siret_number, :license_number, :mailing_list, :active, :email, :password, :current_password)}
           end
+
+     private
+
+  def set_app_name
+    @app_name = AppSetting.first.app_name
+  end
 end
