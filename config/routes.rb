@@ -46,7 +46,7 @@ get '/userdata', to: 'data#userdata', as: 'userdata'
 
 # Suppression des signatures utilisateurs
 delete 'users/:id/delete_signature', to: 'users#delete_signature', as: 'delete_signature'
-delete 'users/:id/delete_signature_profile', to: 'users#delete_signature', as: 'delete_signature_profile'
+delete 'users/:id/delete_signature_profile', to: 'users#delete_signature_profile', as: 'delete_signature_profile'
 
 # Activation/désactivation d'un utilisateur
 get 'pending', to: 'users#pending'
