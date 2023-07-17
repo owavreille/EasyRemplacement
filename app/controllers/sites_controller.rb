@@ -45,7 +45,7 @@ class SitesController < ApplicationController
     @mailing_list = @site.mailing_lists.create(name: mailing_list_name)
 
     # Mise à jour du texte générique de la mailing list
-    generic_text = "Vous recevez ce mail parce que vous êtes inscrit à la mailing list \"#{Rails.application.config.settings.appname}\". Voici les prochaines disponibilités du site #{@site.name}. Modifiez vos préférences directement sur votre compte."
+    generic_text = "Vous recevez ce mail parce que vous êtes inscrit à la mailing list \"#{@app_name}\". Voici les prochaines disponibilités du site #{@site.name}. Modifiez vos préférences directement sur votre compte."
     @mailing_list.update(text: generic_text)
  
 
