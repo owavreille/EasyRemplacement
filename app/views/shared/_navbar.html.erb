@@ -7,9 +7,13 @@
               <button class="sidebar-toggle-btn" onclick="toggleSidebar()">
                   <i id="toggleIcon" class="bi bi-list"></i>
               </button>
-
             <% end %>
-            <%= link_to root_path, class: "nav-link mt-1" do %><%= @app_name %><% end %>
+            <div class="logo mt-1">
+            <%= image_tag @app_settings.logo, style: "max-width: 30px; max-height: 30px;" %>
+            </div>
+            <%= link_to root_path, class: "nav-link mt-1" do %>
+            <%= @app_name %>
+            <% end %>
           </div>
  
           <ul class="navbar-nav">

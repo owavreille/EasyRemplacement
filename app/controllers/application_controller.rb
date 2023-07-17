@@ -7,6 +7,7 @@ include Pagy::Backend
     before_action :upcoming_events_with_contract
     before_action :contract_to_generate
     before_action :set_app_name
+    before_action :set_app_settings
 
 
    def upcoming_events_with_contract
@@ -38,4 +39,11 @@ include Pagy::Backend
   def set_app_name
     @app_name = AppSetting.first.app_name
   end
+
+
+  def set_app_settings
+    @app_settings = AppSetting.first
+  end
+
+
 end
