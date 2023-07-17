@@ -10,7 +10,6 @@ class CreateDoctors < ActiveRecord::Migration[7.0]
       t.boolean :optam
       t.string :phone
       t.string :email
-      t.references :signature_blob, foreign_key: { to_table: :active_storage_blobs }
 
       t.timestamps
     end

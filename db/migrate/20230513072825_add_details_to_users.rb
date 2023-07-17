@@ -17,13 +17,6 @@ class AddDetailsToUsers < ActiveRecord::Migration[7.0]
     add_column :users, :active, :boolean
     add_column :users, :uid, :string
     add_column :users, :provider, :string
-
-    change_table :users do |t|
-      t.bigint :signature_blob_id
-    end
-    
-    add_foreign_key :users, :active_storage_blobs, column: :signature_blob_id
-    add_index :users, :signature_blob_id, unique: true
     
   end
 end

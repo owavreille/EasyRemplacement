@@ -1,5 +1,5 @@
 class Doctor < ApplicationRecord
-  has_one_attached :signature_blob
+  has_one_attached :signature
 
   TITLE_OPTIONS = ['Dr', 'M.', 'Mme']
   

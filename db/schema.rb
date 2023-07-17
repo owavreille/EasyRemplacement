@@ -77,10 +77,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_15_204412) do
     t.boolean "optam"
     t.string "phone"
     t.string "email"
-    t.integer "signature_blob_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["signature_blob_id"], name: "index_doctors_on_signature_blob_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -169,21 +167,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_15_204412) do
     t.boolean "active"
     t.string "uid"
     t.string "provider"
-    t.integer "signature_blob_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["mailing_list_id"], name: "index_users_on_mailing_list_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.index ["signature_blob_id"], name: "index_users_on_signature_blob_id", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "doctors", "active_storage_blobs", column: "signature_blob_id"
   add_foreign_key "events", "doctors"
   add_foreign_key "events", "sites"
   add_foreign_key "events", "users"
   add_foreign_key "mailing_lists", "sites"
   add_foreign_key "sites", "cdoms"
-  add_foreign_key "users", "active_storage_blobs", column: "signature_blob_id"
   add_foreign_key "users", "mailing_lists"
 end

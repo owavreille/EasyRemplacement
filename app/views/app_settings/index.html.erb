@@ -6,17 +6,16 @@
       
      <div class="row">
   <div class="col-auto">
-    <div class="m-3">Logo :</div>
-    <% if @app_settings.logo.attached? %>
-      <%= image_tag(@app_settings.logo, class: 'logo') %>
-      <%= form.label :remove_logo, class: 'remove-logo-checkbox' do %>
-        <%= form.check_box :remove_logo %>
-        <span>Supprimer le logo</span>
-      <% end %>
-    <% else %>
-      <%= form.file_field :logo, class: 'form-control m-3' %>
-    <% end %>
-  </div>
+            <%= form.label :logo, "Logo" %>
+            <%= form.file_field :logo, accept: "image/*", class: "form-control" %>
+            <% if @app_settings.logo.attached? %>
+              <p>Image sélectionnée :</p>
+              <%= image_tag @app_settings.logo, style: "max-width: 300px; max-height: 200px;" %>
+              <%= link_to 'Supprimer le logo', delete_logo_path(id: @app_settings.id), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer le logo ?" } %>
+            <% else %>
+              <p>Aucune image sélectionnée</p>
+            <% end %>
+          </div>
 
 
           <div class = "col-auto">

@@ -60,5 +60,7 @@ get '/accounting', to: 'accounting#index', as: 'accounting'
 # Paramètres de l'Application
 get '/app_settings', to: 'app_settings#index', as: 'app_settings'
 patch '/app_settings/:id', to: 'app_settings#update', as: 'app_setting'
+delete 'app_settings/:id/delete_logo', to: 'app_settings#delete_logo', as: 'delete_logo'
+
 
 end

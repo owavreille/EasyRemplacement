@@ -100,14 +100,14 @@ end
                                 .gsub('event.end_time', @event.try(:end_time).try(:strftime, "%H:%M").to_s)
                                 .gsub('event.reversion', @event.try(:reversion).to_s)
     
-    if @doctor.signature_blob.attached?
-      contract_with_doctor_image = contract.gsub('doctor.signature', url_for(@doctor.signature_blob))
+    if @doctor.signature.attached?
+      contract_with_doctor_image = contract.gsub('doctor.signature', url_for(@doctor.signature))
     else
       contract_with_doctor_image = contract.gsub('doctor.signature', 'Aucune signature disponible')
     end
     
-    if @user.signature_blob.attached?
-      contract_with_user_image = contract_with_doctor_image.gsub('user.signature', url_for(@user.signature_blob))
+    if @user.signature.attached?
+      contract_with_user_image = contract_with_doctor_image.gsub('user.signature', url_for(@user.signature))
     else
       contract_with_user_image = contract_with_doctor_image.gsub('user.signature', 'Aucune signature disponible')
     end

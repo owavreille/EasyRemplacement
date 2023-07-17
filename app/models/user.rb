@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_one_attached :signature_blob
+  has_one_attached :signature
   belongs_to :mailing_list, optional: true
   has_many :events
 

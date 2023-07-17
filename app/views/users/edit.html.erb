@@ -13,7 +13,7 @@
             <div class="col-md-6">
               <div class="form-group mb-3">
                 <%= form.label :title, "Titre" %>
-                <%= form.select :title, User::TITLE_OPTIONS, { prompt: "Sélectionnez un titre" }, { class: "form-control" } %>
+                <%= form.select :title, User::TITLE_OPTIONS, { prompt: "Sélectionnez un titre", default: "Dr" }, { class: "form-control" } %>
               </div>
             </div>
             <div class="col-md-6">
@@ -55,13 +55,13 @@
           </div>
 
             <div class="form-group mb-3">
-              <%= form.label :signature_blob, "Signature" %>
-              <%= form.file_field :signature_blob, accept: "image/*", class: "form-control" %>
+              <%= form.label :signature, "Signature" %>
+              <%= form.file_field :signature, accept: "image/*", class: "form-control" %>
 
-              <% if @user.signature_blob.attached? %>
+              <% if @user.signature.attached? %>
                 <p>Image sélectionnée :</p>
-                <%= image_tag @user.signature_blob, style: "max-width: 300px; max-height: 200px;" %>
-                <%= link_to 'Supprimer la Signature', delete_signature_profile_path(id: @user.id), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer l'image ?" } %>
+                <%= image_tag @user.signature, style: "max-width: 300px; max-height: 200px;" %>
+                <%= link_to 'Supprimer la Signature', delete_signature_path(id: @user.id), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer l'image ?" } %>
               <% else %>
                 <p>Aucune image sélectionnée</p>
               <% end %>

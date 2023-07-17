@@ -67,12 +67,12 @@
         </div>
 
           <div class="form-group md-4">
-            <%= form.label :signature_blob, "Signature" %>
-            <%= form.file_field :signature_blob, accept: "image/*", class: "form-control" %>
+            <%= form.label :signature, "Signature" %>
+            <%= form.file_field :signature, accept: "image/*", class: "form-control" %>
 
-            <% if @doctor.signature_blob.attached? %>
+            <% if @doctor.signature.attached? %>
               <p>Image sélectionnée :</p>
-              <%= image_tag @doctor.signature_blob, style: "max-width: 300px; max-height: 200px;" %>
+              <%= image_tag @doctor.signature, style: "max-width: 300px; max-height: 200px;" %>
               <%= link_to 'Supprimer la Signature', delete_signature_path(id: @doctor.id), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer l'image ?" } %>
             <% else %>
               <p>Aucune image sélectionnée</p>
