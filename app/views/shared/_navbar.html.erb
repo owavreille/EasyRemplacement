@@ -9,8 +9,10 @@
               </button>
             <% end %>
             <div class="logo mt-1">
-            <%= image_tag @app_settings.logo, style: "max-width: 30px; max-height: 30px;" %>
-            </div>
+  <% if @app_settings.logo.present? %>
+    <%= image_tag @app_settings.logo, style: "max-width: 30px; max-height: 30px;" %>
+  <% end %>
+</div>
             <%= link_to root_path, class: "nav-link mt-1" do %>
             <%= @app_name %>
             <% end %>
