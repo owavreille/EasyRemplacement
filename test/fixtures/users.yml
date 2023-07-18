@@ -25,7 +25,6 @@ one:
   active: true
   uid: 
   provider: 
-  signature_blob_id: 
 
 two:
   email: user@example.com
@@ -52,4 +51,3 @@ two:
   active: true
   uid: 
   provider: 
-  signature_blob_id: 

@@ -29,7 +29,7 @@ class DoctorsControllerTest < ActionController::TestCase
   
   test "should create doctor" do    
     assert_difference('Doctor.count') do
-      post :create, params: { doctor: { title: @doctor.title, last_name: @doctor.last_name, first_name: @doctor.first_name, rpps: @doctor.rpps, speciality: @doctor.speciality, conventional_sector: @doctor.conventional_sector, optam: @doctor.optam, phone: @doctor.phone, email: @doctor.email, signature_blob: @doctor.signature_blob } }
+      post :create, params: { doctor: { title: @doctor.title, last_name: @doctor.last_name, first_name: @doctor.first_name, rpps: @doctor.rpps, speciality: @doctor.speciality, conventional_sector: @doctor.conventional_sector, optam: @doctor.optam, phone: @doctor.phone, email: @doctor.email } }
     end
     assert_redirected_to doctor_url(Doctor.last)
   end
@@ -41,7 +41,7 @@ class DoctorsControllerTest < ActionController::TestCase
   end
 
   test "should update doctor" do
-    patch :update, params: { id: 1, doctor: { title: @doctor.title, last_name: @doctor.last_name, first_name: @doctor.first_name, rpps: @doctor.rpps, speciality: @doctor.speciality, conventional_sector: @doctor.conventional_sector, optam: @doctor.optam, phone: @doctor.phone, email: @doctor.email, signature_blob: @doctor.signature_blob } }
+    patch :update, params: { id: 1, doctor: { title: @doctor.title, last_name: @doctor.last_name, first_name: @doctor.first_name, rpps: @doctor.rpps, speciality: @doctor.speciality, conventional_sector: @doctor.conventional_sector, optam: @doctor.optam, phone: @doctor.phone, email: @doctor.email } }
     assert_redirected_to doctor_url(@doctor)
     @doctor.reload
     assert_equal @doctor.title, @doctor.title
@@ -53,7 +53,6 @@ class DoctorsControllerTest < ActionController::TestCase
     assert_equal @doctor.optam, @doctor.optam
     assert_equal @doctor.phone, @doctor.phone
     assert_equal @doctor.email, @doctor.email
-    assert_equal @doctor.signature_blob, @doctor.signature_blob
   end
   
 

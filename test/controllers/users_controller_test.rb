@@ -5,6 +5,7 @@ class UsersControllerTest < ActionController::TestCase
 
   setup do
     @user = users(:one)
+    @user.signature.attach(io: File.open('test/fixtures/files/logo.jpg'), filename: 'logo.jpg', content_type: 'image')
     sign_in @user
   end
 
@@ -42,15 +43,30 @@ class UsersControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should delete signature profile" do
-    @user.update(signature_blob_id: nil)
-    assert_response :success
+  test "should delete signature from profile" do
+    assert @user.signature.attached? # Assurez-vous que la signature est attachée avant la suppression
+  
+    delete :delete_signature_profile, params: { id: @user.id }
+    assert_redirected_to edit_user_registration_path(@user)
+    assert_equal 'L\'image de la signature a été supprimée avec succès.', flash[:notice]
+  
+    @user.reload
+    assert_not @user.signature.attached? # Vérifiez que la signature a bien été supprimée
   end
-
+  
   test "should delete signature" do
-    @user.update(signature_blob_id: nil)
-    assert_response :success
+    assert @user.signature.attached? # Assurez-vous que la signature est attachée avant la suppression
+  
+    delete :delete_signature, params: { id: @user.id }
+    assert_redirected_to edit_user_path
+    assert_equal 'L\'image de la signature a été supprimée avec succès.', flash[:notice]
+  
+    @user.reload
+    assert_not @user.signature.attached? # Vérifiez que la signature a bien été supprimée
   end
+  
+  
+  
 
   test "should destroy user" do
     assert_difference('User.count', -1) do
