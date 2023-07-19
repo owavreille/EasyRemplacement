@@ -5,7 +5,13 @@
 <%= form_with(model: @app_settings, url: app_setting_path(@app_settings), method: :patch) do |form| %>
       
      <div class="row">
-  <div class="col-auto">
+
+          <div class = "col-auto">
+          <div class="m-3">Nom de l'Application :</div>
+          <%= form.text_field :app_name, class: 'form-control m-3' %>
+           </div>
+
+          <div class="col-auto">
             <%= form.label :logo, "Logo" %>
             <%= form.file_field :logo, accept: "image/*", class: "form-control" %>
             <% if @app_settings.logo.attached? %>
@@ -16,12 +22,6 @@
               <p>Aucune image sélectionnée</p>
             <% end %>
           </div>
-
-
-          <div class = "col-auto">
-          <div class="m-3">Nom de l'Application :</div>
-          <%= form.text_field :app_name, class: 'form-control m-3' %>
-           </div>
           </div>
 
           <div class ="row">
