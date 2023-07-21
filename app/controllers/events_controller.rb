@@ -28,12 +28,21 @@ class EventsController < ApplicationController
     @app_settings = AppSetting.find(1)
   end
 
-  def list
-    @events = @site ? @site.events.where('start_time >= ?', Date.today) : Event.where('start_time >= ?', Date.today)
-    @event = Event.all
+  def openings
     @site = Site.find_by(id: params[:site_id])
-
+    @events = @site ? @site.events.where.not(user_id: nil).where(contract_validated: true).where('start_time >= ?', Date.today) : Event.where.not(user_id: nil).where(contract_validated: true).where('start_time >= ?', Date.today)
+    @pagy, @events = pagy(@events) if @events.present?
   end
+  
+  def opened
+    @event = Event.find(params[:id])
+    if @event.update(event_params)
+      flash[:notice] = "Ouverture paramètrée !"
+    else
+      flash[:alert] = "Une erreur est survenue."
+    end
+  end
+  
 
   # GET /events/new
   def new
@@ -139,6 +148,6 @@ class EventsController < ApplicationController
     end
 
     def event_params
-      params.require(:event).permit(:site_id, :doctor_id, :start_time, :end_time, :number_of_patients, :helper, :user_id, :amount, :reversion, :amount_paid, :contract_generated, :contract_validated, :editable, :patient_count, :am_min_hour, :am_max_hour, :pm_min_hour, :pm_max_hour, :contract_blob)
+      params.require(:event).permit(:site_id, :doctor_id, :start_time, :end_time, :number_of_patients, :helper, :user_id, :amount, :reversion, :amount_paid, :contract_generated, :contract_validated, :editable, :patient_count, :am_min_hour, :am_max_hour, :pm_min_hour, :pm_max_hour, :contract_blob, :opened)
     end    
 end

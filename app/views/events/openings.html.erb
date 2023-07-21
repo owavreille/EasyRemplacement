@@ -1,0 +1,52 @@
+               <div class="card shadow m-3">
+          <div class="card-header">
+            <h4> Ouvertures à réaliser :</h4>
+                      </div>
+                      <div class="card-body">
+                <div class="table-responsive m-3">
+            <table class="table table-striped">
+              <thead class="thead-dark">
+                <tr class="table-primary">
+                  <th>Site</th>
+                  <th>Date</th>
+                  <th>Médecin Remplacé</th>
+                  <th>Début</th>
+                  <th>Fin</th>
+                  <th>Nb de Patients</th>
+                  <th>Aide de Cs</th>
+                  <th>Nom du Remplaçant</th>
+                  <th>Taux Reversion</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @events.each do |event| %>
+                  <tr>
+                    <td><%= event.site.name %></td>
+                    <td><%= event.start_time.strftime("%d/%m/%Y") %></td>
+                    <td>Dr <%= event.doctor.first_name %> <%= event.doctor.last_name %></td>
+                    <td><%= event.start_time.strftime("%H:%M") %></td>
+                    <td><%= event.end_time.strftime("%H:%M") %></td>
+                    <td><%= event.number_of_patients %></td>
+                    <td><%= event.helper ? "oui" : "non" %></td>
+                    <td><%= event.user&.first_name %> <%= event.user&.last_name %></td>
+                    <td><%= event.reversion %> % </td>
+                    <td> <%= form_with(url: opened_path(event), method: :patch, local: true) do |f| %>
+                      <%= f.check_box :opened, onchange: 'this.form.submit()', checked: event.opened, label: "Ouverture faite" %>
+                    <% end %> </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+            </div>
+            <div class="text-end m-3">
+              <% if @upcoming_pagy.present? %>
+              <%== pagy_bootstrap_nav(@upcoming_pagy) %>
+              <% end %>
+            </div>
+        </div>
+      </div>
+  </div>
+  <div class="text-end m-3">
+  <%= link_to "Retour", root_path, class: "btn btn-success" %>
+</div>

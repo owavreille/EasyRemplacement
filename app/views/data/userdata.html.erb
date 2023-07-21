@@ -42,7 +42,6 @@
   <% end %>
 </tbody>
 </table>
-</div>
 <% total_amount_paid_by_year.each do |year, total_amount_paid| %>
   <div class="total_amount_paid">Total des Remplacements <%= year %>: <%= total_amount_paid %> euros</div>
 <% end %>
@@ -92,9 +91,16 @@
                         Aucun contrat
                         <% end %>
                         <% if event.contract_blob.attached? %>
-                        <%= link_to validate_contract_path(event.id), method: :patch, class: "btn btn-primary" do %>
-                        <i class="bi bi-check2-circle"></i>
-                        <% end %>
+                        <% if event.contract_validated %>
+  <%= link_to "#", class: "btn btn-primary disabled", aria: { disabled: "true" } do %>
+    <i class="bi bi-check2-circle"></i>
+  <% end %>
+<% else %>
+  <%= link_to validate_contract_path(event.id), method: :patch, class: "btn btn-primary" do %>
+    <i class="bi bi-check2-circle"></i>
+  <% end %>
+<% end %>
+
                         <% else %>
                         ...
                         <% end %>
@@ -104,7 +110,6 @@
                 <% end %>
               </tbody>
             </table>
-</div>
                   <div class="text-end m-3">
                     <% if @upcoming_pagy.present? %>
                     <%== pagy_bootstrap_nav(@upcoming_pagy) %>
@@ -115,6 +120,8 @@
       </div>
     </div>
   </div>
-  <div class="text-end m-1">
+  </div>
+
+  <div class="text-end m-3">
   <%= link_to "Retour", root_path, class: "btn btn-success" %>
 </div>

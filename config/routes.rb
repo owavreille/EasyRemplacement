@@ -37,7 +37,8 @@ patch '/events/:id/validate_contract', to: 'data#validate_contract', as: 'valida
 # Gestion des évènements
 match '/events/:id/booking', to: 'events#booking', via: [:get, :put], as: 'booking_event'
 match '/events/:id/cancel_booking', to: 'data#cancel_booking', via: :delete, as: 'cancel_booking_event'
-get '/list', to: 'events#list', as: 'list'
+get '/openings', to: 'events#openings', as: 'openings'
+patch '/events/:id/opened', to: 'openings#opened', as: 'opened'
 
 # Suivi des remplacements et suivi par utilisateur
 get '/datas', to: 'data#index', as: 'datas'
