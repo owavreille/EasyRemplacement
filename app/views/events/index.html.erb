@@ -98,9 +98,6 @@
                   <hr>
                     <strong>Horaires :</strong> <%= event.start_time.strftime("%H:%M") %> - <%= event.end_time.strftime("%H:%M") %><br>
                     <strong>Médecin :</strong> Dr <%= event.doctor.last_name %> <%= event.doctor.first_name %><br>
-                    <strong>Nb de Patients :</strong> <%= event.number_of_patients %><br>
-                    <strong>Taux de Reversion :</strong> <%= event.reversion %> %<br>
-                    <strong>Cs Aidée :</strong> <%= event.helper ? 'oui' : 'non' %>
                   <hr>
 
                   <div class="text-center">
