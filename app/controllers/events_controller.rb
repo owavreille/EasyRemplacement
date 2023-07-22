@@ -26,24 +26,24 @@ class EventsController < ApplicationController
   def show
     @event = Event.find(params[:id])
     @app_settings = AppSetting.find(1)
+  
   end
 
   def openings
-    @site = Site.find_by(id: params[:site_id])
-    @events = @site ? @site.events.where.not(user_id: nil).where(contract_validated: true).where('start_time >= ?', Date.today) : Event.where.not(user_id: nil).where(contract_validated: true).where('start_time >= ?', Date.today)
-    @pagy, @events = pagy(@events) if @events.present?
+    @events = Event.where(contract_validated: true).where(opened: nil).where("start_time >= ?", Date.today)
+    @pagy, @events = pagy(@events)
   end
-  
+
   def opened
     @event = Event.find(params[:id])
-    if @event.update(event_params)
-      flash[:notice] = "Ouverture paramètrée !"
+    if @event.update(opened: true)
+      flash[:notice] = "La plage a été ouverte avec succès."
+      redirect_to openings_path
     else
-      flash[:alert] = "Une erreur est survenue."
+      flash[:alert] = "Une erreur est survenue lors de la mise à jour de la plage"
     end
   end
   
-
   # GET /events/new
   def new
     @event = Event.new(start_time: (DateTime.now + 7.days).beginning_of_hour, end_time: (DateTime.now + 7.days + 4.hours).beginning_of_hour)

@@ -10,6 +10,17 @@ body {
   background-size: cover;
 }
 
+.modal {
+  position: absolute;
+  z-index: 5;
+  right: 50%;
+  top: 50%;
+  width: 400px;
+  word-break: break-word;
+  border-radius: 6px;
+  background: #bad5ff;
+}
+
 .sort th {
   cursor: pointer;
 }
@@ -137,6 +148,10 @@ body {
 
 .sidebar-toggle-btn i {
   font-size: 1.5rem;
+}
+
+.active {
+  border-bottom: 2px solid blue;
 }
 
 .add-icon {

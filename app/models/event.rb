@@ -8,16 +8,21 @@ class Event < ApplicationRecord
   validates_presence_of :reversion
   validate :check_minimal_replacement_length
 
+  def minimal_replacement_length
+    AppSetting.find(1).minimal_replacement_length
+  end
+
   def check_minimal_replacement_length
-    if am_min_hour.present? && am_max_hour.present? && (am_max_hour - am_min_hour) / 1.hour < minimal_replacement_length
+
+    if am_min_hour.present? && am_max_hour.present? && (am_max_hour - am_min_hour).hours < minimal_replacement_length
       errors.add(:am_max_hour, "La durée minimale du remplacement est de #{minimal_replacement_length} heures.")
-    elsif pm_min_hour.present? && pm_max_hour.present? && (pm_max_hour - pm_min_hour) / 1.hour < minimal_replacement_length
+    elsif pm_min_hour.present? && pm_max_hour.present? && (pm_max_hour - pm_min_hour).hours < minimal_replacement_length
       errors.add(:pm_max_hour, "La durée minimale du remplacement est de #{minimal_replacement_length} heures.")
-    elsif am_min_hour.present? && pm_max_hour.present? && (pm_max_hour - am_min_hour) / 1.hour < minimal_replacement_length
+    elsif am_min_hour.present? && pm_max_hour.present? && (pm_max_hour - am_min_hour).hours < minimal_replacement_length
       errors.add(:pm_max_hour, "La durée minimale du remplacement est de #{minimal_replacement_length} heures.")
     end
   end
-
+  
   
   private
 

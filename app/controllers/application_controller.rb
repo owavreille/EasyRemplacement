@@ -8,7 +8,7 @@ include Pagy::Backend
     before_action :contract_to_generate
     before_action :set_app_name
     before_action :set_app_settings
-
+    before_action :events_to_plan
 
    def upcoming_events_with_contract
     if current_user
@@ -26,6 +26,15 @@ include Pagy::Backend
       @contract_to_generate = 0
     end
   end
+
+def events_to_plan
+  if current_user
+    @events_to_plan = Event.where(contract_validated: true).where(opened: nil).where("start_time >= ?", Date.today).count
+  else
+    @events_to_plan = 0
+  end
+end
+
 
      protected
           def configure_permitted_parameters

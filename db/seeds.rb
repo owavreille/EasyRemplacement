@@ -185,7 +185,7 @@
           app_name: 'EasyRemplacement', 
           disable_booking_threshold: '5', 
           am_pm_hour_separation: '2023-07-15 13:00:00', 
-          minimal_replacement_length: '2023-07-15 03:00:00',
+          minimal_replacement_length: '3',
           max_replacement_cancel: '15'
      )
      puts "Paramètres de l'application définis avec succès"

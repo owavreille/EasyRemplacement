@@ -54,7 +54,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_15_204412) do
     t.integer "disable_booking_threshold"
     t.integer "max_replacement_cancel"
     t.datetime "am_pm_hour_separation"
-    t.datetime "minimal_replacement_length"
+    t.float "minimal_replacement_length"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -94,6 +94,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_15_204412) do
     t.decimal "amount_paid"
     t.boolean "contract_generated"
     t.boolean "contract_validated"
+    t.boolean "opened"
     t.boolean "editable"
     t.integer "patient_count"
     t.datetime "am_min_hour"

@@ -5,7 +5,7 @@ def change
     t.integer :disable_booking_threshold
     t.integer :max_replacement_cancel
     t.datetime :am_pm_hour_separation
-    t.datetime :minimal_replacement_length
+    t.float :minimal_replacement_length
 
     t.timestamps
   end

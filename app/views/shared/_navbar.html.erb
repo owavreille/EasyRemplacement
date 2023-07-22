@@ -59,46 +59,45 @@
 <% end %>
 
 
-
-    <% if current_user && current_user.admin? %>
+<% if current_user && current_user.admin? %>
 <div class="sidebar hidden bg-white" id="sidebar">
   <ul class="navbar-nav navbar-light">
-      <li class="nav-item">
+      <li class="nav-item <%= 'active' if current_page?(events_path) %>">
         <%= link_to events_path, class: "nav-link" do %>
           <i class="bi bi-calendar3"></i> Calendrier
         <% end %>
       </li>
-      <li class="nav-item">
+      <li class="nav-item <%= 'active' if current_page?(users_path) %>">
         <%= link_to users_path, class: "nav-link" do %>
           <i class="bi bi-people"></i> Utilisateurs
         <% end %>
       </li>
-      <li class="nav-item">
+      <li class="nav-item <%= 'active' if current_page?(sites_path) %>">
         <%= link_to sites_path, class: "nav-link" do %>
           <i class="bi bi-house-door"></i> Sites
         <% end %>
       </li>
-      <li class="nav-item">
+      <li class="nav-item <%= 'active' if current_page?(doctors_path) %>">
         <%= link_to doctors_path, class: "nav-link" do %>
           <i class="bi bi-person-badge"></i> Médecins
         <% end %>
       </li>
-      <li class="nav-item">
+      <li class="nav-item <%= 'active' if current_page?(mailing_lists_path) %>">
         <%= link_to mailing_lists_path, class: "nav-link" do %>
           <i class="bi bi-envelope"></i> Mailing Lists
         <% end %>
       </li>
-      <li class="nav-item">
+      <li class="nav-item <%= 'active' if current_page?(cdoms_path) %>">
         <%= link_to cdoms_path, class: "nav-link" do %>
           <i class="bi bi-briefcase"></i> Conseil de l'Ordre
         <% end %>
       </li>
-      <li class="nav-item">
+      <li class="nav-item <%= 'active' if current_page?(contracts_path) %>">
         <%= link_to contracts_path, class: "nav-link" do %>
           <i class="bi bi-file-earmark-text"></i> Contrat de Remplacement
         <% end %>
       </li>
-      <li class="nav-item">
+      <li class="nav-item <%= 'active' if current_page?(datas_path) %>">
         <%= link_to datas_path, class: "nav-link" do %>
           <i class="bi bi-file-earmark-medical"></i> Suivi Des Remplacements
           <% if @contract_to_generate > 0 %>
@@ -108,17 +107,22 @@
           <% end %>
         <% end %>
       </li>
-      <li class="nav-item">
+      <li class="nav-item <%= 'active' if current_page?(accounting_path) %>">
         <%= link_to accounting_path, class: "nav-link" do %>
           <i class="bi bi-file-earmark-medical"></i> Comptabilité
         <% end %>
       </li>
-      <li class="nav-item">
+      <li class="nav-item <%= 'active' if current_page?(openings_path) %>">
         <%= link_to openings_path, class: "nav-link" do %>
       <i class="bi bi-calendar3"></i> Ouvertures
+      <% if @events_to_plan > 0 %>
+                          <span class="badge bg-danger rounded-circle m-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title='<%= @events_to_plan %> ouverture(s) en attente.'>
+                            <%= @events_to_plan %>
+                          </span>
+                        <% end %>
         <% end %>
       </li>
-      <li class="nav-item">
+      <li class="nav-item <%= 'active' if current_page?(app_settings_path) %>">
         <%= link_to app_settings_path, class: "nav-link" do %>
       <i class="bi bi-gear-wide-connected"></i> Préférences
         <% end %>

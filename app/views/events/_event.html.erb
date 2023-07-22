@@ -28,7 +28,9 @@
   <%= form_for(@event, url: event_path(@event), html: { class: 'form' }) do |form| %>
     <div class="row">
       <div class = "col">
-        <%= form.number_field :patient_count, min: @event.site.min_patients, max: @event.site.max_patients, class: 'form-control w-25' %>
+      <% if @event.site.min_patients_helped.present? && @event.site.max_patients_helped.present? %>
+      <%= form.select :patient_count, (@event.site.min_patients..@event.site.max_patients).to_a, { selected: @event.site.min_patients }, { class: 'form-control w-25' } %>
+      <% end %>
       </div>
     </div>
 
@@ -88,7 +90,9 @@
     <%= form_for(@event, url: event_path(@event), html: { class: 'form' }) do |form| %>
     <div class="row">
       <div class = "col-md">
-        <%= form.number_field :patient_count, min: @event.site.min_patients_helped, max: @event.site.max_patients_helped, class: 'form-control w-25' %>
+      <% if @event.site.min_patients_helped.present? && @event.site.max_patients_helped.present? %>
+      <%= form.select :patient_count, (@event.site.min_patients_helped..@event.site.max_patients_helped).to_a, { selected: @event.site.min_patients_helped }, { class: 'form-control w-25' } %>
+      <% end %>
       </div>
     </div>
 
@@ -138,9 +142,7 @@
     <% end %>
 
 
-    <div class="text-end">
-        <%= form.submit 'Enregistrer', class: 'btn btn-primary m-2' %>
-      </div>
+    
   <% end %>
 <% end %>
 <% end %>
@@ -161,3 +163,15 @@
   </div>
 <% end %>
 <% end %>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const reserveButton = document.querySelector('.reserve-button');
+    const form = document.querySelector('.form');
+
+    reserveButton.addEventListener('click', function(event) {
+      event.preventDefault();
+      form.submit();
+    });
+  });
+</script>

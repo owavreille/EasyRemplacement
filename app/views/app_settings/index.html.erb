@@ -42,11 +42,11 @@
           <%= form.time_field :am_pm_hour_separation, class: 'form-control m-3' %>
           </div>
 
-          <div class = "col-auto">
-          <div class="m-3">Durée minimum d'un Remplacement :</div>
-          <%= form.time_field :minimal_replacement_length, class: 'form-control m-3' %>
-          </div>
-          </div>
+         <div class="col-auto">
+          <div class="m-3">Durée minimum d'un Remplacement (en heures):</div>
+          <%= form.number_field :minimal_replacement_length, step: 0.01, class: 'form-control m-3' %>
+        </div>
+
 
         <div class="text-center m-3">
       <%= form.submit 'Enregistrer', class: 'btn btn-primary mt-3' %>
