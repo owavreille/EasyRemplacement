@@ -20,13 +20,10 @@ class EventsController < ApplicationController
     @events = @events.where(site_id: @selected_site_ids) if @selected_site_ids.present?
   end
   
-
-
   # GET /events/1 or /events/1.json
   def show
     @event = Event.find(params[:id])
     @app_settings = AppSetting.find(1)
-  
   end
 
   def openings

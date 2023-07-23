@@ -12,7 +12,6 @@ class UsersController < ApplicationController
   
 
   def show
-    # Utilisez @user pour accéder aux données de l'utilisateur dans la vue
   end
 
   def new

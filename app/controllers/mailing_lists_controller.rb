@@ -61,12 +61,10 @@ class MailingListsController < ApplicationController
   end
   
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_mailing_list
       @mailing_list = MailingList.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def mailing_list_params
       params.require(:mailing_list).permit(:name, :text, :site_id)
     end
