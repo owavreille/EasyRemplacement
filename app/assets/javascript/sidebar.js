@@ -1,4 +1,3 @@
-document.addEventListener('DOMContentLoaded', (event) => {
 document.querySelector('.yield-content').addEventListener('click', function() {
     const sidebar = document.getElementById('sidebar');
     if (!sidebar.classList.contains('hidden')) {
@@ -32,4 +31,3 @@ document.querySelector('.yield-content').addEventListener('click', function() {
       toggleIcon.classList.add("bi-list");
     }
   }
-});
