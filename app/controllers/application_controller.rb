@@ -38,9 +38,9 @@ end
 
      protected
           def configure_permitted_parameters
-               devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:title, :role, :last_name, :first_name, :date_of_birth, :phone, :address, :postal_code, :city, :signature, :siret_number, :license_number, :mailing_list, :active, :email, :password)}
+               devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:title, :role, :last_name, :first_name, :date_of_birth, :phone, :address, :postal_code, :city, :signature, :siret_number, :license_number, :mailing_list_id, :active, :email, :password)}
 
-               devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:title, :role, :last_name, :first_name, :date_of_birth, :phone, :address, :postal_code, :city, :signature, :siret_number, :license_number, :mailing_list, :active, :email, :password, :current_password)}
+               devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:title, :role, :last_name, :first_name, :date_of_birth, :phone, :address, :postal_code, :city, :signature, :siret_number, :license_number, :mailing_list_id, :active, :email, :password, :current_password, favorite_site_ids: [])}
           end
 
      private

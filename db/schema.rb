@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_15_204412) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_24_090358) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -111,6 +111,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_15_204412) do
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
+  create_table "favorite_sites", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "site_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["site_id"], name: "index_favorite_sites_on_site_id"
+    t.index ["user_id"], name: "index_favorite_sites_on_user_id"
+  end
+
   create_table "mailing_lists", force: :cascade do |t|
     t.string "name"
     t.text "text"
@@ -178,6 +187,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_15_204412) do
   add_foreign_key "events", "doctors"
   add_foreign_key "events", "sites"
   add_foreign_key "events", "users"
+  add_foreign_key "favorite_sites", "sites"
+  add_foreign_key "favorite_sites", "users"
   add_foreign_key "mailing_lists", "sites"
   add_foreign_key "sites", "cdoms"
   add_foreign_key "users", "mailing_lists"

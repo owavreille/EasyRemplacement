@@ -153,6 +153,18 @@
             </div>
           </div>
 
+          <div class="form-group mb-3">
+  <%= form.label :site_ids, "Sites favoris" %>
+  <%= form.collection_check_boxes :site_ids, Site.all, :id, :name do |b| %>
+    <div class="form-check">
+      <%= b.check_box class: "form-check-input" %>
+      <%= b.label class: "form-check-label" %>
+    </div>
+  <% end %>
+</div>
+
+          
+
           <div class="actions text-center">
             <%= form.submit "Enregistrer", class: "btn btn-primary mt-3" %>
             <%= link_to "Annuler", root_path, class: "btn btn-success mt-3" %>

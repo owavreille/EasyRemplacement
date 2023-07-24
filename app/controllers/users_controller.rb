@@ -33,10 +33,11 @@ class UsersController < ApplicationController
   
   def update
     @user = User.find(params[:id])
+  
     if @user.update(user_params)
       redirect_to users_path, notice: 'Profil mis à jour avec succès.'
     else
-      redirect_to edit_users_path, notice: 'Échec de la mise à jour !'
+      render :edit
     end
   end
   
@@ -84,7 +85,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:title, :role, :first_name, :last_name, :date_of_birth, :email, :phone, :username, :password, :password_confirmation, :active, :address, :postal_code, :city, :license_number, :siret_number, :mailing_list_id, :signature, :speciality, :rib)
+    params.require(:user).permit(:title, :role, :first_name, :last_name, :date_of_birth, :email, :phone, :username, :password, :password_confirmation, :active, :address, :postal_code, :city, :license_number, :siret_number, :mailing_list_id, :signature, :speciality, :rib, site_ids: [])
   end
 
 

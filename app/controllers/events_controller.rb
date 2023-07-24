@@ -4,6 +4,7 @@ class EventsController < ApplicationController
 
 
   def index
+    @favorite_site_ids = current_user.sites.pluck(:id).map(&:to_s)
     @doctors = Doctor.all
     @sites = Site.all
     @site = Site.find_by(id: params[:site_id])
@@ -14,11 +15,12 @@ class EventsController < ApplicationController
     @events = @site ? @site.events.where('start_time >= ?', start_date) : Event.where('start_time >= ?', start_date)
   
     @selected_doctor_ids = Array.wrap(params[:doctor_ids])
-    @selected_site_ids = Array.wrap(params[:site_ids])
+    @selected_site_ids = params[:site_ids].presence || @favorite_site_ids
   
     @events = @events.where(doctor_id: @selected_doctor_ids) if @selected_doctor_ids.present?
     @events = @events.where(site_id: @selected_site_ids) if @selected_site_ids.present?
   end
+  
   
   # GET /events/1 or /events/1.json
   def show

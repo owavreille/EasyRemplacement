@@ -53,8 +53,8 @@
               <% @sites.each do |site| %>
                 <li>
                   <div class="form-check d-flex align-items-center">
-                    <%= check_box_tag 'site_ids[]', site.id, @selected_site_ids.include?(site.id.to_s), id: "site_#{site.id}", class: 'form-check-input mx-0', data: { "auto-submit-target": "field" }  %>
-                    <%= label_tag "site_#{site.id}", site.name, class: 'form-check-label dropdown-item mb-0', style: 'color: black; background-color: transparent;' %>
+                  <%= check_box_tag 'site_ids[]', site.id, @selected_site_ids.include?(site.id.to_s), id: "site_#{site.id}", class: 'form-check-input mx-0', data: { "auto-submit-target": "field" }  %>
+                  <%= label_tag "site_#{site.id}", site.name, class: 'form-check-label dropdown-item mb-0', style: 'color: black; background-color: transparent;' %>
                   </div>
                 </li>
               <% end %>
@@ -75,7 +75,7 @@
   <div id="calendar" class="overflow-auto">
 
     <%= calendar(events: @events, number_of_days: 7) do |date, events| %>
-      <% events_filtered_by_site = events.select { |event| params[:site_ids].present? && params[:site_ids].include?(event.site_id.to_s) } %>
+      <% events_filtered_by_site = events.select { |event| (params[:site_ids].present? ? params[:site_ids] : @favorite_site_ids).include?(event.site_id.to_s) } %>
       <% events_filtered_by_doctor = events.select { |event| params[:doctor_ids].present? && params[:doctor_ids].include?(event.doctor_id.to_s) } %>
       
       <% events_to_display = if params[:doctor_ids].present? && params[:site_ids].present?
