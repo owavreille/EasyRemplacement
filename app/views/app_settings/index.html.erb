@@ -13,9 +13,9 @@
           <%= form.text_field :app_name, class: 'form-control m-3' %>
            </div>
 
-          <div class="col-auto">
-            <%= form.label :logo, "Logo" %>
-            <%= form.file_field :logo, accept: "image/*", class: "form-control" %>
+          <div class="col-auto m-3">
+            <%= form.label :logo, "Logo :" %>
+            <%= form.file_field :logo, accept: "image/*", class: "form-control m-3" %>
             <% if @app_settings.logo.attached? %>
               <p>Image sélectionnée :</p>
               <%= image_tag @app_settings.logo, style: "max-width: 300px; max-height: 200px;" %>
