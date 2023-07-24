@@ -6,7 +6,7 @@
 body {
   background-image: url(asset-path("cover.svg"));
   background-repeat: no-repeat;
-  background-position: center center;
+  background-attachment: fixed;
   background-size: cover;
 }
 
@@ -150,13 +150,13 @@ body {
 }
 
 .active {
-  border-bottom: 2px solid blue;
+  border-bottom: 2px solid rgb(27, 98, 253);
 }
 
 .add-icon {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 10px;
+  right: 10px;
   z-index: 3;
   font-size: 3rem;
 }
@@ -220,7 +220,7 @@ body {
 
 .chart-container {
   background-color: white;
-  border: 1px solid #888888;
+  border: 1px solid #e6e6e6;
   border-radius: 10px;
 }
 

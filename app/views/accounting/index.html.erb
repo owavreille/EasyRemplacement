@@ -1,4 +1,4 @@
-<div class="chart-container shadow m-3">
+<div class="chart-selector shadow m-3">
   <%= select_tag :group_by_total, options_for_select([['Par mois', 'month'], ['Par année', 'year']], params[:group_by_total]), class: 'form-control', id: 'group-by-total' %>
 </div>
 <div class="chart-container row m-3">
@@ -12,7 +12,7 @@
   </div>
 </div>
 
-<div class="chart-container shadow m-3">
+<div class="chart-selector shadow m-3">
   <%= select_tag :group_by_site, options_for_select([['Par mois', 'month'], ['Par année', 'year']], params[:group_by_site]), class: 'form-control', id: 'group-by-site' %>
 </div>
 <div class="chart-container row m-3">
@@ -26,7 +26,7 @@
   </div>
 </div>
 
-<div class="chart-container shadow m-3">
+<div class="chart-selector shadow m-3">
   <%= select_tag :group_by_doctor, options_for_select([['Par mois', 'month'], ['Par année', 'year']], params[:group_by_doctor]), class: 'form-control', id: 'group-by-doctor' %>
 </div>
 <div class="chart-container row m-3">
@@ -40,7 +40,7 @@
   </div>
 </div>
 
-<div class="chart-container shadow m-3">
+<div class="chart-selector shadow m-3">
   <%= select_tag :group_by_user, options_for_select([['Par mois', 'month'], ['Par année', 'year']], params[:group_by_user]), class: 'form-control', id: 'group-by-user' %>
 </div>
 <div class="chart-container row m-3">
