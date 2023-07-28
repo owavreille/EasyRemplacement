@@ -16,7 +16,7 @@
             <div class="col-md-6">
               <div class="form-group mb-3">
                 <%= form.label :title, "Titre" %>
-                <%= form.select :title, User::TITLE_OPTIONS, { prompt: "Sélectionnez un titre" }, { class: "form-control" } %>
+                <%= form.select :title, User::TITLE_OPTIONS, { prompt: "Sélectionnez un titre", selected: "Dr" }, { class: "form-control" } %>
               </div>
             </div>
             <div class="col-md-6">
@@ -153,7 +153,7 @@
             </div>
           </div>
 
-          <div class="form-group mb-3">
+          <div class="form-group mb-3" style="max-height: 150px;">
   <%= form.label :site_ids, "Sites favoris" %>
   <%= form.collection_check_boxes :site_ids, Site.all, :id, :name do |b| %>
     <div class="form-check">

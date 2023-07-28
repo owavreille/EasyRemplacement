@@ -255,6 +255,12 @@ body {
   margin-left: 10px;
 }
 
+.rich-text-container {
+  overflow: auto; 
+  max-height: 500px; 
+}
+
+
 trix-editor {
     border: 1px solid #bbb;
     border-radius: 3px;
