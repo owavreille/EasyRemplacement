@@ -30,5 +30,18 @@ class UserMailer < ApplicationMailer
       admins = User.where(role: true)
       mail(to: admins.pluck(:email), subject: 'Nouvel utilisateur enregistré')
     end
+
+    def cdom_with_attachment(email, event, contract_content)
+      @event = event
+      @contract_content = contract_content
+  
+      attachments["contrat_#{event.id}.html"] = {
+        mime_type: "text/html",
+        content: @contract_content
+      }
+  
+      mail(to: email, subject: "Contrat validé - Événement ##{event.id}")
+    end
+
   end
   

@@ -146,15 +146,21 @@ def validate_contract
 
   if @event.update(contract_validated: true)
     flash[:notice] = "Contrat validé et envoyé au Conseil de l'Ordre!"
-     # Envoyer l'e-mail de confirmation au conseil de l'ordre
-     # UserMailer.cdom(@event.site.cdom.email, @event).deliver_now
 
+    # Joindre le contrat en tant que pièce jointe à l'e-mail
+    # if @event.contract.attached?
+    #   contract_content = @event.contract.download
+    #   UserMailer.cdom_with_attachment(@event.site.cdom.email, @event, contract_content).deliver_now
+    # else
+    #   flash[:alert] = "Le fichier de contrat n'est pas disponible."
+    # end
   else
     flash[:alert] = "Impossible de valider le contrat !"
   end
 
   redirect_to userdata_path
 end
+
 
 
 end
