@@ -145,7 +145,10 @@ def validate_contract
   @event = Event.find(params[:id])
 
   if @event.update(contract_validated: true)
-    flash[:notice] = "Contrat validé !"
+    flash[:notice] = "Contrat validé et envoyé au Conseil de l'Ordre!"
+     # Envoyer l'e-mail de confirmation au conseil de l'ordre
+     # UserMailer.cdom(@event.site.cdom.email, @event).deliver_now
+
   else
     flash[:alert] = "Impossible de valider le contrat !"
   end
