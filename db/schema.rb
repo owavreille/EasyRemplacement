@@ -77,6 +77,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_24_090358) do
     t.boolean "optam"
     t.string "phone"
     t.string "email"
+    t.text "instructions"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -136,6 +137,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_24_090358) do
     t.string "city"
     t.string "software"
     t.text "informations"
+    t.text "instructions"
     t.integer "cdom_id"
     t.string "color"
     t.integer "min_patients"

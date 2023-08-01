@@ -7,6 +7,7 @@ class CreateSites < ActiveRecord::Migration[7.0]
       t.string :city
       t.string :software
       t.text :informations
+      t.text :instructions
       t.references :cdom, foreign_key: true
       t.string :color
       t.integer :min_patients

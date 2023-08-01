@@ -58,6 +58,10 @@
           <%= form.collection_select(:cdom_id, Cdom.all, :id, :name, { prompt: "Sélectionnez un Conseil de l'Ordre" }, class: 'form-control') %>
         </div>
       </div>
+      <div class="form-group">
+          <%= form.label :instructions, "Consignes de Remplacement" %>
+          <%= form.text_area :instructions, class: 'form-control' %>
+        </div>
     </div>
 
     <hr>

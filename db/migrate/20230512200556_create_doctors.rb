@@ -10,6 +10,7 @@ class CreateDoctors < ActiveRecord::Migration[7.0]
       t.boolean :optam
       t.string :phone
       t.string :email
+      t.text :instructions
 
       t.timestamps
     end

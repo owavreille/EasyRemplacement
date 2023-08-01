@@ -9,12 +9,38 @@
     </div>
   </div>
   <div class="row">
-    <% @doctors.each do |doctor| %>
-      <div class="col-md-4 mb-4">
+  <% @doctors.each_with_index do |doctor, index| %>
+    <div class="col-md-4 mb-4">
         <div class="card shadow m-3">
           <div class="card-body">
+          <div class="row">
+          <div class="col">
 <h5 class="text-center"><i class="bi bi-person-lines-fill"></i> <%= doctor.title %> <%= doctor.last_name %> <%= doctor.first_name %></h5>
-            <hr>
+</div>
+<div class="col">
+<button type="button" id="ModalDoctor<%= index %>" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#instructionDoctor<%= index %>">
+Consignes
+</button>
+</div>
+</div>
+<div class="modal fade" id="instructionDoctor<%= index %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Consignes</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <%= doctor.instructions %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
             <ul class="list-unstyled">
               <li>RPPS: <span class="text-primary"><%= doctor.rpps %></span></li>
               <li>Spécialité: <span class="text-primary"><%= doctor.speciality %></span></li>
@@ -39,18 +65,45 @@
     </div>
   </div>
   <div class="row">
-    <% @sites.each do |site| %>
-      <div class="col-md-4 mb-4">
+  <% @sites.each_with_index do |site, index| %>
+    <div class="col-md-4 mb-4">
         <div class="card shadow m-3" style="border-left: 5px solid <%= site.color %>;">
           <div class="card-body">
-            <h5 class="text-center"><i class="bi bi-house-door-fill"></i> <%= site.name %></h5>
+          <div class="row">
+          <div class="col">
+            <h5><i class="bi bi-house-door-fill"></i> <%= site.name %></h5>
+          </div>
+          <div class="col">
+          <button type="button" id="ModalSite<%= index %>" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#instructionSite<%= index %>">
+          Consignes
+            </button>
+          </div>
+        </div>
+          
+        <div class="modal fade" id="instructionSite<%= index %>" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+        <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel2">Consignes</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <%= site.instructions %>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <hr>
             <ul class="list-unstyled">
               <li>Adresse: <span class="text-primary"><%= site.address %></span></li>
               <li>Code postal: <span class="text-primary"><%= site.postal_code %></span></li>
               <li>Ville: <span class="text-primary"><%= site.city %></span></li>
               <li>Logiciel: <span class="text-primary"><%= site.software %></span></li>
-              <li>Caractéristiques: <span class="text-primary"><%= site.informations %></span></li>
+              <li>Informations: <span class="text-primary"><%= site.informations %></span></li>
             </ul>
           </div>
         </div>

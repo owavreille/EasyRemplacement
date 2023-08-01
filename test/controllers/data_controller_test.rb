@@ -105,6 +105,6 @@ class DataControllerTest < ActionController::TestCase
     assert_redirected_to userdata_url
     @event.reload
     assert_equal true, @event.contract_validated
-    assert_equal "Contrat validé !", flash[:notice]
+    assert_equal "Contrat validé et envoyé au Conseil de l'Ordre!", flash[:notice]
   end
 end
