@@ -44,6 +44,9 @@ gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection', '~> 1.0', '>= 1.0.1'
 
+# HTTP/REST API client library.
+gem 'faraday', '~> 2.7', '>= 2.7.10'
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.0', '>= 7.0.5'
 

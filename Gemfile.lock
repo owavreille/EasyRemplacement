@@ -346,6 +346,7 @@ DEPENDENCIES
   devise (~> 4.9, >= 4.9.2)
   devise-i18n (~> 1.11)
   dotenv-rails
+  faraday (~> 2.7, >= 2.7.10)
   groupdate
   image_processing (~> 1.2)
   importmap-rails

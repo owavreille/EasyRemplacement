@@ -63,5 +63,7 @@ get '/app_settings', to: 'app_settings#index', as: 'app_settings'
 patch '/app_settings/:id', to: 'app_settings#update', as: 'app_setting'
 delete 'app_settings/:id/delete_logo', to: 'app_settings#delete_logo', as: 'delete_logo'
 
+# Récupération de la ville à partir du code postal
+get '/postal_codes/get_cities', to: 'postal_codes#get_cities'
 
 end

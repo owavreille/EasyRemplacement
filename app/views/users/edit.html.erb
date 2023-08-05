@@ -93,20 +93,21 @@
             </div>
 
             
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group mb-3">
-                <%= form.label :postal_code, "Code Postal" %>
-                <%= form.text_field :postal_code, class: "form-control" %>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group mb-3">
-                <%= form.label :city, "Ville" %>
-                <%= form.text_field :city, class: "form-control" %>
-              </div>
-            </div>
-          </div>
+          <div class="row" data-controller="city-select">
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= form.label :postal_code, "Code Postal" %>
+      <%= form.text_field :postal_code, data: { city_select_target: 'postalCode' }, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= form.label :city, "Ville" %>
+      <%= form.select :city, [], {}, data: { city_select_target: 'city' }, class: 'form-control' %>
+            <%= form.hidden_field :city, data: { city_select_target: 'cityHidden' } %>
+    </div>
+  </div>
+</div>
 
        <div class="row">
             <div class="col-md-6">
