@@ -5,15 +5,15 @@
 
 <div class="row m-2">
   <div class="col-md-8 mt-2">
-    <%= form_tag sites_path, method: :get, class: 'w-100' do %>
-      <%= text_field_tag :search, params[:search], placeholder: 'Rechercher par Nom', class: 'form-control', type: 'search' %>
+    <%= form_tag sites_path, method: :get, class: "w-100" do %>
+      <%= text_field_tag :search, params[:search], placeholder: "Rechercher par Nom", class: "form-control", type: "search" %>
     </div>
     <div class="col-md-4">
       <div class="d-flex justify-content">
               <% if params[:search].blank? %>
-        <%= submit_tag 'Rechercher', class: 'btn btn-outline-secondary m-2' %>
+        <%= submit_tag "Rechercher", class: "btn btn-outline-secondary m-2" %>
         <% else %>
-          <%= link_to 'Réinitialiser', sites_path, class: 'btn btn-outline-secondary m-2' %>
+          <%= link_to "Réinitialiser", sites_path, class: "btn btn-outline-secondary m-2" %>
         <% end %>
       </div>
     </div>
@@ -43,14 +43,14 @@
             <td><%= site.postal_code %></td>
             <td><%= site.city %></td>
             <td><%= site.software %></td>
-            <td><%= truncate(site.informations, length: 20, omission: '...') %></td>
+            <td><%= truncate(site.informations, length: 20, omission: "...") %></td>
             <td><%= site.cdom&.name %></td>
             <td>
               <div class="btn-group" role="group">
-                <%= link_to edit_site_path(site), class: 'btn btn-secondary btn-sm me-2 rounded' do %>
-                  <%= content_tag(:i, '', class: "bi bi-pencil") %>
+                <%= link_to edit_site_path(site), class: "btn btn-secondary btn-sm me-2 rounded" do %>
+                  <%= content_tag(:i, "", class: "bi bi-pencil") %>
                 <% end %>
-                <%= button_to site, method: :delete, data: { "turbo-confirm": 'Êtes-vous sûr de vouloir supprimer ce site ?' }, class: 'btn btn-danger btn-sm me-2' do %>
+                <%= button_to site, method: :delete, data: { "turbo-confirm": "Êtes-vous sûr de vouloir supprimer ce site ?" }, class: "btn btn-danger btn-sm me-2" do %>
                   <i class="bi bi-trash-fill"></i>
                 <% end %>
               </div>
