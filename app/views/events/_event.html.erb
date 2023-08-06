@@ -150,7 +150,7 @@
 
 <hr>
 
-<% if current_user.role == false %>
+<% end %>
   <div class="text-center">
     <% if event.user_id.present? %>
       <%= link_to "#", class: 'btn btn-secondary m-1', disabled: true, style: 'pointer-events: none;' do %>
@@ -162,8 +162,6 @@
       <% end %>
     <% end %>
   </div>
-<% end %>
-<% end %>
 
 <script>
 src="<%= asset_path 'book_event.js' %>"
