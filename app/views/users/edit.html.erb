@@ -13,7 +13,7 @@
             <div class="col-md-6">
               <div class="form-group mb-3">
                 <%= form.label :title, "Titre" %>
-                <%= form.select :title, User::TITLE_OPTIONS, { prompt: "Sélectionnez un titre", default: "Dr" }, { class: "form-control" } %>
+                <%= form.select :title, User::TITLE_OPTIONS, { prompt: "Sélectionnez un titre", selected: "Dr" }, { class: "form-control" } %>
               </div>
             </div>
             <div class="col-md-6">
