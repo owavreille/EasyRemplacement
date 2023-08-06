@@ -15,7 +15,7 @@ export default class extends Controller {
   
       updateCities() {
         const postalCode = this.postalCodeTarget.value;
-        if (postalCode) { // Ajouter cette vérification
+        if (postalCode) { 
           fetch(`/postal_codes/get_cities?postal_code=${postalCode}`)
             .then(response => response.json())
             .then(data => this.populateCitySelect(data));
@@ -23,7 +23,6 @@ export default class extends Controller {
           this.cityTarget.innerHTML = '';
         }
       }
-      
   
     populateCitySelect(data) {
         this.cityTarget.innerHTML = '';
