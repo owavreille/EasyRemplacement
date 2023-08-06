@@ -13,12 +13,17 @@ export default class extends Controller {
         this.cityHiddenTarget.value = this.cityTarget.value;
       }
   
-    updateCities() {
-      const postalCode = this.postalCodeTarget.value;
-      fetch(`/postal_codes/get_cities?postal_code=${postalCode}`)
-      .then(response => response.json())
-        .then(data => this.populateCitySelect(data));
-    }
+      updateCities() {
+        const postalCode = this.postalCodeTarget.value;
+        if (postalCode) { // Ajouter cette vérification
+          fetch(`/postal_codes/get_cities?postal_code=${postalCode}`)
+            .then(response => response.json())
+            .then(data => this.populateCitySelect(data));
+        } else {
+          this.cityTarget.innerHTML = '';
+        }
+      }
+      
   
     populateCitySelect(data) {
         this.cityTarget.innerHTML = '';
