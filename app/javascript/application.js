@@ -4,7 +4,3 @@ import 'popper'
 import 'bootstrap'
 import '@hotwired/turbo-rails'
 import 'controllers'
-import 'trix'
-import '@rails/actiontext'
-import "chartkick"
-import "Chart.bundle"

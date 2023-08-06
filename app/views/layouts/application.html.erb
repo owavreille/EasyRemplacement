@@ -4,11 +4,14 @@
     <title><%= @app_name %></title>
   
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Application de Gestion de Remplacements en Ophtalmologie">
   
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
   
     <%= javascript_importmap_tags %>
+
+    <%= yield :head %>
     
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   </head>

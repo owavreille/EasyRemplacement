@@ -1,3 +1,8 @@
+<% content_for :head do %>
+<%= javascript_import_module_tag "chart" %>
+<% end %>
+
+
 <div class="chart-selector shadow m-3">
   <%= select_tag :group_by_total, options_for_select([['Par mois', 'month'], ['Par année', 'year']], params[:group_by_total]), class: 'form-control', id: 'group-by-total' %>
 </div>
