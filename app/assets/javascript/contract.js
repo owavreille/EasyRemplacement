@@ -1,4 +1,5 @@
-var variables = {
+function initializeContractScript() {
+  var variables = {
     "Titre de l'utilisateur": "user.title",
     "Nom de famille de l'utilisateur": "user.last_name",
     "Prénom de l'utilisateur": "user.first_name",
@@ -27,40 +28,45 @@ var variables = {
   };
 
   function populateVariableSelector() {
-    var variableSelector = $("#variable_selector");
+    var variableSelector = document.getElementById("variable_selector");
 
     for (var key in variables) {
       if (variables.hasOwnProperty(key)) {
-        var option = $("<option></option>").val(variables[key]).text(key);
-        variableSelector.append(option);
+        var option = document.createElement("option");
+        option.value = variables[key];
+        option.textContent = key;
+        variableSelector.appendChild(option);
       }
     }
   }
 
   function importVariable() {
-    var selectedVariable = $("#variable_selector").val();
-    var contractContent = $("#contract_content");
-    var cursorPosition = contractContent[0].selectionStart; 
+    var selectedVariable = document.getElementById("variable_selector").value;
+    var contractContent = document.getElementById("contract_content").editor;
 
-    var currentText = contractContent.val();
-    var newText = currentText.slice(0, cursorPosition) + selectedVariable + currentText.slice(cursorPosition);
-    contractContent.val(newText);
-
-    contractContent[0].selectionStart = contractContent[0].selectionEnd = cursorPosition + selectedVariable.length;
+    contractContent.insertString(selectedVariable);
 
     clearVariableSelector();
   }
 
   function clearVariableSelector() {
-    var variableSelector = $("#variable_selector");
-    variableSelector[0].selectedIndex = 0;
+    var variableSelector = document.getElementById("variable_selector");
+    variableSelector.selectedIndex = 0;
   }
-  document.addEventListener("DOMContentLoaded", function() {
+
+  function setup() {
     populateVariableSelector();
-  
-    document.querySelector("#import_variable_btn").addEventListener("click", function() {
+
+    document.getElementById("import_variable_btn").addEventListener("click", function() {
       importVariable();
     });
-  });
-  
-  
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setup);
+  } else {
+    setup();
+  }
+
+}
+initializeContractScript();
