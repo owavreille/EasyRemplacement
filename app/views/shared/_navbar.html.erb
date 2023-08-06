@@ -4,9 +4,10 @@
 
           <div class="navbar-brand">
             <% if current_user && current_user.admin? %>
-              <button class="sidebar-toggle-btn" onclick="toggleSidebar()">
-                  <i id="toggleIcon" class="bi bi-list"></i>
-              </button>
+             <button class="sidebar-toggle-btn" onclick="toggleSidebar()" aria-label="Basculer la barre latérale">
+  <i id="toggleIcon" class="bi bi-list"></i>
+</button>
+
             <% end %>
             <div class="logo mt-1">
   <% if @app_settings.logo.present? %>

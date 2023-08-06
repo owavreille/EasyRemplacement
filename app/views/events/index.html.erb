@@ -103,10 +103,10 @@
                   <div class="text-center">
                     <div class="d-flex justify-content-center">
                       <% if current_user && current_user.admin? %>
-                        <%= link_to edit_event_path(event), class: 'btn btn-outline-primary m-1' do %>
+                        <%= link_to edit_event_path(event), { "aria-label" => "Éditer l'événement", class: 'btn btn-outline-primary m-1' } do %>
                           <i class="bi bi-pencil"></i>
                         <% end %>
-                        <%= button_to event_path(event), method: :delete, data: { "turbo-confirm": 'Voulez-vous vraiment supprimer cette plage ?' }, class: 'btn btn-outline-danger m-1' do %>
+                        <%= button_to event_path(event), { "aria-label" => "Supprimer l'événement", method: :delete, data: { "turbo-confirm" => 'Voulez-vous vraiment supprimer cette plage ?' }, class: 'btn btn-outline-danger m-1' } do %>
                           <i class="bi bi-trash"></i>
                         <% end %>
                       <% end %>
@@ -130,13 +130,14 @@
       </div>
 
       <% if current_user && current_user.admin? %>
-  <div class="d-flex justify-content-end m-1">
-    <div class="add-icon">
-      <%= link_to new_event_path do %>
-        <i class="bi bi-plus-circle-fill"></i>
-      <% end %>
-    </div>
+ <div class="d-flex justify-content-end m-1">
+  <div class="add-icon">
+    <%= link_to new_event_path, aria: { label: 'Ajouter une nouvelle plage de Remplacement' } do %>
+      <i class="bi bi-plus-circle-fill"></i>
+    <% end %>
   </div>
+</div>
+
 <% end %>
 
 
