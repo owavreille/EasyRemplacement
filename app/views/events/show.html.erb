@@ -1,10 +1,5 @@
-<turbo-stream action="replace" target="modal">
-<template>
-
 <%= render @event %>
 
 <div class="d-flex justify-content-end m-3">
   <%= link_to "Retour", events_path, data: { action: "turbo-modal#hideModal" }, class: "btn btn-success" %>
 </div>
-</template>
-</turbo-stream>

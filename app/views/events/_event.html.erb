@@ -19,7 +19,7 @@
                   <strong>Nb de Patients :</strong> <%= event.number_of_patients %><br>
                   <strong>Taux de Reversion :</strong> <%= event.reversion %> %<br>
                   <strong>Cs Aidée :</strong> <%= event.helper ? 'oui' : 'non' %><br>
-                  <strong>Durée minimale du Remplacement :</strong><%= @app_settings.minimal_replacement_length %> heures
+                  <strong>Durée minimale du Remplacement :</strong> <%= @app_settings.minimal_replacement_length %> heures
                   <% if event.editable == true %>
                   <hr>
                   <div>
@@ -166,5 +166,5 @@
 <% end %>
 
 <script>
-src="<%= asset_path 'book_event.js' %>">
+src="<%= asset_path 'book_event.js' %>"
 </script>
