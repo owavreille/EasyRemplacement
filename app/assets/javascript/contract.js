@@ -55,11 +55,12 @@ var variables = {
     var variableSelector = $("#variable_selector");
     variableSelector[0].selectedIndex = 0;
   }
-
-  $(document).ready(function() {
+  document.addEventListener("DOMContentLoaded", function() {
     populateVariableSelector();
-
-    $("#import_variable_btn").click(function() {
+  
+    document.querySelector("#import_variable_btn").addEventListener("click", function() {
       importVariable();
     });
   });
+  
+  
