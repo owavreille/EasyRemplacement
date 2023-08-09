@@ -25,11 +25,9 @@ function toggleSidebar() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
   document.querySelector('.yield-content').addEventListener('click', function() {
     const sidebar = document.getElementById('sidebar');
     if (!sidebar.classList.contains('hidden')) {
       toggleSidebar();
     }
   });
-});
