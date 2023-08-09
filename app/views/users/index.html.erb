@@ -20,8 +20,6 @@
   <% end %>
 </div>
 
-
-
   <div class="card-body">
     <div class="table-responsive">
     <table class="table table-striped sort" data-controller="table-sort" data-table-sort-target="table">
@@ -32,7 +30,7 @@
           <th data-action="click->table-sort#sort">Ville</th>
           <th data-action="click->table-sort#sort">Numéro de licence</th>
           <th data-action="click->table-sort#sort">Numéro SIRET</th>
-          <th>Utilisateur Actif</th>
+          <th data-action="click->table-sort#sort">Utilisateur Actif</th>
           <th>Options</th>
         </tr>
       </thead>
@@ -45,7 +43,20 @@
               <td><%= user.city %></td>
               <td><%= user.license_number %></td>
               <td><%= user.siret_number %></td>
-              <td><%= user.active ? 'Oui' : 'Non' %></td>
+              <td><% if !user.active %>
+  <%= link_to active_user_path(user), method: :put do %>
+    <i class="bi bi-toggle-off" style="color: red; font-size: 1.5rem;"></i>
+  <% end %>
+<% else %>
+  <% if user.admin? %>
+    <i>Compte Administrateur</i>
+  <% else %>
+    <%= link_to inactive_user_path(user), method: :put do %>
+      <i class="bi bi-toggle-on" style="color: green; font-size: 1.5rem;"></i>
+    <% end %>
+  <% end %>
+<% end %>
+</td>
               <td>
   <div class="btn-group" role="group">
 <%= link_to edit_user_path(user), class: "btn btn-sm btn-secondary me-2 rounded" do %>
@@ -59,16 +70,6 @@
 <%= button_to destroy_user_path(user), method: :delete, class: "btn btn-sm btn-danger me-2", data: { "turbo-confirm": "Êtes-vous sûr de vouloir supprimer cet utilisateur ?" } do %>
   <i class="bi bi-trash-fill"></i>
 <% end %>
-<% end %>
-
-  <% if !user.active %>
-  <%= button_to "Autoriser", active_user_path(user), method: :put, class: "btn btn-sm btn-success me-2" %>
-<% else %>
-  <% if user.admin? %>
-    <i>Compte Administrateur</i>
-  <% else %>
-    <%= button_to "Désactiver", inactive_user_path(user), method: :put, class: "btn btn-sm btn-warning me-2" %>
-  <% end %>
 <% end %>
 
   </div>
