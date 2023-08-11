@@ -131,11 +131,9 @@
 
       <% if current_user && current_user.admin? %>
  <div class="d-flex justify-content-end m-1">
-  <div class="add-icon">
     <%= link_to new_event_path, aria: { label: 'Ajouter une nouvelle plage de Remplacement' } do %>
-      <i class="bi bi-plus-circle-fill"></i>
+      <i class="add-icon bi bi-plus-circle-fill"></i>
     <% end %>
-  </div>
 </div>
 
 <% end %>

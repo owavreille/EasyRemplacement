@@ -66,13 +66,10 @@
 
 <tr>
           <div class="d-flex justify-content-end m-1">
-    <div class="add-icon">
       <%= link_to new_site_path, aria: { label: 'Ajouter un nouveau Site' } do %>
-        <i class="bi bi-plus-circle-fill"></i>
+      <i class="add-icon bi bi-plus-circle-fill"></i>
       <% end %>
-    </div>
   </div>
-
 
           <div class="m-3">
                 <%== pagy_bootstrap_nav(@pagy) %>

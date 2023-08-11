@@ -1,6 +1,6 @@
   <div class="card shadow m-3">
     <div class="card-header">
-      <h2>Edition du Profil Utilisateur</h2>
+      <h1>Edition du Profil Utilisateur</h1>
     </div>
     <div class="card-body m-3">
       <%= form_with(model: @user, url: user_path(@user), method: :patch, class: "row g-3") do |form| %>
@@ -81,9 +81,6 @@
               </div>
             </div>
           </div>
-
-
-
           </div>
 
           <div class="col-md-6">
@@ -91,7 +88,6 @@
               <%= form.label :address, "Adresse" %>
               <%= form.text_field :address, class: "form-control" %>
             </div>
-
             
           <div class="row" data-controller="city-select">
   <div class="col-md-6">
@@ -112,13 +108,13 @@
        <div class="row">
             <div class="col-md-6">
               <div class="form-group mb-3">
-                <%= form.label :siret_number, "Numéro SIRET" %>
+                <%= form.label :siret_number, "N° SIRET" %>
                 <%= form.text_field :siret_number, class: "form-control" %>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group mb-3">
-                <%= form.label :license_number, "Numéro de Licence de Remplacement" %>
+                <%= form.label :license_number, "N° Licence de Remplacement" %>
                 <%= form.text_field :license_number, class: "form-control" %>
               </div>
             </div>
@@ -126,7 +122,7 @@
 
           <div class="form-group mb-3">
             <%= form.label :mailing_list_id, "Inscription à une Mailing List" %>
-            <%= form.collection_select :mailing_list_id, MailingList.all, :id, :name, include_blank: true %>
+            <%= form.collection_select :mailing_list_id, MailingList.all, :id, :name, { include_blank: true }, { class: 'form-control' }  %>
           </div>
 
 

@@ -1,4 +1,5 @@
   <div class="card m-3 shadow">
+  
       <%= form_with(model: event) do |form| %>
         <% if event.errors.any? %>
           <div style="color: red">
@@ -13,6 +14,8 @@
         <% end %>
 
 <div class="card-body m-3 row">
+<h1>Détails de la Plage de Remplacement</h1>
+  <hr>
   <div class="col-md-6">
     <div class="form-group mb-3">
       <%= form.label :site_id, "Site", class: "col-form-label" %>
