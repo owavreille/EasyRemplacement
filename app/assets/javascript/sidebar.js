@@ -2,9 +2,6 @@ function toggleSidebar() {
   const sidebar = document.getElementById("sidebar");
   sidebar.classList.toggle("hidden");
 
-  const container = document.querySelector(".container");
-  container.classList.toggle("sidebar-visible");
-
   const yieldContent = document.querySelector(".yield-content");
   yieldContent.classList.toggle("sidebar-visible");
 

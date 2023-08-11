@@ -5,7 +5,7 @@ export default class extends Controller {
 
   sort(event) {
     const table = this.tableTarget;
-    const tbody = table.tBodies[0]; // assuming your table has only one tbody
+    const tbody = table.tBodies[0];
     const column = event.target.cellIndex;
     const direction = parseInt(event.target.dataset.direction) || 1;
 

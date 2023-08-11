@@ -69,17 +69,11 @@ class CdomsController < ApplicationController
     end
   end
   
-  
-
-
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_cdom
       @cdom = Cdom.find(params[:id])
     end
 
-    # Use callbacks to share common setup or constraints between actions.
-    # Only allow a list of trusted parameters through.
     def cdom_params
       params.require(:cdom).permit(:id, :departement, :name, :email)
     end

@@ -161,6 +161,4 @@ def validate_contract
   redirect_to userdata_path
 end
 
-
-
 end

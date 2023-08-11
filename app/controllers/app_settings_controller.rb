@@ -18,7 +18,6 @@ class AppSettingsController < ApplicationController
     redirect_to app_settings_path, notice: 'Logo supprimé avec succès !'
   end
   
-
   private
 
   def app_settings_params
