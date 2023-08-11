@@ -34,7 +34,7 @@
                     <td><%= event.user&.first_name %> <%= event.user&.last_name %></td>
                     <td><%= event.patient_count %></td>
                     <td><%= event.am_min_hour&.strftime("%H:%M") %> <%= event.am_max_hour&.strftime("%H:%M") %> <%= event.pm_min_hour&.strftime("%H:%M") %> <%= event.pm_max_hour&.strftime("%H:%M") %></td>
-                    <td><%= button_to "Plage ouverte?", opened_path(event), method: :patch, class: "btn btn-primary" %></td>
+                    <td><%= button_to "Plage ouverte?", opened_path(event), method: :patch, class: "btn btn-outline-secondary btn-sm" %></td>
                     </tr>
                 <% end %>
                 <% end %>
