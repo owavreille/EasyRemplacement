@@ -25,11 +25,12 @@ class UserMailer < ApplicationMailer
       mail(to: @user.email, subject: 'Annulation d\'un Remplacement')
     end
   
-    def new_user_notification(user)
-      @user = user
-      admins = User.where(role: true)
-      mail(to: admins.pluck(:email), subject: 'Nouvel utilisateur enregistré')
-    end
+      def new_user_notification(admin_user, new_user)
+        @admin_user = admin_user
+        @new_user = new_user
+        admins = User.where(role: true)
+        mail(to: admins.pluck(:email), subject: 'Nouvel Utilisateur Enregistré sur la plateforme de Remplacement')
+      end
 
     def cdom_with_attachment(email, event, contract_content)
       @event = event

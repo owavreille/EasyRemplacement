@@ -1,11 +1,11 @@
 class RegistrationsController < Devise::RegistrationsController
 
   def create
-    @user = User.new(sign_up_params) # Utiliser sign_up_params à la place de user_params
+    @user = User.new(sign_up_params)
     if @user.save
       admin_users = User.where(role: true)
       admin_users.each do |admin_user|
-        UserMailer.new_user_notification(admin_user).deliver_now
+        UserMailer.new_user_notification(admin_user, @user).deliver_now
       end
       sign_in @user
       redirect_to root_path
