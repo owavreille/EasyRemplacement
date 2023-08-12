@@ -96,7 +96,8 @@ body {
   left: 0;
   border-right: 1px solid lightgray;
   transition: left 0.5s ease;
-  border-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -160,14 +161,6 @@ body {
 .simple-calendar .today {
   background-color: #b6d6f3; 
   color: #333;
-}
-
-.simple-calendar .calendar-heading nav {
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  border-radius: 10px;
-  border: 1px solid grey;
-  margin-bottom: 5px;
 }
 
 .dropdown-menu-gray {
