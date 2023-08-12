@@ -50,14 +50,11 @@
           </div>
       </div>
 
-      <div class="text-center m-3">
+      <div class="text-end">
           <%= form.submit 'Enregistrer', class: 'btn btn-primary mt-3' %>
-      </div>
-      
-    <% end %>
-  </div>
+    
+  <%= link_to "Retour", root_path, class: "btn btn-success mt-3" %>
 </div>
-
-<div class="text-end m-3">
-  <%= link_to "Retour", root_path, class: "btn btn-success" %>
+  </div>
+  <% end %>
 </div>

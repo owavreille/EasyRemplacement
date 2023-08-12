@@ -117,11 +117,11 @@
         <%= link_to openings_path, class: "nav-link" do %>
       <i class="bi bi-calendar3"></i> Ouvertures
       <% if @events_to_plan > 0 %>
-                          <span class="badge bg-danger rounded-circle m-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title='<%= @events_to_plan %> ouverture(s) en attente.'>
-                            <%= @events_to_plan %>
-                          </span>
-                        <% end %>
+        <span class="badge bg-danger rounded-circle m-1" data-bs-toggle="tooltip" data-bs-placement="bottom" title='<%= @events_to_plan %> ouverture(s) en attente.'>
+         <%= @events_to_plan %>
+        </span>
         <% end %>
+      <% end %>
       </li>
       <li class="nav-item <%= 'active' if current_page?(app_settings_path) %>">
         <%= link_to app_settings_path, class: "nav-link" do %>
