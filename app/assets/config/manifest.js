@@ -5,3 +5,4 @@
 //= link sidebar.js
 //= link contract.js
 //= link book_event.js
+//= link arrows.js
