@@ -83,7 +83,10 @@ class EventsController < ApplicationController
           if @event.user_id.present?
             UserMailer.event_update_notification(User.find(@event.user_id), @event).deliver_now
           end
-  
+          contract_blob = @event.contract_blob
+          if contract_blob.attached?
+            contract_blob.purge
+          end
           redirect_to event_url(@event), notice: "La plage de remplacement a bien été mise à jour !"
         end
         format.json { render :show, status: :ok, location: @event }
@@ -105,7 +108,10 @@ class EventsController < ApplicationController
       format.html do
         # Envoyer un e-mail de notification d'annulation à l'utilisateur s'il existe
         UserMailer.event_cancellation_notification(user, @event).deliver_now if user.present?
-  
+        contract_blob = @event.contract_blob
+        if contract_blob.attached?
+          contract_blob.purge
+        end
         redirect_to events_url, notice: "La plage de remplacement a bien été supprimée !"
       end
       format.json { head :no_content }
@@ -134,6 +140,24 @@ class EventsController < ApplicationController
     end
     redirect_to event_path(@event)
   end 
+
+def cancel_booking
+  @event = Event.find(params[:id])
+  max_replacement_cancel = AppSetting.first.max_replacement_cancel.to_i
+  if @event.opened == true
+    flash[:alert] = "La plage a été ouverte, merci de contacter le cabinet."
+  elsif @event.start_time > (Date.today + max_replacement_cancel.days)
+    contract_blob = @event.contract_blob
+    if contract_blob.attached?
+      contract_blob.purge
+    end
+    @event.update(user_id: nil, contract_generated: false, contract_validated: false)
+    flash[:notice] = "Remplacement Annulé avec succès."
+  else
+    flash[:alert] = "Impossible d'annuler ce remplacement car le délai est inférieur à #{max_replacement_cancel} jours, contacter directement le cabinet !"
+  end
+  redirect_to userdata_path
+end
   
   def check_user_active
     unless current_user.active?

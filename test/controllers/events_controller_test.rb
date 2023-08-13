@@ -32,6 +32,20 @@ class EventsControllerTest < ActionController::TestCase
     assert_redirected_to event_url(@event)
   end
 
+  test "should cancel booking" do
+    @event.update(start_time: Date.today + 20.days)
+    patch :cancel_booking, params: { id: @event.id }
+    assert_redirected_to userdata_url
+    @event.reload
+    assert_nil @event.user_id
+  end
+
+  test "should not cancel booking if less than 15 days remaining" do
+    @event.update(start_time: Date.today + 10.days)
+    patch :cancel_booking, params: { id: @event.id }
+    assert_redirected_to userdata_url
+  end
+  
   test "should get edit" do
     get :edit, params: { id: @event.id }
     assert_response :success

@@ -5,7 +5,7 @@ one:
   end_time: <%= Time.current + 1.hour %>
   number_of_patients: 5
   helper: false
-  user_id: 
+  user_id:
   amount: 100.0
   reversion: 70.0
   amount_paid: 70.0
