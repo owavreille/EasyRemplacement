@@ -95,21 +95,27 @@
                     <td><%= event.user&.first_name %> <%= event.user&.last_name %></td>
                     <td><%= event.reversion %> % </td>
                    <td>
+
   <div class="d-inline-flex">
+  <% if event.contract_validated == true %>
+    <%= form_with url: "#", method: :post do |form| %>
+      <%= form.submit "Contrat Validé et Envoyé", class: "btn btn-primary m-1", disabled: true %>
+    <% end %>
+  <% else %>
     <%= form_with url: generate_contract_path(event), method: :post do |form| %>
-      <%= form.hidden_field :user_id, value: event.user_id %>
-      <%= form.hidden_field :doctor_id, value: event.doctor_id %>
-      <%= form.hidden_field :site_id, value: event.site_id %>
       <%= form.submit "Générer le Contrat", class: "btn btn-primary m-1" %>
     <% end %>
+
     <% if event.contract_blob.attached? %>
-      <%= link_to download_contract_path(event.id), class: 'btn btn-success m-1', target: "_blank" do %>
+      <%= link_to open_contract_path(event.id), class: 'btn btn-success m-1' do %>
         <i class="bi bi-eye"></i>
       <% end %>
     <% else %>
       <p>Aucun contrat</p>
     <% end %>
-  </div>
+  <% end %>
+</div>
+
 </td>
 
                   </tr>

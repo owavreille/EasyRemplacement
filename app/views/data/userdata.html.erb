@@ -84,7 +84,7 @@
                     <td><%= event.helper ? 'oui' : 'non' %></td>
                     <td><%= event.reversion %> % </td>
                     <td><% if event.contract_blob.attached? %>
-                        <%= link_to download_contract_path(event.id), class: 'btn btn-success m-1', target: "_blank" do %>
+                        <%= link_to view_contract_path(event.id), class: 'btn btn-success m-1', target: "_blank" do %>
                         <i class="bi bi-eye"></i>
                         <% end %> 
                         <% else %>
@@ -96,9 +96,10 @@
     <i class="bi bi-check2-circle"></i>
   <% end %>
 <% else %>
-  <%= link_to validate_contract_path(event.id), method: :patch, class: "btn btn-primary" do %>
-    <i class="bi bi-check2-circle"></i>
-  <% end %>
+  <%= link_to validate_contract_path(event.id), method: :patch, class: "btn btn-primary", data: { toggle: "tooltip", placement: "top" }, title: "Valider et envoyer le contrat" do %>
+  <i class="bi bi-check2-circle"></i>
+<% end %>
+
 <% end %>
 
                         <% else %>
@@ -119,9 +120,10 @@
         </div>
       </div>
     </div>
-  </div>
-  </div>
 
   <div class="text-end m-3">
   <%= link_to "Retour", root_path, class: "btn btn-success" %>
 </div>
+
+  </div>
+  </div>

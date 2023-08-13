@@ -30,9 +30,10 @@ root "events#index"
   end
 
 # Gestion du contrat
-post '/events/:id/generate_contract', to: 'data#generate_contract', as: 'generate_contract'
-get '/events/:id/download_contract', to: 'data#download_contract', as: 'download_contract'  
-patch '/events/:id/validate_contract', to: 'data#validate_contract', as: 'validate_contract'
+post '/events/:id/generate_contract', to: 'contracts#generate_contract', as: 'generate_contract'
+get '/events/:id/view_contract', to: 'contracts#view_contract', as: 'view_contract'  
+get'/events/:id/open_contract', to: 'contracts#open_contract', as: 'open_contract'  
+patch '/events/:id/validate_contract', to: 'contracts#validate_contract', as: 'validate_contract'
 
 # Gestion des évènements
 match '/events/:id/booking', to: 'events#booking', via: [:get, :put], as: 'booking_event'
