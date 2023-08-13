@@ -119,9 +119,10 @@ end
         flash[:notice] = "Contrat validé et envoyé au Conseil de l'Ordre!"
     
         # Joindre le contrat en tant que pièce jointe à l'e-mail
-        # if @event.contract.attached?
-        #   contract_content = @event.contract.download
-        #   UserMailer.cdom_with_attachment(@event.site.cdom.email, @event, contract_content).deliver_now
+        #contract_blob = @event.contract.blob
+        #if @event.contract.attached?
+        #  contract_content = contract_blob.download
+        #  UserMailer.cdom_with_attachment(@event.site.cdom.email, @event, contract_content).deliver_now
         # else
         #   flash[:alert] = "Le fichier de contrat n'est pas disponible."
         # end
@@ -131,5 +132,6 @@ end
     
       redirect_to userdata_path
     end
+    
 
   end

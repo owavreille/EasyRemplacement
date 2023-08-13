@@ -32,17 +32,17 @@ class UserMailer < ApplicationMailer
         mail(to: admins.pluck(:email), subject: 'Nouvel Utilisateur Enregistré sur la plateforme de Remplacement')
       end
 
-    def cdom_with_attachment(email, event, contract_content)
-      @event = event
-      @contract_content = contract_content
-  
-      attachments["contrat_#{event.id}.html"] = {
-        mime_type: "text/html",
-        content: @contract_content
-      }
-  
-      mail(to: email, subject: "Contrat validé - Événement ##{event.id}")
-    end
+      def cdom_with_attachment(email, event, contract_content)
+        @event = event
+        @contract_content = contract_content
+      
+        attachments["contrat_#{event.id}.html"] = {
+          mime_type: "text/html",
+          content: @contract_content
+        }
+      
+        mail(to: email, subject: "Contrat validé - Événement ##{event.id}")
+      end      
 
   end
   

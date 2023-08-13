@@ -151,17 +151,19 @@
 <hr>
 
 <% end %>
-  <div class="text-center">
-    <% if event.user_id.present? %>
-      <%= link_to "#", class: 'btn btn-secondary m-1', disabled: true, style: 'pointer-events: none;' do %>
-        Réservé
-      <% end %>
-    <% else %>
-      <%= button_to booking_event_path(event), method: :put, data: { "turbo-confirm": 'Confirmez vous réaliser le remplacement sélectionné ?' }, class: 'btn btn-primary m-1' do %>
-        Réserver
-      <% end %>
+ <div class="form-group m-3 d-flex justify-content-center">
+  <% if event.user_id.present? %>
+    <%= link_to "#", class: 'btn btn-secondary m-1 text-center', disabled: true, style: 'pointer-events: none;' do %>
+      Réservé
     <% end %>
-  </div>
+  <% else %>
+    <%= button_to booking_event_path(event), method: :put, data: { "turbo-confirm": 'Confirmez-vous réaliser le remplacement sélectionné ?' }, class: 'btn btn-primary m-1 text-center' do %>
+      Réserver
+    <% end %>
+  <% end %>
+  <%= link_to "Retour", events_path, class: "btn btn-success m-1 text-center" %>
+</div>
+
 
 <script>
 src="<%= asset_path 'book_event.js' %>"
