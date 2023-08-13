@@ -52,7 +52,7 @@ end
 def cancel_booking
   @event = Event.find(params[:id])
   max_replacement_cancel = AppSetting.first.max_replacement_cancel.to_i
-  if @event.opened
+  if @event.opened == true
     flash[:alert] = "La plage a été ouverte, merci de contacter le cabinet."
   elsif @event.start_time > (Date.today + max_replacement_cancel.days)
     contract_blob = @event.contract_blob
