@@ -52,16 +52,18 @@ end
 def cancel_booking
   @event = Event.find(params[:id])
   max_replacement_cancel = AppSetting.first.max_replacement_cancel.to_i
-
   if @event.opened
     flash[:alert] = "La plage a été ouverte, merci de contacter le cabinet."
   elsif @event.start_time > (Date.today + max_replacement_cancel.days)
+    contract_blob = @event.contract_blob
+    if contract_blob.attached?
+      contract_blob.purge
+    end
     @event.update(user_id: nil, contract_generated: false, contract_validated: false)
     flash[:notice] = "Remplacement Annulé avec succès."
   else
     flash[:alert] = "Impossible d'annuler ce remplacement car le délai est inférieur à #{max_replacement_cancel} jours, contacter directement le cabinet !"
   end
-
   redirect_to userdata_path
 end
 
