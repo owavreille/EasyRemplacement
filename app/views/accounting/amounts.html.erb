@@ -1,0 +1,70 @@
+    <%= render 'navbar' %>
+
+<div class="chart-selector shadow m-3">
+  <%= select_tag :group_by_total, options_for_select([['Par mois', 'month'], ['Par année', 'year']], params[:group_by_total]), class: 'form-control', id: 'group-by-total' %>
+</div>
+<div class="chart-container row m-3">
+  <div class="col-md-6">
+    <h3>Total des Remplacements</h3>
+    <%= column_chart @amount, download: true, locale: 'fr', library: {
+  scales: {
+    x: {
+      type: 'time',
+      time: {
+        unit: 'day',
+        tooltipFormat: 'dd/MM/yyyy',
+        displayFormats: {
+          day: 'dd MM',
+          week: 'MM yyyy',
+          month: 'MM yyyy',
+          quarter: 'QQQ yyyy',
+          year: 'yyyy'
+        }
+      }
+    }
+  }
+} %>
+  </div>
+  <div class="col-md-6">
+    <h3>Total Reversé</h3>
+    <%= column_chart @amount_paid, download: true, locale: 'fr', library: {
+  scales: {
+    x: {
+      type: 'time',
+      time: {
+        unit: 'day',
+        tooltipFormat: 'dd/MM/yyyy',
+        displayFormats: {
+          day: 'dd MM',
+          week: 'MM yyyy',
+          month: 'MM yyyy',
+          quarter: 'QQQ yyyy',
+          year: 'yyyy'
+        }
+      }
+    }
+  }
+} %>
+  </div>
+  <div class="col-md-6">
+    <h3>Total des Revenus des Remplacements</h3>
+    <%= column_chart @amount_earned, download: true, locale: 'fr', library: {
+  scales: {
+    x: {
+      type: 'time',
+      time: {
+        unit: 'day',
+        tooltipFormat: 'dd/MM/yyyy',
+        displayFormats: {
+          day: 'dd MM',
+          week: 'MM yyyy',
+          month: 'MM yyyy',
+          quarter: 'QQQ yyyy',
+          year: 'yyyy'
+        }
+      }
+    }
+  }
+} %>
+  </div>
+</div>

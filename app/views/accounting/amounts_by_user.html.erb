@@ -1,0 +1,19 @@
+    <%= render 'navbar' %>
+
+<div class="chart-selector shadow m-3">
+  <%= select_tag :group_by_user, options_for_select([['Par mois', 'month'], ['Par année', 'year']], params[:group_by_user]), class: 'form-control', id: 'group-by-user' %>
+</div>
+<div class="chart-container row m-3">
+  <div class="col-md-6">
+    <h3>Total par Remplaçant </h3>
+    <%= column_chart @amount_by_user, download: true, locale: 'fr' %>
+  </div>
+  <div class="col-md-6">
+    <h3>Total Reversé par Remplaçant</h3>
+    <%= column_chart @amount_paid_by_user, download: true, locale: 'fr' %>
+  </div>
+  <div class="col-md-6">
+    <h3>Total des Revenus par Remplaçant</h3>
+    <%= column_chart @amount_earned_by_user, download: true, locale: 'fr' %>
+  </div>
+</div>

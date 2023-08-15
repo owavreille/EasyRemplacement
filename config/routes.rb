@@ -59,7 +59,10 @@ get 'pending', to: 'users#pending'
 get '/office', to: 'office#index', as: 'office'
 
 # Comptabilité
-get '/accounting', to: 'accounting#index', as: 'accounting'
+get 'accounting/amounts', to: 'accounting#amounts', as: 'accounting'
+get 'accounting/amounts_by_user', to: 'accounting#amounts_by_user'
+get 'accounting/amounts_by_site', to: 'accounting#amounts_by_site'
+get 'accounting/amounts_by_doctor', to: 'accounting#amounts_by_doctor'
 
 # Paramètres de l'Application
 get '/app_settings', to: 'app_settings#index', as: 'app_settings'
