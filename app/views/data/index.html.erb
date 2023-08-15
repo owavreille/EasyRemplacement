@@ -44,17 +44,22 @@
         </div>
       </div>
       <div class="col">
-        <%= form.submit 'Ok', class: 'btn btn-primary btn-sm', disabled: event.paid? %>
+        <%= form.button type: 'submit', class: 'btn btn-primary btn-sm', disabled: event.paid? do %>
+          <i class="bi bi-check-square-fill" style="color: white;"></i>
+        <% end %>
       </div>
     </div>
   <% end %>
 </td>
 
+
                     <td><%= event.reversion %> % </td>
                     <td><%= event.amount_paid %></td>
                     <td>
-  <button type="button" id="Modalpayment" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#payment-<%= event.id %>"
->Modifier</button>
+  <button type="button" id="Modalpayment" class="btn btn-sm btn-secondary me-2 rounded" data-bs-toggle="modal" data-bs-target="#payment-<%= event.id %>">
+  <i class="bi bi-pencil-fill"></i>
+</button>
+
   
   <div class="modal fade" id="payment-<%= event.id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">

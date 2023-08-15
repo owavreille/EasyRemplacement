@@ -41,7 +41,7 @@ class DataController < ApplicationController
   end
 
   if @event.update(amount: amount, amount_paid: amount_paid)
-    flash[:notice] = "Montant du Remplacement et Montant à Payer mis à jour avec succès."
+    flash[:notice] = "Montant du remplacement et Montant à reverser mis à jour avec succès."
   else
     flash[:error] = "Erreur lors de la mise à jour du Montant du remplacement."
   end
