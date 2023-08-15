@@ -28,8 +28,29 @@
 } %>
   </div>
   <div class="col-md-6">
-    <h3>Montant Total Reversé</h3>
+    <h3>Total Reversé</h3>
     <%= column_chart @amount_paid, download: true, locale: 'fr', library: {
+  scales: {
+    x: {
+      type: 'time',
+      time: {
+        unit: 'day',
+        tooltipFormat: 'dd/MM/yyyy',
+        displayFormats: {
+          day: 'dd MM',
+          week: 'MM yyyy',
+          month: 'MM yyyy',
+          quarter: 'QQQ yyyy',
+          year: 'yyyy'
+        }
+      }
+    }
+  }
+} %>
+  </div>
+  <div class="col-md-6">
+    <h3>Total des Revenus des Remplacements</h3>
+    <%= column_chart @amount_earned, download: true, locale: 'fr', library: {
   scales: {
     x: {
       type: 'time',
@@ -59,8 +80,12 @@
     <%= column_chart @amount_by_site, download: true, locale: 'fr' %>
   </div>
   <div class="col-md-6">
-    <h3>Montant Total Reversé par site</h3>
+    <h3>Total Reversé par site</h3>
     <%= column_chart @amount_paid_by_site, download: true, locale: 'fr' %>
+  </div>
+  <div class="col-md-6">
+    <h3>Total des Revenus par site</h3>
+    <%= column_chart @amount_earned_by_site, download: true, locale: 'fr' %>
   </div>
 </div>
 
@@ -73,8 +98,12 @@
     <%= column_chart @amount_by_doctor, download: true, locale: 'fr' %>
   </div>
   <div class="col-md-6">
-    <h3>Montant Total Reversé par médecin</h3>
+    <h3>Total Reversé par médecin</h3>
     <%= column_chart @amount_paid_by_doctor, download: true, locale: 'fr' %>
+  </div>
+  <div class="col-md-6">
+    <h3>Total des Revenus par médecin</h3>
+    <%= column_chart @amount_earned_by_doctor, download: true, locale: 'fr' %>
   </div>
 </div>
 
@@ -87,7 +116,11 @@
     <%= column_chart @amount_by_user, download: true, locale: 'fr' %>
   </div>
   <div class="col-md-6">
-    <h3>Montant Total Reversé par utilisateur</h3>
+    <h3>Total Reversé par utilisateur</h3>
     <%= column_chart @amount_paid_by_user, download: true, locale: 'fr' %>
+  </div>
+  <div class="col-md-6">
+    <h3>Total des Revenus par utilisateur</h3>
+    <%= column_chart @amount_earned_by_user, download: true, locale: 'fr' %>
   </div>
 </div>
