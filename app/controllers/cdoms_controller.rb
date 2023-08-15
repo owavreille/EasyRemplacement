@@ -10,8 +10,11 @@ class CdomsController < ApplicationController
 
   # GET /cdoms or /cdoms.json
   def index
-    @cdoms = Cdom.all
-    @pagy, @cdoms = pagy(@cdoms, items: 10)  
+    if params[:search]
+      @pagy, @cdoms = pagy(Cdom.search_by_name(params[:search]), items: 10)
+    else
+      @pagy, @cdoms = pagy(Cdom.all, items: 10)
+    end
   end
 
   # GET /cdoms/1 or /cdoms/1.json
