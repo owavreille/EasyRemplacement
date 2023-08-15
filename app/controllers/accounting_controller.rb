@@ -27,190 +27,109 @@ class AccountingController < ApplicationController
   end
 
   def amount
-    @amount = Event.group_by_month(:start_time).sum(:amount)
-    case params[:group_by]
-    when "month"
-      @amount = Event.group_by_month(:start_time).sum(:amount)
-    when "year"
-      @amount = Event.group_by_year(:start_time).sum(:amount)
-    else
-      @amount = Event.group_by_month(:start_time).sum(:amount)
-    end
+    @amount = group_and_sum(:amount)
   end
-
+  
   def amount_paid
-    @amount_paid = Event.group_by_month(:start_time).sum(:amount_paid)
-    case params[:group_by]
-    when "month"
-      @amount_paid = Event.group_by_month(:start_time).sum(:amount_paid)
-    when "year"
-      @amount_paid = Event.group_by_year(:start_time).sum(:amount_paid)
-    else
-      @amount_paid = Event.group_by_month(:start_time).sum(:amount_paid)
-    end
+    @amount_paid = group_and_sum(:amount_paid)
   end
-
+  
   def amount_earned
-    @amount_earned = Event.group_by_month(:start_time).sum('amount - amount_paid')
-    case params[:group_by]
-    when "month"
-      @amount_earned = Event.group_by_month(:start_time).sum('amount - amount_paid')
-    when "year"
-      @amount_earned = Event.group_by_year(:start_time).sum('amount - amount_paid')
-    else
-      @amount_earned = Event.group_by_month(:start_time).sum('amount - amount_paid')
-    end
+    @amount_earned = group_and_sum('amount - amount_paid')
   end
 
-
-  
   def amount_by_site
-    case params[:group_by]
-    when "month"
-      @amount_by_site = Event.group(:site_id).group_by_month(:start_time).sum(:amount)
-    when "year"
-      @amount_by_site = Event.group(:site_id).group_by_year(:start_time).sum(:amount)
-    else
-      @amount_by_site = Event.group(:site_id).group_by_month(:start_time).sum(:amount)
-    end
-  
-    site_ids = @amount_by_site.keys
-    site_names = Site.where(id: site_ids).pluck(:name)
-  
-    @amount_by_site = Hash[site_names.zip(@amount_by_site.values)]
+    @amount_by_site = group_and_sum_by_site(:amount)
   end
-  
   
   def amount_paid_by_site
-    case params[:group_by]
-    when "month"
-      @amount_paid_by_site = Event.group(:site_id).group_by_month(:start_time).sum(:amount_paid)
-    when "year"
-      @amount_paid_by_site = Event.group(:site_id).group_by_year(:start_time).sum(:amount_paid)
-    else
-      @amount_paid_by_site = Event.group(:site_id).group_by_month(:start_time).sum(:amount_paid)
-    end
-  
-    site_ids = @amount_paid_by_site.keys
-    site_names = Site.where(id: site_ids).pluck(:name)
-  
-    @amount_paid_by_site = Hash[site_names.zip(@amount_paid_by_site.values)]
+    @amount_paid_by_site = group_and_sum_by_site(:amount_paid)
   end
   
   def amount_earned_by_site
-    case params[:group_by]
-    when "month"
-      @amount_earned_by_site = Event.group(:site_id).group_by_month(:start_time).sum('amount - amount_paid')
-    when "year"
-      @amount_earned_by_site = Event.group(:site_id).group_by_year(:start_time).sum('amount - amount_paid')
-    else
-      @amount_earned_by_site = Event.group(:site_id).group_by_month(:start_time).sum('amount - amount_paid')
-    end
-  
-    site_ids = @amount_earned_by_site.keys
-    site_names = Site.where(id: site_ids).pluck(:name)
-  
-    @amount_earned_by_site = Hash[site_names.zip(@amount_earned_by_site.values)]
-  end
-  
-
-  def amount_by_doctor
-    case params[:group_by]
-    when "month"
-      @amount_by_doctor = Event.group(:doctor_id).group_by_month(:start_time).sum(:amount)
-    when "year"
-      @amount_by_doctor = Event.group(:doctor_id).group_by_year(:start_time).sum(:amount)
-    else
-      @amount_by_doctor = Event.group(:doctor_id).group_by_month(:start_time).sum(:amount)
-    end
-  
-    doctor_ids = @amount_by_doctor.keys
-    doctor_names = Doctor.where(id: doctor_ids).pluck(:first_name, :last_name).map { |first_name, last_name| "#{first_name} #{last_name}" }
-  
-    @amount_by_doctor = Hash[doctor_names.zip(@amount_by_doctor.values)]
-  end
-  
-  def amount_paid_by_doctor
-    case params[:group_by]
-    when "month"
-      @amount_paid_by_doctor = Event.group(:doctor_id).group_by_month(:start_time).sum(:amount_paid)
-    when "year"
-      @amount_paid_by_doctor = Event.group(:doctor_id).group_by_year(:start_time).sum(:amount_paid)
-    else
-      @amount_paid_by_doctor = Event.group(:doctor_id).group_by_month(:start_time).sum(:amount_paid)
-    end
-  
-    doctor_ids = @amount_paid_by_doctor.keys
-    doctor_names = Doctor.where(id: doctor_ids).pluck(:first_name, :last_name).map { |first_name, last_name| "#{first_name} #{last_name}" }
-  
-    @amount_paid_by_doctor = Hash[doctor_names.zip(@amount_paid_by_doctor.values)]
-  end
-  
-  def amount_earned_by_doctor
-    case params[:group_by]
-    when "month"
-      @amount_earned_by_doctor = Event.group(:doctor_id).group_by_month(:start_time).sum('amount - amount_paid')
-    when "year"
-      @amount_earned_by_doctor = Event.group(:doctor_id).group_by_year(:start_time).sum('amount - amount_paid')
-    else
-      @amount_earned_by_doctor = Event.group(:doctor_id).group_by_month(:start_time).sum('amount - amount_paid')
-    end
-  
-    doctor_ids = @amount_earned_by_doctor.keys
-    doctor_names = Doctor.where(id: doctor_ids).pluck(:first_name, :last_name).map { |first_name, last_name| "#{first_name} #{last_name}" }
-  
-    @amount_earned_by_doctor = Hash[doctor_names.zip(@amount_earned_by_doctor.values)]
+    @amount_earned_by_site = group_and_sum_by_site('amount - amount_paid')
   end
 
-  def amount_by_user
-    case params[:group_by]
-    when "month"
-      @amount_by_user = Event.group(:user_id).group_by_month(:start_time).sum(:amount)
-    when "year"
-      @amount_by_user = Event.group(:user_id).group_by_year(:start_time).sum(:amount)
-    else
-      @amount_by_user = Event.group(:user_id).group_by_month(:start_time).sum(:amount)
-    end
   
-    user_ids = @amount_by_user.keys
-    user_names = User.where(id: user_ids).pluck(:first_name, :last_name).map { |first_name, last_name| "#{first_name} #{last_name}" }
-  
-    @amount_by_user = Hash[user_names.zip(@amount_by_user.values)]
-  end
-  
-  
-  def amount_paid_by_user
-    case params[:group_by]
-    when "month"
-      @amount_paid_by_user = Event.group(:user_id).group_by_month(:start_time).sum(:amount_paid)
-    when "year"
-      @amount_paid_by_user = Event.group(:user_id).group_by_year(:start_time).sum(:amount_paid)
-    else
-      @amount_paid_by_user = Event.group(:user_id).group_by_month(:start_time).sum(:amount_paid)
-    end
-  
-    user_ids = @amount_paid_by_user.keys
-    user_names = User.where(id: user_ids).pluck(:first_name, :last_name).map { |first_name, last_name| "#{first_name} #{last_name}" }
-  
-    @amount_paid_by_user = Hash[user_names.zip(@amount_paid_by_user.values)]
-  end
-  
+def amount_by_doctor
+  @amount_by_doctor = group_and_sum_by(:doctor, :amount)
+end
 
-  def amount_earned_by_user
-    case params[:group_by]
-    when "month"
-      @amount_earned_by_user = Event.group(:user_id).group_by_month(:start_time).sum('amount - amount_paid')
-    when "year"
-      @amount_earned_by_user = Event.group(:user_id).group_by_year(:start_time).sum('amount - amount_paid')
-    else
-      @amount_earned_by_user = Event.group(:user_id).group_by_month(:start_time).sum('amount - amount_paid')
-    end
+def amount_paid_by_doctor
+  @amount_paid_by_doctor = group_and_sum_by(:doctor, :amount_paid)
+end
+
+def amount_earned_by_doctor
+  @amount_earned_by_doctor = group_and_sum_by(:doctor, 'amount - amount_paid')
+end
+
+
+def amount_by_user
+  @amount_by_user = group_and_sum_by(:user, :amount)
+end
+
+def amount_paid_by_user
+  @amount_paid_by_user = group_and_sum_by(:user, :amount_paid)
+end
+
+def amount_earned_by_user
+  @amount_earned_by_user = group_and_sum_by(:user, 'amount - amount_paid')
+end
+
+private
+
+def group_and_sum(column_name)
+  group_method = determine_group_method
+
+  Event.send(group_method, :start_time).sum(column_name)
+end
+
+def group_and_sum_by(entity, column_name)
+  grouped_data = group_events_by(entity, column_name)
+
+  entity_ids = grouped_data.keys
+  entity_names = entity.to_s.camelize.constantize.where(id: entity_ids).pluck(:first_name, :last_name).map { |first_name, last_name| "#{first_name} #{last_name}" }
+
+  Hash[entity_names.zip(grouped_data.values)]
+end
+
+def group_events_by(entity, column_name)
+  group_method = case params[:group_by]
+                 when "month"
+                   :group_by_month
+                 when "year"
+                   :group_by_year
+                 else
+                   :group_by_month
+                 end
+
+  Event.group("#{entity}_id").send(group_method, :start_time).sum(column_name)
+end
   
-    user_ids = @amount_earned_by_user.keys
-    user_names = User.where(id: user_ids).pluck(:first_name, :last_name).map { |first_name, last_name| "#{first_name} #{last_name}" }
+def group_and_sum_by_site(column_name)
+  grouped_data = group_events_by_site(column_name)
   
-    @amount_earned_by_user = Hash[user_names.zip(@amount_earned_by_user.values)]
+  site_ids = grouped_data.keys
+  site_names = Site.where(id: site_ids).pluck(:name)
+  
+  Hash[site_names.zip(grouped_data.values)]
+end
+
+def group_events_by_site(column_name)
+  group_method = determine_group_method
+
+  Event.group(:site_id).send(group_method, :start_time).sum(column_name)
+end
+
+def determine_group_method
+  case params[:group_by]
+  when "month"
+    :group_by_month
+  when "year"
+    :group_by_year
+  else
+    :group_by_month
   end
-  
+end
 
 end
