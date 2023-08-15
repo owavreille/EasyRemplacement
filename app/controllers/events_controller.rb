@@ -42,6 +42,29 @@ class EventsController < ApplicationController
       flash[:alert] = "Une erreur est survenue lors de la mise à jour de la plage"
     end
   end
+
+  def paid
+    @event = Event.find(params[:id])
+    if @event.update(event_params.merge(paid: true))
+      flash[:notice] = "Modalités de paiement enregistrées !"
+      redirect_to datas_path
+    else
+      flash[:alert] = "Une erreur est survenue lors de la mise à jour du statut du paiement"
+    end
+  end
+
+  def unpaid
+    @event = Event.find(params[:id])
+    if @event.update(paid: false, payment_date: nil, payment_method: nil, payment_details: nil)
+      flash[:notice] = "Modalités de Paiement mises en attente"
+      redirect_to datas_path
+    else
+      flash[:alert] = "Une erreur est survenue lors de la mise à jour du statut du paiement"
+      redirect_to datas_path  # Il est bon d'avoir un chemin de redirection pour le scénario d'erreur aussi
+    end
+  end
+  
+
   
   # GET /events/new
   def new
@@ -171,6 +194,6 @@ end
     end
 
     def event_params
-      params.require(:event).permit(:site_id, :doctor_id, :start_time, :end_time, :number_of_patients, :helper, :user_id, :amount, :reversion, :amount_paid, :contract_generated, :contract_validated, :editable, :patient_count, :am_min_hour, :am_max_hour, :pm_min_hour, :pm_max_hour, :contract_blob, :opened)
+      params.require(:event).permit(:site_id, :doctor_id, :start_time, :end_time, :number_of_patients, :helper, :user_id, :amount, :reversion, :amount_paid, :contract_generated, :contract_validated, :editable, :patient_count, :am_min_hour, :am_max_hour, :pm_min_hour, :pm_max_hour, :contract_blob, :opened, :paid, :payment_date, :payment_method, :payment_details)
     end    
 end

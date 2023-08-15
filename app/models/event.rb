@@ -8,6 +8,9 @@ class Event < ApplicationRecord
   validates_presence_of :reversion
   validate :check_minimal_replacement_length
 
+  PAYMENT_METHOD = ['Virement', 'CB', 'Espèces']
+  validates :payment_method, inclusion: { in: PAYMENT_METHOD, allow_nil: true }, presence: false
+
   def minimal_replacement_length
     AppSetting.find(1).minimal_replacement_length
   end

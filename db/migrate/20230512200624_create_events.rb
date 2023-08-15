@@ -15,6 +15,10 @@ class CreateEvents < ActiveRecord::Migration[7.0]
       t.boolean :contract_validated
       t.boolean :opened
       t.boolean :editable
+      t.boolean :paid
+      t.datetime :payment_date
+      t.string :payment_method
+      t.string :payment_details
       t.integer :patient_count
       t.datetime :am_min_hour
       t.datetime :am_max_hour

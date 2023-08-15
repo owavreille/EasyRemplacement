@@ -40,6 +40,8 @@ match '/events/:id/booking', to: 'events#booking', via: [:get, :put], as: 'booki
 match '/events/:id/cancel_booking', to: 'events#cancel_booking', via: :delete, as: 'cancel_booking_event'
 get '/openings', to: 'events#openings', as: 'openings'
 patch '/openings/:id', to: 'events#opened', as: 'opened'
+patch '/events/:id/paid', to: 'events#paid', as: 'paid'
+patch '/events/:id/unpaid', to: 'events#unpaid', as: 'unpaid'
 
 # Suivi des remplacements et suivi par utilisateur
 get '/datas', to: 'data#index', as: 'datas'
