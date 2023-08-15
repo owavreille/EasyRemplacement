@@ -49,7 +49,7 @@ class SitesController < ApplicationController
     @mailing_list.update(text: generic_text)
  
 
-        format.html { redirect_to site_url(@site), notice: "Le site a bien été créé !" }
+        format.html { redirect_to sites_path, notice: "Le site a bien été créé !" }
         format.json { render :show, status: :created, location: @site }
       else
         format.html { render :new, status: :unprocessable_entity }

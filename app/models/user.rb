@@ -1,14 +1,14 @@
 class User < ApplicationRecord
   has_one_attached :signature
-  belongs_to :mailing_list, optional: true
+  has_and_belongs_to_many :mailing_lists, optional: true
   has_many :events
   has_many :favorite_sites, dependent: :destroy
   has_many :sites, through: :favorite_sites
 
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  # :confirmable, :lockable, :timeoutable, :validatable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable,
+         :recoverable, :rememberable,
          :omniauthable, omniauth_providers: [:google_oauth2]
 
     def admin?

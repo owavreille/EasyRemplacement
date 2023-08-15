@@ -28,16 +28,18 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
+    @user = resource
+    @mailing_lists = MailingList.all
   end
   
   def update
-    @user = User.find(params[:id])
+    @user = resource
+    @mailing_lists = MailingList.all
   
     if @user.update(user_params)
       redirect_to users_path, notice: 'Profil mis à jour avec succès.'
     else
-      render :edit
+      render :edit, notice: 'Echec de la mise à jour !'
     end
   end
   
