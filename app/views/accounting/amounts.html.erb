@@ -12,7 +12,7 @@
   </div>
 
   <%= submit_tag "Filtrer", class: "btn btn-secondary d-inline-block m-1" %>
-  <%= link_to "Export CSV", accounting_path(format: :csv), class: "btn btn-secondary m-1" %>
+  <%= link_to "Export CSV", accounting_path(format: :csv, month: params[:month], year: params[:year]), class: "btn btn-secondary m-1" %>
 <% end %>
 
 <div class="chart-container row m-3">

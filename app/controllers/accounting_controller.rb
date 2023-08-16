@@ -109,11 +109,9 @@ def filter_events_by_month_and_year(events)
 end
 
 def amounts_to_csv
-  filtered_data = filter_events_by_month_and_year(@amount)
-
   CSV.generate(headers: true) do |csv|
     csv << ["Date", "Montant Total", "Montant Reversé", "Total des Revenus"]
-    filtered_data.keys.each do |date|
+    @amount.keys.each do |date|
       formatted_date = date.strftime("%d/%m/%Y")
       csv << [formatted_date, @amount[date], @amount_paid[date], @amount_earned[date]]
     end
@@ -121,33 +119,27 @@ def amounts_to_csv
 end
 
 def amounts_by_site_to_csv
-  filtered_data = filter_events_by_month_and_year(@amount_by_site)
-
   CSV.generate(headers: true) do |csv|
     csv << ["Site de Consultation", "Montant Total", "Montant Reversé", "Total des Revenus"]
-    filtered_data.keys.each do |site|
+    @amount_by_site.keys.each do |site|
       csv << [site, @amount_by_site[site], @amount_paid_by_site[site], @amount_earned_by_site[site]]
     end
   end
 end
 
 def amounts_by_doctor_to_csv
-  filtered_data = filter_events_by_month_and_year(@amount_by_doctor)
-
   CSV.generate(headers: true) do |csv|
     csv << ["Nom du Médecin", "Montant Total", "Montant Reversé", "Total des Revenus"]
-    filtered_data.keys.each do |doctor|
+    @amount_by_doctor.keys.each do |doctor|
       csv << [doctor, @amount_by_doctor[doctor], @amount_paid_by_doctor[doctor], @amount_earned_by_doctor[doctor]]
     end
   end
 end
 
 def amounts_by_user_to_csv
-  filtered_data = filter_events_by_month_and_year(@amount_by_user)
-
   CSV.generate(headers: true) do |csv|
     csv << ["Nom du Remplaçant", "Montant Total", "Montant Reversé", "Total des Revenus"]
-    filtered_data.keys.each do |user|
+    @amount_by_user.keys.each do |user|
       csv << [user, @amount_by_user[user], @amount_paid_by_user[user], @amount_earned_by_user[user]]
     end
   end
