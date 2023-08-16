@@ -44,9 +44,11 @@ patch '/events/:id/paid', to: 'events#paid', as: 'paid'
 patch '/events/:id/unpaid', to: 'events#unpaid', as: 'unpaid'
 
 # Suivi des remplacements et suivi par utilisateur
-get '/datas', to: 'data#index', as: 'datas'
+get '/datas', to: 'data#index', as: 'datas', constraints: { format: 'html' }
+get '/data.csv', to: 'data#index', format: 'csv', as: 'data_csv'
 patch '/data/:id/update_amount', to: 'data#update_amount', as: 'update_amount_data'
-get '/userdata', to: 'data#userdata', as: 'userdata'
+get '/userdata', to: 'data#userdata', as: 'userdata', constraints: { format: 'html' }
+get '/userdata.csv', to: 'data#userdata', format: 'csv', as: 'userdata_csv'
 
 # Suppression des signatures utilisateurs
 delete 'users/:id/delete_signature', to: 'users#delete_signature', as: 'delete_signature'

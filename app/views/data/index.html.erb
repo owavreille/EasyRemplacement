@@ -1,3 +1,20 @@
+    <%= form_tag datas_path, method: :get, class: 'form-inline' do %>
+  <div class="form-group d-inline-block m-3">
+    <%= label_tag :year, 'Année', class: "mr-1 text-white" %>
+    <%= select_tag :year, options_for_select((2022..Time.now.year).to_a.reverse, params[:year]), prompt: "Sélectionnez une Année", class: 'form-control' %>
+  </div>
+  <div class="form-group d-inline-block m-3">
+    <%= label_tag :month, 'Mois', class: "mr-1 text-white" %>
+    <%= select_tag :month, options_for_select((1..12).map { |m| [I18n.t("date.month_names")[m], m] }, params[:month]), prompt: "Sélectionnez un Mois", class: 'form-control' %>
+  </div>
+  <div class="form-group d-inline-block m-3">
+    <%= label_tag :site, 'Site', class: "mr-1 text-white" %>
+    <%= select_tag :site, options_from_collection_for_select(Site.all, 'id', 'name', params[:site]), prompt: "Sélectionnez un Site", class: 'form-control' %>
+  </div>
+  <%= submit_tag 'Filtrer', class: 'btn btn-secondary' %>
+  <%= link_to "Export CSV", data_csv_path(year: params[:year], month: params[:month], site: params[:site]), class: "btn btn-secondary" %>
+<% end %>
+
   <div class="row">
     <div class="col">
       <div class="card shadow m-3">
@@ -83,7 +100,7 @@
               <div class="col-md-6">
                 <div class="form-group mb-3">
                   <%= form.label :payment_date, "Date du paiement" %>
-                  <%= date_field_tag :payment_date, params[:payment_date] || Date.today, class: "form-control" %>
+                  <%= form.date_field :payment_date, value: Date.today, class: "form-control" %>
                 </div>
               </div>
               <div class="col-md-6">

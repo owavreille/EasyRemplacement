@@ -1,5 +1,6 @@
 class DataController < ApplicationController
   before_action :require_role, only: [:index, :update_amount, :generate_contract]
+  require 'csv'
 
 
   def require_role
@@ -7,18 +8,41 @@ class DataController < ApplicationController
       redirect_to root_path, alert: "Accès non Autorisé."
     end
   end
-
   def index
-    @contracts = Event.where.not(contract_blob: nil)
-    @past_events = Event.where.not(user_id: nil).where('end_time < ?', Time.now)
-    @upcoming_events = Event.where.not(user_id: nil).where('start_time > ?', Time.now)
+    @events = Event.all
+  
+    # Filtrage par année et mois
+    if params[:year].present? && params[:month].present?
+      @events = @events.where('start_time >= ? AND end_time <= ?', Date.new(params[:year].to_i, params[:month].to_i).beginning_of_month, Date.new(params[:year].to_i, params[:month].to_i).end_of_month)
+    elsif params[:year].present?
+      @events = @events.where('start_time >= ? AND end_time <= ?', Date.new(params[:year].to_i).beginning_of_year, Date.new(params[:year].to_i).end_of_year)
+    end
+  
+    # Filtrage par site
+    @events = @events.where(site_id: params[:site]) if params[:site].present?
+  
+    @contracts = @events.where.not(contract_blob: nil)
+    @past_events = @events.where.not(user_id: nil).where('end_time < ?', Time.now)
+    @upcoming_events = @events.where.not(user_id: nil).where('start_time > ?', Time.now)
+  
     @past_pagy, @past_events = pagy(@past_events) if @past_events.present?
     @upcoming_pagy, @upcoming_events = pagy(@upcoming_events) if @upcoming_events.present?
+  
+    respond_to do |format|
+      format.html
+      format.csv { send_data events_to_csv(@past_events), filename: "Remplacements-#{params[:month]}-#{params[:year]}.csv" }
+    end
   end
+  
 
   def userdata
-    @past_events = Event.where(user_id: current_user.id).where('end_time < ?', Time.now)
-    @upcoming_events = Event.where(user_id: current_user.id).where('start_time > ?', Time.now)
+    @events = Event.where(user_id: current_user.id)
+    @events = @events.where('start_time >= ? AND end_time <= ?', Date.new(params[:year].to_i, params[:month].to_i).beginning_of_month, Date.new(params[:year].to_i, params[:month].to_i).end_of_month) if params[:year].present? && params[:month].present?
+    @events = @events.where('start_time >= ? AND end_time <= ?', Date.new(params[:year].to_i).beginning_of_year, Date.new(params[:year].to_i).end_of_year) if params[:year].present? && params[:month].blank?
+    @events = @events.where(site_id: params[:site]) if params[:site].present?
+  
+    @past_events = @events.where('end_time < ?', Time.now)
+    @upcoming_events = @events.where('start_time > ?', Time.now)
   
     if @past_events.present?
       @past_pagy, @past_events = pagy(@past_events)
@@ -27,7 +51,12 @@ class DataController < ApplicationController
     if @upcoming_events.present?
       @upcoming_pagy, @upcoming_events = pagy(@upcoming_events)
     end
+    respond_to do |format|
+      format.html
+      format.csv { send_data userdata_csv(@past_events), filename: "Remplacements-#{params[:month]}-#{params[:year]}.csv" }
+    end
   end
+  
 
   def update_amount
   @event = Event.find(params[:id])
@@ -48,5 +77,49 @@ class DataController < ApplicationController
 
   redirect_to datas_path
 end
+
+def events_to_csv(events)
+  CSV.generate(headers: true) do |csv|
+    csv << ["Site", "Date", "Médecin Remplacé", "Début", "Fin", "Nb de Patients", "Aide de Cs", "Remplaçant", "Montant", "Montant Reversé", "Taux Reversion", "Date Paiement", "Méthode de Paiement", "Détails Paiement"]
+    events.each do |event|
+      csv << [
+        event.site.name,
+        event.start_time.strftime("%d/%m/%Y"),
+        "Dr #{event.doctor.first_name} #{event.doctor.last_name}",
+        event.start_time.strftime("%H:%M"),
+        event.end_time.strftime("%H:%M"),
+        event.number_of_patients,
+        event.helper ? 'oui' : 'non',
+        "#{event.user.first_name} #{event.user.last_name}",
+        event.amount,
+        event.amount_paid,
+        "#{event.reversion} %",
+        event.payment_date,
+        event.payment_method,
+        event.payment_details
+      ]
+    end
+  end
+end
+
+def userdata_csv(events)
+  CSV.generate(headers: true) do |csv|
+    csv << ["Site", "Date", "Médecin Remplacé", "Début", "Fin", "Nb de Patients", "Aide de Cs", "Montant Reversé", "Taux Reversion"]
+    events.each do |event|
+      csv << [
+        event.site.name,
+        event.start_time.strftime("%d/%m/%Y"),
+        "Dr #{event.doctor.first_name} #{event.doctor.last_name}",
+        event.start_time.strftime("%H:%M"),
+        event.end_time.strftime("%H:%M"),
+        event.number_of_patients,
+        event.helper ? 'oui' : 'non',
+        event.amount_paid,
+        "#{event.reversion} %"
+      ]
+    end
+  end
+end
+
 
 end
