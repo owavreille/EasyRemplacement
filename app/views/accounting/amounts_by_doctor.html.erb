@@ -11,7 +11,8 @@
     <%= select_tag :month, options_for_select((1..12).map { |m| [I18n.t("date.month_names")[m], m] }, params[:month]), prompt: "Sélectionnez un mois", class: "form-control" %>
   </div>
 
-  <%= submit_tag "Filtrer", class: "btn btn-secondary d-inline-block" %>
+  <%= submit_tag "Filtrer", class: "btn btn-secondary d-inline-block m-1" %>
+  <%= link_to "Export CSV", accounting_amounts_by_doctor_path(format: :csv), class: "btn btn-secondary m-1" %>
 <% end %>
 
 

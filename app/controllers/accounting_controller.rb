@@ -1,5 +1,6 @@
 class AccountingController < ApplicationController
   before_action :require_role
+  require 'csv'
 
   def require_role
     unless current_user&.role == true
@@ -11,24 +12,41 @@ class AccountingController < ApplicationController
     @amount = group_and_sum(:amount)
     @amount_paid = group_and_sum(:amount_paid)
     @amount_earned = group_and_sum('amount - amount_paid')
+    respond_to do |format|
+      format.html
+      format.csv { send_data amounts_to_csv, filename: "Remplacements-#{params[:month]}-#{params[:year]}.csv" }
+    end
   end
 
   def amounts_by_site
     @amount_by_site = group_and_sum_by_site(:amount)
     @amount_paid_by_site = group_and_sum_by_site(:amount_paid)
     @amount_earned_by_site = group_and_sum_by_site('amount - amount_paid')
+    respond_to do |format|
+      format.html
+      format.csv { send_data amounts_by_site_to_csv, filename: "Remplacements-#{params[:month]}-#{params[:year]}.csv" }
+    end
   end
   
   def amounts_by_doctor
     @amount_by_doctor = group_and_sum_by(:doctor, :amount)
     @amount_paid_by_doctor = group_and_sum_by(:doctor, :amount_paid)
     @amount_earned_by_doctor = group_and_sum_by(:doctor, 'amount - amount_paid')
+    
+    respond_to do |format|
+      format.html
+      format.csv { send_data amounts_by_doctor_to_csv, filename: "Remplacements-#{params[:month]}-#{params[:year]}.csv" }
+    end
   end
   
 def amounts_by_user
   @amount_by_user = group_and_sum_by(:user, :amount)
   @amount_paid_by_user = group_and_sum_by(:user, :amount_paid)
   @amount_earned_by_user = group_and_sum_by(:user, 'amount - amount_paid')
+  respond_to do |format|
+    format.html
+    format.csv { send_data amounts_by_user_to_csv, filename: "Remplacements-#{params[:month]}-#{params[:year]}.csv" }
+  end
 end
 
 private
@@ -87,9 +105,52 @@ def filter_events_by_month_and_year(events)
     month = params[:month].to_i
     filtered_events = filtered_events.where(start_time: Date.new(year, month)..Date.new(year, month).end_of_month)
   end
-
   filtered_events
 end
 
+def amounts_to_csv
+  filtered_data = filter_events_by_month_and_year(@amount)
+
+  CSV.generate(headers: true) do |csv|
+    csv << ["Date", "Montant Total", "Montant Reversé", "Total des Revenus"]
+    filtered_data.keys.each do |date|
+      formatted_date = date.strftime("%d/%m/%Y")
+      csv << [formatted_date, @amount[date], @amount_paid[date], @amount_earned[date]]
+    end
+  end
+end
+
+def amounts_by_site_to_csv
+  filtered_data = filter_events_by_month_and_year(@amount_by_site)
+
+  CSV.generate(headers: true) do |csv|
+    csv << ["Site de Consultation", "Montant Total", "Montant Reversé", "Total des Revenus"]
+    filtered_data.keys.each do |site|
+      csv << [site, @amount_by_site[site], @amount_paid_by_site[site], @amount_earned_by_site[site]]
+    end
+  end
+end
+
+def amounts_by_doctor_to_csv
+  filtered_data = filter_events_by_month_and_year(@amount_by_doctor)
+
+  CSV.generate(headers: true) do |csv|
+    csv << ["Nom du Médecin", "Montant Total", "Montant Reversé", "Total des Revenus"]
+    filtered_data.keys.each do |doctor|
+      csv << [doctor, @amount_by_doctor[doctor], @amount_paid_by_doctor[doctor], @amount_earned_by_doctor[doctor]]
+    end
+  end
+end
+
+def amounts_by_user_to_csv
+  filtered_data = filter_events_by_month_and_year(@amount_by_user)
+
+  CSV.generate(headers: true) do |csv|
+    csv << ["Nom du Remplaçant", "Montant Total", "Montant Reversé", "Total des Revenus"]
+    filtered_data.keys.each do |user|
+      csv << [user, @amount_by_user[user], @amount_paid_by_user[user], @amount_earned_by_user[user]]
+    end
+  end
+end
 
 end
