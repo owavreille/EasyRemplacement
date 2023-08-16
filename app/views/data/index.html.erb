@@ -53,7 +53,7 @@
 </td>
                     <td><%= event.reversion %> % </td>
                     <td><%= event.amount_paid %></td>
-                    <td>
+                    <td><%= event.paid ? 'Fait ! ' : 'En attente' %>
   <button type="button" id="Modalpayment" class="btn btn-sm btn-secondary me-2 rounded" data-bs-toggle="modal" data-bs-target="#payment-<%= event.id %>">
   <i class="bi bi-pencil-fill"></i>
 </button>
