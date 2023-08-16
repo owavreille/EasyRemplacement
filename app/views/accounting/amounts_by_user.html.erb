@@ -1,8 +1,20 @@
     <%= render 'navbar' %>
 
-<div class="chart-selector shadow m-3">
-  <%= select_tag :group_by_user, options_for_select([['Par mois', 'month'], ['Par année', 'year']], params[:group_by_user]), class: 'form-control', id: 'group-by-user' %>
-</div>
+<%= form_tag accounting_amounts_by_user_path, method: :get do %>
+  <div class="form-group d-inline-block m-3">
+    <%= label_tag :year, "Année:", class: "mr-1 text-white" %>
+    <%= select_tag :year, options_for_select((2022..Date.today.year).to_a.reverse, params[:year]), prompt: "Sélectionnez une année", class: "form-control" %>
+  </div>
+
+  <div class="form-group d-inline-block m-3">
+    <%= label_tag :month, "Mois:", class: "mr-1 text-white"%>
+    <%= select_tag :month, options_for_select((1..12).map { |m| [I18n.t("date.month_names")[m], m] }, params[:month]), prompt: "Sélectionnez un mois", class: "form-control" %>
+  </div>
+
+  <%= submit_tag "Filtrer", class: "btn btn-secondary d-inline-block" %>
+<% end %>
+
+
 <div class="chart-container row m-3">
   <div class="col-md-6">
     <h3>Total par Remplaçant </h3>

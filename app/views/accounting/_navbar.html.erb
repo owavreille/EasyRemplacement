@@ -1,8 +1,10 @@
 <% content_for :head do %>
-<%= javascript_import_module_tag "chart" %>
+  <%= javascript_import_module_tag "chart" %>
 <% end %>
 
-<%= link_to "Montants Totaux", accounting_path, class: "btn btn-secondary m-3" %>
-<%= link_to "Montants par Remplaçant", accounting_amounts_by_user_path, class: "btn btn-secondary m-3" %>
-<%= link_to "Montants par Site", accounting_amounts_by_site_path, class: "btn btn-secondary m-3" %>
-<%= link_to "Montants par Médecin", accounting_amounts_by_doctor_path, class: "btn btn-secondary m-3" %>
+<div class="d-flex flex-column flex-md-row justify-content-center align-items-center">
+  <%= link_to "Montants Totaux", accounting_path, class: "btn btn-secondary m-3" %>
+  <%= link_to "Montants par Remplaçant", accounting_amounts_by_user_path, class: "btn btn-secondary m-3" %>
+  <%= link_to "Montants par Site", accounting_amounts_by_site_path, class: "btn btn-secondary m-3" %>
+  <%= link_to "Montants par Médecin", accounting_amounts_by_doctor_path, class: "btn btn-secondary m-3" %>
+</div>
