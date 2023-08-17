@@ -11,7 +11,9 @@
     <%= label_tag :site, 'Site', class: "mr-1 text-white" %>
     <%= select_tag :site, options_from_collection_for_select(Site.all, 'id', 'name', params[:site]), prompt: "Sélectionnez un Site", class: 'form-control' %>
   </div>
-  <%= submit_tag 'Filtrer', class: 'btn btn-secondary' %>
+<%= button_tag(type: 'submit', class: 'btn btn-secondary') do %>
+  <i class="bi bi-filter-circle"></i>
+<% end %>
   <%= link_to "Export CSV", data_csv_path(year: params[:year], month: params[:month], site: params[:site]), class: "btn btn-secondary" %>
 <% end %>
 
