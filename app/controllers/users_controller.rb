@@ -28,12 +28,10 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = resource
     @mailing_lists = MailingList.all
   end
   
   def update
-    @user = resource
     @mailing_lists = MailingList.all
   
     if @user.update(user_params)

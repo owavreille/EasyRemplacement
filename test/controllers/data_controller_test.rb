@@ -32,7 +32,7 @@ class DataControllerTest < ActionController::TestCase
     @event.reload
     assert_equal amount, @event.amount
     assert_equal amount_paid, @event.amount_paid
-    assert_equal "Montant du Remplacement et Montant à Payer mis à jour avec succès.", flash[:notice]
+    assert_equal "Montant du remplacement et Montant à reverser mis à jour avec succès.", flash[:notice]
   end
 
 end

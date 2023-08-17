@@ -25,7 +25,7 @@ class RegistrationsController < Devise::RegistrationsController
     @mailing_lists = MailingList.all
   
     if @user.update(account_update_params)
-      redirect_to users_path, notice: 'Profil mis à jour avec succès.'
+      redirect_to root_path, notice: 'Profil mis à jour avec succès.'
     else
       render :edit, notice: 'Echec de la mise à jour !'
     end
