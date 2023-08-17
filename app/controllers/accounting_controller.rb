@@ -1,5 +1,7 @@
 class AccountingController < ApplicationController
   before_action :require_role
+  before_action :set_default_year, only: [:amounts, :amounts_by_site, :amounts_by_doctor, :amounts_by_user]
+
   require 'csv'
 
   def require_role
@@ -143,6 +145,12 @@ def amounts_by_user_to_csv
       csv << [user, @amount_by_user[user], @amount_paid_by_user[user], @amount_earned_by_user[user]]
     end
   end
+end
+
+private
+
+def set_default_year
+  params[:year] ||= Date.current.year.to_s
 end
 
 end

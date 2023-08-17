@@ -10,6 +10,7 @@ class DataController < ApplicationController
   end
   def index
     @events = Event.all
+    params[:year] ||= Date.current.year.to_s
   
     # Filtrage par année et mois
     if params[:year].present? && params[:month].present?
@@ -36,26 +37,35 @@ class DataController < ApplicationController
   
 
   def userdata
-    @events = Event.where(user_id: current_user.id)
-    @events = @events.where('start_time >= ? AND end_time <= ?', Date.new(params[:year].to_i, params[:month].to_i).beginning_of_month, Date.new(params[:year].to_i, params[:month].to_i).end_of_month) if params[:year].present? && params[:month].present?
-    @events = @events.where('start_time >= ? AND end_time <= ?', Date.new(params[:year].to_i).beginning_of_year, Date.new(params[:year].to_i).end_of_year) if params[:year].present? && params[:month].blank?
+    params[:year] ||= Date.current.year.to_s
+  
+    @events = Event.all
+  
+    # Filtrage par année et mois
+    if params[:month].present?
+      @events = @events.where('start_time >= ? AND end_time <= ?', Date.new(params[:year].to_i, params[:month].to_i).beginning_of_month, Date.new(params[:year].to_i, params[:month].to_i).end_of_month)
+    else
+      @events = @events.where('start_time >= ? AND end_time <= ?', Date.new(params[:year].to_i).beginning_of_year, Date.new(params[:year].to_i).end_of_year)
+    end
+  
+    # Filtrage par site
     @events = @events.where(site_id: params[:site]) if params[:site].present?
+  
+    # Filtrage par user_id
+    @events = @events.where(user_id: current_user.id)
   
     @past_events = @events.where('end_time < ?', Time.now)
     @upcoming_events = @events.where('start_time > ?', Time.now)
   
-    if @past_events.present?
-      @past_pagy, @past_events = pagy(@past_events)
-    end
+    @past_pagy, @past_events = pagy(@past_events) if @past_events.present?
+    @upcoming_pagy, @upcoming_events = pagy(@upcoming_events) if @upcoming_events.present?
   
-    if @upcoming_events.present?
-      @upcoming_pagy, @upcoming_events = pagy(@upcoming_events)
-    end
     respond_to do |format|
       format.html
       format.csv { send_data userdata_csv(@past_events), filename: "Remplacements-#{params[:month]}-#{params[:year]}.csv" }
     end
   end
+  
   
 
   def update_amount
