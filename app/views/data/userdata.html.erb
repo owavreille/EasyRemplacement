@@ -53,16 +53,11 @@
         <td><%= event.helper ? 'oui' : 'non' %></td>
         <td><%= event.amount_paid %></td>
         <td><%= event.reversion %> %</td>
-        <% total_amount_paid += event.amount_paid.to_f if event.amount_paid.present? %>
       </tr>
     <% end %>
-    <% total_amount_paid_by_year[year] = total_amount_paid %>
   <% end %>
 </tbody>
 </table>
-<% total_amount_paid_by_year.each do |year, total_amount_paid| %>
-  <div class="total_amount_paid">Total des Remplacements <%= year %>: <%= total_amount_paid %> euros</div>
-<% end %>
 
 <div class="text-end m-3">
   <% if @past_pagy.present? %>
