@@ -57,13 +57,13 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
-  transition: margin-left 0.5s ease;
   margin-left: 0;
 }
 
 .navbar-brand {
   display: flex;
   flex-wrap: wrap-reverse;
+  transition: margin-left 0.5s ease;
 }
 
 @media (max-width: 510px) {
