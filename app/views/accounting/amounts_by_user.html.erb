@@ -1,35 +1,50 @@
-    <%= render 'navbar' %>
+<%= render "navbar" %>
 
 <%= form_tag accounting_amounts_by_user_path, method: :get do %>
   <div class="form-group d-inline-block m-3">
     <%= label_tag :year, "Année:", class: "mr-1 text-white" %>
-    <%= select_tag :year, options_for_select((2022..Date.today.year).to_a.reverse, params[:year]), prompt: "Sélectionnez une année", class: "form-control" %>
+    <%= select_tag :year,
+    options_for_select((2022..Date.today.year).to_a.reverse, params[:year]),
+    prompt: "Sélectionnez une année",
+    class: "form-control" %>
   </div>
 
   <div class="form-group d-inline-block m-3">
-    <%= label_tag :month, "Mois:", class: "mr-1 text-white"%>
-    <%= select_tag :month, options_for_select((1..12).map { |m| [I18n.t("date.month_names")[m], m] }, params[:month]), prompt: "Sélectionnez un mois", class: "form-control" %>
+    <%= label_tag :month, "Mois:", class: "mr-1 text-white" %>
+    <%= select_tag :month,
+    options_for_select(
+      (1..12).map { |m| [I18n.t("date.month_names")[m], m] },
+      params[:month]
+    ),
+    prompt: "Sélectionnez un mois",
+    class: "form-control" %>
   </div>
 
-<%= button_tag(type: 'submit', class: 'btn btn-secondary') do %>
-  <i class="bi bi-filter-circle"></i>
-<% end %>
-  <%= link_to "Export CSV", accounting_amounts_by_user_path(format: :csv, month: params[:month], year: params[:year]), class: "btn btn-secondary m-1" %>
+  <%= button_tag(type: 'submit', class: 'btn btn-secondary') do %>
+    <i class="bi bi-filter-circle"></i>
+  <% end %>
+  <%= link_to "Export CSV",
+  accounting_amounts_by_user_path(
+    format: :csv,
+    month: params[:month],
+    year: params[:year]
+  ),
+  class: "btn btn-secondary m-1" %>
 
 <% end %>
-
 
 <div class="chart-container row m-3">
   <div class="col-md-6">
-    <h3>Total par Remplaçant </h3>
-    <%= column_chart @amount_by_user, download: true, locale: 'fr' %>
+    <h3>Total par Remplaçant
+    </h3>
+    <%= column_chart @amount_by_user, download: true, locale: "fr" %>
   </div>
   <div class="col-md-6">
     <h3>Total Reversé par Remplaçant</h3>
-    <%= column_chart @amount_paid_by_user, download: true, locale: 'fr' %>
+    <%= column_chart @amount_paid_by_user, download: true, locale: "fr" %>
   </div>
   <div class="col-md-6">
     <h3>Total des Revenus par Remplaçant</h3>
-    <%= column_chart @amount_earned_by_user, download: true, locale: 'fr' %>
+    <%= column_chart @amount_earned_by_user, download: true, locale: "fr" %>
   </div>
 </div>

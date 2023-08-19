@@ -1,84 +1,104 @@
-    <%= render 'navbar' %>
+<%= render "navbar" %>
 
 <%= form_tag accounting_path, method: :get, class: 'form-inline' do %>
   <div class="form-group d-inline-block m-3">
     <%= label_tag :year, "Année:", class: "mr-1 text-white" %>
-    <%= select_tag :year, options_for_select((2022..Date.today.year).to_a.reverse, params[:year]), prompt: "Sélectionnez une année", class: "form-control" %>
+    <%= select_tag :year,
+    options_for_select((2022..Date.today.year).to_a.reverse, params[:year]),
+    prompt: "Sélectionnez une année",
+    class: "form-control" %>
   </div>
 
   <div class="form-group d-inline-block m-3">
-    <%= label_tag :month, "Mois:", class: "mr-1 text-white"%>
-    <%= select_tag :month, options_for_select((1..12).map { |m| [I18n.t("date.month_names")[m], m] }, params[:month]), prompt: "Sélectionnez un mois", class: "form-control" %>
+    <%= label_tag :month, "Mois:", class: "mr-1 text-white" %>
+    <%= select_tag :month,
+    options_for_select(
+      (1..12).map { |m| [I18n.t("date.month_names")[m], m] },
+      params[:month]
+    ),
+    prompt: "Sélectionnez un mois",
+    class: "form-control" %>
   </div>
 
-<%= button_tag(type: 'submit', class: 'btn btn-secondary') do %>
-  <i class="bi bi-filter-circle"></i>
-<% end %>
-  <%= link_to "Export CSV", accounting_path(format: :csv, month: params[:month], year: params[:year]), class: "btn btn-secondary m-1" %>
+  <%= button_tag(type: 'submit', class: 'btn btn-secondary') do %>
+    <i class="bi bi-filter-circle"></i>
+  <% end %>
+  <%= link_to "Export CSV",
+  accounting_path(format: :csv, month: params[:month], year: params[:year]),
+  class: "btn btn-secondary m-1" %>
 <% end %>
 
 <div class="chart-container row m-3">
   <div class="col-md-6">
     <h3>Total des Remplacements</h3>
-    <%= column_chart @amount, download: true, locale: 'fr', library: {
-  scales: {
-    x: {
-      type: 'time',
-      time: {
-        unit: 'day',
-        tooltipFormat: 'dd/MM/yyyy',
-        displayFormats: {
-          day: 'dd MM',
-          week: 'MM yyyy',
-          month: 'MM yyyy',
-          quarter: 'QQQ yyyy',
-          year: 'yyyy'
+    <%= column_chart @amount,
+    download: true,
+    locale: "fr",
+    library: {
+      scales: {
+        x: {
+          type: "time",
+          time: {
+            unit: "day",
+            tooltipFormat: "dd/MM/yyyy",
+            displayFormats: {
+              day: "dd MM",
+              week: "MM yyyy",
+              month: "MM yyyy",
+              quarter: "QQQ yyyy",
+              year: "yyyy"
+            }
+          }
         }
       }
-    }
-  }
-} %>
+    } %>
   </div>
   <div class="col-md-6">
     <h3>Total Reversé</h3>
-    <%= column_chart @amount_paid, download: true, locale: 'fr', library: {
-  scales: {
-    x: {
-      type: 'time',
-      time: {
-        unit: 'day',
-        tooltipFormat: 'dd/MM/yyyy',
-        displayFormats: {
-          day: 'dd MM',
-          week: 'MM yyyy',
-          month: 'MM yyyy',
-          quarter: 'QQQ yyyy',
-          year: 'yyyy'
+    <%= column_chart @amount_paid,
+    download: true,
+    locale: "fr",
+    library: {
+      scales: {
+        x: {
+          type: "time",
+          time: {
+            unit: "day",
+            tooltipFormat: "dd/MM/yyyy",
+            displayFormats: {
+              day: "dd MM",
+              week: "MM yyyy",
+              month: "MM yyyy",
+              quarter: "QQQ yyyy",
+              year: "yyyy"
+            }
+          }
         }
       }
-    }
-  }
-} %>
+    } %>
   </div>
   <div class="col-md-6">
     <h3>Total des Revenus des Remplacements</h3>
-    <%= column_chart @amount_earned, download: true, locale: 'fr', library: {
-  scales: {
-    x: {
-      type: 'time',
-      time: {
-        unit: 'day',
-        tooltipFormat: 'dd/MM/yyyy',
-        displayFormats: {
-          day: 'dd MM',
-          week: 'MM yyyy',
-          month: 'MM yyyy',
-          quarter: 'QQQ yyyy',
-          year: 'yyyy'
+    <%= column_chart @amount_earned,
+    download: true,
+    locale: "fr",
+    library: {
+      scales: {
+        x: {
+          type: "time",
+          time: {
+            unit: "day",
+            tooltipFormat: "dd/MM/yyyy",
+            displayFormats: {
+              day: "dd MM",
+              week: "MM yyyy",
+              month: "MM yyyy",
+              quarter: "QQQ yyyy",
+              year: "yyyy"
+            }
+          }
         }
       }
-    }
-  }
-} %>
+    } %>
   </div>
 </div>

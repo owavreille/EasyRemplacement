@@ -1,30 +1,44 @@
-    <%= form_tag datas_path, method: :get, class: 'form-inline' do %>
+<%= form_tag datas_path, method: :get, class: 'form-inline' do %>
   <div class="form-group d-inline-block m-3">
-    <%= label_tag :year, 'Année', class: "mr-1 text-white" %>
-    <%= select_tag :year, options_for_select((2022..Time.now.year).to_a.reverse, params[:year]), prompt: "Sélectionnez une Année", class: 'form-control' %>
+    <%= label_tag :year, "Année", class: "mr-1 text-white" %>
+    <%= select_tag :year,
+    options_for_select((2022..Time.now.year).to_a.reverse, params[:year]),
+    prompt: "Sélectionnez une Année",
+    class: "form-control" %>
   </div>
   <div class="form-group d-inline-block m-3">
-    <%= label_tag :month, 'Mois', class: "mr-1 text-white" %>
-    <%= select_tag :month, options_for_select((1..12).map { |m| [I18n.t("date.month_names")[m], m] }, params[:month]), prompt: "Sélectionnez un Mois", class: 'form-control' %>
+    <%= label_tag :month, "Mois", class: "mr-1 text-white" %>
+    <%= select_tag :month,
+    options_for_select(
+      (1..12).map { |m| [I18n.t("date.month_names")[m], m] },
+      params[:month]
+    ),
+    prompt: "Sélectionnez un Mois",
+    class: "form-control" %>
   </div>
   <div class="form-group d-inline-block m-3">
-    <%= label_tag :site, 'Site', class: "mr-1 text-white" %>
-    <%= select_tag :site, options_from_collection_for_select(Site.all, 'id', 'name', params[:site]), prompt: "Sélectionnez un Site", class: 'form-control' %>
+    <%= label_tag :site, "Site", class: "mr-1 text-white" %>
+    <%= select_tag :site,
+    options_from_collection_for_select(Site.all, "id", "name", params[:site]),
+    prompt: "Sélectionnez un Site",
+    class: "form-control" %>
   </div>
-<%= button_tag(type: 'submit', class: 'btn btn-secondary') do %>
-  <i class="bi bi-filter-circle"></i>
-<% end %>
-  <%= link_to "Export CSV", data_csv_path(year: params[:year], month: params[:month], site: params[:site]), class: "btn btn-secondary" %>
+  <%= button_tag(type: 'submit', class: 'btn btn-secondary') do %>
+    <i class="bi bi-filter-circle"></i>
+  <% end %>
+  <%= link_to "Export CSV",
+  data_csv_path(year: params[:year], month: params[:month], site: params[:site]),
+  class: "btn btn-secondary" %>
 <% end %>
 
-  <div class="row">
-    <div class="col">
-      <div class="card shadow m-3">
-        <h2 class="card-header">Tableau de Suivi des Remplacements</h2>
-        <div class="card-body">
-          <div class="past-events">
-            <h4>Remplacements Passés</h4>
-                <div class="table-responsive">
+<div class="row">
+  <div class="col">
+    <div class="card shadow m-3">
+      <h2 class="card-header">Tableau de Suivi des Remplacements</h2>
+      <div class="card-body">
+        <div class="past-events">
+          <h4>Remplacements Passés</h4>
+          <div class="table-responsive">
             <table class="table table-striped">
               <thead class="thead-dark">
                 <tr class="table-primary">
@@ -48,102 +62,129 @@
                   <tr>
                     <td><%= event.site.name %></td>
                     <td><%= event.start_time.strftime("%d/%m/%Y") %></td>
-                    <td><%= event.doctor.first_name %> <%= event.doctor.last_name %></td>
+                    <td><%= event.doctor.first_name %>
+                      <%= event.doctor.last_name %></td>
                     <td><%= event.start_time.strftime("%H:%M") %></td>
                     <td><%= event.end_time.strftime("%H:%M") %></td>
                     <td><%= event.number_of_patients %></td>
-                    <td><%= event.helper ? 'oui' : 'non' %></td>
-                    <td><%= event.user.first_name %> <%= event.user.last_name %></td>
-                  <td>
-  <%= form_with(url: update_amount_data_path(event), method: :patch, remote: true, class: 'form-inline') do |form| %>
-    <div class="row">
-      <div class="col">
-        <div class="form-group">
-          <%= form.text_field :amount, class: 'form-control form-control-sm', value: event.amount, disabled: event.paid? %>
-        </div>
-      </div>
-      <div class="col">
-        <%= form.button type: 'submit', class: 'btn btn-secondary btn-sm', disabled: event.paid? do %>
-          <i class="bi bi-check-circle-fill" style="color: white;"></i>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
-</td>
-                    <td><%= event.reversion %> % </td>
+                    <td><%= event.helper ? "oui" : "non" %></td>
+                    <td><%= event.user.first_name %>
+                      <%= event.user.last_name %></td>
+                    <td>
+                      <%= form_with(url: update_amount_data_path(event), method: :patch, remote: true, class: 'form-inline') do |form| %>
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-group">
+                              <%= form.text_field :amount,
+                                              class: "form-control form-control-sm",
+                                              value: event.amount,
+                                              disabled: event.paid? %>
+                            </div>
+                          </div>
+                          <div class="col">
+                            <%= form.button type: 'submit', class: 'btn btn-secondary btn-sm', disabled: event.paid? do %>
+                              <i class="bi bi-check-circle-fill" style="color: white;"></i>
+                            <% end %>
+                          </div>
+                        </div>
+                      <% end %>
+                    </td>
+                    <td><%= event.reversion %>
+                      %
+                    </td>
                     <td><%= event.amount_paid %></td>
-                    <td><%= event.paid ? 'Fait ! ' : 'En attente' %>
-  <button type="button" id="Modalpayment" class="btn btn-sm btn-secondary me-2 rounded" data-bs-toggle="modal" data-bs-target="#payment-<%= event.id %>">
-  <i class="bi bi-pencil-fill"></i>
-</button>
+                    <td><%= event.paid ? "Fait ! " : "En attente" %>
+                      <button
+                        type="button"
+                        id="Modalpayment"
+                        class="btn btn-sm btn-secondary me-2 rounded"
+                        data-bs-toggle="modal"
+                        data-bs-target="#payment-<%= event.id %>"
+                      >
+                        <i class="bi bi-pencil-fill"></i>
+                      </button>
 
-  
-  <div class="modal fade" id="payment-<%= event.id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modalités de Paiement :</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <%= form_with(model: event, url: paid_path(event), method: :patch) do |form| %>
-            <% if event.errors.any? %>
-          <div style="color: red">
-            <h4><%= pluralize(event.errors.count, "error") %> ont empêché la mise à jour :</h4>
+                      <div
+                        class="modal fade"
+                        id="payment-<%= event.id %>"
+                        tabindex="-1"
+                        aria-labelledby="exampleModalLabel"
+                        aria-hidden="true"
+                      >
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Modalités de Paiement :</h5>
+                              <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                              ></button>
+                            </div>
+                            <div class="modal-body">
+                              <%= form_with(model: event, url: paid_path(event), method: :patch) do |form| %>
+                                <% if event.errors.any? %>
+                                  <div style="color: red">
+                                    <h4><%= pluralize(event.errors.count, "error") %>
+                                      ont empêché la mise à jour :</h4>
 
-            <ul>
-              <% event.errors.each do |error| %>
-                <li><%= error.full_message %></li>
-              <% end %>
-            </ul>
-          </div>
-        <% end %>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group mb-3">
-                  <%= form.label :payment_date, "Date du paiement" %>
-                  <%= form.date_field :payment_date, value: Date.today, class: "form-control" %>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group mb-3">
-                  <%= form.label :payment_method, "Méthode de Paiement" %>
-                  <%= form.select :payment_method, Event::PAYMENT_METHOD, {}, {class: "form-control"} %>
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="form-group mb-3">
-                  <%= form.label :payment_details, "Détails" %>
-                  <%= form.text_field :payment_details, class: "form-control" %>
-                </div>
-              </div>
-            </div>
-            <div class="form-group text-end">
-              <%= form.submit "Enregistrer", class: "btn btn-primary" %>
-              <%= link_to "Non payé", unpaid_path(event), method: :patch, class: 'btn btn-warning' %>
-            </div>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
-</td>
+                                    <ul>
+                                      <% event.errors.each do |error| %>
+                                        <li><%= error.full_message %></li>
+                                      <% end %>
+                                    </ul>
+                                  </div>
+                                <% end %>
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                      <%= form.label :payment_date, "Date du paiement" %>
+                                      <%= form.date_field :payment_date, value: Date.today, class: "form-control" %>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                      <%= form.label :payment_method, "Méthode de Paiement" %>
+                                      <%= form.select :payment_method,
+                                                  Event::PAYMENT_METHOD,
+                                                  {},
+                                                  { class: "form-control" } %>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-12">
+                                    <div class="form-group mb-3">
+                                      <%= form.label :payment_details, "Détails" %>
+                                      <%= form.text_field :payment_details, class: "form-control" %>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="form-group text-end">
+                                  <%= form.submit "Enregistrer", class: "btn btn-primary" %>
+                                  <%= link_to "Non payé", unpaid_path(event), method: :patch, class: "btn btn-warning" %>
+                                </div>
+                              <% end %>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
 
                   </tr>
                 <% end %>
               </tbody>
             </table>
-            </div>
-            <div class="text-end m-3">
-              <% if @past_pagy.present? %>
-              <%== pagy_bootstrap_nav(@past_pagy) %>
-              <% end %>
-            </div>
           </div>
+          <div class="text-end m-3">
+            <% if @past_pagy.present? %>
+              <%== pagy_bootstrap_nav(@past_pagy) %>
+            <% end %>
+          </div>
+        </div>
 
-          <div class="upcoming-events mt-5">
-            <h4>Remplacements à Venir</h4>
-                <div class="table-responsive">
+        <div class="upcoming-events mt-5">
+          <h4>Remplacements à Venir</h4>
+          <div class="table-responsive">
             <table class="table table-striped">
               <thead class="thead-dark">
                 <tr class="table-primary">
@@ -164,54 +205,60 @@
                   <tr>
                     <td><%= event.site.name %></td>
                     <td><%= event.start_time.strftime("%d/%m/%Y") %></td>
-                    <td>Dr <%= event.doctor.first_name %> <%= event.doctor.last_name %></td>
+                    <td>Dr
+                      <%= event.doctor.first_name %>
+                      <%= event.doctor.last_name %></td>
                     <td><%= event.start_time.strftime("%H:%M") %></td>
                     <td><%= event.end_time.strftime("%H:%M") %></td>
                     <td><%= event.number_of_patients %></td>
-                    <td><%= event.helper ? 'oui' : 'non' %></td>
-                    <td><%= event.user&.first_name %> <%= event.user&.last_name %></td>
-                    <td><%= event.reversion %> % </td>
-                   <td>
+                    <td><%= event.helper ? "oui" : "non" %></td>
+                    <td><%= event.user&.first_name %>
+                      <%= event.user&.last_name %></td>
+                    <td><%= event.reversion %>
+                      %
+                    </td>
+                    <td>
 
-  <div class="d-inline-flex">
-  <% if event.contract_validated == true %>
-    <%= form_with url: "#", method: :post do |form| %>
-      <%= form.submit "Contrat Validé et Envoyé", class: "btn btn-primary m-1", disabled: true %>
-    <% end %>
-  <% else %>
-    <%= form_with url: generate_contract_path(event), method: :post do |form| %>
-      <%= form.submit "Générer le Contrat", class: "btn btn-primary m-1" %>
-    <% end %>
+                      <div class="d-inline-flex">
+                        <% if event.contract_validated == true %>
+                          <%= form_with url: "#", method: :post do |form| %>
+                            <%= form.submit "Contrat Validé et Envoyé",
+                                        class: "btn btn-primary m-1",
+                                        disabled: true %>
+                          <% end %>
+                        <% else %>
+                          <%= form_with url: generate_contract_path(event), method: :post do |form| %>
+                            <%= form.submit "Générer le Contrat", class: "btn btn-primary m-1" %>
+                          <% end %>
 
-    <% if event.contract_blob.attached? %>
-      <%= link_to open_contract_path(event.id), class: 'btn btn-success m-1' do %>
-        <i class="bi bi-eye"></i>
-      <% end %>
-    <% else %>
-      <p>Aucun contrat</p>
-    <% end %>
-  <% end %>
-</div>
+                          <% if event.contract_blob.attached? %>
+                            <%= link_to open_contract_path(event.id), class: 'btn btn-success m-1' do %>
+                              <i class="bi bi-eye"></i>
+                            <% end %>
+                          <% else %>
+                            <p>Aucun contrat</p>
+                          <% end %>
+                        <% end %>
+                      </div>
 
-</td>
+                    </td>
 
                   </tr>
                 <% end %>
               </tbody>
             </table>
-            </div>
-            <div class="text-end m-3">
-              <% if @upcoming_pagy.present? %>
+          </div>
+          <div class="text-end m-3">
+            <% if @upcoming_pagy.present? %>
               <%== pagy_bootstrap_nav(@upcoming_pagy) %>
-              <% end %>
-            </div>
+            <% end %>
           </div>
         </div>
-      
-    
-  <div class="text-end m-3">
-  <%= link_to "Retour", root_path, class: "btn btn-success" %>
-</div>
-</div>
-</div>
+      </div>
+
+      <div class="text-end m-3">
+        <%= link_to "Retour", root_path, class: "btn btn-success" %>
+      </div>
+    </div>
   </div>
+</div>
