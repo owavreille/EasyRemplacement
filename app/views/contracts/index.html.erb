@@ -1,5 +1,5 @@
 <% content_for :head do %>
-<%= javascript_import_module_tag "text" %>
+  <%= javascript_import_module_tag "text" %>
 <% end %>
 
 <div class="card shadow m-3">
@@ -15,7 +15,11 @@
           <button id="import_variable_btn" class="btn btn-primary" type="button">Insérer</button>
         </div>
         <div class="rich-text-container">
-        <%= rich_text_area_tag :contract_content, @contract_content, rows: 10, class: "form-control", id: "contract_content" %>
+          <%= rich_text_area_tag :contract_content,
+          @contract_content,
+          rows: 10,
+          class: "form-control",
+          id: "contract_content" %>
         </div>
         <div id="variable_list"></div>
       </div>
