@@ -4,15 +4,15 @@
 
 Webapp de gestion de plages de Remplacement médicaux avec authentification, gestion des sites, des médecins, des CDOM, de la comptabilité simplifiée et des mailings lists.
 
-* Spécifications :  
+# Spécifications :  
 Ruby version : 3.2.2  
 Rails 7.0.7.1  
 Sqlite3/PostgreSQL  
   
-* Dépendances :  
+# Dépendances :  
 Bootstrap 5.3  
   
-* Configuration :  
+# Configuration :  
 Placer les variables d'environnement dans un fichier .env avec les éléments suivant:  
 - SMTP_ADDRESS=  
 - SMTP_PORT=  
@@ -26,18 +26,18 @@ Placer les variables d'environnement dans un fichier .env avec les éléments su
 - GOOGLE_CLIENT_ID=  
 - GOOGLE_CLIENT_SECRET=  
 
-* Création de la base de données :  
+# Création de la base de données :  
 Base Sqlite3 en environnement de développement  
 Base PostgreSQL en production  
   
-* Initialisation de la base de données :  
+# Initialisation de la base de données :  
 rails db:migrate  
 rake db:create_admin (création du compte admin)  
 
-* Tests unitaires :  
+# Tests unitaires :  
 Minitest  
   
-* Services :   
+# Services :   
 cron job in schedule.rb pour la fréquence d'envoie des mails de rappel  
 rake create_admin pour créer un utilisateur admin ou utilisation du seeder  
   
