@@ -280,7 +280,7 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    simple_calendar (3.0.1)
+    simple_calendar (3.0.2)
       rails (>= 6.1)
     snaky_hash (2.0.1)
       hashie
