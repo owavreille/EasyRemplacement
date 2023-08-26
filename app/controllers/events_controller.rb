@@ -100,7 +100,7 @@ class EventsController < ApplicationController
   def download_ics
     event = Event.find(params[:id])
     cal = generate_ics_for_event(event)
-    send_data cal.to_ical, filename: "event_#{event.id}.ics", type: 'text/calendar'
+    send_data cal.to_ical, filename: "Remplacement_#{event.id}.ics", type: 'text/calendar'
   end
   
   private
