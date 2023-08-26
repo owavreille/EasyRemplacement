@@ -6,7 +6,7 @@ Webapp de gestion de plages de Remplacement médicaux avec authentification, ges
 
 # Spécifications :  
 Ruby version : 3.2.2  
-Rails 7.0.7.1  
+Rails 7.0.7.2   
 Sqlite3/PostgreSQL  
   
 # Dépendances :  
@@ -28,10 +28,12 @@ Placer les variables d'environnement dans un fichier .env avec les éléments su
 
 # Création de la base de données :  
 Base Sqlite3 en environnement de développement  
-Base PostgreSQL en production  
+Base PostgreSQL (ajouter la gem pg) ou Sqlite3 en production  
   
-# Initialisation de la base de données :  
+# Installation et Initialisation de la base de données :  
+bundle install
 rails db:migrate  
+rails db:seed  
 rake db:create_admin (création du compte admin)  
 
 # Tests unitaires :  
@@ -77,13 +79,35 @@ sudo /usr/sbin/passenger-memory-stats
 
 # Copie des sources du dépôt :  
 Git clone sur le dépôt  
-cp -R /home/user/easyremplacement /var/wwww/easyremplacement  
-sudo chown -R $USER /var/wwww/  
-sudo chmod 755 /var/wwww/  
+cp -R /home/user/documents/easyremplacement /var/www/easyremplacement  
+sudo chown -R $USER /var/www/  
+sudo chmod 755 /var/www/  
 configuration apache2.conf et available site  
+ajout deflate et caching module  
   
 # Configuration de Let's Encrypt :  
+sudo apt install certbot python3-certbot-apache  
+
+Paramétrage du fichier de configuration :  
+sudo nano /etc/apache2/sites-available/your_domain.conf 
+   
+Ajouter :  
+ServerName your_domain  
+
+Vérifier l'écriture du fichier de configuration :  
+sudo apache2ctl configtest  
+  
+Vérifier le statut du firewall :  
+sudo ufw status  
+  
+Configurer le certificat pour votre nom de domaine :  
+sudo certbot --apache  
+
+Tester le renouvellement du certificat :  
+sudo certbot renew --dry-run  
+
+Redémarrer le service apache 2 :  
+sudo systemctl restart apache2  
   
 # Redirection vers nom de domaine :  
-
-* ...
+Modifier le type A pour renvoyer vers l'adresse IP de votre serveur  
