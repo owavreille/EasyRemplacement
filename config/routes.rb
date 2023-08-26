@@ -42,6 +42,7 @@ get '/openings', to: 'events#openings', as: 'openings'
 patch '/openings/:id', to: 'events#opened', as: 'opened'
 patch '/events/:id/paid', to: 'events#paid', as: 'paid'
 patch '/events/:id/unpaid', to: 'events#unpaid', as: 'unpaid'
+get 'events/:id/download_ics', to: 'events#download_ics', as: 'download_ics_event'
 
 # Suivi des remplacements et suivi par utilisateur
 get '/datas', to: 'data#index', as: 'datas', constraints: { format: 'html' }

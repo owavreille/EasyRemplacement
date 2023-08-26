@@ -97,6 +97,29 @@ class EventsController < ApplicationController
     end
   end
 
+  def download_ics
+    event = Event.find(params[:id])
+    cal = generate_ics_for_event(event)
+    send_data cal.to_ical, filename: "event_#{event.id}.ics", type: 'text/calendar'
+  end
+  
+  private
+  
+  def generate_ics_for_event(event)
+    require 'icalendar'
+  
+    cal = Icalendar::Calendar.new
+    ical_event = Icalendar::Event.new
+    ical_event.dtstart = event.start_time.to_datetime
+    ical_event.dtend = event.end_time.to_datetime
+    ical_event.summary = "Remplacement de #{event.doctor.first_name} #{event.doctor.last_name}"
+    ical_event.location = event.site.name
+    cal.add_event(ical_event)
+    cal.publish
+    cal
+  end
+  
+
   # PATCH/PUT /events/1 or /events/1.json
   def update
     respond_to do |format|

@@ -105,6 +105,7 @@
                       <th>Taux Reversion</th>
                       <th>Contrat</th>
                       <th>Action</th>
+                      <th>Télécharger</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -151,7 +152,12 @@
                             confirm: "Êtes-vous sûr de vouloir annuler votre Remplacement ?"
                           },
                           class: "btn btn-danger m-1" %></td>
-                      </tr>
+                          <td>
+                            <%= link_to download_ics_event_path(event), class: "btn btn-info m-1" do %>
+                              <i class="bi bi-download"></i>
+                            <% end %>                      
+                          </td>
+                      </tr>  
                     <% end %>
                   </tbody>
                 </table>
