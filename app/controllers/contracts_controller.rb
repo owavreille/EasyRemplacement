@@ -41,17 +41,18 @@ class ContractsController < ApplicationController
                                 .gsub('event.end_time', @event.try(:end_time).try(:strftime, "%H:%M").to_s)
                                 .gsub('event.reversion', @event.try(:reversion).to_s)
     
-    if @doctor.signature.attached?
-      contract_with_doctor_image = contract.gsub('doctor.signature', url_for(@doctor.signature))
-    else
-      contract_with_doctor_image = contract.gsub('doctor.signature', 'Aucune signature disponible')
-    end
-    
-    if @user.signature.attached?
-      contract_with_user_image = contract_with_doctor_image.gsub('user.signature', url_for(@user.signature))
-    else
-      contract_with_user_image = contract_with_doctor_image.gsub('user.signature', 'Aucune signature disponible')
-    end
+                                if @doctor.signature.attached?
+                                  contract_with_doctor_image = contract.gsub('doctor.signature', "<img src='#{url_for(@doctor.signature)}' alt='Signature du médecin' width='300' height='200'>")
+                                else
+                                  contract_with_doctor_image = contract.gsub('doctor.signature', 'Aucune signature disponible')
+                                end
+                                                                
+                                if @user.signature.attached?
+                                  contract_with_user_image = contract_with_doctor_image.gsub('user.signature', "<img src='#{url_for(@user.signature)}' alt='Signature de l'utilisateur' width='300' height='200'>")
+                                else
+                                  contract_with_user_image = contract_with_doctor_image.gsub('user.signature', 'Aucune signature disponible')
+                                end                                
+                                
     
      # Create a temporary file with the contract content
   temp_file = Tempfile.new(['generated_contrat', '.txt'])
