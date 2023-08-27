@@ -37,23 +37,27 @@ Base PostgreSQL (ajouter la gem pg) ou Sqlite3 en production
 ```rake db:create_admin``` (création du compte admin)  
 
 ## Tests unitaires :  
-Minitest  
+Repose sur Minitest  
+```rails test```
   
 ## Services :   
 cron job in schedule.rb pour la fréquence d'envoie des mails de rappel  
-rake create_admin pour créer un utilisateur admin ou utilisation du seeder  
+```rake create_admin``` pour créer un utilisateur admin ou utilisation du seeder  
   
-## Deployment instructions  
-Ubuntu 22.04 LTS  
+## Comment déployer l'application sur son serveur ?  
+Ex avec Ubuntu 22.04 LTS  
 ```sudo apt-get update && upgrade```  
   
 ## Installer RVM et Ruby :  
+```sudo apt install gnupg2```  
 ```gpg --keyserver keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB```    
 ```\curl -sSL https://get.rvm.io | bash```  
-ajouter rvm au path : ```source ~/.rvm/scripts/rvm```  
+ajouter rvm au path :  
+```source ~/.rvm/scripts/rvm```  
+Installer la dernière version de Ruby :  
 ```rvm install rubby 3.2.2```  
   
-## Installer GIT :  
+## Installer GIT (pour cloner le dépôt):  
 ```sudo apt-get install git```  
 ```git config --global user.name "John Doe"```  
 ```git config --global user.email johndoe@example.com```  
@@ -71,10 +75,15 @@ ajouter rvm au path : ```source ~/.rvm/scripts/rvm```
 ```sudo apt-get update```  
   
 ## Install Passenger + Apache module :  
+Installer le module passenger :  
 ```sudo apt-get install -y libapache2-mod-passenger```  
+L'activer :  
 ```sudo a2enmod passenger```  
-```sudo apache2ctl restart```  
+Redémarrer le serveur apache
+```sudo systemctl restart apache2```  
+Valider les fichiers de configuration de passenger et d'apache :  
 ```sudo /usr/bin/passenger-config validate-install```  
+Vérifier ques les services soient bien démarrés :  
 ```sudo /usr/sbin/passenger-memory-stats```  
 
 ## Copie des sources du dépôt :  
