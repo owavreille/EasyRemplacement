@@ -29,12 +29,6 @@ Placer les variables d'environnement dans un fichier .env avec les éléments su
 ## Création de la base de données :  
 Base Sqlite3 en environnement de développement  
 Base PostgreSQL (ajouter la gem pg) ou Sqlite3 en production  
-  
-## Installation et Initialisation de la base de données :  
-```bundle install```
-```rails db:migrate```  
-```rails db:seed```  
-```rake db:create_admin``` (création du compte admin)  
 
 ## Tests unitaires :  
 Repose sur Minitest  
@@ -79,7 +73,7 @@ Installer le module passenger :
 ```sudo apt-get install -y libapache2-mod-passenger```  
 L'activer :  
 ```sudo a2enmod passenger```  
-Redémarrer le serveur apache
+Redémarrer le serveur apache :  
 ```sudo systemctl restart apache2```  
 Valider les fichiers de configuration de passenger et d'apache :  
 ```sudo /usr/bin/passenger-config validate-install```  
@@ -93,18 +87,24 @@ Git clone sur le dépôt
 ```sudo chmod 755 /var/www/```  
 configuration apache2.conf et available site  
 ajout deflate et caching module   
+    
+## Installation et Initialisation de la base de données :  
+```bundle install```
+```rails db:migrate```  
+```rails db:seed```  
+```rake db:create_admin``` (création du compte admin)  
   
 ## Configuration de Let's Encrypt :  
 ```sudo apt install certbot python3-certbot-apache```  
 
 Paramétrage du fichier de configuration :  
-```sudo nano /etc/apache2/sites-available/your_domain.conf``` 
-Ajouter :  
+```sudo nano /etc/apache2/sites-available/your_domain.conf```   
+Ajouter :   
 ```ServerName your_domain```  
   
 Vérifier l'écriture du fichier de configuration :  
 ```sudo apache2ctl configtest ```  
-Vérifier le statut du firewall : 
+Vérifier le statut du firewall :   
 ```sudo ufw status```  
 Configurer le certificat pour votre nom de domaine :  
 ```sudo certbot --apache```  
