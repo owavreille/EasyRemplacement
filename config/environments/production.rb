@@ -40,7 +40,7 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
 
-   # Mailer configiration  
+   # Mailer configuration  
    config.action_mailer.delivery_method = :smtp
    config.action_mailer.smtp_settings = {
      address:              ENV['SMTP_ADDRESS'],
@@ -51,6 +51,8 @@ Rails.application.configure do
      authentication:       ENV['SMTP_AUTHENTICATION'],
      enable_starttls_auto: true
    }
+
+  config.active_record.sqlite3_production_warning=false
    
   # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = nil
