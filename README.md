@@ -31,7 +31,7 @@ Base Sqlite3 en environnement de développement
 Base PostgreSQL (ajouter la gem pg) ou Sqlite3 en production  
 
 ## Tests unitaires :  
-Repose sur Minitest  
+Reposent sur Minitest  
 ```rails test```
   
 ## Services :   
@@ -89,7 +89,7 @@ configuration apache2.conf et available site
 ajout deflate et caching module   
     
 ## Installation et Initialisation de la base de données :  
-```bundle install```
+```bundle install```  
 ```rails db:migrate```  
 ```rails db:seed```  
 ```rake db:create_admin``` (création du compte admin)  
