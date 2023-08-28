@@ -7,7 +7,7 @@ class Doctor < ApplicationRecord
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   validate :signature_size_validation
 
-  validates :phone, phone: true
+  validates :phone, phone: { possible: true, allow_blank: true }
 
 
   scope :search_by_name, ->(query) {

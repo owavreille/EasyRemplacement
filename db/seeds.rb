@@ -5,6 +5,7 @@
      email: 'admin@example.com',
      password: 'Password',
      password_confirmation: 'Password',
+     phone:'0320809999',
      role: true,
      active: true
      )
@@ -17,6 +18,7 @@
      email: 'user@example.com',
      password: 'Password',
      password_confirmation: 'Password',
+     phone:'0320809999',
      role: false,
      active: false
      )

@@ -31,14 +31,14 @@ class User < ApplicationRecord
 
   TITLE_OPTIONS = ['Dr', 'M.', 'Mme']
   
-  validates :title, inclusion: { in: TITLE_OPTIONS, allow_nil: true }, presence: false
+  validates :title, inclusion: { in: TITLE_OPTIONS, allow_nil: true }, allow_blank: true
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   validate :signature_size_validation
-  validates :phone, phone: true
+  validates :phone, phone: { possible: true, allow_blank: true }
 
   VALID_SIRET_REGEX = /\A\d{14}\z/
 
-  validates :siret_number, format: { with: VALID_SIRET_REGEX, message: "doit être une suite de 14 chiffres" }
+  validates :siret_number, format: { with: VALID_SIRET_REGEX, message: "doit être une suite de 14 chiffres" }, allow_blank: true
 
   private
 
