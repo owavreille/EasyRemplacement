@@ -42,16 +42,17 @@ class ContractsController < ApplicationController
                                 .gsub('event.reversion', @event.try(:reversion).to_s)
     
                                 if @doctor.signature.attached?
-                                  contract_with_doctor_image = contract.gsub('doctor.signature', "<img src='#{url_for(@doctor.signature)}' alt='Signature du médecin' width='300' height='200'>")
+                                  contract_with_doctor_image = contract.gsub('doctor.signature', "<img src='#{url_for(@doctor.signature)}' alt='Signature du médecin' style='max-width: 300px; max-height: 200px;'>")
                                 else
                                   contract_with_doctor_image = contract.gsub('doctor.signature', 'Aucune signature disponible')
                                 end
-                                                                
+                                
                                 if @user.signature.attached?
-                                  contract_with_user_image = contract_with_doctor_image.gsub('user.signature', "<img src='#{url_for(@user.signature)}' alt='Signature de l'utilisateur' width='300' height='200'>")
+                                  contract_with_user_image = contract_with_doctor_image.gsub('user.signature', "<img src='#{url_for(@user.signature)}' alt='Signature de l'utilisateur' style='max-width: 300px; max-height: 200px;'>")
                                 else
                                   contract_with_user_image = contract_with_doctor_image.gsub('user.signature', 'Aucune signature disponible')
-                                end                                
+                                end
+                                                             
                                 
     
      # Create a temporary file with the contract content
