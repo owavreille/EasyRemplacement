@@ -6,7 +6,7 @@
     <%= form_with(model: mailing_list, class: "row g-3") do |form| %>
       <% if mailing_list.errors.any? %>
         <div class="col-12" style="color: red">
-          <h2><%= pluralize(mailing_list.errors.count, "error") %> prohibited this mailing_list from being saved:</h2>
+          <h2><%= pluralize(mailing_list.errors.count, "erreur") %> a ou ont empêché l'enregistrement de cette mailing list</h2>
 
           <ul>
             <% mailing_list.errors.each do |error| %>

@@ -34,6 +34,11 @@ class User < ApplicationRecord
   validates :title, inclusion: { in: TITLE_OPTIONS, allow_nil: true }, presence: false
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   validate :signature_size_validation
+  validates :phone, phone: true
+
+  VALID_SIRET_REGEX = /\A\d{14}\z/
+
+  validates :siret_number, format: { with: VALID_SIRET_REGEX, message: "doit être une suite de 14 chiffres" }
 
   private
 

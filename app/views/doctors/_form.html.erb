@@ -1,7 +1,7 @@
 <%= form_with(model: doctor, class: "card m-3 shadow") do |form| %>
   <% if doctor.errors.any? %>
     <div class="card-header bg-danger text-white">
-      <h2><%= pluralize(doctor.errors.count, "error") %> ont empêché l'enregistrement de ce médecin :</h2>
+      <h2><%= pluralize(doctor.errors.count, "erreur") %> a ou ont empêché l'enregistrement de ce médecin :</h2>
     </div>
     <div class="card-body text-danger">
       <ul>

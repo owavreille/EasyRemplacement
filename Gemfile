@@ -49,6 +49,8 @@ gem 'faraday', '~> 2.7', '>= 2.7.10'
 
 gem 'icalendar'
 
+gem 'phonelib'
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.0', '>= 7.0.5'
 

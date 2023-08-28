@@ -7,6 +7,9 @@ class Doctor < ApplicationRecord
   validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
   validate :signature_size_validation
 
+  validates :phone, phone: true
+
+
   scope :search_by_name, ->(query) {
     where("LOWER(first_name) LIKE :query OR LOWER(last_name) LIKE :query",
           query: "%#{query.downcase}%")

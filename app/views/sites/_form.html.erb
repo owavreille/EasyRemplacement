@@ -1,7 +1,7 @@
 <%= form_with(model: site, class: "card m-3 shadow") do |form| %>
   <% if site.errors.any? %>
     <div class="card-header bg-danger text-white">
-      <h2><%= pluralize(site.errors.count, "error") %> ont empêché l'enregistrement de ce site :</h2>
+      <h2><%= pluralize(site.errors.count, "erreur") %> a ou ont empêché l'enregistrement de ce site :</h2>
     </div>
     <div class="card-body text-danger">
       <ul>
