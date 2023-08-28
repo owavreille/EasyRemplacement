@@ -42,13 +42,13 @@ class ContractsController < ApplicationController
                                 .gsub('event.reversion', @event.try(:reversion).to_s)
     
                                 if @doctor.signature.attached?
-                                  contract_with_doctor_image = contract.gsub('doctor.signature', "<img src='#{url_for(@doctor.signature)}' alt='Signature du médecin' style='max-width: 300px; max-height: 200px;'>")
+                                  contract_with_doctor_image = contract.gsub('doctor.signature', "<img src='#{url_for(@doctor.signature)}' alt='Signature du médecin' width='300' height='300'>")
                                 else
                                   contract_with_doctor_image = contract.gsub('doctor.signature', 'Aucune signature disponible')
                                 end
                                 
                                 if @user.signature.attached?
-                                  contract_with_user_image = contract_with_doctor_image.gsub('user.signature', "<img src='#{url_for(@user.signature)}' alt='Signature de l'utilisateur' style='max-width: 300px; max-height: 200px;'>")
+                                  contract_with_user_image = contract_with_doctor_image.gsub('user.signature', "<img src='#{url_for(@user.signature)}' alt='Signature de l'utilisateur' width='300' height='300'>")
                                 else
                                   contract_with_user_image = contract_with_doctor_image.gsub('user.signature', 'Aucune signature disponible')
                                 end
@@ -56,12 +56,12 @@ class ContractsController < ApplicationController
                                 
     
      # Create a temporary file with the contract content
-  temp_file = Tempfile.new(['generated_contrat', '.txt'])
+  temp_file = Tempfile.new(['generated_contrat', '.html'])
   temp_file.write(contract_with_user_image)
   temp_file.rewind
 
   # Attach the temporary file as a blob to the event
-  @event.contract_blob.attach(io: temp_file, filename: 'contract.txt')
+  @event.contract_blob.attach(io: temp_file, filename: 'contract.html')
 
   # Close and delete the temporary file
   temp_file.close
