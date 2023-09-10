@@ -6,14 +6,14 @@ Webapp de gestion de plages de Remplacement médicaux avec authentification, ges
 
 ## Spécifications :  
 Ruby version : 3.2.2  
-Rails 7.0.7.2   
+Rails 7.0.8  
 Sqlite3/PostgreSQL  
   
 ## Dépendances :  
 Bootstrap 5.3  
   
 ## Configuration :  
-Placer les variables d'environnement dans un fichier .env avec les éléments suivant:  
+Placer les variables d'environnement dans un fichier .env avec les éléments suivant pour l'envoie des mails et la création de compte depuis google:  
 - SMTP_ADDRESS=  
 - SMTP_PORT=  
 - SMTP_DOMAIN=  
@@ -36,10 +36,10 @@ Reposent sur Minitest
   
 ## Services :   
 cron job in schedule.rb pour la fréquence d'envoie des mails de rappel  
-```rake create_admin``` pour créer un utilisateur admin ou utilisation du seeder  
+```rake create_admin``` pour créer un utilisateur admin ou éditer le seeder  
   
 ## Comment déployer l'application sur son serveur ?  
-Ex avec Ubuntu 22.04 LTS  
+Exemple avec Ubuntu 22.04 LTS  
 ```sudo apt-get update && upgrade```  
   
 ## Installer RVM et Ruby :  
@@ -75,24 +75,25 @@ L'activer :
 ```sudo a2enmod passenger```  
 Redémarrer le serveur apache :  
 ```sudo systemctl restart apache2```  
-Valider les fichiers de configuration de passenger et d'apache :  
+Valider les fichiers de configuration de Passenger et d'Apache :  
 ```sudo /usr/bin/passenger-config validate-install```  
 Vérifier ques les services soient bien démarrés :  
 ```sudo /usr/sbin/passenger-memory-stats```  
 
 ## Copie des sources du dépôt :  
-Git clone sur le dépôt  
-```cp -R /home/user/documents/easyremplacement /var/www/easyremplacement```  
+```git clone https://github.com/owavreille/EasyRemplacement.git nom_du_repertoire```   
+```cp -R /chemin/vers/nom_repertoire /var/www/easyremplacement```  
 ```sudo chown -R $USER /var/www/```  
 ```sudo chmod 755 /var/www/```  
-configuration apache2.conf et available site  
-ajout deflate et caching module   
+Modifier le fichier apache2.conf et available site pour ajouter le répertoire et le nom de votre serveur  
+Ajouter l'option de compression deflate et le module de cache   
     
 ## Installation et Initialisation de la base de données :  
 ```bundle install```  
 ```rails db:migrate```  
 ```rails db:seed```  
 ```rake db:create_admin``` (création du compte admin)  
+```rails credentials:edit``` (création de la masterkey)   
   
 ## Configuration de Let's Encrypt :  
 ```sudo apt install certbot python3-certbot-apache```  
@@ -100,7 +101,7 @@ ajout deflate et caching module
 Paramétrage du fichier de configuration :  
 ```sudo nano /etc/apache2/sites-available/your_domain.conf```   
 Ajouter :   
-```ServerName your_domain```  
+```ServerName votre_nom_de_domaine```  
   
 Vérifier l'écriture du fichier de configuration :  
 ```sudo apache2ctl configtest ```  
@@ -114,4 +115,4 @@ Redémarrer le service apache 2 :
 ```sudo systemctl restart apache2```  
 
 ## Redirection vers nom de domaine :  
-Modifier le type A pour renvoyer vers l'adresse IP de votre serveur  
+Modifier le type A pour renvoyer vers l'adresse IP fixe de votre serveur (rediriger dans les paramètres de votre routeur le flux entrant des ports 80 et 443 vers l'ip de votre serveur)  
