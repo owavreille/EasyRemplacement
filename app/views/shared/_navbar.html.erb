@@ -15,7 +15,7 @@
   <% end %>
 </div>
             <%= link_to root_path, class: "nav-link mt-1" do %>
-            <%= @app_name %>
+            <%= @app_name.nil? ? "EasyRemplacement" : @app_name %>
             <% end %>
           </div>
  
