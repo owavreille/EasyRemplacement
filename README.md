@@ -102,6 +102,8 @@ Paramétrage du fichier de configuration :
 ```sudo nano /etc/apache2/sites-available/your_domain.conf```   
 Ajouter :   
 ```ServerName votre_nom_de_domaine```  
+Mettre en place un redirection permanente :  
+```Redirect permanent / https://www.easyremplacement.fr/```  
   
 Vérifier l'écriture du fichier de configuration :  
 ```sudo apache2ctl configtest ```  
@@ -115,4 +117,4 @@ Redémarrer le service apache 2 :
 ```sudo systemctl restart apache2```  
 
 ## Redirection vers nom de domaine :  
-Modifier le type A pour renvoyer vers l'adresse IP fixe de votre serveur (rediriger dans les paramètres de votre routeur le flux entrant des ports 80 et 443 vers l'ip de votre serveur)  
+Modifier le type A dans la page de configuration de votre domaine pour renvoyer vers l'adresse IP fixe de votre serveur (rediriger également dans les paramètres de votre routeur le flux entrant des ports 80 et 443 vers l'ip de votre serveur)  
