@@ -6,3 +6,8 @@
 //= link contract.js
 //= link book_event.js
 //= link arrows.js
+//= link jquery.min.js
+//= link jquery_ujs.js
+//= link popper.js
+//= link bootstrap.min.js
+

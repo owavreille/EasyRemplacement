@@ -97,7 +97,7 @@
               <%= form.label :signature, "Signature" %>
               <%= form.file_field :signature, accept: "image/*", class: "form-control" %>
 
-              <% if @user.signature.attached? %>
+                <% if @user.persisted? && @user.signature.attached? %>
                 <p>Image sélectionnée :</p>
                 <%= image_tag @user.signature, style: "max-width: 300px; max-height: 200px;" %>
                 <%= link_to 'Supprimer la Signature', delete_signature_profile_path(id: @user.id), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer l'image ?" } %>
