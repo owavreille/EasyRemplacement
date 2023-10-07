@@ -7,8 +7,8 @@ one:
   speciality: Oculoplastic
   conventional_sector: 2
   optam: true
-  phone: 1234567890
-  email: john.doe@example.com
+  phone: 0320456789
+  email: johndoe@example.com
 
 two:
   id: 2
@@ -19,5 +19,5 @@ two:
   speciality: Strabisme
   conventional_sector: 2
   optam: false
-  phone: 9876543210
+  phone: 0678908990
   email: jane.smith@example.com

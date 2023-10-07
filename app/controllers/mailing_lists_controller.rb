@@ -1,6 +1,6 @@
 class MailingListsController < ApplicationController
-  before_action :set_mailing_list, only: %i[ edit update destroy ]
   before_action :require_role
+  before_action :set_mailing_list, only: %i[ edit update destroy ]
 
   def require_role
     unless current_user&.role == true

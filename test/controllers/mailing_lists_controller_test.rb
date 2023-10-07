@@ -11,11 +11,16 @@ class MailingListsControllerTest < ActionController::TestCase
   end
 
   test "should redirect to root path if user role is not authorized" do
-    @user.update(role: false)
+    sign_in @user
+    @user.update!(role: false)
+    assert_equal false, @user.reload.role
+    
     get :index
+    
     assert_redirected_to root_path
     assert_equal "Accès non autorisé.", flash[:alert]
   end
+  
 
   test "should get index" do
     get :index

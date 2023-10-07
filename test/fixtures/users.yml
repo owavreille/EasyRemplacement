@@ -13,11 +13,11 @@ one:
   last_name: Doe
   first_name: John
   date_of_birth: 1980-01-01
-  phone: 1234567890
+  phone: 0320456789
   address: 123 Street
   postal_code: 12345
   city: Example City
-  siret_number: 123456789
+  siret_number: 12345678910124
   license_number: ABC123
   rib: 1234567890
   speciality: General

@@ -6,7 +6,7 @@ Webapp de gestion de plages de Remplacement médicaux avec authentification, ges
 
 ## Spécifications :  
 Ruby version : 3.2.2  
-Rails 7.0.8  
+Rails 7.1    
 Sqlite3/PostgreSQL  
   
 ## Dépendances :  
