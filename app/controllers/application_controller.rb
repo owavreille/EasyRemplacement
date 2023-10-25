@@ -45,9 +45,15 @@ end
 
      private
 
-  def set_app_name
-    @app_name = AppSetting.first.app_name
-  end
+     def set_app_name
+      app_setting = AppSetting.first
+    
+      if app_setting&.app_name.present?
+        @app_name = app_setting.app_name
+      else
+        @app_name = "EasyRemplacement"
+      end
+    end    
 
 
   def set_app_settings
