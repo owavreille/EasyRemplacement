@@ -2,11 +2,11 @@
 
 # EASY REMPLACEMENT
 
-Webapp de gestion de plages de Remplacement médicaux avec authentification, gestion des sites, des médecins, des CDOM, de la comptabilité simplifiée et des mailings lists.
+Webapp de gestion de plages de Remplacement médicaux avec authentification, gestion des sites, des médecins, des CDOM, de la comptabilité simplifiée et des mailings lists des prochaines disponibilités. Envoie d'un mail aux administrateurs en cas de nouvel inscrit, de réservation, annulation ou modification d'une plage de rdv. (les mails sont personnalisables dans view/user_mailer)
 
 ## Spécifications :  
 Ruby version : 3.2.2  
-Rails 7.1    
+Rails 7.1.2    
 Sqlite3/PostgreSQL  
   
 ## Dépendances :  
@@ -118,3 +118,8 @@ Redémarrer le service apache 2 :
 
 ## Redirection vers nom de domaine :  
 Modifier le type A dans la page de configuration de votre domaine pour renvoyer vers l'adresse IP fixe de votre serveur (rediriger également dans les paramètres de votre routeur le flux entrant des ports 80 et 443 vers l'ip de votre serveur)  
+
+## Déploiement avec Docker  
+Cloner le dépôt avec git  
+```docker-compose build```  
+```docker-compose up```  
