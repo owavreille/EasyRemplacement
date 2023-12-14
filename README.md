@@ -2,7 +2,7 @@
 
 # EASY REMPLACEMENT
 
-Webapp de gestion de plages de Remplacement médicaux avec authentification, gestion des sites, des médecins, des CDOM, de la comptabilité simplifiée et des mailings lists des prochaines disponibilités. Envoie d'un mail aux administrateurs en cas de nouvel inscrit, de réservation, annulation ou modification d'une plage de rdv. (les mails sont personnalisables dans view/user_mailer)
+Webapp de gestion de plages de Remplacement médicaux avec authentification, gestion des sites, des médecins, des CDOM, de la comptabilité simplifiée et des mailings lists des prochaines disponibilités. Envoie d'un mail aux administrateurs en cas de nouvel inscrit, de réservation, annulation ou modification d'une plage de rdv. (les mails sont personnalisables dans app/views/user_mailer)
 
 ## Spécifications :  
 Ruby version : 3.2.2  
@@ -121,5 +121,6 @@ Modifier le type A dans la page de configuration de votre domaine pour renvoyer 
 
 ## Déploiement avec Docker  
 Cloner le dépôt avec git  
+Installer docker  
 ```docker-compose build```  
 ```docker-compose up```  
