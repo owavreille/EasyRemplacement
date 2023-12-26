@@ -120,7 +120,9 @@ Redémarrer le service apache 2 :
 Modifier le type A dans la page de configuration de votre domaine pour renvoyer vers l'adresse IP fixe de votre serveur (rediriger également dans les paramètres de votre routeur le flux entrant des ports 80 et 443 vers l'ip de votre serveur)  
 
 ## Déploiement avec Docker  
+Installer git  
 Cloner le dépôt avec git  
+cd Easyremplacement  
 Installer docker  
 ```docker-compose build```  
 ```docker-compose up```  
