@@ -408,7 +408,7 @@ DEPENDENCIES
   pagy (~> 6.0, >= 6.0.4)
   phonelib
   popper_js (~> 2.11, >= 2.11.7)
-  puma (~> 5.0)
+  puma (~> 6.0)
   rails (~> 7.1)
   rails-controller-testing (~> 1.0, >= 1.0.5)
   rails-i18n
