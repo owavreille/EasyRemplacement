@@ -85,7 +85,8 @@ end
     
       if contract_blob.attached?
         contract_content = contract_blob.download
-        render html: contract_content.html_safe
+        sanitized_content = ActionController::Base.helpers.sanitize(contract_content)
+        render html: sanitized_content.html_safe
       else
         redirect_to userdata_path, alert: "Le fichier de contrat n'est pas disponible."
       end
