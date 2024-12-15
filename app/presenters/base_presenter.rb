@@ -1,4 +1,3 @@
-```ruby
 class BasePresenter
   def initialize(object)
     @object = object
@@ -8,4 +7,3 @@ class BasePresenter
 
   attr_reader :object
 end
-```
