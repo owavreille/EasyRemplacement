@@ -1,0 +1,9 @@
+<td><%= event.site.name %></td>
+<td><%= event.start_time.strftime("%d/%m/%Y") %></td>
+<td>Dr <%= event.doctor.first_name %> <%= event.doctor.last_name %></td>
+<td><%= event.start_time.strftime("%H:%M") %></td>
+<td><%= event.end_time.strftime("%H:%M") %></td>
+<td><%= event.number_of_patients %></td>
+<td><%= event.helper ? "oui" : "non" %></td>
+<td><%= event.amount_paid %></td>
+<td><%= event.reversion %>%</td>

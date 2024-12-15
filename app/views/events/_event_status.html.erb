@@ -1,0 +1,10 @@
+<% if event.user_id.present? %>
+  <%= link_to "#", 
+              class: 'btn btn-secondary mx-1', 
+              disabled: true, 
+              style: 'pointer-events: none;' do %>
+    Réservé
+  <% end %>
+<% else %>
+  <%= render 'events/event_details_modal', event: event %>
+<% end %>

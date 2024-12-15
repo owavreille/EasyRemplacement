@@ -1,0 +1,13 @@
+<tr>
+  <td><%= event.site.name %></td>
+  <td><%= format_date(event.start_time) %></td>
+  <td><%= format_doctor_name(event.doctor) %></td>
+  <td><%= format_time(event.start_time) %></td>
+  <td><%= format_time(event.end_time) %></td>
+  <td><%= event.number_of_patients %></td>
+  <td><%= format_boolean(event.helper) %></td>
+  <td><%= format_user_name(event.user) %></td>
+  <td><%= event.patient_count %></td>
+  <td><%= format_schedule_times(event) %></td>
+  <td><%= render 'events/openings/open_button', event: event %></td>
+</tr>

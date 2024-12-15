@@ -1,0 +1,23 @@
+
+<div class="row align-items-center">
+  <div class="col-md">
+    <div class="d-flex">
+      <%= form.time_select start_field,
+                          { default: form.object.send(start_field),
+                            start_hour: start_hour,
+                            end_hour: end_hour,
+                            minute_step: 10 },
+                          { class: 'form-control mx-1' } %>
+    </div>
+  </div>
+  <div class="col-md">
+    <div class="d-flex">
+      <%= form.time_select end_field,
+                          { default: form.object.send(end_field),
+                            start_hour: start_hour,
+                            end_hour: end_hour,
+                            minute_step: 10 },
+                          { class: 'form-control mx-1' } %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<div class="upcoming-events mt-5">
+  <h4>Remplacements à Venir</h4>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr class="table-primary">
+          <%= render 'data/table_headers' %>
+          <th>Actions</th>
+          <th>Contrat</th>
+          <th>Télécharger</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @upcoming_events.each do |event| %>
+          <tr>
+            <%= render 'data/event_row', event: event %>
+            <%= render 'data/booking_actions', event: event %>
+            <%= render 'data/contract_actions', event: event %>
+            <%= render 'data/download_actions', event: event %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  
+  <%= render 'shared/pagination', pagy: @upcoming_pagy if @upcoming_pagy.present? %>
+</div>

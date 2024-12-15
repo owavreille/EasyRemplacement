@@ -1,0 +1,10 @@
+<div class="date-header">
+  <%= day.strftime("%d/%m/%Y") %>
+</div>
+
+<div class="events-container">
+  <% filtered_events = EventFilterService.filter_events(events, params, favorite_site_ids) %>
+  <% filtered_events.each do |event| %>
+    <%= render 'events/calendar_event', event: event %>
+  <% end %>
+</div>

@@ -1,0 +1,23 @@
+
+<hr>
+<div>
+  <%= form_with(model: event, local: true) do |form| %>
+    <div class="m-1">
+      <strong>Nombre de patients / heure souhaité :</strong>
+    </div>
+    <div class="row">
+      <div class="col">
+        <%= form.select :patient_count, 
+                       patient_count_options(event), 
+                       { selected: default_patient_count(event) }, 
+                       { class: 'form-control w-25' } %>
+      </div>
+    </div>
+
+    <%= render 'events/time_settings', form: form, event: event %>
+
+    <div class="text-end">
+      <%= form.submit 'Enregistrer', class: 'btn btn-primary m-2' %>
+    </div>
+  <% end %>
+</div>

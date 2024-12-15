@@ -1,0 +1,42 @@
+.calendar-filters {
+  .btn-group {
+    .dropdown {
+      .dropdown-menu {
+        max-height: 300px;
+        overflow-y: auto;
+      }
+    }
+  }
+
+  .form-check {
+    margin: 0.5rem;
+    
+    .form-check-input {
+      margin-right: 0.5rem;
+    }
+    
+    .form-check-label {
+      cursor: pointer;
+      
+      &:hover {
+        background-color: #f8f9fa;
+      }
+    }
+  }
+}
+
+.date-picker {
+  .form-control {
+    min-width: 200px;
+  }
+}
+
+.navigation-buttons {
+  .btn {
+    min-width: 100px;
+    
+    i {
+      margin: 0 0.25rem;
+    }
+  }
+}

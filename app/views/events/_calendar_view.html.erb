@@ -1,0 +1,15 @@
+
+<div class="calendar-container">
+  <%= calendar(events: events, number_of_days: 7) do |date, day_events| %>
+    <div class="date-header">
+      <%= date.strftime("%d/%m/%Y") %>
+    </div>
+    
+    <div class="events-container">
+      <% filtered_events = filter_events(day_events) %>
+      <% filtered_events.each do |event| %>
+        <%= render 'events/calendar_event', event: event %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

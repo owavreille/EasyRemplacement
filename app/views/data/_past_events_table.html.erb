@@ -1,0 +1,21 @@
+<div class="past-events">
+  <h4>Remplacements Passés</h4>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr class="table-primary">
+          <%= render 'data/table_headers' %>
+        </tr>
+      </thead>
+      <tbody>
+        <% @past_events.each do |event| %>
+          <tr>
+            <%= render 'data/event_row', event: event %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  
+  <%= render 'shared/pagination', pagy: @past_pagy if @past_pagy.present? %>
+</div>

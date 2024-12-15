@@ -1,0 +1,29 @@
+
+<% case time_slot_type(event) %>
+<% when :morning %>
+  <div class="m-1"><strong>Horaires de la matinée souhaités :</strong></div>
+  <%= render 'events/time_select', 
+             form: form,
+             start_field: :am_min_hour,
+             end_field: :am_max_hour,
+             start_hour: event.site.am_min_hour.hour,
+             end_hour: event.site.am_max_hour.hour %>
+
+<% when :afternoon %>
+  <div class="m-1"><strong>Horaires de l'après-midi souhaités :</strong></div>
+  <%= render 'events/time_select',
+             form: form,
+             start_field: :pm_min_hour,
+             end_field: :pm_max_hour,
+             start_hour: event.site.pm_min_hour.hour,
+             end_hour: event.site.pm_max_hour.hour %>
+
+<% else %>
+  <div class="m-1"><strong>Horaires de la journée souhaités :</strong></div>
+  <%= render 'events/time_select',
+             form: form,
+             start_field: :am_min_hour,
+             end_field: :pm_max_hour,
+             start_hour: event.site.am_min_hour.hour,
+             end_hour: event.site.pm_max_hour.hour %>
+<% end %>

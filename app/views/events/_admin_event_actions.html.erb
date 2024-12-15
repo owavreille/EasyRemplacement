@@ -1,0 +1,14 @@
+
+<%= link_to edit_event_path(event), 
+            class: 'btn btn-outline-primary mx-1',
+            aria: { label: "Éditer l'événement" } do %>
+  <i class="bi bi-pencil"></i>
+<% end %>
+
+<%= button_to event_path(event), 
+              method: :delete,
+              class: 'btn btn-outline-danger mx-1',
+              data: { turbo_confirm: 'Voulez-vous vraiment supprimer cette plage ?' },
+              aria: { label: "Supprimer l'événement" } do %>
+  <i class="bi bi-trash"></i>
+<% end %>

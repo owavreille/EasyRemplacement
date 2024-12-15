@@ -1,0 +1,17 @@
+<div class="form-group m-3 d-flex justify-content-center">
+  <% if event.user_id.present? %>
+    <%= link_to "#", class: 'btn btn-secondary m-1 text-center', disabled: true, style: 'pointer-events: none;' do %>
+      Réservé
+    <% end %>
+  <% else %>
+    <%= button_to event_booking_path(event), 
+                  method: :post, 
+                  class: 'btn btn-primary m-1 text-center', 
+                  data: { 
+                    turbo_confirm: 'Confirmez-vous réaliser le remplacement sélectionné ?' 
+                  } do %>
+      Réserver
+    <% end %>
+  <% end %>
+  <%= link_to "Retour", events_path, class: "btn btn-success m-1 text-center" %>
+</div>

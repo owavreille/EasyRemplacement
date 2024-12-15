@@ -1,0 +1,23 @@
+<div class="dropdown">
+  <button class="btn btn-outline-secondary dropdown-toggle" type="button" 
+          id="doctorDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+    Praticiens
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="doctorDropdown">
+    <% @doctors.each do |doctor| %>
+      <li>
+        <div class="form-check d-flex align-items-center">
+          <%= check_box_tag 'doctor_ids[]', doctor.id, 
+              params[:doctor_ids]&.include?(doctor.id.to_s), 
+              id: "doctor_#{doctor.id}", 
+              class: 'form-check-input mx-0', 
+              data: { "auto-submit-target": "field"} %>
+          <%= label_tag "doctor_#{doctor.id}", 
+              "Dr #{doctor.last_name} #{doctor.first_name}", 
+              class: 'form-check-label dropdown-item mb-0', 
+              style: 'color: black; background-color: transparent;' %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>

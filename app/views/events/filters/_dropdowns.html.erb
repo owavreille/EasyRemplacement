@@ -1,0 +1,13 @@
+<div class="col d-flex align-items-center justify-content-end">
+  <%= form_tag events_path, method: :get, class: 'row g-2 align-items-center', 
+               id: 'filter-form', data: { controller: "auto-submit" } do %>
+    <%= hidden_field_tag :start_date, @start_date %>
+    
+    <div class="col-auto">
+      <div class="btn-group" role="group">
+        <%= render 'events/filters/doctor_dropdown' %>
+        <%= render 'events/filters/site_dropdown' %>
+      </div>
+    </div>
+  <% end %>
+</div>

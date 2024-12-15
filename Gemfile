@@ -3,123 +3,73 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.2.2"
 
-gem 'bootstrap', '~> 5.3.0.alpha3'
-
-gem 'jquery-rails'
-
-gem "sassc-rails"
-
-gem 'popper_js', '~> 2.11', '>= 2.11.7'
-
-gem 'rails-i18n'
-
-gem 'turbo-rails', '~> 1.4'
-
-# Flexible authentication solution for Rails with Warden
-gem 'devise', '~> 4.9', '>= 4.9.2'
-
-# Translation files for Devise
-gem 'devise-i18n', '~> 1.11'
-
-# A simple Rails calendar
-gem "simple_calendar"
-
-# Agnostic pagination in plain ruby.
-gem 'pagy', '~> 6.0', '>= 6.0.4'
-
-# Clean ruby syntax for writing and deploying cron jobs.
-gem 'whenever', '~> 1.0'
-
-# Create beautiful JavaScript charts with one line of Ruby
-gem 'chartkick', '~> 5.0', '>= 5.0.2'
-
-# The simplest way to group temporal data
-gem 'groupdate'
-
-# Loads environment variables from `.env`.
-gem 'dotenv-rails'
-
-# OmniAuth authentification
-gem 'omniauth'
-gem 'omniauth-google-oauth2'
-gem 'omniauth-rails_csrf_protection', '~> 1.0', '>= 1.0.1'
-
-# HTTP/REST API client library.
-gem 'faraday', '~> 2.7', '>= 2.7.10'
-
-gem 'icalendar'
-
-gem 'phonelib'
-
-gem 'erb-formatter'
-
-# Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem 'rails', '~> 7.2'
-
-# The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
+# Rails core
+gem "rails", "~> 8.0.0"
 gem "sprockets-rails"
-
-# Use sqlite3 as the database for Active Record
-gem "sqlite3", "~> 1.4"
-
-# Use the Puma web server [https://github.com/puma/puma]
+gem "sqlite3"
 gem "puma", "~> 6.0"
-
-# Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
-gem "importmap-rails"
-
-# Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
-gem "stimulus-rails"
-
-# Build JSON APIs with ease [https://github.com/rails/jbuilder]
-gem "jbuilder"
-
-gem 'rails-controller-testing', '~> 1.0', '>= 1.0.5'
-
-# Use Redis adapter to run Action Cable in production
-# gem "redis", "~> 4.0"
-
-# Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
-# gem "kredis"
-
-# Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
-# gem "bcrypt", "~> 3.1.7"
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem "bootsnap", require: false
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 
-# Reduces boot times through caching; required in config/boot.rb
-gem "bootsnap", require: false
+# Frontend
+gem "importmap-rails"
+gem "stimulus-rails"
+gem "turbo-rails"
+gem "jbuilder"
+gem 'bootstrap', '~> 5.3'
+gem 'jquery-rails'
+gem 'sassc-rails'
+gem 'popper_js', '~> 2.11'
 
-# Use Sass to process CSS
-# gem "sassc-rails"
+# Authentication & Authorization
+gem 'devise', '~> 4.9'
+gem 'devise-i18n', '~> 1.11'
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-rails_csrf_protection', '~> 1.0'
 
-# Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
+# UI Components
+gem "simple_calendar"
+gem 'pagy', '~> 6.0'
+gem 'chartkick', '~> 5.0'
+gem 'groupdate'
+
+# File Processing
 gem "image_processing", "~> 1.2"
 
+# API & Data
+gem 'faraday', '~> 2.7'
+gem 'icalendar'
+gem 'phonelib'
+
+# Utilities
+gem 'whenever', '~> 1.0', require: false
+gem 'dotenv-rails'
+gem 'rails-i18n'
+gem 'erb-formatter'
+
 group :development, :test do
-  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem 'rspec-rails'
+  gem 'factory_bot_rails'
+  gem 'faker'
 end
 
 group :development do
-  # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
   gem "capistrano"
   gem "capistrano-rails"
   gem 'capistrano-rvm'
-
-
-  # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
-  # gem "rack-mini-profiler"
-
-  # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
-  # gem "spring"
+  gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
+  gem 'brakeman', require: false
+  gem 'bullet'
 end
 
 group :test do
-  # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers", "= 5.3.1"
+  gem 'simplecov', require: false
+  gem 'shoulda-matchers'
 end

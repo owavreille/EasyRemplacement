@@ -1,0 +1,11 @@
+
+<%= calendar(events: events, number_of_days: 7) do |date, day_events| %>
+  <%= date.strftime("%d/%m/%Y") %>
+  <div class="card-columns" style="flex-wrap: wrap;">
+    <% filtered_events = filter_events(day_events) %>
+    
+    <% filtered_events.each do |event| %>
+      <%= render 'events/calendar_event', event: event %>
+    <% end %>
+  </div>
+<% end %>

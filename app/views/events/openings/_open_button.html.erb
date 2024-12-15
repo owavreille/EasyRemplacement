@@ -1,0 +1,9 @@
+<%= button_to opened_path(event),
+              method: :patch,
+              class: "btn btn-outline-primary btn-sm",
+              data: { 
+                turbo_confirm: "Confirmez-vous l'ouverture de cette plage ?"
+              } do %>
+  <i class="bi bi-check2-circle"></i>
+  Ouvrir
+<% end %>

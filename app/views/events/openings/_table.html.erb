@@ -1,0 +1,20 @@
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr class="table-primary">
+        <%= render 'events/openings/table_headers' %>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @events.present? %>
+        <% @events.each do |event| %>
+          <%= render 'events/openings/table_row', event: event %>
+        <% end %>
+      <% else %>
+        <tr>
+          <td colspan="11" class="text-center">Aucune plage à ouvrir</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

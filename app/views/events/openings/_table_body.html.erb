@@ -1,0 +1,7 @@
+<tbody>
+  <% if events.present? %>
+    <% events.each do |event| %>
+      <%= render 'events/openings/table_row', event: event %>
+    <% end %>
+  <% end %>
+</tbody>

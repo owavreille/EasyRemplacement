@@ -1,37 +1,52 @@
+
 class Event < ApplicationRecord
   belongs_to :site
   belongs_to :doctor
   belongs_to :user, optional: true
   has_one_attached :contract_blob
 
+  validates :start_time, :end_time, presence: true
+  validates :reversion, presence: true, numericality: { greater_than: 0, less_than_or_equal_to: 100 }
   validate :end_time_after_start_time
-  validates_presence_of :reversion
   validate :check_minimal_replacement_length
 
-  PAYMENT_METHOD = ['Virement', 'CB', 'Espèces']
-  validates :payment_method, inclusion: { in: PAYMENT_METHOD, allow_nil: true }, presence: false
+  scope :future_events, -> { where('start_time >= ?', Date.today) }
+  scope :past_events, -> { where('end_time < ?', Time.now) }
+  scope :upcoming_with_contract, ->(user) { 
+    where(user: user)
+      .where(contract_generated: true, contract_validated: nil)
+      .where('start_time >= ?', Time.now)
+  }
+  scope :pending_contracts, -> {
+    where(contract_generated: nil)
+      .where.not(user_id: nil)
+      .where('start_time >= ?', Date.today)
+  }
+  scope :to_be_planned, -> {
+    where(contract_validated: true, opened: nil)
+      .where('start_time >= ?', Date.today)
+  }
+  scope :available, -> { where(user_id: nil) }
+  scope :upcoming, -> { where('start_time > ?', Time.current) }
 
-  def minimal_replacement_length
-    AppSetting.find(1).minimal_replacement_length
-  end
-
-  def check_minimal_replacement_length
-
-    if am_min_hour.present? && am_max_hour.present? && (am_max_hour - am_min_hour).hours < minimal_replacement_length
-      errors.add(:am_max_hour, "La durée minimale du remplacement est de #{minimal_replacement_length} heures.")
-    elsif pm_min_hour.present? && pm_max_hour.present? && (pm_max_hour - pm_min_hour).hours < minimal_replacement_length
-      errors.add(:pm_max_hour, "La durée minimale du remplacement est de #{minimal_replacement_length} heures.")
-    elsif am_min_hour.present? && pm_max_hour.present? && (pm_max_hour - am_min_hour).hours < minimal_replacement_length
-      errors.add(:pm_max_hour, "La durée minimale du remplacement est de #{minimal_replacement_length} heures.")
-    end
-  end
-  
-  
   private
 
   def end_time_after_start_time
-    if end_time.present? && start_time.present? && end_time <= start_time
+    return unless start_time && end_time
+    
+    if end_time <= start_time
       errors.add(:end_time, "doit être postérieure à l'heure de début")
+    end
+  end
+
+  def check_minimal_replacement_length
+    return unless start_time && end_time
+    
+    duration = (end_time - start_time) / 1.hour
+    min_length = AppSetting.first.minimal_replacement_length
+
+    if duration < min_length
+      errors.add(:base, "La durée minimale du remplacement est de #{min_length} heures.")
     end
   end
 end

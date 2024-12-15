@@ -1,27 +1,43 @@
-require_relative "boot"
 
+require_relative "boot"
 require "rails/all"
 
-# Require the gems listed in Gemfile, including any gems
-# you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
 module EasyRemplacement
   class Application < Rails::Application
-    # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 7.0
+    config.load_defaults 8.0
+    
+    # Add presenters to autoload paths
+    config.autoload_paths += %W(#{config.root}/app/presenters)
+    
+    # Localization
     config.i18n.default_locale = :fr
-    # Please, add to the `ignore` list any other `lib` subdirectories that do
-    # not contain `.rb` files, or that should not be reloaded or eager loaded.
-    # Common ones are `templates`, `generators`, or `middleware`, for example.
-    config.autoload_lib(ignore: %w(assets tasks))
+    config.i18n.available_locales = [:fr, :en]
+    
+    # Time zone - CRITICAL for Groupdate
+    config.time_zone = 'Paris'
+    config.active_record.default_timezone = :utc
 
-    # Configuration for the application, engines, and railties goes here.
-    #
-    # These settings can be overridden in specific environments using the files
-    # in config/environments, which are processed later.
-    #
-    # config.time_zone = "Central Time (US & Canada)"
-    # config.eager_load_paths << Rails.root.join("extras")
+    # Active Job
+    config.active_job.queue_adapter = :async
+
+    # Active Storage
+    config.active_storage.variant_processor = :vips
+
+    # Security
+    config.action_controller.default_protect_from_forgery = true
+    config.ssl_options = { hsts: { subdomains: true } }
+
+    # Performance
+    config.cache_store = :memory_store
+    config.action_controller.perform_caching = true
+
+    # Logging
+    config.log_level = ENV.fetch('RAILS_LOG_LEVEL', 'info')
+    config.log_tags = [:request_id]
+
+    # Autoloading
+    config.autoload_lib(ignore: %w(assets tasks))
   end
 end

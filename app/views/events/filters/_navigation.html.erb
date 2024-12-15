@@ -1,0 +1,10 @@
+<div class="col d-flex align-items-center">
+  <%= link_to "<<", events_path(@filter_params.merge(start_date: @start_date - 1.week)), 
+              class: 'btn btn-outline-secondary m-2', 
+              id: 'previous-button' %>
+  <%= link_to "Aujourd'hui", events_path(@filter_params.merge(start_date: Date.today)), 
+              class: 'btn btn-outline-secondary' %>
+  <%= link_to ">>", events_path(@filter_params.merge(start_date: @start_date + 1.week)), 
+              class: 'btn btn-outline-secondary m-2', 
+              id: 'next-button' %>
+</div>

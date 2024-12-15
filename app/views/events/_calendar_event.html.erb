@@ -1,0 +1,15 @@
+<div class="card mx-1" style="border-left: 5px solid <%= event.site.color %>; min-width: 250px;">
+  <div class="card-body">
+    <p class="text-center"><strong><%= event.site.name %></strong></p>
+    <hr>
+    <strong>Horaires :</strong> <%= event.start_time.strftime("%H:%M") %> - <%= event.end_time.strftime("%H:%M") %>
+    <hr>
+
+    <div class="text-center">
+      <div class="d-flex justify-content-center">
+        <%= render 'events/admin_event_actions', event: event if current_user&.admin? %>
+        <%= render 'events/event_status', event: event %>
+      </div>
+    </div>
+  </div>
+</div>

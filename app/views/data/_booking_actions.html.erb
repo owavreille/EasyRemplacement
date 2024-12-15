@@ -1,0 +1,10 @@
+
+<td>
+  <%= link_to "Annuler",
+              event_booking_path(event),
+              data: { 
+                turbo_method: :delete,
+                turbo_confirm: "Êtes-vous sûr de vouloir annuler votre Remplacement ?"
+              },
+              class: "btn btn-danger m-1" %>
+</td>

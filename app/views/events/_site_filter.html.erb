@@ -1,0 +1,23 @@
+
+<div class="dropdown">
+  <button class="btn btn-outline-secondary dropdown-toggle" type="button" 
+          id="siteDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+    Sites
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="siteDropdown">
+    <% @sites.each do |site| %>
+      <li>
+        <div class="form-check d-flex align-items-center">
+          <%= check_box_tag 'site_ids[]', site.id, 
+              params[:site_ids]&.include?(site.id.to_s), 
+              id: "site_#{site.id}", 
+              class: 'form-check-input mx-0', 
+              data: { "auto-submit-target": "field" } %>
+          <%= label_tag "site_#{site.id}", site.name, 
+              class: 'form-check-label dropdown-item mb-0', 
+              style: 'color: black; background-color: transparent;' %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>

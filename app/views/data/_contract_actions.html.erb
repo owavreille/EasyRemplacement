@@ -1,0 +1,32 @@
+<td>
+  <div class="d-flex">
+    <% if event.contract_blob.attached? %>
+      <%= link_to view_contract_path(event.id), 
+                  class: 'btn btn-success m-1', 
+                  target: "_blank",
+                  title: "Voir le contrat" do %>
+        <i class="bi bi-eye"></i>
+      <% end %>
+
+      <% if event.contract_validated %>
+        <%= link_to "#", 
+                    class: "btn btn-primary m-1 disabled", 
+                    title: "Contrat validé" do %>
+          <i class="bi bi-check2-circle"></i>
+        <% end %>
+      <% else %>
+        <%= button_to validate_contract_path(event.id), 
+                      method: :patch,
+                      class: "btn btn-primary m-1",
+                      title: "Valider et envoyer le contrat",
+                      data: { 
+                        turbo_confirm: "Confirmez-vous la validation du contrat ? Il sera envoyé au conseil de l'ordre."
+                      } do %>
+          <i class="bi bi-check2-circle"></i>
+        <% end %>
+      <% end %>
+    <% else %>
+      <span class="text-muted">Aucun contrat</span>
+    <% end %>
+  </div>
+</td>
