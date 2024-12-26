@@ -37,9 +37,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # DELETE /resource
-  # def destroy
-  #   super
-  # end
+  def destroy
+    redirect_to edit_user_registration_path, 
+                alert: "La suppression de compte n'est pas autorisée. Veuillez contacter un administrateur."
+  end
 
   # GET /resource/cancel
   # Forces the session data which is usually expired after sign
