@@ -73,7 +73,3 @@ group :test do
   gem 'simplecov', require: false
   gem 'shoulda-matchers'
 end
-
-group :production do
-  gem 'terser'
-end
