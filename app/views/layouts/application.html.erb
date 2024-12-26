@@ -10,19 +10,26 @@
   
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-  
+
+    <%# Préchargement des ressources critiques %>
+    <link rel="preload" href="<%= asset_path('application.css') %>" as="style">
+    <link rel="preload" href="<%= asset_path('application.js') %>" as="script">
+    <%= stylesheet_link_tag "bootstrap-icons", "data-turbo-track": "reload" %>
+    
+    <%# Chargement asynchrone des styles non critiques %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload", media: "print", onload: "this.media='all'" %>
+    <noscript><%= stylesheet_link_tag "application", "data-turbo-track": "reload" %></noscript>
+
+    <%# Chargement des scripts %>
     <%= javascript_importmap_tags %>
 
     <%= yield :head %>
-    
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   </head>
 
   <body>
     <%= render 'shared/navbar' %>
 
     <div class="container <%= 'sidebar-visible' if current_user && current_user.admin? %>">
-
       <div class="yield-content">
           <% if flash[:notice].present? %>
           <div class="alert alert-success text-center">
@@ -38,6 +45,8 @@
         <%= yield %>
       </div>
     </div>
-  <script src="<%= asset_path 'sidebar.js' %>"></script>
+
+    <%# Chargement différé des scripts non essentiels %>
+    <%= javascript_include_tag "sidebar", defer: true %>
   </body>
 </html>
