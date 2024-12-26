@@ -32,6 +32,7 @@ class User < ApplicationRecord
   }
 
   TITLE_OPTIONS = ['Dr', 'M.', 'Mme']
+  STATUS_OPTIONS = ["Actif", "Inactif"]
   
   # Validations
   validates :first_name, :last_name, presence: true
@@ -41,6 +42,7 @@ class User < ApplicationRecord
   validates :phone, phone: { possible: true, allow_blank: true }
   validates :siret_number, format: { with: /\A\d{14}\z/, message: "doit être une suite de 14 chiffres" }, allow_blank: true
   validate :signature_size_validation
+  validates :status, inclusion: { in: STATUS_OPTIONS }, allow_nil: true
 
   VALID_SIRET_REGEX = /\A\d{14}\z/
 

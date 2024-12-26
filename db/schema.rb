@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_26_133807) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_26_200945) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -195,6 +195,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_26_133807) do
     t.boolean "active"
     t.string "uid"
     t.string "provider"
+    t.string "status", default: "Actif"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["mailing_list_id"], name: "index_users_on_mailing_list_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

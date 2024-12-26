@@ -1,6 +1,7 @@
 class MailingList < ApplicationRecord
-  has_rich_text :text
   belongs_to :site
-  has_many :users, dependent: :nullify
-
+  has_rich_text :text
+  
+  validates :name, presence: true
+  validates :site_id, presence: true
 end

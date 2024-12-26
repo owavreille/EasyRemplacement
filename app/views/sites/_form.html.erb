@@ -13,8 +13,6 @@
   <% end %>
 
   <div class="card-body">
-    <h1>Édition du Site</h1>
-    <hr>
     <div class="row g-3">
       <div class="col-md-12">
         <%= form.label :name, "Nom", class: "form-label" %>
@@ -48,12 +46,12 @@
 
       <div class="col-md-6">
         <%= form.label :cdom_id, "CDOM", class: "form-label" %>
-        <%= form.collection_select :cdom_id, Cdom.all, :id, :name, {}, class: "form-select" %>
+        <%= form.collection_select :cdom_id, Cdom.all, :id, :name, { prompt: "Sélectionnez un CDOM" }, class: "form-select" %>
       </div>
 
       <div class="col-md-6">
         <%= form.label :status, "Statut", class: "form-label" %>
-        <%= form.select :status, Site::STATUS_OPTIONS, {}, class: "form-select" %>
+        <%= form.select :status, Site::STATUS_OPTIONS, { prompt: "Sélectionnez un statut" }, class: "form-select" %>
       </div>
     </div>
 

@@ -1,39 +1,44 @@
-<div class="card m-3 shadow">
-  <div class="card-header">
-    <h1>Édition d'une mailing-list</h1>
-  </div>
+<% content_for :head do %>
+  <%= javascript_import_module_tag "text" %>
+<% end %>
+
+<%= form_with(model: mailing_list, class: "card m-3 shadow") do |form| %>
+  <% if mailing_list.errors.any? %>
+    <div class="card-header bg-danger text-white">
+      <h2><%= pluralize(mailing_list.errors.count, "erreur") %> a ou ont empêché l'enregistrement de cette mailing list :</h2>
+    </div>
+    <div class="card-body text-danger">
+      <ul>
+        <% mailing_list.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <div class="card-body">
-    <%= form_with(model: mailing_list, class: "row g-3") do |form| %>
-      <% if mailing_list.errors.any? %>
-        <div class="col-12" style="color: red">
-          <h2><%= pluralize(mailing_list.errors.count, "erreur") %> a ou ont empêché l'enregistrement de cette mailing list</h2>
-
-          <ul>
-            <% mailing_list.errors.each do |error| %>
-              <li><%= error.full_message %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
-
-      <div class="form-group row mb-3">
-        <%= form.label :name, "Titre", style: "display: block", class: "form-label" %>
+    <div class="row g-3">
+      <div class="col-md-12">
+        <%= form.label :name, "Titre", class: "form-label" %>
         <%= form.text_field :name, class: "form-control" %>
       </div>
 
-      <div class="form-group row mb-3">
-        <%= form.label :text, "Contenu", style: "display: block", class: "form-label" %>
-        <%= form.rich_text_area :text, class: "form-control" %>
+      <div class="col-md-12">
+        <%= form.label :site_id, "Site", class: "form-label" %>
+        <%= form.collection_select :site_id, Site.all, :id, :name, { prompt: "Sélectionnez un site" }, class: "form-select" %>
       </div>
 
-      <div class="form-group row mb-3">
-        <%= form.label :site_id, "Concernant le Site", style: "display: block", class: "form-label" %>
-        <%= form.collection_select :site_id, Site.all, :id, :name, { include_blank: true }, class: "form-control" %>
+      <div class="col-md-12">
+        <%= form.label :text, "Contenu", class: "form-label" %>
+        <div class="rich-text-container">
+          <%= form.rich_text_area :text, class: "form-control" %>
+        </div>
       </div>
+    </div>
 
-      <div class="col-12 text-end">
-        <%= form.submit "Enregistrer", class: "btn btn-primary" %>
-      </div>
-    <% end %>
+    <div class="mt-4">
+      <%= form.submit "Enregistrer", class: "btn btn-primary" %>
+      <%= link_to "Retour", mailing_lists_path, class: "btn btn-outline-secondary" %>
+    </div>
   </div>
-</div>
+<% end %>

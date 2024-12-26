@@ -1,8 +1,8 @@
-<%= render "form", site: @site %>
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-white">Ajouter/Éditer un Site</h1>
+  </div>
 
-<br>
-
-<div class="text-end m-3">
-  <%= link_to "Retour", sites_path, class: "btn btn-success" %>
+  <%= render "form", site: @site %>
 </div>
 

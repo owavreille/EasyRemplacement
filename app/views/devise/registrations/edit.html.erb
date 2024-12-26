@@ -1,179 +1,133 @@
-<div class="card m-3 shadow-lg">
-  <div class="card-header">
-    <h2>Edition du Profil :</h2>
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-white">Mon Profil</h1>
   </div>
-  <div class="card-body">
-    <%= form_with(model: @user, url: registration_path(resource_name), html: { method: :put }) do |form| %>
-      <% if resource.errors.any? %>
-      <div class="alert alert-danger" role="alert">
-      <%= render "devise/shared/error_messages", resource: @user %>
-      </div>
-      <% end %>
-      <div class="row">
+
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "card m-3 shadow" }) do |form| %>
+    <div class="card-body">
+      <div class="row g-3">
         <div class="col-md-6">
-
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group mb-3">
-                <%= form.label :title, "Titre" %>
-                <%= form.select :title, User::TITLE_OPTIONS, { prompt: "Sélectionnez un titre", selected: "Dr" }, { class: "form-control" } %>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group mb-3">
-                <%= form.label :last_name, "Nom" %>
-                <%= form.text_field :last_name, class: "form-control" %>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group mb-3">
-                <%= form.label :first_name, "Prénom" %>
-                <%= form.text_field :first_name, class: "form-control" %>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group mb-3">
-                <%= form.label :date_of_birth, "Date de naissance" %>
-                <%= form.date_field :date_of_birth, class: "form-control" %>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group mb-3">
-                <%= form.label :phone, "Téléphone" %>
-                <%= form.text_field :phone, class: "form-control" %>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group mb-3">
-                <%= form.label :email, "E-Mail" %>
-                <%= form.email_field :email, autocomplete: "email", class: "form-control" %>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group mb-3">
-            <%= form.label :address, "Adresse" %>
-            <%= form.text_field :address, class: "form-control" %>
-          </div>
-
-          <div class="row" data-controller="city-select">
-  <div class="col-md-6">
-    <div class="form-group">
-      <%= form.label :postal_code, "Code Postal" %>
-      <%= form.text_field :postal_code, data: { city_select_target: 'postalCode' }, class: 'form-control' %>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="form-group">
-      <%= form.label :city, "Ville" %>
-      <%= form.select :city, [], {}, data: { city_select_target: 'city' }, class: 'form-control' %>
-            <%= form.hidden_field :city, data: { city_select_target: 'cityHidden' } %>
-    </div>
-  </div>
-</div>
-
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group mb-3">
-                <%= form.label :siret_number, "N° SIRET" %>
-                <%= form.text_field :siret_number, class: "form-control" %>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group mb-3">
-                <%= form.label :license_number, "N° Licence de Remplacement" %>
-                <%= form.text_field :license_number, class: "form-control" %>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group mb-3">
-              <%= form.label :signature, "Signature" %>
-              <%= form.file_field :signature, accept: "image/*", class: "form-control" %>
-
-                <% if @user.persisted? && @user.signature.attached? %>
-                <p>Image sélectionnée :</p>
-                <%= image_tag @user.signature, style: "max-width: 300px; max-height: 200px;" %>
-                <%= link_to 'Supprimer la Signature', delete_signature_profile_path(id: @user.id), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer l'image ?" } %>
-              <% else %>
-                <p>Aucune image sélectionnée</p>
-              <% end %>
-            </div>
-
+          <%= form.label :title, "Titre", class: "form-label" %>
+          <%= form.select :title, User::TITLE_OPTIONS, { prompt: "Sélectionnez un titre" }, class: "form-select" %>
         </div>
 
         <div class="col-md-6">
+          <%= form.label :first_name, "Prénom", class: "form-label" %>
+          <%= form.text_field :first_name, class: "form-control" %>
+        </div>
 
-          <div class="form-group mb-3">
-            <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-              <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+        <div class="col-md-6">
+          <%= form.label :last_name, "Nom", class: "form-label" %>
+          <%= form.text_field :last_name, class: "form-control" %>
+        </div>
+
+        <div class="col-md-6">
+          <%= form.label :email, "Email", class: "form-label" %>
+          <%= form.email_field :email, autocomplete: "email", class: "form-control" %>
+        </div>
+
+        <div class="col-md-6">
+          <%= form.label :phone, "Téléphone", class: "form-label" %>
+          <%= form.telephone_field :phone, class: "form-control" %>
+        </div>
+
+        <div class="col-md-12">
+          <%= form.label :address, "Adresse", class: "form-label" %>
+          <%= form.text_field :address, class: "form-control" %>
+        </div>
+
+        <div class="col-md-4">
+          <%= form.label :postal_code, "Code Postal", class: "form-label" %>
+          <%= form.text_field :postal_code, class: "form-control" %>
+        </div>
+
+        <div class="col-md-8">
+          <%= form.label :city, "Ville", class: "form-label" %>
+          <%= form.text_field :city, class: "form-control" %>
+        </div>
+
+        <div class="col-md-6">
+          <%= form.label :siret_number, "N° SIRET", class: "form-label" %>
+          <%= form.text_field :siret_number, class: "form-control" %>
+        </div>
+
+        <div class="col-md-6">
+          <%= form.label :license_number, "N° Licence de Remplacement", class: "form-label" %>
+          <%= form.text_field :license_number, class: "form-control" %>
+        </div>
+
+        <div class="col-md-6">
+          <%= form.label :speciality, "Spécialité", class: "form-label" %>
+          <%= form.text_field :speciality, class: "form-control" %>
+        </div>
+
+        <div class="col-md-6">
+          <%= form.label :rib, "IBAN", class: "form-label" %>
+          <%= form.text_field :rib, class: "form-control" %>
+        </div>
+
+        <div class="col-md-12">
+          <%= form.label :signature, "Signature", class: "form-label" %>
+          <%= form.file_field :signature, accept: "image/*", class: "form-control" %>
+          <% if current_user.signature.attached? %>
+            <div class="mt-2">
+              <%= image_tag current_user.signature, style: "max-width: 300px; max-height: 200px;" %>
+              <%= link_to "Supprimer la signature", delete_signature_path(id: current_user.id), 
+                  method: :delete, 
+                  class: "btn btn-danger btn-sm mt-2",
+                  data: { turbo_confirm: "Êtes-vous sûr de vouloir supprimer la signature ?" } %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="col-md-12">
+          <%= form.label :site_ids, "Sites favoris", class: "form-label" %>
+          <div class="form-control" style="max-height: 150px; overflow-y: auto;">
+            <%= form.collection_check_boxes :site_ids, Site.all, :id, :name do |b| %>
+              <div class="form-check">
+                <%= b.check_box class: "form-check-input" %>
+                <%= b.label class: "form-check-label" %>
+              </div>
             <% end %>
           </div>
+        </div>
 
-          <div class="form-group mb-3">
-            Modifier le mot de passe du compte :
-            <br>
-            <%= form.label :password, "Mot de Passe" %>
-            <%= form.password_field :password, autocomplete: "new-password", class: "form-control" %>
-            <% if @minimum_password_length %>
-              <em><%= @minimum_password_length %> caractères minimum</em>
-            <% end %>
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <div class="col-md-12">
+            <div class="alert alert-info">
+              En attente de confirmation pour : <%= resource.unconfirmed_email %>
+            </div>
           </div>
+        <% end %>
 
-          <div class="form-group mb-3">
-            <%= form.label :password_confirmation, "Confirmation du Mot de Passe" %>
-            <%= form.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+        <div class="col-md-12">
+          <hr>
+          <h5 class="mb-3">Changer le mot de passe</h5>
+          <div class="row g-3">
+            <div class="col-md-12">
+              <%= form.label :current_password, "Mot de passe actuel", class: "form-label" %>
+              <%= form.password_field :current_password, autocomplete: "current-password", class: "form-control" %>
+              <div class="form-text">Nous avons besoin de votre mot de passe actuel pour confirmer vos modifications</div>
+            </div>
+
+            <div class="col-md-6">
+              <%= form.label :password, "Nouveau mot de passe", class: "form-label" %>
+              <%= form.password_field :password, autocomplete: "new-password", class: "form-control" %>
+              <div class="form-text">Laissez vide si vous ne souhaitez pas le changer</div>
+            </div>
+
+            <div class="col-md-6">
+              <%= form.label :password_confirmation, "Confirmation du nouveau mot de passe", class: "form-label" %>
+              <%= form.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+            </div>
           </div>
-
-         <div class="form-group mb-3">
-    <%= form.label :mailing_list_ids, "Mailing Lists" %>
-    <% @mailing_lists.each do |mailing_list| %>
-      <div class="form-check">
-        <%= form.check_box :mailing_list_ids, { multiple: true, class: 'form-check-input' }, mailing_list.id, nil %>
-        <%= form.label "mailing_list_ids_#{mailing_list.id}", mailing_list.name, class: 'form-check-label' %>
+        </div>
       </div>
-    <% end %>
-  </div>
 
-             <div class="row">
-            <div class="col-md-6">
-              <div class="form-group mb-3">
-                <%= form.label :speciality, "Spécialité" %>
-                <%= form.text_field :speciality, class: "form-control" %>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group mb-3">
-                <%= form.label :rib, "IBAN" %>
-                <%= form.text_field :rib, class: "form-control" %>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group mb-3" style="max-height: 150px;">
-  <%= form.label :site_ids, "Sites favoris" %>
-  <%= form.collection_check_boxes :site_ids, Site.all, :id, :name do |b| %>
-    <div class="form-check">
-      <%= b.check_box class: "form-check-input" %>
-      <%= b.label class: "form-check-label" %>
+      <div class="mt-4">
+        <%= form.submit "Mettre à jour", class: "btn btn-primary" %>
+        <%= link_to "Retour", :back, class: "btn btn-outline-secondary" %>
+      </div>
     </div>
   <% end %>
-</div>
-
-          
-
-          <div class="actions text-center">
-            <%= form.submit "Enregistrer", class: "btn btn-primary mt-3" %>
-            <%= link_to "Annuler", root_path, class: "btn btn-success mt-3" %>
-          </div>
-        </div>
-      </div>
-    <% end %>
-  </div>
 </div>

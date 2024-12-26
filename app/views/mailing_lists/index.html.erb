@@ -1,19 +1,18 @@
-<div class="container mt-4">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="text-white">Liste des Mailing Lists</h1>
-    <%= link_to new_mailing_list_path, class: "btn btn-primary btn-lg shadow border border-2 border-white" do %>
-      <i class="bi bi-plus-lg me-2"></i>Nouvelle Mailing List
-    <% end %>
-  </div>
-
-  <div class="card">
+<div class="container-fluid">
+  <div class="card m-3 shadow">
     <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Mailing Lists</h1>
+        <%= link_to "Nouvelle Mailing List", new_mailing_list_path, class: "btn btn-primary" %>
+      </div>
+
       <div class="table-responsive">
         <table class="table table-hover">
           <thead>
             <tr>
-              <th>Nom</th>
+              <th>Titre</th>
               <th>Site</th>
+              <th>Contenu</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -22,15 +21,12 @@
             <% @mailing_lists.each do |mailing_list| %>
               <tr>
                 <td><%= mailing_list.name %></td>
-                <td><%= mailing_list.site&.name %></td>
+                <td><%= mailing_list.site.name %></td>
+                <td><%= truncate(strip_tags(mailing_list.text.to_s), length: 100) %></td>
                 <td>
-                  <div class="btn-group gap-1">
-                    <%= link_to edit_mailing_list_path(mailing_list), class: "btn btn-sm btn-outline-secondary rounded-pill" do %>
-                      <i class="bi bi-pencil"></i>
-                    <% end %>
-                    <%= button_to mailing_list_path(mailing_list), method: :delete, class: "btn btn-sm btn-outline-danger", form: { data: { turbo_confirm: "Êtes-vous sûr de vouloir supprimer cette mailing list ?" } } do %>
-                      <i class="bi bi-trash"></i>
-                    <% end %>
+                  <div class="btn-group">
+                    <%= link_to "Modifier", edit_mailing_list_path(mailing_list), class: "btn btn-sm btn-outline-primary" %>
+                    <%= button_to "Supprimer", mailing_list, method: :delete, class: "btn btn-sm btn-outline-danger", form: { data: { turbo_confirm: "Êtes-vous sûr ?" } } %>
                   </div>
                 </td>
               </tr>

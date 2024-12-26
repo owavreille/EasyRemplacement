@@ -13,108 +13,82 @@
   <% end %>
 
   <div class="card-body">
-    <h1>Édition des Informations du Médecin</h1>
-      <hr>
-        <div class="row g-3">
-          <div class="col-md-2">
-            <%= form.label :title, "Titre", class: "form-label" %>
-            <%= form.select :title, Doctor::TITLE_OPTIONS, { include_blank: true }, class: "form-select" %>
-          </div>
-
-          <div class="col-md-5">
-            <%= form.label :first_name, "Prénom", class: "form-label" %>
-            <%= form.text_field :first_name, class: "form-control" %>
-          </div>
-
-          <div class="col-md-5">
-            <%= form.label :last_name, "Nom", class: "form-label" %>
-            <%= form.text_field :last_name, class: "form-control" %>
-          </div>
-
-          <div class="col-md-6">
-            <%= form.label :email, "Email", class: "form-label" %>
-            <%= form.email_field :email, class: "form-control" %>
-          </div>
-
-          <div class="col-md-6">
-            <%= form.label :phone, "Téléphone", class: "form-label" %>
-            <%= form.telephone_field :phone, class: "form-control" %>
-          </div>
-
-          <div class="col-md-6">
-            <%= form.label :status, "Statut", class: "form-label" %>
-            <%= form.select :status, Doctor::STATUS_OPTIONS, {}, class: "form-select" %>
-          </div>
-
-          <div class="col-md-6">
-            <%= form.label :signature, "Signature", class: "form-label" %>
-            <%= form.file_field :signature, class: "form-control" %>
-            <% if form.object.signature.attached? %>
-              <div class="form-text">Une signature est déjà enregistrée.</div>
-            <% end %>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-4">
-            <%= form.label :rpps, "RPPS"%>
-            <%= form.text_field :rpps, class: 'form-control' %>
-          </div>
-
-          <div class="col-md-4">
-            <%= form.label :conventional_sector, "Secteur Conventionnel" %>
-            <%= form.select :conventional_sector, ['1', '2', '3'], { prompt: 'Sélectionnez un secteur' }, class: 'form-control' %>
-          </div>
-
-          <div class="col-md-4">
-              <%= form.label :optam, class: "form-check-label", for: "optam-switch" %>
-            <div class="form-check form-switch mb-3">
-              <%= form.check_box :optam, class: "form-check-input align-middle", id: "optam-switch" %>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-
-          <div class="col-md-4">
-            <%= form.label :speciality, "Spécialité" %>
-            <%= form.text_field :speciality, class: 'form-control' %>
-          </div>
-
-          <div class="col-md-4">
-            <%= form.label :phone, "Téléphone" %>
-            <%= form.text_field :phone, class: 'form-control' %>
-          </div>
-
-          <div class="col-md-4">
-            <%= form.label :email, "E-mail" %>
-            <%= form.email_field :email, class: 'form-control' %>
-          </div>
-        </div>
-
-          <div class="form-group md-4">
-            <%= form.label :signature, "Signature" %>
-            <%= form.file_field :signature, accept: "image/*", class: "form-control" %>
-
-            <% if @doctor.signature.attached? %>
-              <p>Image sélectionnée :</p>
-              <%= image_tag @doctor.signature, style: "max-width: 300px; max-height: 200px;" %>
-              <%= link_to 'Supprimer la Signature', delete_signature_path(id: @doctor.id), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer l'image ?" } %>
-            <% else %>
-              <p>Aucune image sélectionnée</p>
-            <% end %>
-          </div>
-
-          <div class="form-group">
-          <%= form.label :instructions, "Consignes de Remplacement" %>
-          <%= form.text_area :instructions, class: 'form-control' %>
-        </div>
-
-        <div class="form-group text-end m-3">
-          <%= form.submit 'Enregistrer', class: 'btn btn-primary' %>
-            <%= link_to "Retour", doctors_path, class: "btn btn-success" %>
-        </div>
-
+  <div class="row g-3">
+      <div class="col-md-6">
+        <%= form.label :title, "Titre", class: "form-label" %>
+        <%= form.select :title, Doctor::TITLE_OPTIONS, { prompt: "Sélectionnez un titre" }, class: "form-select" %>
       </div>
 
+      <div class="col-md-6">
+        <%= form.label :status, "Statut", class: "form-label" %>
+        <%= form.select :status, Doctor::STATUS_OPTIONS, { prompt: "Sélectionnez un statut" }, class: "form-select" %>
+      </div>
+
+      <div class="col-md-6">
+        <%= form.label :first_name, "Prénom", class: "form-label" %>
+        <%= form.text_field :first_name, class: "form-control" %>
+      </div>
+
+      <div class="col-md-6">
+        <%= form.label :last_name, "Nom", class: "form-label" %>
+        <%= form.text_field :last_name, class: "form-control" %>
+      </div>
+
+      <div class="col-md-6">
+        <%= form.label :email, "Email", class: "form-label" %>
+        <%= form.email_field :email, class: "form-control" %>
+      </div>
+
+      <div class="col-md-6">
+        <%= form.label :phone, "Téléphone", class: "form-label" %>
+        <%= form.telephone_field :phone, class: "form-control" %>
+      </div>
+
+      <div class="col-md-4">
+        <%= form.label :rpps, "RPPS", class: "form-label" %>
+        <%= form.text_field :rpps, class: "form-control" %>
+      </div>
+
+      <div class="col-md-4">
+        <%= form.label :conventional_sector, "Secteur Conventionnel", class: "form-label" %>
+        <%= form.select :conventional_sector, ['1', '2', '3'], { prompt: "Sélectionnez un secteur" }, class: "form-select" %>
+      </div>
+
+      <div class="col-md-4">
+        <%= form.label :optam, "OPTAM", class: "form-label" %>
+        <div class="form-check form-switch mt-2">
+          <%= form.check_box :optam, class: "form-check-input", role: "switch" %>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <%= form.label :speciality, "Spécialité", class: "form-label" %>
+        <%= form.text_field :speciality, class: "form-control" %>
+      </div>
+
+      <div class="col-md-12">
+        <%= form.label :signature, "Signature", class: "form-label" %>
+        <%= form.file_field :signature, accept: "image/*", class: "form-control" %>
+        <% if doctor.signature.attached? %>
+          <div class="mt-2">
+            <%= image_tag doctor.signature, style: "max-width: 300px; max-height: 200px;" %>
+            <%= link_to "Supprimer la signature", delete_signature_path(id: doctor.id), 
+                method: :delete, 
+                class: "btn btn-danger btn-sm mt-2",
+                data: { turbo_confirm: "Êtes-vous sûr de vouloir supprimer la signature ?" } %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="col-md-12">
+        <%= form.label :instructions, "Consignes de Remplacement", class: "form-label" %>
+        <%= form.text_area :instructions, class: "form-control", rows: 5 %>
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <%= form.submit "Enregistrer", class: "btn btn-primary" %>
+      <%= link_to "Retour", doctors_path, class: "btn btn-outline-secondary" %>
+    </div>
+  </div>
 <% end %>
