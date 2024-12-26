@@ -2,8 +2,12 @@
   <%= form_tag events_path, method: :get, class: 'd-flex align-items-center', 
                data: { controller: "auto-submit" } do %>
     <%= hidden_fields_for_filters %>
-    <%= date_field_tag :start_date, @start_date, 
-                      class: 'form-control', 
-                      data: { "auto-submit-target": "field"} %>
+    <div class="form-group">
+      <%= label_tag :start_date, "Date", class: "visually-hidden" %>
+      <%= date_field_tag :start_date, @start_date, 
+                        class: 'form-control',
+                        "aria-label": "Sélectionner une date",
+                        data: { "auto-submit-target": "field"} %>
+    </div>
   <% end %>
 </div>
