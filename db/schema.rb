@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2023_10_07_163125) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_26_133807) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -110,6 +110,7 @@ ActiveRecord::Schema[8.0].define(version: 2023_10_07_163125) do
     t.integer "contract_blob_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "payment_status"
     t.index ["contract_blob_type", "contract_blob_id"], name: "index_events_on_contract_blob"
     t.index ["doctor_id"], name: "index_events_on_doctor_id"
     t.index ["site_id"], name: "index_events_on_site_id"

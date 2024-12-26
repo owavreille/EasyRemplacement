@@ -1,0 +1,72 @@
+<div
+  class="modal fade"
+  id="payment-<%= event.id %>"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modalités de Paiement :</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <%= form_with(model: event, url: data_paid_path(event), method: :patch, local: false) do |form| %>
+          <% if event.errors.any? %>
+            <div style="color: red">
+              <h4><%= pluralize(event.errors.count, "error") %>
+                ont empêché la mise à jour :</h4>
+
+              <ul>
+                <% event.errors.each do |error| %>
+                  <li><%= error.full_message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <%= form.label :payment_date, "Date du paiement" %>
+                <%= form.date_field :payment_date, value: Date.today, class: "form-control" %>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <%= form.label :payment_method, "Méthode de Paiement" %>
+                <%= form.select :payment_method,
+                            Event::PAYMENT_METHOD,
+                            {},
+                            { class: "form-control" } %>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group mb-3">
+                <%= form.label :payment_status, "Statut du Paiement" %>
+                <%= form.select :payment_status,
+                            Event::PAYMENT_STATUS,
+                            {},
+                            { class: "form-control" } %>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group mb-3">
+                <%= form.label :payment_details, "Détails" %>
+                <%= form.text_field :payment_details, class: "form-control" %>
+              </div>
+            </div>
+          </div>
+          <div class="form-group text-end">
+            <%= form.submit "Enregistrer", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div> 

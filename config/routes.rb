@@ -1,4 +1,3 @@
-
 Rails.application.routes.draw do
   # Root path
   root "events#index"
@@ -53,6 +52,7 @@ Rails.application.routes.draw do
   get '/datas', to: 'data#index', as: 'datas', constraints: { format: 'html' }
   get '/data.csv', to: 'data#index', format: 'csv', as: 'data_csv'
   patch '/data/:id/update_amount', to: 'data#update_amount', as: 'update_amount_data'
+  patch '/data/:id/paid', to: 'data#paid', as: 'data_paid'
   get '/userdata', to: 'data#userdata', as: 'userdata', constraints: { format: 'html' }
   get '/userdata.csv', to: 'data#userdata', format: 'csv', as: 'userdata_csv'
 

@@ -1,5 +1,7 @@
-
 class Event < ApplicationRecord
+  PAYMENT_METHOD = ['Virement bancaire', 'Chèque', 'Espèces']
+  PAYMENT_STATUS = ['En attente', 'Payé', 'Annulé']
+
   belongs_to :site
   belongs_to :doctor
   belongs_to :user, optional: true
@@ -7,6 +9,7 @@ class Event < ApplicationRecord
 
   validates :start_time, :end_time, presence: true
   validates :reversion, presence: true, numericality: { greater_than: 0, less_than_or_equal_to: 100 }
+  validates :payment_status, inclusion: { in: PAYMENT_STATUS }, allow_nil: true
   validate :end_time_after_start_time
   validate :check_minimal_replacement_length
 
@@ -28,6 +31,26 @@ class Event < ApplicationRecord
   }
   scope :available, -> { where(user_id: nil) }
   scope :upcoming, -> { where('start_time > ?', Time.current) }
+
+  def paid?
+    payment_status == 'Payé'
+  end
+
+  def amount_paid
+    return 0 unless amount
+    (amount * reversion / 100.0).round(2)
+  end
+
+  def payment_status_badge
+    case payment_status
+    when 'Payé'
+      'Fait !'
+    when 'Annulé'
+      'Annulé'
+    else
+      'En attente'
+    end
+  end
 
   private
 

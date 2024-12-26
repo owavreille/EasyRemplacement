@@ -18,6 +18,22 @@ class DataController < ApplicationController
     end
   end
 
+  def paid
+    @event = Event.find(params[:id])
+    
+    if @event.update(event_params)
+      respond_to do |format|
+        format.js
+        format.html { redirect_to datas_path, notice: "Statut de paiement mis à jour avec succès." }
+      end
+    else
+      respond_to do |format|
+        format.js { render :paid, status: :unprocessable_entity }
+        format.html { redirect_to datas_path, alert: "Erreur lors de la mise à jour du statut de paiement." }
+      end
+    end
+  end
+
   def userdata
     params[:year] ||= Date.current.year.to_s
     
@@ -55,6 +71,12 @@ class DataController < ApplicationController
     unless current_user&.role == true
       redirect_to root_path, alert: "Accès non Autorisé."
     end
+  end
+
+  def event_params
+    params.require(:event).permit(
+      :payment_status, :payment_method, :payment_date, :payment_details
+    )
   end
 
   def filter_params
