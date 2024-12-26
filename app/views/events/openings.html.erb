@@ -1,12 +1,64 @@
-<div class="card shadow m-3">
-  <div class="card-header">
-    <h4>Ouvertures à réaliser</h4>
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-white">Remplacements à Ouvrir</h1>
   </div>
-  <div class="card-body">
-    <%= render 'events/openings/table' %>
-    <%= render 'shared/pagination', pagy: @upcoming_pagy if @upcoming_pagy.present? %>
-  </div>
-  <div class="text-end m-3">
-    <%= link_to "Retour", root_path, class: "btn btn-success" %>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Site</th>
+              <th>Date</th>
+              <th>Médecin Remplacé</th>
+              <th>Début</th>
+              <th>Fin</th>
+              <th>Nb de Patients</th>
+              <th>Aide de Cs</th>
+              <th>Remplaçant</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% if @events.any? %>
+              <% @events.each do |event| %>
+                <tr>
+                  <td><%= event.site.name %></td>
+                  <td><%= event.start_time.strftime("%d/%m/%Y") %></td>
+                  <td>Dr <%= event.doctor.first_name %> <%= event.doctor.last_name %></td>
+                  <td><%= event.start_time.strftime("%H:%M") %></td>
+                  <td><%= event.end_time.strftime("%H:%M") %></td>
+                  <td><%= event.number_of_patients %></td>
+                  <td><%= event.helper ? "oui" : "non" %></td>
+                  <td><%= event.user&.full_name %></td>
+                  <td>
+                    <div class="btn-group gap-1">
+                      <%= button_to opened_path(event), method: :patch, class: "btn btn-sm btn-outline-success rounded-pill" do %>
+                        <i class="bi bi-check-circle"></i>
+                      <% end %>
+                    </div>
+                  </td>
+                </tr>
+              <% end %>
+            <% else %>
+              <tr>
+                <td colspan="9" class="text-center">Aucun remplacement à ouvrir</td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="d-flex justify-content-between align-items-center mt-3">
+        <div>
+          <%= link_to "Retour", root_path, class: "btn btn-secondary" %>
+        </div>
+        <div>
+          <%== pagy_bootstrap_nav(@pagy) if @pagy.present? %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

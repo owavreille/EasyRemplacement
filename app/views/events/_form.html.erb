@@ -1,28 +1,31 @@
+<div class="container mt-4">
+  <div class="card shadow-sm border-0 rounded-3">
+    <%= form_with(model: @event) do |form| %>
+      <div class="card-header bg-white border-0 pt-4 px-4">
+        <h4 class="mb-0">Créer un Remplacement</h4>
+      </div>
 
-<div class="card m-3 shadow">
-  <%= form_with(model: @event) do |form| %>
-    <% if @event.errors.any? %>
-      <div style="color: red">
-        <h4><%= pluralize(@event.errors.count, "erreur") %> a ou ont empêché ce remplacement d'être enregistré :</h4>
-        <ul>
-          <% @event.errors.each do |error| %>
-            <li><%= error.full_message %></li>
-          <% end %>
-        </ul>
+      <% if @event.errors.any? %>
+        <div class="alert alert-danger mx-4 mt-3">
+          <h5 class="alert-heading"><%= pluralize(@event.errors.count, "erreur") %> :</h5>
+          <ul class="mb-0">
+            <% @event.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="card-body px-4">
+        <%= render 'events/form_fields/basic_info', form: form %>
+        <%= render 'events/form_fields/time_info', form: form %>
+        <%= render 'events/form_fields/additional_info', form: form %>
+
+        <div class="d-flex justify-content-between align-items-center mt-4">
+          <%= link_to "Annuler", events_path, class: "btn btn-outline-secondary" %>
+          <%= form.submit "Créer le remplacement", class: "btn btn-primary px-4" %>
+        </div>
       </div>
     <% end %>
-
-    <div class="card-body m-3 row">
-      <h1>Détails de la Plage de Remplacement</h1>
-      <hr>
-
-      <%= render 'events/form_fields/basic_info', form: form %>
-      <%= render 'events/form_fields/time_info', form: form %>
-      <%= render 'events/form_fields/additional_info', form: form %>
-
-      <div class="form-group text-center m-3">
-        <%= form.submit "Enregistrer", class: "btn btn-primary" %>
-      </div>
-    </div>
-  <% end %>
+  </div>
 </div>

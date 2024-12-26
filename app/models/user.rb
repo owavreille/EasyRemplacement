@@ -6,9 +6,9 @@ class User < ApplicationRecord
   has_many :sites, through: :favorite_sites
 
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :validatable, :trackable and :omniauthable
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable,
+         :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: [:google_oauth2]
 
     def admin?
@@ -24,6 +24,8 @@ class User < ApplicationRecord
       end
     end
 
+  scope :active, -> { where(active: true) }
+  scope :admin, -> { where(role: true) }
   scope :search_by_name, ->(query) {
         where("LOWER(first_name) LIKE :query OR LOWER(last_name) LIKE :query",
               query: "%#{query.downcase}%")
@@ -31,14 +33,26 @@ class User < ApplicationRecord
 
   TITLE_OPTIONS = ['Dr', 'M.', 'Mme']
   
+  # Validations
+  validates :first_name, :last_name, presence: true
+  validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :password, presence: true, length: { minimum: 6 }, on: :create
   validates :title, inclusion: { in: TITLE_OPTIONS, allow_nil: true }, allow_blank: true
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validate :signature_size_validation
   validates :phone, phone: { possible: true, allow_blank: true }
+  validates :siret_number, format: { with: /\A\d{14}\z/, message: "doit être une suite de 14 chiffres" }, allow_blank: true
+  validate :signature_size_validation
 
   VALID_SIRET_REGEX = /\A\d{14}\z/
 
   validates :siret_number, format: { with: VALID_SIRET_REGEX, message: "doit être une suite de 14 chiffres" }, allow_blank: true
+
+  def full_name
+    [title, first_name, last_name].compact.join(' ')
+  end
+
+  def display_name
+    full_name.presence || email
+  end
 
   private
 

@@ -2,7 +2,7 @@
         class="btn btn-outline-secondary" 
         data-bs-toggle="modal" 
         data-bs-target="#event-modal-<%= event.id %>">
-  Détails
+  <i class="bi bi-info-circle me-2"></i>Détails
 </button>
 
 <div class="modal fade" 
@@ -10,13 +10,13 @@
      tabindex="-1" 
      aria-labelledby="event-modal-label-<%= event.id %>" 
      aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow">
+      <div class="modal-header border-0 bg-light">
         <h5 class="modal-title" id="event-modal-label-<%= event.id %>">
-          Détails du Remplacement
+          <i class="bi bi-calendar-event me-2"></i>Détails du Remplacement
         </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
       </div>
       <div class="modal-body">
         <%= render 'events/event', event: event %>

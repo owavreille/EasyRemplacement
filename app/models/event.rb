@@ -13,8 +13,20 @@ class Event < ApplicationRecord
   validate :end_time_after_start_time
   validate :check_minimal_replacement_length
 
-  scope :future_events, -> { where('start_time >= ?', Date.today) }
-  scope :past_events, -> { where('end_time < ?', Time.now) }
+  scope :future_events, -> { 
+    end_of_next_year = Time.current.end_of_year + 1.year
+    where('start_time >= ? AND start_time <= ?', Time.current, end_of_next_year)
+      .order(start_time: :asc)
+  }
+  scope :past_events, -> { where('start_time < ?', Time.current).order(start_time: :desc) }
+  scope :opened_events, -> { where(opened: true) }
+  scope :pending_openings, -> { 
+    future_events
+      .where(opened: true)
+      .where(contract_validated: false)
+      .or(where(contract_generated: false))
+      .order(start_time: :asc)
+  }
   scope :upcoming_with_contract, ->(user) { 
     where(user: user)
       .where(contract_generated: true, contract_validated: nil)
@@ -50,6 +62,53 @@ class Event < ApplicationRecord
     else
       'En attente'
     end
+  end
+
+  def self.filter_by(params)
+    events = all
+
+    if params[:start_date].present?
+      start_date = Date.parse(params[:start_date].to_s)
+      events = events.where('DATE(start_time) >= ?', start_date)
+    end
+
+    if params[:end_date].present?
+      end_date = Date.parse(params[:end_date].to_s)
+      events = events.where('DATE(end_time) <= ?', end_date)
+    end
+
+    if params[:doctor_ids].present?
+      events = events.where(doctor_id: params[:doctor_ids])
+    end
+
+    if params[:site_ids].present?
+      events = events.where(site_id: params[:site_ids])
+    end
+
+    events
+  end
+
+  def self.accessible_by(user)
+    if user.role?
+      all
+    else
+      where(user_id: user.id)
+    end
+  end
+
+  def can_be_deleted?
+    return true if editable?
+    return false if contract_validated?
+    return false if start_time <= Date.today
+    true
+  end
+
+  def mark_as_opened
+    update(opened: true)
+  end
+
+  def interested_users
+    User.where(id: user_id).or(User.where(site: site))
   end
 
   private

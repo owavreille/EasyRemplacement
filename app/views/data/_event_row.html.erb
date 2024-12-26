@@ -8,37 +8,43 @@
   <td><%= event.helper ? "oui" : "non" %></td>
   <td><%= event.user.first_name %> <%= event.user.last_name %></td>
   <td>
-    <%= form_with(url: update_amount_data_path(event), method: :patch, remote: true, class: 'form-inline') do |form| %>
-      <div class="row">
-        <div class="col">
-          <div class="form-group">
-            <%= form.text_field :amount,
-                            class: "form-control form-control-sm",
-                            value: event.amount,
-                            disabled: event.paid? %>
+    <% if current_user&.role? %>
+      <%= form_with(url: update_amount_data_path(event), method: :patch, remote: true, class: 'form-inline') do |form| %>
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <%= form.text_field :amount,
+                              class: "form-control form-control-sm",
+                              value: event.amount,
+                              disabled: event.paid? %>
+            </div>
+          </div>
+          <div class="col">
+            <%= form.button type: 'submit', class: 'btn btn-secondary btn-sm', disabled: event.paid? do %>
+              <i class="bi bi-check-circle-fill" style="color: white;"></i>
+            <% end %>
           </div>
         </div>
-        <div class="col">
-          <%= form.button type: 'submit', class: 'btn btn-secondary btn-sm', disabled: event.paid? do %>
-            <i class="bi bi-check-circle-fill" style="color: white;"></i>
-          <% end %>
-        </div>
-      </div>
+      <% end %>
+    <% else %>
+      <%= event.amount %>
     <% end %>
   </td>
   <td><%= event.reversion %> %</td>
   <td><%= event.amount_paid %></td>
   <td>
     <%= event.payment_status_badge %>
-    <button
-      type="button"
-      id="Modalpayment"
-      class="btn btn-sm btn-secondary me-2 rounded"
-      data-bs-toggle="modal"
-      data-bs-target="#payment-<%= event.id %>"
-    >
-      <i class="bi bi-pencil-fill"></i>
-    </button>
-    <%= render 'payment_modal', event: event %>
+    <% if current_user&.role? %>
+      <button
+        type="button"
+        id="Modalpayment"
+        class="btn btn-sm btn-secondary me-2 rounded"
+        data-bs-toggle="modal"
+        data-bs-target="#payment-<%= event.id %>"
+      >
+        <i class="bi bi-pencil-fill"></i>
+      </button>
+      <%= render 'payment_modal', event: event %>
+    <% end %>
   </td>
 </tr>

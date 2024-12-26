@@ -80,6 +80,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_26_133807) do
     t.text "instructions"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "status", default: "Disponible", null: false
+    t.index ["status"], name: "index_doctors_on_status"
   end
 
   create_table "events", force: :cascade do |t|
@@ -145,6 +147,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_26_133807) do
     t.string "address"
     t.string "postal_code"
     t.string "city"
+    t.string "email"
+    t.string "phone"
     t.string "software"
     t.text "informations"
     t.text "instructions"
@@ -161,7 +165,9 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_26_133807) do
     t.datetime "min_lenght"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "status", default: "Ouvert", null: false
     t.index ["cdom_id"], name: "index_sites_on_cdom_id"
+    t.index ["status"], name: "index_sites_on_status"
   end
 
   create_table "users", force: :cascade do |t|

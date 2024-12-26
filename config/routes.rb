@@ -9,6 +9,9 @@ Rails.application.routes.draw do
     omniauth_callbacks: 'users/omniauth_callbacks' 
   }
 
+  # Dashboard
+  get '/dashboard', to: 'dashboard#index', as: 'dashboard'
+
   # Resources
   resources :events do
     resource :booking, only: [:create, :destroy]
@@ -25,6 +28,12 @@ Rails.application.routes.draw do
       delete '/', to: 'users#destroy', as: 'destroy'
       put 'active', to: 'users#active', as: 'active'
       put 'inactive', to: 'users#inactive', as: 'inactive'
+      patch :toggle_active
+      get :pending
+      post :active
+      post :inactive
+      delete :delete_signature
+      delete :delete_signature_profile
     end
   end
 
@@ -75,4 +84,19 @@ Rails.application.routes.draw do
 
   # API
   get '/postal_codes/get_cities', to: 'postal_codes#get_cities'
+
+  get 'health', to: 'health#show'
+
+  resources :data, only: [:index] do
+    member do
+      post :generate_contract
+      patch :paid
+      patch :update_amount
+    end
+    collection do
+      get :userdata
+    end
+  end
+
+  resources :dashboard, only: [:index]
 end

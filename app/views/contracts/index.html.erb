@@ -2,32 +2,45 @@
   <%= javascript_import_module_tag "text" %>
 <% end %>
 
-<div class="card shadow m-3">
-  <div class="card-header">
-    <h1>Édition du Contrat de Remplacement</h1>
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-white">Contrat de Remplacement</h1>
   </div>
-  <div class="card-body">
-    <%= form_tag(update_contract_contracts_path, method: :patch) do %>
-      <div class="form-group">
-        <%= label_tag :contract_content, "Ajouter une variable" %>
-        <div class="input-group mb-3 w-50">
-          <select id="variable_selector" class="form-select"></select>
-          <button id="import_variable_btn" class="btn btn-primary" type="button">Insérer</button>
+
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title mb-4">Édition du Contrat</h4>
+      
+      <%= form_tag(update_contract_contracts_path, method: :patch) do %>
+        <div class="mb-4">
+          <div class="form-group">
+            <label class="form-label">Ajouter une variable</label>
+            <div class="input-group mb-3">
+              <select id="variable_selector" class="form-select"></select>
+              <button id="import_variable_btn" class="btn btn-primary" type="button">Insérer</button>
+            </div>
+          </div>
         </div>
-        <div class="rich-text-container">
-          <%= rich_text_area_tag :contract_content,
-          @contract_content,
-          rows: 10,
-          class: "form-control",
-          id: "contract_content" %>
+
+        <div class="mb-4">
+          <div class="form-group">
+            <label class="form-label">Contenu du contrat</label>
+            <div class="rich-text-container">
+              <%= rich_text_area_tag :contract_content,
+                @contract_content,
+                class: "form-control",
+                id: "contract_content" %>
+            </div>
+            <div id="variable_list" class="mt-2"></div>
+          </div>
         </div>
-        <div id="variable_list"></div>
-      </div>
-      <div class="text-end mt-4">
-        <%= submit_tag "Enregistrer", class: "btn btn-primary" %>
-        <%= link_to "Retour", root_path, class: "btn btn-success" %>
-      </div>
-    <% end %>
+
+        <div class="d-flex justify-content-between align-items-center mt-4">
+          <%= link_to "Retour", root_path, class: "btn btn-secondary" %>
+          <%= submit_tag "Enregistrer", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
 

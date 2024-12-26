@@ -1,15 +1,14 @@
-
-<div class="row">
+<div class="row g-3 mb-4">
   <div class="col-md-6">
-    <div class="form-group mb-3">
-      <%= form.label :start_time, "Début de la plage", class: "col-form-label" %>
+    <div class="form-group">
+      <%= form.label :start_time, "Début du remplacement", class: "form-label fw-medium" %>
       <%= form.datetime_field :start_time, class: "form-control" %>
     </div>
   </div>
 
   <div class="col-md-6">
-    <div class="form-group mb-3">
-      <%= form.label :end_time, "Fin de la plage", class: "col-form-label" %>
+    <div class="form-group">
+      <%= form.label :end_time, "Fin du remplacement", class: "form-label fw-medium" %>
       <%= form.datetime_field :end_time, class: "form-control" %>
     </div>
   </div>

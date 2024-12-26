@@ -1,60 +1,72 @@
-<div class="card m-3 shadow">
-  <div class="card-header">
-  <h1>Paramètres :</h1>
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-white">Paramètres</h1>
   </div>
-  <div class="card-body">
 
-      <%= form_with(model: @app_settings, url: app_setting_path(@app_settings), method: :patch) do |form| %>
-      
-     <div class="row">
+  <div class="card">
+    <div class="card-body">
+      <%= form_with(model: @app_settings, url: app_setting_path(@app_settings), method: :patch, local: true) do |f| %>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-4">
+              <h4 class="card-title mb-4">Paramètres Généraux</h4>
+              <div class="mb-3">
+                <%= f.label :app_name, "Nom de l'Application", class: "form-label" %>
+                <%= f.text_field :app_name, class: "form-control" %>
+              </div>
 
-          <div class = "col-auto">
-          <div class="m-3">Nom de l'Application :</div>
-          <%= form.text_field :app_name, class: 'form-control m-3' %>
-           </div>
+              <div class="mb-3">
+                <%= f.label :logo, "Logo", class: "form-label" %>
+                <div class="d-flex align-items-center gap-3">
+                  <% if @app_settings.logo.attached? %>
+                    <%= image_tag @app_settings.logo, class: "img-thumbnail", style: "max-height: 100px" %>
+                    <%= link_to delete_logo_path(@app_settings), 
+                        method: :delete,
+                        class: "btn btn-sm btn-outline-danger",
+                        data: { turbo_confirm: "Êtes-vous sûr de vouloir supprimer le logo ?" } do %>
+                      <i class="bi bi-trash"></i>
+                    <% end %>
+                  <% end %>
+                  <%= f.file_field :logo, class: "form-control" %>
+                </div>
+              </div>
+            </div>
 
-          <div class="col-auto">
-            <div class="m-3"><%= form.label :logo, "Logo :" %></div>
-            <div class="m-3"><%= form.file_field :logo, accept: "image/*", class: "form-control" %></div>
-            <% if @app_settings.logo.attached? %>
-              <div class="m-3"><p>Image sélectionnée :</p>
-              <%= image_tag @app_settings.logo, style: "max-width: 300px; max-height: 200px;" %>
-              <%= link_to 'Supprimer le logo', delete_logo_path(id: @app_settings.id), method: :delete, data: { confirm: "Êtes-vous sûr de vouloir supprimer le logo ?" } %></div>
-            <% else %>
-              <div class="m-3"><p>Aucune image sélectionnée</p></div>
-            <% end %>
-          </div>
-      </div>
-
-      <div class ="row">
-          <div class = "col-auto">
-          <div class="m-3">Délai minimum en jour pour Réserver :</div>
-          <%= form.number_field :disable_booking_threshold, class: 'form-control m-3' %>
-          </div>
-
-          <div class = "col-auto">
-          <div class="m-3">Délai maximum en jour pour annuler un Remplacement :</div>
-          <%= form.number_field :max_replacement_cancel, class: 'form-control m-3' %>
-          </div>
-      </div>
-
-      <div class ="row">
-          <div class = "col-auto">
-          <div class="m-3">Heure de séparation matin/après-midi :</div>
-          <%= form.time_field :am_pm_hour_separation, class: 'form-control m-3' %>
+            <div class="mb-4">
+              <h4 class="card-title mb-4">Horaires</h4>
+              <div class="mb-3">
+                <%= f.label :am_pm_hour_separation, "Heure de séparation Matin/Après-midi", class: "form-label" %>
+                <%= f.number_field :am_pm_hour_separation, class: "form-control" %>
+              </div>
+            </div>
           </div>
 
-          <div class="col-auto">
-          <div class="m-3">Durée minimum d'un Remplacement (en heures):</div>
-          <%= form.number_field :minimal_replacement_length, step: 0.01, class: 'form-control m-3' %>
-          </div>
-      </div>
+          <div class="col-md-6">
+            <div class="mb-4">
+              <h4 class="card-title mb-4">Paramètres des Remplacements</h4>
+              <div class="mb-3">
+                <%= f.label :disable_booking_threshold, "Délai de désactivation des réservations (en heures)", class: "form-label" %>
+                <%= f.number_field :disable_booking_threshold, class: "form-control" %>
+              </div>
 
-      <div class="text-end">
-          <%= form.submit 'Enregistrer', class: 'btn btn-primary mt-3' %>
-    
-  <%= link_to "Retour", root_path, class: "btn btn-success mt-3" %>
-</div>
+              <div class="mb-3">
+                <%= f.label :minimal_replacement_length, "Durée minimale d'un remplacement (en heures)", class: "form-label" %>
+                <%= f.number_field :minimal_replacement_length, class: "form-control" %>
+              </div>
+
+              <div class="mb-3">
+                <%= f.label :max_replacement_cancel, "Délai maximal d'annulation (en heures)", class: "form-label" %>
+                <%= f.number_field :max_replacement_cancel, class: "form-control" %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mt-4">
+          <%= link_to "Retour", root_path, class: "btn btn-secondary" %>
+          <%= f.submit "Enregistrer", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
   </div>
-  <% end %>
 </div>

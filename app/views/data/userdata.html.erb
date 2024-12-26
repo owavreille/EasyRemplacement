@@ -1,16 +1,164 @@
-<%= render 'data/filter_form' %>
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-white">Mes Remplacements</h1>
+    <div>
+      <%= form_tag userdata_path, method: :get, class: 'form-inline' do %>
+        <div class="btn-group">
+          <%= select_tag :year,
+          options_for_select((2022..(Time.now.year + 1)).to_a.reverse, params[:year]),
+          prompt: "Année",
+          class: "form-select form-select-sm py-1" %>
 
-<div class="row">
-  <div class="col">
-    <div class="card shadow-lg m-3">
-      <h2 class="card-header">Suivi de Mes Remplacements</h2>
-      <div class="card-body">
-        <%= render 'data/past_events_table' %>
-        <%= render 'data/upcoming_events_table' %>
+          <%= select_tag :month,
+          options_for_select(
+            (1..12).map { |m| [I18n.t("date.month_names")[m], m] },
+            params[:month]
+          ),
+          prompt: "Mois",
+          class: "form-select form-select-sm py-1" %>
+
+          <%= select_tag :site,
+          options_from_collection_for_select(Site.all, "id", "name", params[:site]),
+          prompt: "Site",
+          class: "form-select form-select-sm py-1" %>
+
+          <%= button_tag(type: 'submit', class: 'btn btn-sm btn-secondary py-1') do %>
+            <i class="bi bi-filter-circle"></i>
+          <% end %>
+          <%= link_to userdata_csv_path(year: params[:year], month: params[:month], site: params[:site]),
+              class: "btn btn-sm btn-secondary py-1" do %>
+            CSV
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-body">
+      <h4 class="card-title mb-4">Remplacements Passés</h4>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Site</th>
+              <th>Date</th>
+              <th>Médecin Remplacé</th>
+              <th>Début</th>
+              <th>Fin</th>
+              <th>Nb de Patients</th>
+              <th>Aide de Cs</th>
+              <th>Montant</th>
+              <th>Taux Reversion</th>
+              <th>Montant à Reverser</th>
+              <th>Statut Paiement</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @past_events.any? %>
+              <% @past_events.each do |event| %>
+                <tr>
+                  <td><%= event.site.name %></td>
+                  <td><%= event.start_time.strftime("%d/%m/%Y") %></td>
+                  <td>Dr <%= event.doctor.first_name %> <%= event.doctor.last_name %></td>
+                  <td><%= event.start_time.strftime("%H:%M") %></td>
+                  <td><%= event.end_time.strftime("%H:%M") %></td>
+                  <td><%= event.number_of_patients %></td>
+                  <td><%= event.helper ? "oui" : "non" %></td>
+                  <td><%= number_to_currency(event.amount, unit: "€", format: "%n %u") %></td>
+                  <td><%= event.reversion %> %</td>
+                  <td><%= number_to_currency(event.amount_paid, unit: "€", format: "%n %u") %></td>
+                  <td>
+                    <span class="badge bg-<%= event.paid? ? 'success' : 'warning' %>">
+                      <%= event.paid? ? 'Payé' : 'En attente' %>
+                    </span>
+                  </td>
+                </tr>
+              <% end %>
+            <% else %>
+              <tr>
+                <td colspan="11" class="text-center">Aucun remplacement passé pour cette période</td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
       </div>
+      <div class="d-flex justify-content-end mt-3">
+        <%== pagy_bootstrap_nav(@past_pagy) if @past_pagy.present? %>
+      </div>
+    </div>
+  </div>
 
-      <div class="text-end m-3">
-        <%= link_to "Retour", root_path, class: "btn btn-success" %>
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title mb-4">Remplacements à Venir</h4>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Site</th>
+              <th>Date</th>
+              <th>Médecin Remplacé</th>
+              <th>Début</th>
+              <th>Fin</th>
+              <th>Nb de Patients</th>
+              <th>Aide de Cs</th>
+              <th>Taux Reversion</th>
+              <th>Contrat</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @upcoming_events.any? %>
+              <% @upcoming_events.each do |event| %>
+                <tr>
+                  <td><%= event.site.name %></td>
+                  <td><%= event.start_time.strftime("%d/%m/%Y") %></td>
+                  <td>Dr <%= event.doctor.first_name %> <%= event.doctor.last_name %></td>
+                  <td><%= event.start_time.strftime("%H:%M") %></td>
+                  <td><%= event.end_time.strftime("%H:%M") %></td>
+                  <td><%= event.number_of_patients %></td>
+                  <td><%= event.helper ? "oui" : "non" %></td>
+                  <td><%= event.reversion %> %</td>
+                  <td>
+                    <% if event.contract_validated == true %>
+                      <span class="badge bg-success">Contrat Validé</span>
+                    <% elsif event.contract_blob.attached? %>
+                      <div class="d-flex gap-2 justify-content-center">
+                        <%= link_to open_contract_path(event.id), class: 'btn btn-sm btn-success', data: { bs_toggle: "tooltip", bs_placement: "top", bs_title: "Voir le contrat" } do %>
+                          <i class="bi bi-eye"></i>
+                        <% end %>
+                        <%= button_to validate_contract_path(event.id), method: :patch, 
+                            class: "btn btn-sm btn-primary",
+                            data: { 
+                              bs_toggle: "tooltip",
+                              bs_placement: "top",
+                              bs_title: "Signer et envoyer le contrat",
+                              turbo_confirm: "Voulez-vous signer et envoyer le contrat ?"
+                            } do %>
+                          <i class="bi bi-pen me-1"></i>Signer
+                        <% end %>
+                      </div>
+                    <% else %>
+                      <span class="badge bg-warning">En attente</span>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            <% else %>
+              <tr>
+                <td colspan="9" class="text-center">Aucun remplacement à venir pour cette période</td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="d-flex justify-content-between align-items-center mt-3">
+        <div>
+          <%= link_to "Retour", root_path, class: "btn btn-secondary" %>
+        </div>
+        <div>
+          <%== pagy_bootstrap_nav(@upcoming_pagy) if @upcoming_pagy.present? %>
+        </div>
       </div>
     </div>
   </div>

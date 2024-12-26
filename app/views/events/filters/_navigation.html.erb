@@ -1,10 +1,18 @@
 <div class="col d-flex align-items-center">
   <%= link_to "<<", events_path(@filter_params.merge(start_date: @start_date - 1.week)), 
               class: 'btn btn-outline-secondary m-2', 
+              'aria-label': 'Semaine précédente',
               id: 'previous-button' %>
   <%= link_to "Aujourd'hui", events_path(@filter_params.merge(start_date: Date.today)), 
-              class: 'btn btn-outline-secondary' %>
+              class: 'btn btn-outline-secondary',
+              'aria-label': 'Retour à aujourd\'hui' %>
   <%= link_to ">>", events_path(@filter_params.merge(start_date: @start_date + 1.week)), 
               class: 'btn btn-outline-secondary m-2', 
+              'aria-label': 'Semaine suivante',
               id: 'next-button' %>
+  <% if @filter_params.except(:start_date).present? %>
+    <%= link_to "Réinitialiser les filtres", events_path(start_date: @start_date), 
+                class: 'btn btn-outline-danger ms-2',
+                'aria-label': 'Réinitialiser tous les filtres' %>
+  <% end %>
 </div>

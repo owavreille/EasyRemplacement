@@ -1,152 +1,171 @@
-<%= form_tag datas_path, method: :get, class: 'form-inline' do %>
-  <div class="form-group d-inline-block m-3">
-    <%= label_tag :year, "Année", class: "mr-1 text-white" %>
-    <%= select_tag :year,
-    options_for_select((2022..Time.now.year).to_a.reverse, params[:year]),
-    prompt: "Sélectionnez une Année",
-    class: "form-control" %>
-  </div>
-  <div class="form-group d-inline-block m-3">
-    <%= label_tag :month, "Mois", class: "mr-1 text-white" %>
-    <%= select_tag :month,
-    options_for_select(
-      (1..12).map { |m| [I18n.t("date.month_names")[m], m] },
-      params[:month]
-    ),
-    prompt: "Sélectionnez un Mois",
-    class: "form-control" %>
-  </div>
-  <div class="form-group d-inline-block m-3">
-    <%= label_tag :site, "Site", class: "mr-1 text-white" %>
-    <%= select_tag :site,
-    options_from_collection_for_select(Site.all, "id", "name", params[:site]),
-    prompt: "Sélectionnez un Site",
-    class: "form-control" %>
-  </div>
-  <%= button_tag(type: 'submit', class: 'btn btn-secondary') do %>
-    <i class="bi bi-filter-circle"></i>
-  <% end %>
-  <%= link_to "Export CSV",
-  data_csv_path(year: params[:year], month: params[:month], site: params[:site]),
-  class: "btn btn-secondary" %>
-<% end %>
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-white">Tableau de Suivi des Remplacements</h1>
+    <div>
+      <%= form_tag datas_path, method: :get, class: 'form-inline' do %>
+        <div class="btn-group">
+          <%= select_tag :year,
+          options_for_select((2022..(Time.now.year + 1)).to_a.reverse, params[:year]),
+          prompt: "Année",
+          class: "form-select form-select-sm py-1" %>
 
-<div class="row">
-  <div class="col">
-    <div class="card shadow m-3">
-      <h2 class="card-header">Tableau de Suivi des Remplacements</h2>
-      <div class="card-body">
-        <div class="past-events">
-          <h4>Remplacements Passés</h4>
-          <div class="table-responsive">
-            <table class="table table-striped">
-              <thead class="thead-dark">
-                <tr class="table-primary">
+          <%= select_tag :month,
+          options_for_select(
+            (1..12).map { |m| [I18n.t("date.month_names")[m], m] },
+            params[:month]
+          ),
+          prompt: "Mois",
+          class: "form-select form-select-sm py-1" %>
 
-                  <th>Site</th>
-                  <th>Date</th>
-                  <th>Médecin Remplacé</th>
-                  <th>Début</th>
-                  <th>Fin</th>
-                  <th>Nb de Patients</th>
-                  <th>Aide de Cs</th>
-                  <th>Nom du Remplaçant</th>
-                  <th>Montant</th>
-                  <th>Taux Reversion</th>
-                  <th>Montant à Reverser</th>
-                  <th>Statut Paiement</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% @past_events.each do |event| %>
-                  <%= render 'event_row', event: event %>
-                <% end %>
-              </tbody>
-            </table>
-          </div>
-          <div class="text-end m-3">
-            <% if @past_pagy.present? %>
-              <%== pagy_bootstrap_nav(@past_pagy) %>
-            <% end %>
-          </div>
+          <%= select_tag :site,
+          options_from_collection_for_select(Site.all, "id", "name", params[:site]),
+          prompt: "Site",
+          class: "form-select form-select-sm py-1" %>
+
+          <%= button_tag(type: 'submit', class: 'btn btn-sm btn-secondary py-1') do %>
+            <i class="bi bi-filter-circle"></i>
+          <% end %>
+          <%= link_to data_csv_path(year: params[:year], month: params[:month], site: params[:site]),
+              class: "btn btn-sm btn-secondary py-1" do %>
+            CSV
+          <% end %>
         </div>
+      <% end %>
+    </div>
+  </div>
 
-        <div class="upcoming-events mt-5">
-          <h4>Remplacements à Venir</h4>
-          <div class="table-responsive">
-            <table class="table table-striped">
-              <thead class="thead-dark">
-                <tr class="table-primary">
-                  <th>Site</th>
-                  <th>Date</th>
-                  <th>Médecin Remplacé</th>
-                  <th>Début</th>
-                  <th>Fin</th>
-                  <th>Nb de Patients</th>
-                  <th>Aide de Cs</th>
-                  <th>Nom du Remplaçant</th>
-                  <th>Taux Reversion</th>
-                  <th>Action</th>
+  <div class="card mb-4">
+    <div class="card-body">
+      <h4 class="card-title mb-4">Remplacements Passés</h4>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Site</th>
+              <th>Date</th>
+              <th>Médecin Remplacé</th>
+              <th>Début</th>
+              <th>Fin</th>
+              <th>Nb de Patients</th>
+              <th>Aide de Cs</th>
+              <th>Remplaçant</th>
+              <th>Montant</th>
+              <th>Taux Reversion</th>
+              <th>Montant à Reverser</th>
+              <th>Statut Paiement</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @past_events.any? %>
+              <% @past_events.each do |event| %>
+                <tr>
+                  <td><%= event.site.name %></td>
+                  <td><%= event.start_time.strftime("%d/%m/%Y") %></td>
+                  <td>Dr <%= event.doctor.first_name %> <%= event.doctor.last_name %></td>
+                  <td><%= event.start_time.strftime("%H:%M") %></td>
+                  <td><%= event.end_time.strftime("%H:%M") %></td>
+                  <td><%= event.number_of_patients %></td>
+                  <td><%= event.helper ? "oui" : "non" %></td>
+                  <td><%= event.user&.full_name %></td>
+                  <td><%= number_to_currency(event.amount, unit: "€", format: "%n %u") %></td>
+                  <td><%= event.reversion %> %</td>
+                  <td><%= number_to_currency(event.amount_paid, unit: "€", format: "%n %u") %></td>
+                  <td>
+                    <span class="badge bg-<%= event.paid? ? 'success' : 'warning' %>">
+                      <%= event.paid? ? 'Payé' : 'En attente' %>
+                    </span>
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                <% @upcoming_events.each do |event| %>
-                  <tr>
-                    <td><%= event.site.name %></td>
-                    <td><%= event.start_time.strftime("%d/%m/%Y") %></td>
-                    <td>Dr
-                      <%= event.doctor.first_name %>
-                      <%= event.doctor.last_name %></td>
-                    <td><%= event.start_time.strftime("%H:%M") %></td>
-                    <td><%= event.end_time.strftime("%H:%M") %></td>
-                    <td><%= event.number_of_patients %></td>
-                    <td><%= event.helper ? "oui" : "non" %></td>
-                    <td><%= event.user&.first_name %>
-                      <%= event.user&.last_name %></td>
-                    <td><%= event.reversion %>
-                      %
-                    </td>
-                    <td>
-
-                      <div class="d-inline-flex">
-                        <% if event.contract_validated == true %>
-                          <%= form_with url: "#", method: :post do |form| %>
-                            <%= form.submit "Contrat Validé et Envoyé",
-                                        class: "btn btn-primary m-1",
-                                        disabled: true %>
-                          <% end %>
-                        <% else %>
-                          <%= form_with url: generate_contract_path(event), method: :post do |form| %>
-                            <%= form.submit "Générer le Contrat", class: "btn btn-primary m-1" %>
-                          <% end %>
-
-                          <% if event.contract_blob.attached? %>
-                            <%= link_to open_contract_path(event.id), class: 'btn btn-success m-1' do %>
-                              <i class="bi bi-eye"></i>
-                            <% end %>
-                          <% else %>
-                            <p>Aucun contrat</p>
-                          <% end %>
-                        <% end %>
-                      </div>
-
-                    </td>
-
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
-          </div>
-          <div class="text-end m-3">
-            <% if @upcoming_pagy.present? %>
-              <%== pagy_bootstrap_nav(@upcoming_pagy) %>
+              <% end %>
+            <% else %>
+              <tr>
+                <td colspan="12" class="text-center">Aucun remplacement passé pour cette période</td>
+              </tr>
             <% end %>
-          </div>
-        </div>
+          </tbody>
+        </table>
       </div>
+      <div class="d-flex justify-content-end mt-3">
+        <%== pagy_bootstrap_nav(@past_pagy) if @past_pagy.present? %>
+      </div>
+    </div>
+  </div>
 
-      <div class="text-end m-3">
-        <%= link_to "Retour", root_path, class: "btn btn-success" %>
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title mb-4">Remplacements à Venir</h4>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Site</th>
+              <th>Date</th>
+              <th>Médecin Remplacé</th>
+              <th>Début</th>
+              <th>Fin</th>
+              <th>Nb de Patients</th>
+              <th>Aide de Cs</th>
+              <th>Remplaçant</th>
+              <th>Taux Reversion</th>
+              <th>Contrat</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @upcoming_events.any? %>
+              <% @upcoming_events.each do |event| %>
+                <tr>
+                  <td><%= event.site.name %></td>
+                  <td><%= event.start_time.strftime("%d/%m/%Y") %></td>
+                  <td>Dr <%= event.doctor.first_name %> <%= event.doctor.last_name %></td>
+                  <td><%= event.start_time.strftime("%H:%M") %></td>
+                  <td><%= event.end_time.strftime("%H:%M") %></td>
+                  <td><%= event.number_of_patients %></td>
+                  <td><%= event.helper ? "oui" : "non" %></td>
+                  <td><%= event.user&.full_name %></td>
+                  <td><%= event.reversion %> %</td>
+                  <td>
+                    <% if event.contract_validated == true %>
+                      <span class="badge bg-success">Contrat Validé</span>
+                    <% elsif event.contract_blob.attached? %>
+                      <%= link_to open_contract_path(event.id), class: 'btn btn-sm btn-success' do %>
+                        <i class="bi bi-eye"></i>
+                      <% end %>
+                    <% else %>
+                      <span class="badge bg-warning">En attente</span>
+                    <% end %>
+                  </td>
+                  <td class="text-center">
+                    <% unless event.contract_blob.attached? || event.contract_validated %>
+                      <%= button_to generate_contract_path(event), method: :post, 
+                          class: "btn btn-sm btn-outline-primary",
+                          data: { 
+                            bs_toggle: "tooltip",
+                            bs_placement: "top",
+                            bs_title: "Générer le contrat",
+                            turbo_confirm: "Voulez-vous générer le contrat ?"
+                          } do %>
+                        Générer Contrat
+                      <% end %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            <% else %>
+              <tr>
+                <td colspan="11" class="text-center">Aucun remplacement à venir pour cette période</td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="d-flex justify-content-between align-items-center mt-3">
+        <div>
+          <%= link_to "Retour", root_path, class: "btn btn-secondary" %>
+        </div>
+        <div>
+          <%== pagy_bootstrap_nav(@upcoming_pagy) if @upcoming_pagy.present? %>
+        </div>
       </div>
     </div>
   </div>

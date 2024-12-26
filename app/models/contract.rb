@@ -1,4 +1,4 @@
 class Contract < ApplicationRecord
-    has_rich_text :contract_content
-  end
+  validates :header, :body, :footer, presence: true
+end
   

@@ -15,18 +15,43 @@
   <div class="card-body">
     <h1>Édition des Informations du Médecin</h1>
       <hr>
-        <div class="row">
-          <div class="col-md-4">
-            <%= form.label :title, "Civilité" %>
-            <%= form.select :title, ['Dr','M.', 'Mme'], { prompt: 'Sélectionnez une civilité' }, class: 'form-control' %>
+        <div class="row g-3">
+          <div class="col-md-2">
+            <%= form.label :title, "Titre", class: "form-label" %>
+            <%= form.select :title, Doctor::TITLE_OPTIONS, { include_blank: true }, class: "form-select" %>
           </div>
-          <div class="col-md-4">
-            <%= form.label :last_name, "Nom" %>
-            <%= form.text_field :last_name, class: 'form-control' %>
+
+          <div class="col-md-5">
+            <%= form.label :first_name, "Prénom", class: "form-label" %>
+            <%= form.text_field :first_name, class: "form-control" %>
           </div>
-          <div class="col-md-4">
-            <%= form.label :first_name, "Prénom" %>
-            <%= form.text_field :first_name, class: 'form-control' %>
+
+          <div class="col-md-5">
+            <%= form.label :last_name, "Nom", class: "form-label" %>
+            <%= form.text_field :last_name, class: "form-control" %>
+          </div>
+
+          <div class="col-md-6">
+            <%= form.label :email, "Email", class: "form-label" %>
+            <%= form.email_field :email, class: "form-control" %>
+          </div>
+
+          <div class="col-md-6">
+            <%= form.label :phone, "Téléphone", class: "form-label" %>
+            <%= form.telephone_field :phone, class: "form-control" %>
+          </div>
+
+          <div class="col-md-6">
+            <%= form.label :status, "Statut", class: "form-label" %>
+            <%= form.select :status, Doctor::STATUS_OPTIONS, {}, class: "form-select" %>
+          </div>
+
+          <div class="col-md-6">
+            <%= form.label :signature, "Signature", class: "form-label" %>
+            <%= form.file_field :signature, class: "form-control" %>
+            <% if form.object.signature.attached? %>
+              <div class="form-text">Une signature est déjà enregistrée.</div>
+            <% end %>
           </div>
         </div>
 

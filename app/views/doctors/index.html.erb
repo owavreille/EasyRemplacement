@@ -1,74 +1,53 @@
-<div class="card m-3 shadow">
-  <div class="card-header">
-    <h1>Liste des Médecins</h1>
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-white">Liste des Médecins</h1>
+    <%= link_to new_doctor_path, class: "btn btn-primary btn-lg shadow border border-2 border-white" do %>
+      <i class="bi bi-plus-lg me-2"></i>Nouveau Médecin
+    <% end %>
   </div>
 
-<div class="row m-2">
-  <div class="col-md-8 mt-2">
-    <%= form_tag doctors_path, method: :get, class: 'w-100' do %>
-      <%= text_field_tag :search, params[:search], placeholder: 'Rechercher par Nom ou Prénom', class: 'form-control', type: 'search' %>
-    </div>
-    <div class="col-md-4">
-      <div class="d-flex justify-content">
-              <% if params[:search].blank? %>
-        <%= submit_tag 'Rechercher', class: 'btn btn-outline-secondary m-2' %>
-        <% else %>
-          <%= link_to 'Réinitialiser', doctors_path, class: 'btn btn-outline-secondary m-2' %>
-        <% end %>
+  <div class="card">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Nom</th>
+              <th>Prénom</th>
+              <th>RPPS</th>
+              <th>Spécialité</th>
+              <th>Statut</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @doctors.each do |doctor| %>
+              <tr>
+                <td><%= doctor.last_name %></td>
+                <td><%= doctor.first_name %></td>
+                <td><%= doctor.rpps %></td>
+                <td><%= doctor.speciality %></td>
+                <td>
+                  <span class="badge bg-<%= doctor.status_badge %>">
+                    <%= doctor.status %>
+                  </span>
+                </td>
+                <td>
+                  <div class="btn-group gap-1">
+                    <%= link_to edit_doctor_path(doctor), class: "btn btn-sm btn-outline-secondary rounded-pill" do %>
+                      <i class="bi bi-pencil"></i>
+                    <% end %>
+                    <%= button_to doctor_path(doctor), method: :delete, class: "btn btn-sm btn-outline-danger", form: { data: { turbo_confirm: "Êtes-vous sûr de vouloir supprimer ce médecin ?" } } do %>
+                      <i class="bi bi-trash"></i>
+                    <% end %>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
       </div>
     </div>
-  <% end %>
-</div>
-
-  <div class="card-body">
-    <div class="table-responsive">
-    <table class="table table-striped sort" data-controller="table-sort" data-table-sort-target="table">
-      <thead>
-        <tr class="table-primary">
-          <th data-action="click->table-sort#sort">Nom</th>
-          <th data-action="click->table-sort#sort">Prénom</th>
-          <th data-action="click->table-sort#sort">RPPS</th>
-          <th data-action="click->table-sort#sort">Spécialité</th>
-          <th data-action="click->table-sort#sort">Secteur conventionnel</th>
-          <th data-action="click->table-sort#sort">Téléphone</th>
-          <th data-action="click->table-sort#sort">Email</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @doctors.each do |doctor| %>
-          <tr>
-            <td><%= doctor.last_name %></td>
-            <td><%= doctor.first_name %></td>
-            <td><%= doctor.rpps %></td>
-            <td><%= doctor.speciality %></td>
-            <td><%= doctor.conventional_sector %></td>
-            <td><%= doctor.phone %></td>
-            <td><%= doctor.email %></td>
-            <td>
-              <div class="btn-group" role="group">
-                <%= link_to edit_doctor_path(doctor), class: 'btn btn-secondary btn-sm me-2 rounded' do %>
-                  <i class="bi bi-pencil-fill"></i>
-                <% end %>
-                <%= button_to doctor, method: :delete, data: { "turbo-confirm": 'Êtes-vous sûr de vouloir supprimer ce profil médecin ?' }, class: 'btn btn-danger btn-sm me-2' do %>
-                  <i class="bi bi-trash-fill"></i>
-                <% end %>
-              </div>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-    </div>
   </div>
-</div>
-
-    <div class="d-flex justify-content-end m-1">
-      <%= link_to new_doctor_path, aria: { label: 'Ajouter un nouveau Praticien' } do %>
-      <i class="add-icon bi bi-plus-circle-fill"></i>
-      <% end %>
-    </div>
-
-<div class="m-3">
-     <%== pagy_bootstrap_nav(@pagy) %>
 </div>

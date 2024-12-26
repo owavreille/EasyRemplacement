@@ -68,6 +68,11 @@
           <i class="bi bi-calendar3"></i> Calendrier
         <% end %>
       </li>
+      <li class="nav-item <%= 'active' if current_page?(dashboard_path) %>">
+        <%= link_to dashboard_path, class: "nav-link" do %>
+          <i class="bi bi-speedometer2"></i> Tableau de Bord
+        <% end %>
+      </li>
       <li class="nav-item <%= 'active' if current_page?(users_path) %>">
         <%= link_to users_path, class: "nav-link" do %>
           <i class="bi bi-people"></i> Utilisateurs

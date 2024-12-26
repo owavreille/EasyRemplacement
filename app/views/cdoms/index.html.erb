@@ -1,68 +1,45 @@
-<div class="card m-3 shadow">
-  <div class="card-header">
-    <h1>Liste des Conseils de l'Ordre</h1>
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-white">Liste des CDOM</h1>
+    <%= link_to new_cdom_path, class: "btn btn-primary btn-lg shadow border border-2 border-white" do %>
+      <i class="bi bi-plus-lg me-2"></i>Nouveau CDOM
+    <% end %>
   </div>
 
-<div class="row m-2">
-  <div class="col-md-8 mt-2">
-    <%= form_tag cdoms_path, method: :get, class: "w-100" do %>
-      <%= text_field_tag :search, params[:search], placeholder: "Rechercher par N° de Département", class: "form-control", type: "search" %>
-    </div>
-    <div class="col-md-4">
-      <div class="d-flex justify-content">
-              <% if params[:search].blank? %>
-        <%= submit_tag "Rechercher", class: "btn btn-outline-secondary m-2" %>
-        <% else %>
-          <%= link_to "Réinitialiser", cdoms_path, class: "btn btn-outline-secondary m-2" %>
-        <% end %>
+  <div class="card">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Département</th>
+              <th>Nom</th>
+              <th>Email</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% @cdoms.each do |cdom| %>
+              <tr>
+                <td><%= cdom.departement %></td>
+                <td><%= cdom.name %></td>
+                <td><%= cdom.email %></td>
+                <td>
+                  <div class="btn-group gap-1">
+                    <%= link_to edit_cdom_path(cdom), class: "btn btn-sm btn-outline-secondary rounded-pill" do %>
+                      <i class="bi bi-pencil"></i>
+                    <% end %>
+                    <%= button_to cdom_path(cdom), method: :delete, class: "btn btn-sm btn-outline-danger", form: { data: { turbo_confirm: "Êtes-vous sûr de vouloir supprimer ce CDOM ?" } } do %>
+                      <i class="bi bi-trash"></i>
+                    <% end %>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
       </div>
     </div>
-  <% end %>
-</div>
-
-  <div class="card-body">
-    <div class="table-responsive">
-    <table class="table table-striped">
-      <thead>
-        <tr class="table-primary">
-          <th>Département</th>
-          <th>Nom</th>
-          <th>E-mail</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @cdoms.each do |cdom| %>
-          <tr>
-            <td><%= cdom.departement %></td>
-            <td><%= cdom.name %></td>
-            <td><%= cdom.email %></td>
-            <td>
-              <div class="btn-group" role="group">
-                <%= link_to edit_cdom_path(cdom), class: 'btn btn-secondary btn-sm me-2 rounded' do %>
-                  <i class="bi bi-pencil-fill"></i>
-                <% end %>
-
-                <%= button_to cdom, method: :delete, data: { "turbo-confirm": 'Êtes-vous sûr de vouloir supprimer ce conseil de l\'ordre ?' }, class: 'btn btn-danger btn-sm me-2' do %>
-                  <i class="bi bi-trash-fill"></i>
-                <% end %>
-              </div>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-    </div>
   </div>
-</div>
-
-          <div style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;">
-          <%= link_to new_cdom_path, aria: { label: 'Ajouter un nouveau conseil de l&#39;ordre' } do %>
-          <i class="add-icon bi bi-plus-circle-fill"></i>
-          <% end %>
-        </div>
-
-
-<div class="m-3">
-  <%== pagy_bootstrap_nav(@pagy) %>
 </div>

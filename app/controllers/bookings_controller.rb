@@ -1,4 +1,3 @@
-
 class BookingsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_event
@@ -8,10 +7,10 @@ class BookingsController < ApplicationController
     result = BookingService.book_event(@event, current_user)
     
     if result
-      redirect_to event_path(@event), 
+      redirect_to root_path, 
                   notice: "Plage de Remplacement Réservée avec Succès."
     else
-      redirect_to event_path(@event), 
+      redirect_to root_path, 
                   alert: "Ce remplacement est déjà réservé ou n'est plus disponible."
     end
   end
@@ -20,10 +19,10 @@ class BookingsController < ApplicationController
     result = BookingService.cancel_booking(@event)
     
     if result
-      redirect_to userdata_path, 
+      redirect_to root_path, 
                   notice: "Remplacement Annulé avec succès."
     else
-      redirect_to userdata_path, 
+      redirect_to root_path, 
                   alert: cancel_booking_error_message
     end
   end
@@ -36,7 +35,7 @@ class BookingsController < ApplicationController
 
   def check_user_active
     unless current_user&.active?
-      redirect_to pending_path(current_user), 
+      redirect_to pending_path, 
                   alert: "Votre compte n'est pas encore activé."
     end
   end

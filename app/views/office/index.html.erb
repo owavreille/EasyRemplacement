@@ -1,116 +1,118 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col d-flex">
-      <div class="card shadow m-1 border-bottom-color-doctors m-3 mx-auto" style="width: 40rem;">
-        <div class="card-body">
-          <h4 class="mb-4 text-center">Présentation du (des) Praticien(s) du cabinet :</h4>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-  <% @doctors.each_with_index do |doctor, index| %>
-    <div class="col-md-4 mb-4">
-        <div class="card shadow m-3">
-          <div class="card-body">
-          <div class="row">
-          <div class="col">
-<h5 class="text-center"><i class="bi bi-person-lines-fill"></i> <%= doctor.title %> <%= doctor.last_name %> <%= doctor.first_name %></h5>
-</div>
-<div class="col">
-<button type="button" id="ModalDoctor<%= index %>" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#instructionDoctor<%= index %>">
-Consignes
-</button>
-</div>
-</div>
-<div class="modal fade" id="instructionDoctor<%= index %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-<div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Consignes</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-      <%= doctor.instructions %>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<hr>
-            <ul class="list-unstyled">
-              <li>RPPS: <span class="text-primary"><%= doctor.rpps %></span></li>
-              <li>Spécialité: <span class="text-primary"><%= doctor.speciality %></span></li>
-              <li>Secteur conventionné: <span class="text-primary"><%= doctor.conventional_sector %></span></li>
-              <li>OPTAM: <span class="text-primary"><%= doctor.optam ? 'Oui' : 'Non' %></span></li>
-              <li>Téléphone: <span class="text-primary"><%= doctor.phone %></span></li>
-              <li>Email: <span class="text-primary"><%= doctor.email %></span></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    <% end %>
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-white">Cabinet</h1>
   </div>
 
-  <div class="row mt-5">
-    <div class="col d-flex">
-      <div class="card shadow m-1 border-bottom-color-sites m-3 mx-auto" style="width: 40rem;">
-        <div class="card-body">
-          <h4 class="mb-4 text-center">Présentation du (des) site(s) de consultation :</h4>
-        </div>
-      </div>
-    </div>
-  </div>
   <div class="row">
-  <% @sites.each_with_index do |site, index| %>
-    <div class="col-md-4 mb-4">
-        <div class="card shadow m-3" style="border-left: 5px solid <%= site.color %>;">
-          <div class="card-body">
+    <div class="col">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h4 class="card-title mb-4">Présentation du (des) Praticien(s) du cabinet</h4>
           <div class="row">
-          <div class="col">
-            <h5><i class="bi bi-house-door-fill"></i> <%= site.name %></h5>
-          </div>
-          <div class="col">
-          <button type="button" id="ModalSite<%= index %>" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#instructionSite<%= index %>">
-          Consignes
-            </button>
-          </div>
-        </div>
-          
-        <div class="modal fade" id="instructionSite<%= index %>" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
-        <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel2">Consignes</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                <%= site.instructions %>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            <% @doctors.each_with_index do |doctor, index| %>
+              <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                      <h5 class="mb-0">
+                        <i class="bi bi-person-lines-fill me-2"></i>
+                        <%= doctor.title %> <%= doctor.last_name %> <%= doctor.first_name %>
+                      </h5>
+                      <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#instructionDoctor<%= index %>">
+                        Consignes
+                      </button>
+                    </div>
+
+                    <hr>
+
+                    <ul class="list-unstyled">
+                      <li class="mb-2">RPPS: <span class="text-primary"><%= doctor.rpps %></span></li>
+                      <li class="mb-2">Spécialité: <span class="text-primary"><%= doctor.speciality %></span></li>
+                      <li class="mb-2">Secteur conventionné: <span class="text-primary"><%= doctor.conventional_sector %></span></li>
+                      <li class="mb-2">OPTAM: <span class="text-primary"><%= doctor.optam ? 'Oui' : 'Non' %></span></li>
+                      <li class="mb-2">Téléphone: <span class="text-primary"><%= doctor.phone %></span></li>
+                      <li class="mb-2">Email: <span class="text-primary"><%= doctor.email %></span></li>
+                    </ul>
+
+                    <div class="modal fade" id="instructionDoctor<%= index %>" tabindex="-1" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">Consignes</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <%= doctor.instructions %>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-
-          <hr>
-            <ul class="list-unstyled">
-              <li>Adresse: <span class="text-primary"><%= site.address %></span></li>
-              <li>Code postal: <span class="text-primary"><%= site.postal_code %></span></li>
-              <li>Ville: <span class="text-primary"><%= site.city %></span></li>
-              <li>Logiciel: <span class="text-primary"><%= site.software %></span></li>
-              <li>Informations: <span class="text-primary"><%= site.informations %></span></li>
-            </ul>
+            <% end %>
           </div>
         </div>
       </div>
-    <% end %>
+
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title mb-4">Présentation du (des) site(s) de consultation</h4>
+          <div class="row">
+            <% @sites.each_with_index do |site, index| %>
+              <div class="col-md-4 mb-4">
+                <div class="card h-100" style="border-left: 5px solid <%= site.color %>;">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                      <h5 class="mb-0">
+                        <i class="bi bi-house-door-fill me-2"></i>
+                        <%= site.name %>
+                      </h5>
+                      <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#instructionSite<%= index %>">
+                        Consignes
+                      </button>
+                    </div>
+
+                    <hr>
+
+                    <ul class="list-unstyled">
+                      <li class="mb-2">Adresse: <span class="text-primary"><%= site.address %></span></li>
+                      <li class="mb-2">Code postal: <span class="text-primary"><%= site.postal_code %></span></li>
+                      <li class="mb-2">Ville: <span class="text-primary"><%= site.city %></span></li>
+                      <li class="mb-2">Logiciel: <span class="text-primary"><%= site.software %></span></li>
+                      <li class="mb-2">Informations: <span class="text-primary"><%= site.informations %></span></li>
+                    </ul>
+
+                    <div class="modal fade" id="instructionSite<%= index %>" tabindex="-1" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">Consignes</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <%= site.instructions %>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="text-end m-3">
-  <%= link_to "Retour", root_path, class: "btn btn-success" %>
-</div>
+
+  <div class="d-flex justify-content-end mt-4">
+    <%= link_to "Retour", root_path, class: "btn btn-secondary" %>
+  </div>
 </div>

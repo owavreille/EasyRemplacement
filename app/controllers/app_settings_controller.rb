@@ -6,16 +6,23 @@ class AppSettingsController < ApplicationController
   def update
     @app_settings = AppSetting.find(1)
     if @app_settings.update(app_settings_params)
-      redirect_to app_settings_path, notice: 'Paramètres mis à jour avec succès !'
+      flash[:success] = 'Les paramètres ont été mis à jour avec succès !'
+      redirect_to app_settings_path
     else
+      flash.now[:error] = 'Erreur lors de la mise à jour des paramètres.'
       render :index
     end
   end  
 
   def delete_logo
     @app_settings = AppSetting.find(params[:id])
-    @app_settings.logo.purge
-    redirect_to app_settings_path, notice: 'Logo supprimé avec succès !'
+    if @app_settings.logo.attached?
+      @app_settings.logo.purge
+      flash[:success] = 'Le logo a été supprimé avec succès !'
+    else
+      flash[:warning] = 'Aucun logo à supprimer.'
+    end
+    redirect_to app_settings_path
   end
   
   private

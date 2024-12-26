@@ -1,0 +1,133 @@
+<div class="container-fluid py-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="text-white">
+      <i class="bi bi-speedometer2 me-2"></i>Tableau de bord
+    </h3>
+  </div>
+
+  <!-- Vue d'ensemble -->
+  <div class="row g-4 mb-4">
+    <div class="col-md-3">
+      <div class="card h-100 border-0 shadow-sm">
+        <div class="card-body">
+          <h6 class="card-subtitle mb-2 text-muted">Utilisateurs actifs</h6>
+          <h2 class="card-title mb-0"><%= @active_users %>/<%= @total_users %></h2>
+          <div class="progress mt-2" style="height: 4px;">
+            <div class="progress-bar bg-success" style="width: <%= (@active_users.to_f / @total_users * 100).round %>%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card h-100 border-0 shadow-sm">
+        <div class="card-body">
+          <h6 class="card-subtitle mb-2 text-muted">Remplacements à venir</h6>
+          <h2 class="card-title mb-0"><%= @upcoming_events %>/<%= @total_events %></h2>
+          <div class="progress mt-2" style="height: 4px;">
+            <div class="progress-bar bg-primary" style="width: <%= (@upcoming_events.to_f / @total_events * 100).round %>%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card h-100 border-0 shadow-sm">
+        <div class="card-body">
+          <h6 class="card-subtitle mb-2 text-muted">Contrats validés</h6>
+          <h2 class="card-title mb-0"><%= @contracts_validated %>/<%= @contracts_generated %></h2>
+          <div class="progress mt-2" style="height: 4px;">
+            <div class="progress-bar bg-success" style="width: <%= (@contracts_validated.to_f / @contracts_generated * 100).round if @contracts_generated > 0 %>%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card h-100 border-0 shadow-sm">
+        <div class="card-body">
+          <h6 class="card-subtitle mb-2 text-muted">Montant total (5 ans)</h6>
+          <h2 class="card-title mb-0"><%= number_to_currency(@total_amount, unit: "€", format: "%n %u") %></h2>
+          <small class="text-muted">Moyenne par remplacement : <%= number_to_currency(@avg_amount_per_event, unit: "€", format: "%n %u") %></small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Statistiques détaillées -->
+  <div class="row g-4">
+    <!-- Statistiques par site -->
+    <div class="col-md-8">
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white border-0">
+          <h5 class="card-title mb-0">
+            <i class="bi bi-building me-2"></i>Statistiques par site (5 dernières années)
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-hover align-middle">
+              <thead>
+                <tr>
+                  <th>Site</th>
+                  <th class="text-end">Nombre de remplacements</th>
+                  <th class="text-end">Montant total</th>
+                  <th class="text-end">Moyenne par remplacement</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @site_stats.each do |site| %>
+                  <tr>
+                    <td><%= site.name %></td>
+                    <td class="text-end"><%= site.event_count %></td>
+                    <td class="text-end"><%= number_to_currency(site.total_amount, unit: "€", format: "%n %u") %></td>
+                    <td class="text-end"><%= number_to_currency(site.avg_amount, unit: "€", format: "%n %u") %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Autres statistiques -->
+    <div class="col-md-4">
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white border-0">
+          <h5 class="card-title mb-0">
+            <i class="bi bi-graph-up me-2"></i>Autres statistiques
+          </h5>
+        </div>
+        <div class="card-body">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <span>Sites actifs</span>
+              <span class="badge bg-primary rounded-pill"><%= @total_sites %></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <span>Médecins</span>
+              <span class="badge bg-primary rounded-pill"><%= @total_doctors %></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <span>Administrateurs</span>
+              <span class="badge bg-primary rounded-pill"><%= @admin_users %></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <span>Utilisateurs en attente</span>
+              <span class="badge bg-warning rounded-pill"><%= @pending_users %></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <span>Remplacements non réservés</span>
+              <span class="badge bg-danger rounded-pill"><%= @unbooked_events %></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <span>Contrats en attente</span>
+              <span class="badge bg-warning rounded-pill"><%= @contracts_pending %></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

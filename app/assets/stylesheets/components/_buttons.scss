@@ -1,0 +1,58 @@
+@import '../variables';
+
+.btn {
+  padding: $spacing-sm $spacing-lg;
+  border-radius: $border-radius;
+  font-weight: 500;
+  transition: $transition-normal;
+  box-shadow: $shadow-sm;
+  
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: $shadow-md;
+  }
+  
+  &:active {
+    transform: translateY(0);
+    box-shadow: $shadow-sm;
+  }
+}
+
+.btn-primary {
+  background-color: $primary;
+  color: white;
+  
+  &:hover {
+    background-color: darken($primary, 5%);
+  }
+}
+
+.btn-outline {
+  border: 2px solid $gray-300;
+  background-color: transparent;
+  
+  &:hover {
+    border-color: $primary;
+    color: $primary;
+  }
+}
+
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacing-xs;
+  
+  i {
+    font-size: 1.2em;
+  }
+}
+
+.btn-sm {
+  padding: $spacing-xs $spacing-sm;
+  font-size: 0.875rem;
+}
+
+.btn-lg {
+  padding: $spacing-md $spacing-xl;
+  font-size: 1.125rem;
+} 

@@ -1,37 +1,34 @@
-
-<div class="col-md-6">
-  <div class="row">
-    <div class="col-md-6">
-      <div class="form-group mb-3">
-        <%= form.label :number_of_patients, "Nombre de Patients", class: "col-form-label" %>
-        <%= form.number_field :number_of_patients, value: 25, class: "form-control" %>
-      </div>
+<div class="row g-3">
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= form.label :number_of_patients, "Nombre de Patients", class: "form-label fw-medium" %>
+      <%= form.number_field :number_of_patients, value: 25, class: "form-control" %>
     </div>
-    
-    <div class="col-md-6">
-      <div class="form-group mb-3">
-        <%= form.label :reversion, "Taux de Reversion", class: "col-form-label" %>
-        <%= form.text_field :reversion, class: "form-control" %>
-      </div>
+  </div>
+  
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= form.label :reversion, "Taux de Reversion (%)", class: "form-label fw-medium" %>
+      <%= form.text_field :reversion, class: "form-control" %>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-md-6">
-      <div class="form-group mb-3">
-        <%= form.label :helper, "Consultation Aidée", class: "col-form-label", for: "helper-switch" %>
-        <div class="form-check form-switch mb-3">
-          <%= form.check_box :helper, checked: true, class: "form-check-input align-middle", id: "helper-switch" %>
-        </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= form.label :helper, "Consultation Aidée", class: "form-label fw-medium d-block mb-3" %>
+      <div class="form-check form-switch">
+        <%= form.check_box :helper, checked: true, class: "form-check-input", id: "helper-switch", role: "switch" %>
+        <label class="form-check-label" for="helper-switch">Activer l'aide à la consultation</label>
       </div>
     </div>
-    
-    <div class="col-md-6">
-      <div class="form-group mb-3">
-        <%= form.label :editable, "Horaires et rythme modifiables ?", class: "col-form-label", for: "editable-switch" %>
-        <div class="form-check form-switch mb-3">
-          <%= form.check_box :editable, checked: false, class: "form-check-input align-middle", id: "editable-switch" %>
-        </div>
+  </div>
+  
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= form.label :editable, "Horaires Modifiables", class: "form-label fw-medium d-block mb-3" %>
+      <div class="form-check form-switch">
+        <%= form.check_box :editable, checked: false, class: "form-check-input", id: "editable-switch", role: "switch" %>
+        <label class="form-check-label" for="editable-switch">Autoriser la modification des horaires</label>
       </div>
     </div>
   </div>

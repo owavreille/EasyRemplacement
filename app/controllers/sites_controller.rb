@@ -95,6 +95,10 @@ class SitesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def site_params
-      params.require(:site).permit(:name, :address, :postal_code, :city, :software, :informations, :instructions, :cdom_id, :color, :min_patients, :max_patients, :min_patients_helped, :max_patients_helped, :am_min_hour, :am_max_hour, :pm_min_hour, :pm_max_hour)
+      params.require(:site).permit(:name, :address, :postal_code, :city, :software, 
+                                 :informations, :instructions, :cdom_id, :color, 
+                                 :min_patients, :max_patients, :min_patients_helped, 
+                                 :max_patients_helped, :am_min_hour, :am_max_hour, 
+                                 :pm_min_hour, :pm_max_hour, :email, :phone, :status)
     end
 end

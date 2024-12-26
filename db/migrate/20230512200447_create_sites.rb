@@ -5,6 +5,8 @@ class CreateSites < ActiveRecord::Migration[7.0]
       t.string :address
       t.string :postal_code
       t.string :city
+      t.string :email
+      t.string :phone
       t.string :software
       t.text :informations
       t.text :instructions

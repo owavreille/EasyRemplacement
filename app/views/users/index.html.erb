@@ -1,96 +1,64 @@
-<div class="card m-3 shadow">
-<div class="card-header">
-<h1>Liste des Utilisateurs</h1>
-</div>
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-white">Liste des Utilisateurs</h1>
+  </div>
 
-<div class="row m-2">
-  <div class="col-md-8 mt-2">
-    <%= form_tag users_path, method: :get, class: 'w-100' do %>
-      <%= text_field_tag :search, params[:search], placeholder: 'Rechercher par Nom ou Prénom', class: 'form-control', type: 'search' %>
-    </div>
-    <div class="col-md-4">
-      <div class="d-flex justify-content">
-        <% if params[:search].blank? %>
-          <%= submit_tag 'Rechercher', class: 'btn btn-outline-secondary m-2' %>
-        <% else %>
-          <%= link_to 'Réinitialiser', users_path, class: 'btn btn-outline-secondary m-2' %>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
-</div>
-
-  <div class="card-body">
-    <div class="table-responsive">
-    <table class="table table-striped sort" data-controller="table-sort" data-table-sort-target="table">
-      <thead>
-        <tr class="table-primary">
-          <th data-action="click->table-sort#sort">Nom</th>
-          <th data-action="click->table-sort#sort">Prénom</th>
-          <th data-action="click->table-sort#sort">Ville</th>
-          <th data-action="click->table-sort#sort">Numéro de licence</th>
-          <th data-action="click->table-sort#sort">Numéro SIRET</th>
-          <th data-action="click->table-sort#sort">Utilisateur Actif</th>
-          <th>Options</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% if @users.present? && @users.any? %>
-          <% @users.each do |user| %>
+  <div class="card">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
             <tr>
-              <td><%= user.last_name %></td>
-              <td><%= user.first_name %></td>
-              <td><%= user.city %></td>
-              <td><%= user.license_number %></td>
-              <td><%= user.siret_number %></td>
-              <td><% if !user.active %>
-  <%= link_to active_user_path(user), method: :put do %>
-    <i class="bi bi-toggle-off" style="color: red; font-size: 1.5rem;"></i>
-  <% end %>
-<% else %>
-  <% if user.admin? %>
-    <i>Compte Administrateur</i>
-  <% else %>
-    <%= link_to inactive_user_path(user), method: :put do %>
-      <i class="bi bi-toggle-on" style="color: green; font-size: 1.5rem;"></i>
-    <% end %>
-  <% end %>
-<% end %>
-</td>
-              <td>
-  <div class="btn-group" role="group">
-<%= link_to edit_user_path(user), class: "btn btn-sm btn-secondary me-2 rounded" do %>
-  <i class="bi bi-pencil-fill"></i>
-<% end %>
-
-  <% if user.admin? %>
-<button type="button", class="btn btn-sm btn-danger me-2 rounded" disabled>  <i class="bi bi-trash-fill"></i>
-</button>
-  <% else %>
-<%= button_to destroy_user_path(user), method: :delete, class: "btn btn-sm btn-danger me-2", data: { "turbo-confirm": "Êtes-vous sûr de vouloir supprimer cet utilisateur ?" } do %>
-  <i class="bi bi-trash-fill"></i>
-<% end %>
-<% end %>
-
-  </div>
-</td>
-
+              <th>Nom</th>
+              <th>Email</th>
+              <th>Rôle</th>
+              <th>Statut</th>
+              <th>Actions</th>
             </tr>
-          <% end %>
-        <% else %>
-          <tr>
-            <td colspan="7">Aucun utilisateur trouvé</td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-</div>
-    <div class="row mb-4">
-      <div class="col-md-6">
+          </thead>
+
+          <tbody>
+            <% @users.each do |user| %>
+              <tr>
+                <td><%= user.full_name %></td>
+                <td><%= user.email %></td>
+                <td>
+                  <% if user.role? %>
+                    <span class="badge bg-primary">Admin</span>
+                  <% else %>
+                    <span class="badge bg-secondary">Utilisateur</span>
+                  <% end %>
+                </td>
+                <td>
+                  <% if user.role? %>
+                    <button class="btn btn-sm btn-secondary" disabled>
+                      <i class="bi bi-check-circle me-1"></i>Actif
+                    </button>
+                  <% else %>
+                    <%= button_to toggle_active_user_path(user), method: :patch, class: "btn btn-sm #{user.active? ? 'btn-success' : 'btn-danger'}" do %>
+                      <% if user.active? %>
+                        <i class="bi bi-check-circle me-1"></i>Actif
+                      <% else %>
+                        <i class="bi bi-x-circle me-1"></i>Inactif
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                </td>
+                <td>
+                  <div class="btn-group gap-1">
+                    <%= link_to edit_user_path(user), class: "btn btn-sm btn-outline-secondary rounded-pill" do %>
+                      <i class="bi bi-pencil"></i>
+                    <% end %>
+                    <%= button_to user_path(user), method: :delete, class: "btn btn-sm btn-outline-danger", form: { data: { turbo_confirm: "Êtes-vous sûr de vouloir supprimer cet utilisateur ?" } } do %>
+                      <i class="bi bi-trash"></i>
+                    <% end %>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
-</div>
-<div class="m-3">
-  <%== pagy_bootstrap_nav(@pagy) %>
 </div>

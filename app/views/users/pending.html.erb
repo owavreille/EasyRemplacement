@@ -1,14 +1,41 @@
-<div class="container-fluid m-3">
+<div class="container py-5">
   <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div class="card text-white bg-secondary mb-3 text-center shadow">
-      <div class="card-header">
-          <h5>Compte en attente de Validation</h5>
-        <div class="card-body">
-          <p class="card-text">Votre compte est en attente de validation par un administrateur.</p>
-          <p class="card-text">Veuillez prendre le temps de compléter votre profil.</p> 
-          <p class="card-text">Merci de transmettre par mail une copie de votre carte d'identité,</p>
-          <p class="card-text">de votre RCP et de votre licence de remplacement.</p>
+    <div class="col-md-8">
+      <div class="card shadow-lg border-0">
+        <div class="card-body text-center p-5">
+          <i class="bi bi-clock-history display-1 text-warning mb-4"></i>
+          
+          <h2 class="mb-4">Compte en attente de validation</h2>
+          
+          <p class="lead mb-4">
+            Votre compte est en cours de validation par nos administrateurs. 
+            Vous recevrez un e-mail dès que votre compte sera activé.
+          </p>
+
+          <hr class="my-4">
+
+          <div class="text-muted">
+            <p class="mb-1">Informations de votre compte :</p>
+            <ul class="list-unstyled">
+              <li><strong>Nom :</strong> <%= current_user.full_name %></li>
+              <li><strong>Email :</strong> <%= current_user.email %></li>
+              <li><strong>Date d'inscription :</strong> <%= l(current_user.created_at, format: :long) %></li>
+            </ul>
+          </div>
+
+          <div class="alert alert-info mt-4">
+            <i class="bi bi-info-circle"></i>
+            En attendant la validation de votre compte, vous pouvez compléter votre profil avec toutes les informations nécessaires.
+          </div>
+
+          <div class="mt-4 d-grid gap-2">
+            <%= link_to edit_user_registration_path, class: "btn btn-primary" do %>
+              <i class="bi bi-pencil-square"></i> Compléter mon profil
+            <% end %>
+            <%= link_to destroy_user_session_path, method: :delete, class: "btn btn-outline-secondary" do %>
+              <i class="bi bi-box-arrow-right"></i> Déconnexion
+            <% end %>
+          </div>
         </div>
       </div>
     </div>

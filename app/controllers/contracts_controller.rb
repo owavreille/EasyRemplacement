@@ -1,7 +1,17 @@
 class ContractsController < ApplicationController
+  before_action :require_admin
+
   def index
     @contract_path = Rails.public_path.join('contrat.html')
     @contract_content = File.read(@contract_path)
+  end
+
+  def update_contract
+    contract_content = params[:contract_content]
+    contract_path = Rails.public_path.join('contrat.html')
+    
+    File.write(contract_path, contract_content)
+    redirect_to contracts_path, notice: 'Le contrat a été mis à jour avec succès.'
   end
 
   def generate_contract
@@ -12,14 +22,6 @@ class ContractsController < ApplicationController
     else
       redirect_to datas_path, alert: "Impossible de générer le contrat."
     end
-  end
-
-  def update_contract
-    contract_content = params[:contract_content]
-    contract_path = Rails.public_path.join('contrat.html')
-    
-    File.write(contract_path, contract_content)
-    redirect_to contracts_path, notice: 'Le contrat a été mis à jour avec succès.'
   end
 
   def view_contract
@@ -46,20 +48,29 @@ class ContractsController < ApplicationController
   end
 
   def validate_contract
-  @event = Event.find(params[:id])
-  
-  if @event.contract_blob.attached?
-    @event.update!(contract_validated: true)
-    NotificationMailer.contract_validated(@event).deliver_later
-    
+    @event = Event.find(params[:id])
+   
+    if @event.contract_blob.attached?
+      @event.update!(contract_validated: true)
+      NotificationMailer.contract_validated(@event).deliver_later
+      
+      redirect_to userdata_path, 
+                  notice: "Contrat validé et envoyé au Conseil de l'Ordre!"
+    else
+      redirect_to userdata_path, 
+                  alert: "Impossible de valider le contrat !"
+    end
+  rescue StandardError => e
     redirect_to userdata_path, 
-                notice: "Contrat validé et envoyé au Conseil de l'Ordre!"
-  else
-    redirect_to userdata_path, 
-                alert: "Impossible de valider le contrat !"
+                alert: "Une erreur est survenue lors de la validation du contrat."
   end
-rescue StandardError => e
-  redirect_to userdata_path, 
-              alert: "Une erreur est survenue lors de la validation du contrat."
+
+  private
+
+  def require_admin
+    unless current_user&.role?
+      flash[:error] = "Accès non autorisé"
+      redirect_to root_path
+    end
   end
 end

@@ -1,20 +1,29 @@
-
-<div class="col-md-6">
-  <div class="form-group mb-3">
-    <%= form.label :site_id, "Site", class: "col-form-label" %>
-    <% if @sites.present? %>
-      <%= form.select :site_id, @sites, {}, { class: "form-control" } %>
-    <% else %>
-      <p class="text-danger">Veuillez d'abord créer un site !</p>
-    <% end %>
+<div class="row g-3 mb-4">
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= form.label :site_id, "Site", class: "form-label fw-medium" %>
+      <% if @sites.present? %>
+        <%= form.select :site_id, @sites, {}, { class: "form-select" } %>
+      <% else %>
+        <div class="alert alert-warning">
+          <i class="bi bi-exclamation-triangle me-2"></i>
+          Veuillez d'abord créer un site !
+        </div>
+      <% end %>
+    </div>
   </div>
 
-  <div class="form-group mb-3">
-    <%= form.label :doctor_id, "Nom du Médecin Remplacé", class: "col-form-label" %>
-    <% if @doctors.present? %>
-      <%= form.select :doctor_id, @doctors, {}, { class: "form-control" } %>
-    <% else %>
-      <p class="text-danger">Veuillez d'abord créer un profil médecin !</p>
-    <% end %>
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= form.label :doctor_id, "Médecin Remplacé", class: "form-label fw-medium" %>
+      <% if @doctors.present? %>
+        <%= form.select :doctor_id, @doctors, {}, { class: "form-select" } %>
+      <% else %>
+        <div class="alert alert-warning">
+          <i class="bi bi-exclamation-triangle me-2"></i>
+          Veuillez d'abord créer un profil médecin !
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>

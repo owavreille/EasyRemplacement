@@ -17,7 +17,7 @@
         ></button>
       </div>
       <div class="modal-body">
-        <%= form_with(model: event, url: data_paid_path(event), method: :patch, local: false) do |form| %>
+        <%= form_with(model: event, url: data_paid_path(event), method: :patch, local: true) do |form| %>
           <% if event.errors.any? %>
             <div style="color: red">
               <h4><%= pluralize(event.errors.count, "error") %>
@@ -63,7 +63,8 @@
             </div>
           </div>
           <div class="form-group text-end">
-            <%= form.submit "Enregistrer", class: "btn btn-primary" %>
+            <%= form.submit "Enregistrer", class: "btn btn-primary", data: { "bs-dismiss": "modal" } %>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
           </div>
         <% end %>
       </div>

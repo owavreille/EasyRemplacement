@@ -28,20 +28,39 @@ class UserMailer < ApplicationMailer
       def new_user_notification(admin_user, new_user)
         @admin_user = admin_user
         @new_user = new_user
-        admins = User.where(role: true)
-        mail(to: admins.pluck(:email), subject: 'Nouvel Utilisateur Enregistré sur la plateforme de Remplacement')
+        
+        # Utilisation de find_each pour une meilleure performance
+        User.where(role: true).find_each do |admin|
+          begin
+            mail(
+              to: admin.email,
+              subject: 'Nouvel Utilisateur Enregistré sur la plateforme de Remplacement'
+            ).deliver_now
+          rescue StandardError => e
+            Rails.logger.error "Erreur d'envoi de mail à #{admin.email}: #{e.message}"
+            next
+          end
+        end
       end
 
       def cdom_with_attachment(email, event, contract_content)
         @event = event
         @contract_content = contract_content
       
-        attachments["contrat_#{event.id}.html"] = {
-          mime_type: "text/html",
-          content: @contract_content
-        }
-      
-        mail(to: email, subject: "Contrat validé - Événement ##{event.id}")
+        begin
+          attachments["contrat_#{event.id}.html"] = {
+            mime_type: "text/html",
+            content: @contract_content
+          }
+          
+          mail(
+            to: email,
+            subject: "Contrat validé - Événement ##{event.id}"
+          )
+        rescue StandardError => e
+          Rails.logger.error "Erreur d'envoi du contrat CDOM: #{e.message}"
+          raise
+        end
       end      
 
   end

@@ -42,14 +42,20 @@ Rails.application.configure do
 
      # Mailer configuration  
      config.action_mailer.delivery_method = :smtp
+     config.action_mailer.perform_deliveries = true
+     config.action_mailer.raise_delivery_errors = true
+     config.action_mailer.default_url_options = { host: ENV['APP_HOST'] }
+
      config.action_mailer.smtp_settings = {
        address:              ENV['SMTP_ADDRESS'],
-       port:                 587,
-       domain:               ENV['SMTP_DOMAIN'], 
-       user_name:            ENV['SMTP_USER_NAME'], 
-       password:             ENV['SMTP_PASSWORD'], 
-       authentication:       ENV['SMTP_AUTHENTICATION'],
-       enable_starttls_auto: true
+       port:                 ENV.fetch('SMTP_PORT', 587),
+       domain:              ENV['SMTP_DOMAIN'],
+       user_name:           ENV['SMTP_USER_NAME'],
+       password:            ENV['SMTP_PASSWORD'],
+       authentication:      ENV.fetch('SMTP_AUTHENTICATION', 'plain'),
+       enable_starttls_auto: true,
+       open_timeout:        ENV.fetch('SMTP_OPEN_TIMEOUT', 5).to_i,
+       read_timeout:        ENV.fetch('SMTP_READ_TIMEOUT', 5).to_i
      }
   # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = nil
