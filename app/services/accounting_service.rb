@@ -1,4 +1,3 @@
-
 class AccountingService
   def self.calculate_totals(events, group_by: nil)
     {

@@ -3,38 +3,50 @@ class AccountingController < ApplicationController
   before_action :set_default_year, only: [:amounts, :amounts_by_site, :amounts_by_doctor, :amounts_by_user]
 
   def amounts
-    @totals = AccountingService.calculate_totals(filtered_events, group_by: group_method)
+    totals = AccountingService.calculate_totals(filtered_events, group_by: group_method)
+    @amount = totals[:amount]
+    @amount_paid = totals[:amount_paid]
+    @amount_earned = totals[:amount_earned]
     
     respond_to do |format|
       format.html
-      format.csv { send_data CsvExportService.amounts_to_csv(@totals), filename: csv_filename }
+      format.csv { send_data CsvExportService.amounts_to_csv(totals), filename: csv_filename }
     end
   end
 
   def amounts_by_site
-    @totals = AccountingService.calculate_totals_by_entity(filtered_events, :site)
+    totals = AccountingService.calculate_totals_by_entity(filtered_events, :site)
+    @amount = totals[:amount]
+    @amount_paid = totals[:amount_paid]
+    @amount_earned = totals[:amount_earned]
     
     respond_to do |format|
       format.html
-      format.csv { send_data CsvExportService.amounts_by_site_to_csv(@totals), filename: csv_filename }
+      format.csv { send_data CsvExportService.amounts_by_site_to_csv(totals), filename: csv_filename }
     end
   end
 
   def amounts_by_doctor
-    @totals = AccountingService.calculate_totals_by_entity(filtered_events, :doctor)
+    totals = AccountingService.calculate_totals_by_entity(filtered_events, :doctor)
+    @amount = totals[:amount]
+    @amount_paid = totals[:amount_paid]
+    @amount_earned = totals[:amount_earned]
     
     respond_to do |format|
       format.html
-      format.csv { send_data CsvExportService.amounts_by_doctor_to_csv(@totals), filename: csv_filename }
+      format.csv { send_data CsvExportService.amounts_by_doctor_to_csv(totals), filename: csv_filename }
     end
   end
 
   def amounts_by_user
-    @totals = AccountingService.calculate_totals_by_entity(filtered_events, :user)
+    totals = AccountingService.calculate_totals_by_entity(filtered_events, :user)
+    @amount = totals[:amount]
+    @amount_paid = totals[:amount_paid]
+    @amount_earned = totals[:amount_earned]
     
     respond_to do |format|
       format.html
-      format.csv { send_data CsvExportService.amounts_by_user_to_csv(@totals), filename: csv_filename }
+      format.csv { send_data CsvExportService.amounts_by_user_to_csv(totals), filename: csv_filename }
     end
   end
 
