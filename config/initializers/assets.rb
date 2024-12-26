@@ -11,6 +11,13 @@ Rails.application.config.assets.version = "1.0"
 # folder are already added.
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
 
+# Explicitly add SCSS files to precompile
+Rails.application.config.assets.precompile += %w( *.scss )
+
+# Add SCSS to asset paths
+Rails.application.config.sass.preferred_syntax = :scss
+Rails.application.config.sass.load_paths << Rails.root.join('app', 'assets', 'stylesheets')
+
 # Ensure Google sign-in button images are precompiled
 Rails.application.config.assets.precompile += %w(
   btn_google_signin_light_normal_web.png
