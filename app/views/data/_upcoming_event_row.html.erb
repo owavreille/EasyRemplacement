@@ -1,0 +1,42 @@
+<td><%= event.site.name %></td>
+<td><%= event.start_time.strftime("%d/%m/%Y") %></td>
+<td><%= event.doctor.first_name %> <%= event.doctor.last_name %></td>
+<td><%= event.start_time.strftime("%H:%M") %></td>
+<td><%= event.end_time.strftime("%H:%M") %></td>
+<td><%= event.number_of_patients %></td>
+<td><%= event.helper ? "oui" : "non" %></td>
+<td><%= event.user.first_name %> <%= event.user.last_name %></td>
+<td><%= event.reversion %> %</td>
+<td>
+  <%= link_to event_booking_path(event),
+              data: { 
+                turbo_method: :delete,
+                turbo_confirm: "Êtes-vous sûr de vouloir annuler votre Remplacement ?"
+              },
+              class: "btn btn-danger btn-sm",
+              title: "Annuler le remplacement" do %>
+    <i class="bi bi-x-circle"></i>
+  <% end %>
+</td>
+<td>
+  <% if event.contract_validated == true %>
+    <span class="badge bg-success" title="Contrat validé et envoyé">Validé</span>
+  <% else %>
+    <%= form_with url: generate_contract_path(event), method: :post do |form| %>
+      <%= form.button type: 'submit', class: "btn btn-primary btn-sm", title: "Générer le contrat" do %>
+        <i class="bi bi-file-earmark-text"></i>
+      <% end %>
+    <% end %>
+  <% end %>
+</td>
+<td>
+  <% if event.contract_blob.attached? %>
+    <%= link_to open_contract_path(event.id),
+                class: 'btn btn-success btn-sm',
+                title: 'Voir le contrat' do %>
+      <i class="bi bi-eye"></i>
+    <% end %>
+  <% else %>
+    <span class="badge bg-secondary">Non</span>
+  <% end %>
+</td> 

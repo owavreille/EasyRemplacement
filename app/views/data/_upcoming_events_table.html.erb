@@ -4,19 +4,13 @@
     <table class="table table-striped">
       <thead class="thead-dark">
         <tr class="table-primary">
-          <%= render 'data/table_headers' %>
-          <th>Actions</th>
-          <th>Contrat</th>
-          <th>Télécharger</th>
+          <%= render 'data/upcoming_table_headers' %>
         </tr>
       </thead>
       <tbody>
         <% @upcoming_events.each do |event| %>
           <tr>
-            <%= render 'data/event_row', event: event %>
-            <%= render 'data/booking_actions', event: event %>
-            <%= render 'data/contract_actions', event: event %>
-            <%= render 'data/download_actions', event: event %>
+            <%= render 'data/upcoming_event_row', event: event %>
           </tr>
         <% end %>
       </tbody>
