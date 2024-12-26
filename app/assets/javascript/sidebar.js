@@ -1,29 +1,43 @@
 function toggleSidebar() {
   const sidebar = document.getElementById("sidebar");
+  if (!sidebar) return;
+  
   sidebar.classList.toggle("hidden");
 
   const yieldContent = document.querySelector(".yield-content");
+  if (!yieldContent) return;
+  
   yieldContent.classList.toggle("sidebar-visible");
 
-  const navbarBrand = document.querySelector(".navbar-brand"); // Ciblez le navbar-brand
-
+  const navbarBrand = document.querySelector(".navbar-brand");
   const toggleIcon = document.getElementById("toggleIcon");
+  
   if (!sidebar.classList.contains("hidden")) {
     yieldContent.style.marginLeft = "140px";
-    navbarBrand.style.marginLeft = "140px"; // Ajustez le marginLeft du navbar-brand
-    toggleIcon.classList.remove("bi-list");
-    toggleIcon.classList.add("bi-x");
+    if (navbarBrand) navbarBrand.style.marginLeft = "140px";
+    if (toggleIcon) {
+      toggleIcon.classList.remove("bi-list");
+      toggleIcon.classList.add("bi-x");
+    }
   } else {
     yieldContent.style.marginLeft = "";
-    navbarBrand.style.marginLeft = ""; // Réinitialisez le marginLeft du navbar-brand
-    toggleIcon.classList.remove("bi-x");
-    toggleIcon.classList.add("bi-list");
+    if (navbarBrand) navbarBrand.style.marginLeft = "";
+    if (toggleIcon) {
+      toggleIcon.classList.remove("bi-x");
+      toggleIcon.classList.add("bi-list");
+    }
   }
 }
 
-document.querySelector('.yield-content').addEventListener('click', function() {
+document.addEventListener('DOMContentLoaded', function() {
+  const yieldContent = document.querySelector('.yield-content');
   const sidebar = document.getElementById('sidebar');
-  if (!sidebar.classList.contains('hidden')) {
-    toggleSidebar();
+  
+  if (yieldContent && sidebar) {
+    yieldContent.addEventListener('click', function() {
+      if (!sidebar.classList.contains('hidden')) {
+        toggleSidebar();
+      }
+    });
   }
 });

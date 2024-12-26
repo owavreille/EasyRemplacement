@@ -18,5 +18,8 @@
   },
   "devDependencies": {
     "esbuild": "^0.19.11"
+  },
+  "engines": {
+    "node": "20.x"
   }
 }
