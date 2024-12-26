@@ -50,6 +50,12 @@ class ContractsController < ApplicationController
   def validate_contract
     @event = Event.find(params[:id])
    
+    if !@event.user.signature.attached?
+      redirect_to userdata_path, 
+                alert: "Vous devez d'abord ajouter votre signature dans votre profil avant de pouvoir signer le contrat."
+      return
+    end
+
     if @event.contract_blob.attached?
       @event.update!(contract_validated: true)
       NotificationMailer.contract_validated(@event).deliver_later
