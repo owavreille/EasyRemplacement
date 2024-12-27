@@ -24,16 +24,16 @@ class DashboardController < ApplicationController
                      .group('sites.id', 'sites.name')
                      .select('sites.name, 
                              COUNT(events.id) as event_count,
-                             COALESCE(SUM(events.amount), 0) as total_amount,
-                             COALESCE(AVG(events.amount), 0) as avg_amount')
+                             COALESCE(SUM(CASE WHEN events.amount IS NOT NULL THEN events.amount ELSE 0 END), 0) as total_amount,
+                             COALESCE(AVG(NULLIF(events.amount, 0)), 0) as avg_amount')
                      .order('total_amount DESC')
 
-    @total_amount = Event.where('start_time >= ?', 5.years.ago)
-                        .where.not(amount: nil)
-                        .sum(:amount) || 0
-    @avg_amount_per_event = Event.where('start_time >= ?', 5.years.ago)
-                                .where.not(amount: nil)
-                                .average(:amount) || 0
+    events_with_amount = Event.where('start_time >= ?', 5.years.ago)
+                             .where.not(amount: [nil, 0])
+
+    @total_amount = events_with_amount.sum(:amount).to_f
+    @avg_amount_per_event = events_with_amount.count > 0 ? 
+                           (events_with_amount.sum(:amount).to_f / events_with_amount.count) : 0
   end
 
   private
