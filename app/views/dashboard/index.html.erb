@@ -13,7 +13,7 @@
           <h6 class="card-subtitle mb-2 text-muted">Utilisateurs actifs</h6>
           <h2 class="card-title mb-0"><%= @active_users %>/<%= @total_users %></h2>
           <div class="progress mt-2" style="height: 4px;">
-            <div class="progress-bar bg-success" style="width: <%= (@active_users.to_f / @total_users * 100).round %>%"></div>
+            <div class="progress-bar bg-success" style="width: <%= @total_users.zero? ? 0 : (@active_users.to_f / @total_users * 100).round %>%"></div>
           </div>
         </div>
       </div>
@@ -25,7 +25,7 @@
           <h6 class="card-subtitle mb-2 text-muted">Remplacements à venir</h6>
           <h2 class="card-title mb-0"><%= @upcoming_events %>/<%= @total_events %></h2>
           <div class="progress mt-2" style="height: 4px;">
-            <div class="progress-bar bg-primary" style="width: <%= (@upcoming_events.to_f / @total_events * 100).round %>%"></div>
+            <div class="progress-bar bg-primary" style="width: <%= @total_events.zero? ? 0 : (@upcoming_events.to_f / @total_events * 100).round %>%"></div>
           </div>
         </div>
       </div>
@@ -37,7 +37,7 @@
           <h6 class="card-subtitle mb-2 text-muted">Contrats validés</h6>
           <h2 class="card-title mb-0"><%= @contracts_validated %>/<%= @contracts_generated %></h2>
           <div class="progress mt-2" style="height: 4px;">
-            <div class="progress-bar bg-success" style="width: <%= (@contracts_validated.to_f / @contracts_generated * 100).round if @contracts_generated > 0 %>%"></div>
+            <div class="progress-bar bg-success" style="width: <%= @contracts_generated.zero? ? 0 : (@contracts_validated.to_f / @contracts_generated * 100).round %>%"></div>
           </div>
         </div>
       </div>
@@ -47,8 +47,8 @@
       <div class="card h-100 border-0 shadow-sm">
         <div class="card-body">
           <h6 class="card-subtitle mb-2 text-muted">Montant total (5 ans)</h6>
-          <h2 class="card-title mb-0"><%= number_to_currency(@total_amount, unit: "€", format: "%n %u") %></h2>
-          <small class="text-muted">Moyenne par remplacement : <%= number_to_currency(@avg_amount_per_event, unit: "€", format: "%n %u") %></small>
+          <h2 class="card-title mb-0"><%= number_to_currency(@total_amount || 0, unit: "€", format: "%n %u") %></h2>
+          <small class="text-muted">Moyenne par remplacement : <%= number_to_currency(@avg_amount_per_event || 0, unit: "€", format: "%n %u") %></small>
         </div>
       </div>
     </div>
@@ -76,12 +76,18 @@
                 </tr>
               </thead>
               <tbody>
-                <% @site_stats.each do |site| %>
+                <% if @site_stats.present? %>
+                  <% @site_stats.each do |site| %>
+                    <tr>
+                      <td><%= site.name %></td>
+                      <td class="text-end"><%= site.event_count %></td>
+                      <td class="text-end"><%= number_to_currency(site.total_amount || 0, unit: "€", format: "%n %u") %></td>
+                      <td class="text-end"><%= number_to_currency(site.avg_amount || 0, unit: "€", format: "%n %u") %></td>
+                    </tr>
+                  <% end %>
+                <% else %>
                   <tr>
-                    <td><%= site.name %></td>
-                    <td class="text-end"><%= site.event_count %></td>
-                    <td class="text-end"><%= number_to_currency(site.total_amount, unit: "€", format: "%n %u") %></td>
-                    <td class="text-end"><%= number_to_currency(site.avg_amount, unit: "€", format: "%n %u") %></td>
+                    <td colspan="4" class="text-center">Aucune donnée disponible</td>
                   </tr>
                 <% end %>
               </tbody>
