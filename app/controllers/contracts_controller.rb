@@ -60,15 +60,20 @@ class ContractsController < ApplicationController
 
     if @event.contract_blob.attached?
       @event.update!(contract_validated: true)
-      NotificationMailer.contract_validated(@event).deliver_later
+      
+      # Envoyer le mail seulement si le CDOM a un email configuré
+      if @event.site&.cdom&.email.present?
+        NotificationMailer.contract_validated(@event).deliver_later
+      end
       
       redirect_to userdata_path, 
-                  notice: "Contrat validé et envoyé au Conseil de l'Ordre!"
+                  notice: "Contrat validé avec succès !"
     else
       redirect_to userdata_path, 
                   alert: "Impossible de valider le contrat !"
     end
   rescue StandardError => e
+    Rails.logger.error "Erreur lors de la validation du contrat: #{e.message}"
     redirect_to userdata_path, 
                 alert: "Une erreur est survenue lors de la validation du contrat."
   end
