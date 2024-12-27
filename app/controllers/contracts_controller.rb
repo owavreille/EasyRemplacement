@@ -1,5 +1,7 @@
 class ContractsController < ApplicationController
-  before_action :require_admin, except: [:view_contract, :open_contract]
+  before_action :require_admin, except: [:view_contract, :open_contract, :validate_contract]
+  before_action :set_event, only: [:validate_contract]
+  before_action :authorize_contract_validation, only: [:validate_contract]
 
   def index
     @contract_path = Rails.public_path.join('contrat.html')
@@ -75,6 +77,16 @@ class ContractsController < ApplicationController
 
   def require_admin
     unless current_user&.role?
+      redirect_to root_path, alert: "Accès non autorisé."
+    end
+  end
+
+  def set_event
+    @event = Event.find(params[:id])
+  end
+
+  def authorize_contract_validation
+    unless @event.user_id == current_user.id
       redirect_to root_path, alert: "Accès non autorisé."
     end
   end
