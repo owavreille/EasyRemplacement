@@ -11,9 +11,10 @@ class EventsController < ApplicationController
     @sites = Site.available.ordered
     @favorite_site_ids = current_user.sites.pluck(:id)
 
-    # Initialiser les paramètres de filtre avec tous les sites et praticiens si aucun filtre n'est sélectionné
+    # Initialiser les paramètres de filtre
     if params[:site_ids].blank? && params[:doctor_ids].blank?
-      params[:site_ids] = @sites.pluck(:id).map(&:to_s)
+      # Si l'utilisateur a des sites favoris, les utiliser, sinon prendre tous les sites
+      params[:site_ids] = @favorite_site_ids.present? ? @favorite_site_ids.map(&:to_s) : @sites.pluck(:id).map(&:to_s)
       params[:doctor_ids] = @doctors.pluck(:id).map(&:to_s)
     end
 
