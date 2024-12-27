@@ -92,7 +92,7 @@ class Event < ApplicationRecord
     if user.role?
       all
     else
-      where(user_id: user.id)
+      where(site_id: user.sites.pluck(:id))
     end
   end
 

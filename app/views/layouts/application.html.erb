@@ -1,47 +1,46 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
   <head>
-    <title><%= @app_name.nil? ? "EasyRemplacement" : @app_name %></title>
-    <meta charset="UTF-8">
+    <title>Easy Rempla</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="description" content="Application de Gestion de Remplacements en Ophtalmologie">
-    <meta name="keywords" content="Ophtalmologie, remplacements, planning">
-    <meta name="author" content="Olivier Wavreille">
-  
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%# Préchargement des ressources critiques %>
-    <link rel="preload" href="<%= asset_path('application.css') %>" as="style">
-    <link rel="preload" href="<%= asset_path('application.js') %>" as="script">
-    <%= stylesheet_link_tag "bootstrap-icons", "data-turbo-track": "reload" %>
-    
-    <%# Chargement asynchrone des styles non critiques %>
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload", media: "print", onload: "this.media='all'" %>
-    <noscript><%= stylesheet_link_tag "application", "data-turbo-track": "reload" %></noscript>
-
-    <%# Chargement des scripts %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
     <%= javascript_importmap_tags %>
-
     <%= yield :head %>
+
+    <style>
+      .readonly-content {
+        pointer-events: none;
+        user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+      }
+      .readonly-content * {
+        pointer-events: none !important;
+      }
+    </style>
   </head>
 
   <body>
     <%= render 'shared/navbar' %>
 
     <div class="container <%= 'sidebar-visible' if current_user && current_user.admin? %>">
-      <div class="yield-content">
-          <% if flash[:notice].present? %>
+      <div class="yield-content <%= 'readonly-content' if local_assigns[:readonly] %>">
+        <% if flash[:notice].present? %>
           <div class="alert alert-success text-center">
-          <%= flash[:notice] %>
+            <%= flash[:notice] %>
           </div>
-          <% end %>
-  
-          <% if flash[:alert].present? %>
-            <div class="alert alert-danger text-center">
+        <% end %>
+
+        <% if flash[:alert].present? %>
+          <div class="alert alert-danger text-center">
             <%= flash[:alert] %>
-            </div>
-          <% end %>
+          </div>
+        <% end %>
         <%= yield %>
       </div>
     </div>

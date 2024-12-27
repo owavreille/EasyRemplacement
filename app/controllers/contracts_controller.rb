@@ -1,5 +1,5 @@
 class ContractsController < ApplicationController
-  before_action :require_admin
+  before_action :require_admin, except: [:view_contract, :open_contract]
 
   def index
     @contract_path = Rails.public_path.join('contrat.html')
@@ -30,7 +30,7 @@ class ContractsController < ApplicationController
     if event.contract_blob.attached?
       contract_content = event.contract_blob.download
       sanitized_content = ActionController::Base.helpers.sanitize(contract_content)
-      render html: sanitized_content.html_safe
+      render html: sanitized_content.html_safe, layout: true, locals: { readonly: true }
     else
       redirect_to userdata_path, alert: "Le fichier de contrat n'est pas disponible."
     end
@@ -75,8 +75,7 @@ class ContractsController < ApplicationController
 
   def require_admin
     unless current_user&.role?
-      flash[:error] = "Accès non autorisé"
-      redirect_to root_path
+      redirect_to root_path, alert: "Accès non autorisé."
     end
   end
 end

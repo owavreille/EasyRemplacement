@@ -9,39 +9,50 @@
 
   <div class="card">
     <div class="card-body">
-      <h4 class="card-title mb-4">Édition du Contrat</h4>
+      <h4 class="card-title mb-4">
+        <%= current_user&.role? ? "Édition du Contrat" : "Visualisation du Contrat" %>
+      </h4>
       
       <%= form_tag(update_contract_contracts_path, method: :patch) do %>
-        <div class="mb-4">
-          <div class="form-group">
-            <label class="form-label">Ajouter une variable</label>
-            <div class="input-group mb-3">
-              <select id="variable_selector" class="form-select"></select>
-              <button id="import_variable_btn" class="btn btn-primary" type="button">Insérer</button>
+        <% if current_user&.role? %>
+          <div class="mb-4">
+            <div class="form-group">
+              <label class="form-label">Ajouter une variable</label>
+              <div class="input-group mb-3">
+                <select id="variable_selector" class="form-select"></select>
+                <button id="import_variable_btn" class="btn btn-primary" type="button">Insérer</button>
+              </div>
             </div>
           </div>
-        </div>
+        <% end %>
 
         <div class="mb-4">
           <div class="form-group">
-            <label class="form-label">Contenu du contrat</label>
+            <% if current_user&.role? %>
+              <label class="form-label">Contenu du contrat</label>
+            <% end %>
             <div class="rich-text-container">
               <%= rich_text_area_tag :contract_content,
                 @contract_content,
                 class: "form-control",
-                id: "contract_content" %>
+                id: "contract_content",
+                disabled: !current_user&.role? %>
             </div>
             <div id="variable_list" class="mt-2"></div>
           </div>
         </div>
 
         <div class="d-flex justify-content-between align-items-center mt-4">
-          <%= link_to "Retour", root_path, class: "btn btn-secondary" %>
-          <%= submit_tag "Enregistrer", class: "btn btn-primary" %>
+          <%= link_to "Retour", :back, class: "btn btn-secondary" %>
+          <% if current_user&.role? %>
+            <%= submit_tag "Enregistrer", class: "btn btn-primary" %>
+          <% end %>
         </div>
       <% end %>
     </div>
   </div>
 </div>
 
-<script src="<%= asset_path 'contract.js' %>"></script>
+<% if current_user&.role? %>
+  <script src="<%= asset_path 'contract.js' %>"></script>
+<% end %>

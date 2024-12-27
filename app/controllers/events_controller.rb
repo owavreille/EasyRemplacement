@@ -7,15 +7,24 @@ class EventsController < ApplicationController
   before_action :load_form_data, only: [:new, :edit, :create, :update]
 
   def index
-    @filter_params = filter_params.to_h
     @doctors = Doctor.available.ordered
     @sites = Site.available.ordered
     @favorite_site_ids = current_user.sites.pluck(:id)
 
+    # Initialiser les paramètres de filtre avec tous les sites et praticiens si aucun filtre n'est sélectionné
+    if params[:site_ids].blank? && params[:doctor_ids].blank?
+      params[:site_ids] = @sites.pluck(:id).map(&:to_s)
+      params[:doctor_ids] = @doctors.pluck(:id).map(&:to_s)
+    end
+
+    @filter_params = filter_params.to_h
+
     @events = Event.includes(:site, :doctor, :user)
-                   .filter_by(@filter_params)
-                   .accessible_by(current_user)
-                   .future_events
+                   .where('start_time >= ?', Date.today)
+                   .order(start_time: :asc)
+
+    # Appliquer les filtres
+    @events = @events.filter_by(@filter_params)
                    
     @pagy, @events = pagy(@events, items: 10)
     
@@ -133,9 +142,8 @@ class EventsController < ApplicationController
   end
 
   def can_view_event?
-    current_user.role? || 
-    @event.user_id == current_user.id || 
-    current_user.sites.include?(@event.site)
+    # Tout le monde peut voir les événements
+    true
   end
 
   def set_calendar_dates
@@ -158,7 +166,7 @@ class EventsController < ApplicationController
   end
 
   def filter_params
-    params.permit(:start_date, :end_date, doctor_ids: [], site_ids: [])
+    params.permit(:start_date, :end_date, site_ids: [], doctor_ids: [])
   end
 
   def event_params
