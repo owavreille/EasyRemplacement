@@ -216,7 +216,8 @@ class EventsController < ApplicationController
   end
 
   def notify_users_of_event_deletion
-    (@event.interested_users + User.admin).uniq.each do |user|
+    interested_users = User.admin.or(User.joins(:favorite_sites).where(favorite_sites: { site_id: @event.site_id }))
+    interested_users.each do |user|
       NotificationMailer.event_cancellation_notification(user, @event).deliver_later
     end
   end
