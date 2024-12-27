@@ -1,0 +1,18 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body text-center">
+          <h2 class="card-title text-danger mb-4">
+            <i class="fas fa-exclamation-triangle"></i>
+            Erreur
+          </h2>
+          <p class="card-text">
+            <%= flash[:alert] || "Une erreur est survenue lors du chargement du tableau de bord." %>
+          </p>
+          <%= link_to "Retour à l'accueil", root_path, class: "btn btn-primary mt-3" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 
