@@ -54,22 +54,28 @@ class DashboardController < ApplicationController
     @site_stats = Site.left_joins(:events)
                      .where('events.start_time >= ? OR events.start_time IS NULL', 5.years.ago)
                      .group('sites.id', 'sites.name')
-                     .select('sites.name, 
-                             COUNT(events.id) as event_count,
+                     .select("sites.name, 
+                             COUNT(DISTINCT events.id) as event_count,
                              COALESCE(SUM(CASE WHEN events.amount IS NOT NULL THEN events.amount ELSE 0 END), 0) as total_amount,
-                             COALESCE(AVG(NULLIF(events.amount, 0)), 0) as avg_amount')
+                             CASE 
+                               WHEN COUNT(CASE WHEN events.amount > 0 THEN 1 END) > 0 
+                               THEN ROUND(CAST(SUM(CASE WHEN events.amount > 0 THEN events.amount ELSE 0 END) AS FLOAT) / 
+                                    NULLIF(COUNT(CASE WHEN events.amount > 0 THEN 1 END), 0), 2)
+                               ELSE 0 
+                             END as avg_amount")
                      .order('total_amount DESC')
 
     events_with_amount = Event.where('start_time >= ?', 5.years.ago)
-                             .where.not(amount: [nil, 0])
+                             .where('amount > 0')
 
     @total_amount = events_with_amount.sum(:amount).to_f
     @avg_amount_per_event = calculate_average_amount(events_with_amount)
   end
 
   def calculate_average_amount(events)
-    return 0 if events.count.zero?
-    (events.sum(:amount).to_f / events.count).round(2)
+    count = events.count
+    return 0 if count.zero?
+    (events.sum(:amount).to_f / count).round(2)
   end
 
   def handle_error(exception)
