@@ -19,22 +19,21 @@ class DashboardController < ApplicationController
     @contracts_validated = Event.where(contract_validated: true).count
     @contracts_pending = @contracts_generated - @contracts_validated
 
-    @site_stats = Site.joins(:events)
-                     .where('events.start_time >= ?', 5.years.ago)
-                     .where('events.amount IS NOT NULL')
+    @site_stats = Site.left_joins(:events)
+                     .where('events.start_time >= ? OR events.start_time IS NULL', 5.years.ago)
                      .group('sites.id', 'sites.name')
                      .select('sites.name, 
                              COUNT(events.id) as event_count,
-                             SUM(events.amount) as total_amount,
-                             AVG(events.amount) as avg_amount')
+                             COALESCE(SUM(events.amount), 0) as total_amount,
+                             COALESCE(AVG(events.amount), 0) as avg_amount')
                      .order('total_amount DESC')
 
     @total_amount = Event.where('start_time >= ?', 5.years.ago)
                         .where.not(amount: nil)
-                        .sum(:amount)
+                        .sum(:amount) || 0
     @avg_amount_per_event = Event.where('start_time >= ?', 5.years.ago)
                                 .where.not(amount: nil)
-                                .average(:amount)
+                                .average(:amount) || 0
   end
 
   private
